@@ -1,0 +1,395 @@
+--------------------------------------------------------------------------------
+CoreData API Version 3.2.1 - March 2011
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+Introduction
+--------------------------------------------------------------------------------
+
+The Seeing Machines CoreData API is a set of libraries and tools for 
+interpreting and manipulating data produced by Seeing Machines products.
+
+Features:
+
+* Open source
+
+* Multi-language: C++, C#, Python
+
+* Multi-platform: Windows, Mac OS X, Linux
+
+--------------------------------------------------------------------------------
+System Requirements
+--------------------------------------------------------------------------------
+* x86 CPU supporting SSE2 or greater.
+* On Linux, there is also a build for x86 non-SSE2 processors.
+* Windows XP operating system SP2 or later, OS-X 10.4 or later, Ubuntu Linux 
+  8.04 or later
+
+--------------------------------------------------------------------------------
+Supported Compilers
+--------------------------------------------------------------------------------
+* Microsoft Visual Studio 2005 SP1
+* Microsoft Visual Studio 2008 SP1
+* Mac OS X gcc 4.0.1
+* Linux gcc 4.2.0
+
+--------------------------------------------------------------------------------
+Library Dependencies
+--------------------------------------------------------------------------------
+* boost 1.42.0
+* zlib 1.2.3
+* libvpx0.9.5
+
+--------------------------------------------------------------------------------
+Changes V3.2.1
+--------------------------------------------------------------------------------
+* The VP8 encoder configuration is tuned to improve output video quality. 
+  There is a higher limit on minimum compressed frame quality. The target bit-rate 
+  is now correctly set based on the target output resolution. The encoder does 
+  not drop frames to achieve the target bit-rate.
+
+--------------------------------------------------------------------------------
+Known Issues
+--------------------------------------------------------------------------------
+Makefiles for Python bindings have hardcoded paths to the python installation
+directory c:\python26.
+
+--------------------------------------------------------------------------------
+Configuration 
+--------------------------------------------------------------------------------
+
+* Environment variables
+
+- You must define the COREDATA_INSTALL_DIR to be the absolute path to the root
+  of the extracted files.
+
+* C++
+    * Include Paths:
+
+    - Add $(COREDATA_INSTALL_DIR)/coredata/include
+    - Add $(COREDATA_INSTALL_DIR)/coredata/thirdparty/boost1.42.0/include
+    - Library header files are then included using "eod/sdk.h"
+
+    * Library Paths:
+
+    - Provide the linker with the path to either 
+      $(COREDATA_INSTALL_DIR)/coredata/libshared/<toolchain>
+      or 
+      $(COREDATA_INSTALL_DIR)/coredata/libstatic/<toolchain>
+
+    * Libraries:
+
+    - Add sm_cd_coredata_3.0.lib for windows release shared library
+    - Add sm_cd_coredata_d3.0.lib for windows debug shared library
+    - Add sm_cd_coredata.lib for windows release static library
+    - Add sm_cd_coredata_d.lib for windows debug static library
+
+    - Add sm_cd_coredata for mac/linux release library
+    - Add sm_cd_coredata_d for mac/linux debug library
+
+* C#
+    - See CoreData C# API documentation.
+
+* Python
+    - See CoreData Python API documentation.
+
+
+--------------------------------------------------------------------------------
+Documentation
+--------------------------------------------------------------------------------
+
+The CoreData is extensively documented:
+
+* ./doc/html/index.html is the front page for the HTML documentation
+
+* ./doc/CoreData.chm is a searchable HTML Help binary containing the
+  same HTML documentation.
+
+
+--------------------------------------------------------------------------------
+Bugs and Feature Requests
+--------------------------------------------------------------------------------
+To report any bugs or feature requests, write to faceAPI@seeingmachines.com 
+with details.
+
+--------------------------------------------------------------------------------
+Previous Releases
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Changes V3.2.0
+--------------------------------------------------------------------------------
+* Add compression classes to sm::eod::io.
+
+* Added static constructors to imclasses for C# wrappers. This works around a 
+  change in the behaviour of type initialization in .Net 4.0.
+  See http://msmvps.com/blogs/jon_skeet/archive/2010/01/26/type-initialization-changes-in-net-4-0.aspx?CommentPosted=true#commentmessage
+
+* Add const correctness to subobject accessor functions. Previously
+  a const accessor would return a shared pointer to a non-const child
+  object.
+
+* Deprecated const member functions in EngineOutputData which cast away
+  const-ness and upgrade the sub object to the latest version.
+
+* Add to EngineOutputData functions: numFaces() and face(). They provide
+  access to FaceSetOutputData objects.
+
+* When head, eye or face output data are migrated from being immediate 
+  children of an EngineOutputData object, the most recent version is upgraded
+  while older versions are now removed. 
+
+--------------------------------------------------------------------------------
+Changes V3.1.0
+--------------------------------------------------------------------------------
+
+* Add support for multiple sub-objects to SerializableComposite.
+
+* Add GazeIntersectionOutputDataV4 which holds gaze intersection data for
+  left eye, right eye, or unified gaze.
+
+* Add clearLandmark to FaceOutputData and FaceOutputDataV2.
+
+* Add MSVC debug overloads for operator new and operator delete for EOD objects.
+
+* CoreData now defaults to using shared library when macro SM_COREDATA_USE_DLL 
+  and SM_COREDATA_USE_LIB not defined. 
+
+--------------------------------------------------------------------------------
+Changes V3.0.2
+--------------------------------------------------------------------------------
+
+* Fix C# projects not specifying x86 platform. This shows up as a 
+  BadImageFormat exception on 64-bit Windows when using "Any CPU".
+
+* Fix C# projects referencing old versions of the C# wrappers.
+
+--------------------------------------------------------------------------------
+Changes V3.0.1
+--------------------------------------------------------------------------------
+
+* Fix sm::eod::io::EngineOutputDataFileReader::openFile(string).
+  Implementation incorrectly called openFiles(wstring) instead of 
+  openFile(wstring).
+
+--------------------------------------------------------------------------------
+Changes V3.0.0
+--------------------------------------------------------------------------------
+
+* Drop support for Visual Studio 2003 and python 2.5.
+
+* Add support for python 2.6.
+
+* Move from boost 1.36.0 to boost 1.42.0
+
+* EOD types now return std::map and std::vector types by const reference
+  where possible.
+
+* Remove DSS objects. They can now be found in the DSS Data API.
+
+* Fix bug in reading an unknown object when it is the last object in the file'
+  on Mac OS X/Linux.
+
+* Add class design information to documentation.
+
+* Makefiles build binaries requiring processors to support SSE2. For Linux,
+  there is also a non-sse2 set of makefiles.
+
+* Define the following typedefs to increase readability:
+	Serializable::ObjectID, Serializable::ObjectIDVec, Serializable::ObjectID.
+	sm::eod::iStdVector2, sm::eod::fStdVector2, sm::eod::fStdVector3,
+    sm::eod::dStdVector2, sm::eod::dStdVector3, sm::eod::dStdVector4.
+	sm::SerializableComposite::SerializablePtrVec.
+	EngineOutputData::FrameNumber.
+
+* Change code using boost::shared_ptr<type> to use typedef type ## Ptr.
+
+* Disable warning non dll-interface class 'std::runtime_error' used as base 
+  for dll-interface class 'sm::eod::EODError'
+
+* Change functions returning std::vector<float> for 2D and 3D values to use 
+  [idf]StdVector[0-9] typedefs. They all map back to std::vector<> but at 
+  least you can tell the dimension from the function signature.
+
+* Add newFile function to EngineOutputDataFileWriter.
+
+* Add openFile function to EngineOutputDataFileReader.
+
+* Fix compiler warnings for signed comparison/truncations.
+
+* Change Serializable::readBuffer for reading strings to use std::string::assign 
+  instead of pushing each character back individually. assign will give one 
+  memory allocation while pushing back can give many.
+
+
+--------------------------------------------------------------------------------
+Changes V2.1.0
+--------------------------------------------------------------------------------
+
+* Flags to the compiler enabling SSE2 instructions have now been removed to
+  support processors that don't implement the SSE2 instructions.
+
+* Fix python doco for FaceOutputData.addLandmark.
+
+* Added typedef sm::eod::FaceLandmarkIdVec for std::vector<sm::eod::FaceLandmarkId> 
+
+* Give unnamed enumeration a name FixedFaceLandmarkId.
+
+* Remove forward declaration of renamed class DSSEventOutputData.
+
+* Create typedef FaceLandmarkMap in flmtypes.h.
+
+* Add constructors for POD types sm::eod::FaceCoordinate, 
+  sm::eod::FaceTextureCoordinate and sm::eod::FaceLandmark.
+
+* Add functions to FaceOutputData: 
+    void setFaceCoordinate(FaceLandmarkId, const FaceCoordinate&);
+    bool hasLandmark(FaceLandmarkId) const;
+    bool hasAllLandmarks(const FaceLandmarkIdVec&) const;
+
+
+--------------------------------------------------------------------------------
+Changes V2.0.0
+--------------------------------------------------------------------------------
+
+* Replaced DSSEventOutputData with CustomEventOutputData.
+
+* ImageOutputData now aligns rawData() to 32 byte boundaries.
+
+* Add ImageOutputData::shareNewImage() to use external memory for the
+  rawData().
+
+* EngineOutputDataFileWriter now writes CustomEventOutputData, formerly
+  DSSEventOutputData to the filename "Custom_Events".
+
+* DSS output data classes are now deprecated. They will be moved to
+  the DSS Data API.
+
+
+* Fix C# project files so that they compile correctly.
+
+
+--------------------------------------------------------------------------------
+Changes V1.1.5
+--------------------------------------------------------------------------------
+
+* Remove include of term.h and termios.h in devicesettings.h. They were creating
+  too many macros with generic names.
+
+* Add 'void TcpSocket::setSocketFlag(SocketFlag,bool)'. Exposes functionality
+  to modify the socket options TCP_NODELAY and SO_REUSEADDR.
+
+* Add 'void TcpSocket::socketFlag(SocketFlag) const' to read the current
+  socket option values.
+
+
+--------------------------------------------------------------------------------
+Changes V1.1.4
+--------------------------------------------------------------------------------
+
+* Fix EngineOutputDataTcpClient to behave correctly when connection 
+  closed by server. Update documentation on exact behaviour.
+
+* Add SerializableFactory::canDeserialize(const std::vector<uint8>&,int)
+  to check the amount of data in a buffer before attempting to deserialize.
+
+
+--------------------------------------------------------------------------------
+Changes V1.1.3
+--------------------------------------------------------------------------------
+
+* Update documentation on how to compile the CoreData C++ API and examples
+  for Linux and Mac.
+
+* Fix udpclient and tcpclient examples not handling missing world and head
+  output data.
+
+* Remove QMake specific targets from generated makefiles.
+
+* Fix missing format specification string passed to printf in logconverter
+  example.
+
+* Fix behaviour of SerializableFactory::newObject(std::vector<uint8>,int&).
+  When the object in the buffer is unknown, the read_pos is correctly updated
+  to refer to the location of the next object in the buffer. This would 
+  cause an infinite loop in deserializing code.
+
+* Fix bug where calling SerializableFactory::registerObjectType before calling
+  SerializableFactory::newObject skips registration of CoreData object types.
+
+* Comment out printing to std::cout by DatagramSocket, SerialPort, TcpSocket
+  classes.
+
+
+--------------------------------------------------------------------------------
+Changes V1.1.2
+--------------------------------------------------------------------------------
+
+* Fix compile problem with template function EngineOutputBase::attachIfMissing.
+
+* Move sm::eod::SerialPortError to namespace sm::eod::io.
+
+* Delete unnecessary header tstring.h
+
+* Move stringfuns.h functions under sm::eod::io namespace.
+
+* Move pitch, axis and direction enumerations from sm::eod to sm::eod::utils 
+  namespace.
+
+* Move mathematical vector functions from sm::eod to sm::eod::utils 
+  namespace.
+
+* Fixed a bug in SerialPort of not calling GetCommTimeouts to fill in the 
+  COMMTIMEOUTS structure before updating and setting it back.
+
+* Move EngineOutputDataFileError from sm::eod to sm::eod::io.
+
+* Fix precondition checks on gazeVergencePoint, gazeVergenceAngle, 
+  bestGazeRay, mergedGazeRay.
+
+* Add templated addSubObject functions to SerializableComposite that creation
+  of new object and adding in a single call.
+
+* Add templated addIfMissing functions to SerializableComposite to create
+  and add a new object if it doesn't already exist.
+
+
+--------------------------------------------------------------------------------
+Changes V1.1.1
+--------------------------------------------------------------------------------
+
+* Fix library names to match documented naming conventions.
+
+
+--------------------------------------------------------------------------------
+Changes V1.1.0
+--------------------------------------------------------------------------------
+
+* Support for build shared libraries
+
+* Fix C# example project names in Visual Studio so that they do not conflict
+  with the C++ examples.
+
+* Fix access violation in SerializableComposite when deserializing and object
+  with an incorrect header size.
+
+
+--------------------------------------------------------------------------------
+Changes V1.0.0 (over ClientToolsSDK)
+--------------------------------------------------------------------------------
+
+* Now supports Microsoft Visual Studio 2008, Visual Studio 2005, 
+  Visual Studio .NET 2003, Linux/GCC, MacOSX/GCC.
+
+* Shared pointers used to simplify memory management.
+
+* Bindings for C# and Python.
+
+* Memory pooling support.
+
+* Extensibility - client defined output data classes can now be 
+  serialized as part of engine output data.
+
+
+

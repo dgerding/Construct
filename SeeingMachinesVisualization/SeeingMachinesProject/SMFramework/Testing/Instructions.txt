@@ -1,0 +1,114 @@
+﻿
+
+*************** Summary
+
+The classes within the Testing namespace are developed to allow for analysis of data in a testing/experimentation environment.
+
+The starting object is a LabTest. A LabTest creates and maintains various TestStages and can control the operation of these stages, as well as generate a report from the output of each stage. An analysis report can be returned as an object, a formatted string, or exported to a formatted file, where the format is up to the user (right now JSON and JSONP are supported by using the ServiceStack library. It was convenient, and we can swap out the ServiceStack code for something later if licensing becomes an issue.)
+
+A TestStage is an object representative of the idea of "stages" within an experiment. A TestStage has BeginCapture() and EndCapture(), which starts and stops the recording of data from the sensors specified in the original LabTest. Once the recording has stopped (the stage has ended) the data is saved in the TestStage object for later analysis. A TestStage also has a Label, which is a human-readable string that describes the stage.
+
+The Procedures of a test stage are generic objects that operate on the data recorded within a specific stage. Each stage has its own set of procedures, and each procedure has its own settings and parameters. A procedure only needs to specify a method for evaluating a DataSnapshot from a recording, returning a ProcedureOutput object upon completion. The implementation of the ProcedureObject is entirely dependent on the Procedure that was used for analysis. For each Procedure there should be a corresponding ProcedureOutput object. ProcedureOutput objects are stored during analysis for eventual persistence, and also require the definition of a Label for a human-readable description of the output type.
+
+Once a LabTest has been made, TestStages have been added, and Procedures have also been added, the LabTest can be advanced to the first stage in the test via AdvanceCurrentStage, which returns true so long as there is another stage to be ran. However, this just changes the active stage - the process of collecting data from the stage must be started manually by accessing LabTest.CurrentStage.BeginCapture(). Once data capture has started, the stage may end itself or it may require the user to manually end the stage. This depends entirely on what data source was specified for the stage. A call to AdvanceCurrentStage will not have any effect so long as CurrentStage is still in the process of capturing data from the data source. When there are no more tests to be ran, AdvanceCurrentStage will finally return false.
+
+Generally, the overall flow of a test is:
+
+1) Get Sensor Cluster Configurations
+2) Create LabTest
+3) Add TestStages
+4) Create custom Procedures
+5) Create custom ProcedureOutputs
+6) Add Procedures to TestStages
+7) Collect Data until AdvanceCurrentStage returns false
+8) Generate a report
+
+
+*************** Adding a new analysis procedure
+1) Create a class that inherits from Testing.TestProcedure
+
+2) Create a class that inherits from Testing.Output
+
+3) Define the properties of your new Output class.
+
+4) Define the implementation of the ToFormat method in the Output class (commonly just a call to ServiceStack.Text.JsonSerializer.SerializeToString. Note that SerializeToString only serializes *properties* of a class (getters).)
+
+5) Implement the 'Label' property of your new Output class for a human-readable name of the data.
+
+6) Define the GetOutput method for the new TestProcedure class
+
+7) Implement the 'Label' property of your new TestProcedure for a human-readable label for the data. This property often references the Labels of the LabPoint and LabDirection data sources.
+
+8) Add an instance of your new TestProcedure implementation to a LabTest
+
+9) Run the test
+
+10) Yay
+
+
+
+==========
+Note regarding LabPoint and LabDirection:
+
+These types only serve to make the default procedures more flexible. It is not required that you implement a LabPoint or LabDirection to add any extra functionality to a procedure. They just allow you to change the data that can be analyzed within the Procedures that use them. They are *not* part of the Testing system, just a part of the default Procedures that come with the framework.
+==========
+
+
+
+*************** Adding a new LabPoint
+
+1) Create a class that inherits from Testing.LabPoint
+
+2) Implement the Label property for a human-readable name of the data type.
+
+3) Implement the Position property of the new LabPoint class. This can just be a default get/set.
+
+4) Implement the InterpretData method. InterpretData should update the internal state of your LabPoint based on the data received from the DataSnapshot that is passed to the method. i.e. the HeadPoint class updates its Position based on the position of the head as indicated by the DataSnapshot object.
+
+5) Add an instance of your new LabPoint to some TestProcedure
+
+6) Add the TestProcedure to a LabTest
+
+7) Run the test
+
+8) Yay
+
+
+
+*************** Adding a new LabDirection
+1) Create a class that inherits from Testing.LabDirection
+
+2) Implement the Label property for a human-readable name of the data type
+
+3) Implement the RootPosition property of the new LabDirection class. The LabDirection is meant to represent a vector with a position and direction. i.e. the position of an eye and the direction in which it is looking. LabDirection can be renamed, since the name does seem a bit mismatched. It is allowed for RootPosition to always return Vector3.Zero.
+
+4) Implement the DirectionNormal property of the new LabDirection class. The DirectionNormal is not normalized before use; it is assumed that the value indicated by DirectionNormal is already normalized.  A non-normed vector won't break any systems, but it may cause calculations to output incorrect data depending on the procedure that the LabDirection is used in. Dot Product analysis in these procedures generally assumes that the two vectors are normed (for performance). This may be different for your own procedures.
+
+5) Implement the InterpretData method. InterpretData should update the internal state of your LabDirection based on the data received from the DataSnapshot that is passed to the method. i.e. the HeadOrientationDirection class updates its RootPosition from the position of the head and the DirectionNormal from the rotation of the head.
+
+6) Add an instance of your new LabDirection to some TestProcedure
+
+7) Add the TestProcedure to a LabTest
+
+7) Run the test
+
+8) Yay
+
+
+
+
+*************** Representing a new procedure result in the results HTML page
+For each procedure, there is a corresponding view generator in the HTML page. The view generator that is used is dependent on the name of Procedure class. For each view generator there is an HTML element with the id of "<ProcedureClassName>Template".
+
+1) In the div with the id "DataTemplates", create your own div that corresponds to your new procedure class. This will be copied for each instance of your Procedure that is ran. The div should have an id of the format "<ProcedureClassName>Template". Do not use ids in your template, other than the id for the template as a whole.
+
+2) In LayoutConfig.js, add a function to the list of Procedure handlers, with the name of your Procedure class as well. Use the pre-existing handlers as a template.
+
+This function will be called once AnalyticsData.js is loaded and parsed (this is a JSONP file containing the results of the analysis) and will be provided with a JavaScript object whose layout is similar to that of your Procedure's Output class (ServiceStack creates a JavaScript object during serialization with values based off of the properties in the object you give to it), as well as an element object that is a copy of the HTML div you created in step 1.
+
+3) Fill the element object with data from the analytics result. Once your function has returned, this element object will be inserted into the document appropriately. Don't create/insert a header (<h1>) for your procedure results; a header based off of the output label will automatically be generated. This is done for consistency.
+
+Note: The placement of data output in one of the summary tabs is based off of the Category property of a procedure. The output of all procedures in the same category will be placed in the same tab. This *is* case-sensitive.
+
+Data flow:
+AnalyticsData.js -> LayoutConfig.js -> Your procedure handler -> Your element template -> The final UI for the user

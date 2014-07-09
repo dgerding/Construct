@@ -1,0 +1,50 @@
+﻿
+/* http://stackoverflow.com/questions/2700000/how-to-disable-text-selection-using-jquery */
+
+.tab {
+	padding: 0.5em 1em;
+	display: inline-block;
+
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+#tab_selected {
+	background-color: #bbb;
+}
+
+.tab:hover {
+	background-color: #eee;
+	cursor: pointer;
+}
+
+.ProcedureData {
+	display: none;
+	margin-left: 1em;
+}
+
+.ProcedureLabel {
+	background-color: #ddd;
+	border-radius: 0.3em;
+	padding: 0.3em;
+
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+.ProcedureLabel:hover {
+	cursor: pointer;
+	background-color: #aaa;
+}
+
+.DataContainer {
+	margin-left: 1.5em;
+}
+
+h4 {
+	margin: 0.2em;
+}

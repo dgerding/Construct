@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E467D232-3485-4EE7-BA2F-84B5EC60230F}"
+	ProjectSection(SolutionItems) = preProject
+		Instructions.docx = Instructions.docx
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrubbeR", "ScrubbeR\ScrubbeR.csproj", "{176CBC52-6167-4845-8C50-CC0EC3B7E70E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScrubbeRStandalone", "ScrubbeRStandalone\ScrubbeRStandalone.csproj", "{17DA6DBC-3C53-4998-8A76-01EAA088F2CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{176CBC52-6167-4845-8C50-CC0EC3B7E70E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176CBC52-6167-4845-8C50-CC0EC3B7E70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176CBC52-6167-4845-8C50-CC0EC3B7E70E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17DA6DBC-3C53-4998-8A76-01EAA088F2CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17DA6DBC-3C53-4998-8A76-01EAA088F2CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17DA6DBC-3C53-4998-8A76-01EAA088F2CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17DA6DBC-3C53-4998-8A76-01EAA088F2CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

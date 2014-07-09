@@ -1,0 +1,174 @@
+THIS FILE DESCRIBES THE SET OF BINARY FILES THAT FORM
+THE FACEAPI BINARY DISTRIBUTION. 
+
+IT IS IMPORTANT TO READ THIS DOCUMENT TO UNDERSTAND 
+THE PURPOSE OF EVERY BINARY FILE IN THE DISTRIBUTION. 
+
+------------------------------------------------------------
+MINIMUM binary files for deployment:
+------------------------------------------------------------
+* sm_fa_api4.0.dll
+
+    The main faceAPI shared library. Minor versions increments have 
+    filenames sm_fa_api4.1.dll, sm_fa_api4.2.dll etc. 
+
+    Maintenance version increments have the same filename.
+
+    Look at the file properties to see full version 
+    information.
+    Production license variants of this shared library are made 
+    specifically for customers who have signed a production 
+    license agreement with Seeing Machines.
+
+* sm_ca_resource_facesearchv2_level0_cdefault_7.1.dll
+* sm_ca_resource_facesearchv2_level1_cdefault_7.1.dll
+
+    These are resource shared libraries that contain coefficients 
+    for detecting faces. 
+    
+    Be aware that the version number of these shared libraries may
+    change with subsequent releases of faceAPI.
+
+    The "cdefault" resources are for operating with images
+    exposed to visible lighting conditions, such as webcams.
+
+    These shared libraries are delay loaded and optional. 
+    The HeadTrackingEngine requires a set of "level0" 
+    and "level1" coefficients, without which it will not
+    be able to track any faces.
+
+    The FaceSearcherEngine and smFaceSearch() function
+    need at least a "level0" coefficient, corresponding
+    to a level-0 type face-search. For a level-1 face-search
+    both "level0" and "level1" coefficients are required.
+    
+* libiomp5md.dll
+
+    OpenMP. faceAPI uses Intel OpenMP technology. OpenMP
+    cannot be statically linked against as this would 
+    prevent faceAPI customers from using OpenMP in their
+    own code. Hence, this shared library must be installed alongside
+    sm_fa_api4.0.dll.
+
+* Microsoft.VC90.CRT.manifest
+* msvcm90.dll
+* msvcp90.dll
+* msvcr90.dll
+
+    Microsoft Visual C++ 9 runtime libraries.
+    The manifest file is needed and is searched for from
+    sm_fa_api4.0.dll. The microsoft runtime redistributable does not 
+    need to be installed on the target machine, as 
+    sm_fa_api4.0.dll is islolated. sm_fa_api4.0.dll refers to these 
+    files which must be in the same folder.
+
+
+
+------------------------------------------------------------
+OPTIONAL binary files:
+------------------------------------------------------------
+
+* cam_blacklist.txt
+
+    Text configuration file containing names of camera devices
+    that should always be ignored. These are usually cameras 
+    that have non-conforming or unusual drivers which do not
+    operate with faceAPI.
+    Recommended for applications that need to operate with
+    random WDM (webcam) cameras.
+
+* cam_whitelist.txt
+
+    Text configuration file containing names of camera devices
+    that skip the camera "test phase" on startup. This test phase
+    simply tries to initialize the camera - this initialization 
+    detected if another process is using the camera, or the 
+    camera driver is improperly installed, and if so, the camera
+    is not available to faceAPI. Sometimes this test-phase can
+    cause problems with cameras that have partially functional
+    drivers.
+    Recommended for applications that need to operate with
+    random WDM (webcam) cameras.
+
+* FlyCapture2_v90.dll
+* FlyCapture2GUI_v90.dll
+* FlyCapture2Managed_v90.dll
+* FlyCap2CameraControl_v90.dll
+
+    Development License only.
+
+    Shared libraries for controlling the PointGrey camera.
+    These are delay loaded and if missing you won't be able 
+    to use PointGrey cameras through their advanced driver.
+
+    PointGrey cameras may still be visible via any installed
+    WDM driver, but the WDM driver only offers limited 
+    control capabilites and is ignored by default in 
+    cam_blacklist.txt.
+
+    NOTE: The PointGrey libraries have an embedded manifest which
+    requires a suitable version of the Microsoft.VC90.CRT assembly
+    to be available on the system. If a dialog is displayed indicating a
+    manifest problem when loading the faceAPI binaries, try installing
+    the latest "Microsoft Visual C++ 2008 SP1 Redistributable Package (x86)"
+    from http://support.microsoft.com/kb/2019667.
+
+* sm_ca_resource_facesearchv2_level0_ir_7.1.dll
+* sm_ca_resource_facesearchv2_level1_ir_7.1.dll
+
+    Development License only.
+
+    These are resource shared libraries that contain coefficients 
+    for detecting faces under *infrared* conditions,
+    specifically where the camera is BELOW the
+    face, and should typically be used in conjunction
+    with the faceAPI IR Lighting kit.
+
+    The version number suffix of these shared libraries may
+    change with subsequent releases of faceAPI.
+
+* cal subfolder.
+
+    This contains precalibrated .lens files for common
+    webcam models. The list is by no means complete.
+    If you are building an application that requires 
+    compatibility with a large range of devices, it is
+    recommended that you increase this list of .lens files
+    for as many models of webcams as possible, and include
+    the subfolder in the same folder as sm_fa_api4.0.dll.
+    If faceAPI does not find a suitable matching .lens file
+    it must guess the field-of-view of the camera and will
+    not be able to compensate for any lens distortion,
+    resulting in degraded performance.
+
+------------------------------------------------------------
+HeadTrackingDemo
+------------------------------------------------------------
+
+* headtrackingdemo.exe
+
+    This demo is built using faceAPI and some internal library
+    code. It depends the other shared libraries in the api\bin folder except 
+    sm_fa_api4.0.dll (HeadTrackingDemo is statically linked).
+
+------------------------------------------------------------
+FileTracker
+------------------------------------------------------------
+
+* smtrackfile.exe
+
+    Development License only.
+
+    This tool is built using faceAPI and some internal library
+    code. It depends on all the libraries in the api\bin folder.
+  
+------------------------------------------------------------
+Thirdparty Dependencies
+------------------------------------------------------------
+
+The faceAPI shared library is isolated. It does not depend on any 
+additional shared libraries to be installed on a clean Windows XP SP3, 
+Vista or Win7 system.
+
+The development license of faceAPI requires the HASP runtime
+to be installed. This is the dongle driver.

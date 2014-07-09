@@ -1,0 +1,33 @@
+
+1) Make sure you have the NuGet package manager extension. It comes with VS2012 and is supported for VS2010.
+
+2) Create a new 'Empty Web Application' project.
+
+3) Open the Package Manager Console (on VS2012 this is Tools->Library Package Manager->Package Manager Console)
+
+4) On the top of the console, make sure that under "Default project" the project that you just created has been selected.
+
+5) In the console, run the command 'Install-Package Microsoft.AspNet.SignalR'.
+
+6) Add a SignalR Hub Class to the project (this is a new Item template that was installed by NuGet specifically for this project.) and provide an appropriate name for the class. This name is what will be used to connect to the server by clients. For the Seeing Machines Visualization (SMV) software, the hub name is "TestHub".
+
+7) Add a 'Global Application Class' to the project. Add the following usings:
+
+using Microsoft.AspNet.SignalR;
+using System.Web.Routing;
+
+Under Application_Start, add:
+
+RouteTable.Routes.MapHubs();
+
+8) The SignalR hub has now been initialized and is running. Whenever a client invokes the hub, they send a message that corresponds with a method name within the hub, which is called when the signal is received. Remove the default signal handlers and replace them with whatever methods are necessary for your application. Methods can take arbitrary parameters but return values have no effect. SignalR automatically attempts to serialize and deserialize objects when possible (i.e. sending a DateTime object from the client will allow the same DateTime object to be reconstructed on the server; sending a UTC timestamp can also be reconstructed as a DateTime object automatically.)
+
+Sending a message to clients is done in a similarly simple fashion, which is just:
+
+Clients.All.SomeMethod(parameters);
+
+The client API has the ability to listen specifically for SomeMethod messages.
+
+9) To interface with the SMV software, the only required Hub method is TimeChange, which can either take a deserialized DateTime or a String. The String will be UTC-formatted time and the DateTime will be a workable replica of this time. The SMV client is also expected to maintain its own response to a TimeChange signal, and thus the invokation for clients is to be:
+
+Clients.All.TimeChange(utcTimeString)

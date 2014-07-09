@@ -1,0 +1,726 @@
+--------------------------------------------------------------------------------
+FaceTrackingAPI Version 3.2.6 - August 2010
+Copyright (C) 2010 Seeing Machines Limited
+--------------------------------------------------------------------------------
+
+The use of this API is strictly governed by the terms of a mandatory 
+prior license agreement between the user and Seeing Machines Ltd.
+
+--------------------------------------------------------------------------------
+System Requirements
+--------------------------------------------------------------------------------
+* CPU supporting SSE2 or greater.
+
+* Minimum CPU: Intel Core2-Duo.
+
+* Windows XP operating system SP2 or higher.
+
+* WDM compatible camera (DirectShow driver), or PointGrey Flea, Flea2 or 
+  FireFly MV (VGA versions) model cameras.
+
+--------------------------------------------------------------------------------
+Changes V3.2.6
+--------------------------------------------------------------------------------
+
+* Fixed bug in smfiletrack.exe command-line utility, and smTrackFile() functon
+  which were tracking in real-time mode as a side-effect of the changes in the 
+  previous release.
+  
+* Fixed installer bug to install the correct Microsoft Visual C++ 2005 runtime.
+  
+--------------------------------------------------------------------------------
+Known Issues
+--------------------------------------------------------------------------------
+
+* Development License: HASP HL driver issue - on computers with NVIDIA nForce4 
+  chipsets and Vista 64-bit, the driver may not be loaded.
+  The workaround is to connect the HASP dongle via a USB hub. 
+
+* Development License: Installer issue on Windows Vista 64, the HASP
+  pre-requisite is not skipped if HASP drivers are already installed, this
+  has no adverse effect other than slowing the installation.
+
+* Does not yet run on Intel Atom CPUs.
+  This is due to problems with Intel IPP version 5.X and will be fixed upon 
+  upgrade to IPP 6.X upon next major release.
+
+* Development License: smCameraImagePush() - the "src_rect" region-of-interest 
+  argument is not currently supported.
+
+* Development License: Requires WorldView 2.2 to visualize output data. 
+  WorldView 2.1 will crash.
+
+* smAPIInit() attempts to initialize COM using the single-threaded apartment 
+  model. If the caller has already initialized COM with multi-threaded apartment
+  model, the API behaviour is undefined.
+
+--------------------------------------------------------------------------------
+Support
+--------------------------------------------------------------------------------
+For information on common issues (FAQ) and how to submit a technical support 
+request please refer to the faceAPI technical support page at 
+http://www.faceapi.com
+
+PLEASE NOTE, SUPPORT IS ONLY AVAILABLE WITH A VALID DEVELOPMENT LICENSE.
+A VALID LICENSE ID MUST BE PROVIDED.
+
+--------------------------------------------------------------------------------
+Contacting Us
+--------------------------------------------------------------------------------
+Seeing Machines Ltd.
+Level 1, 11 Lonsdale St, Braddon ACT 2612 Australia
+GPO Box 782, Canberra ACT 2601 Australia
+Ph: +61 2 6103 4700
+mailto:info@seeingmachines.com
+
+--------------------------------------------------------------------------------
+Previous Releases
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+Changes V3.2.5
+--------------------------------------------------------------------------------
+
+* Fixed performance bug with smHTV2SetRealtimeTracking().
+  
+--------------------------------------------------------------------------------
+Changes V3.2.4
+--------------------------------------------------------------------------------
+
+* Fixed shutter / exposure stability problem occuring with older Logitech camera
+  models due to non-conforming drivers.
+  
+--------------------------------------------------------------------------------
+Changes V3.2.3
+--------------------------------------------------------------------------------
+
+* Added API functions smHTV2SetRealtimeTracking() and 
+  smHTV2GetRealtimeTracking().
+  
+  By default the engine provides a real-time guarantee. This can now be 
+  disabled on HeadTrackerEngineV2.
+ 
+  From the function documentation:
+  
+	In realtime mode, the engine provides a real-time guarantee, which means 
+	frames passed into the engine from the camera will always be output at the 
+	same rate. Therefore any display will always show live video. In this mode, 
+	processing is skipped for frames whenever the CPU cannot keep up with the 
+	framerate of the camera.
+
+	This is especially important to understand in the situation when the engine 
+	is first trying to find a face. In this state 
+	(SM_API_ENGINE_STATE_HT_INITIALIZING) the engine is using a fairly slow 
+	face-detection algorithm to try to locate a face. If images are being pushed 
+	at more than a few Hz, they simply pass through unprocessed.
+
+	In contrast, when realtime tracking is disabled, these images would be 
+	processed but the engine throughput will be a variable rate depending on 
+	many factors.
+
+	Disabling realtime tracking is useful for offline processing of files. 
+	If doing so, it is recommended to enable this setting before the engine 
+	is started.
+
+* Added matching setRealtimeTracking and getRealtimeTracking methods to C++ 
+  HeadTrackerV2 class.
+
+* Added API function smCameraImagePushBlock() which blocks the caller until the
+  video-frame has been pushed successfully (or timeout). This is different 
+  behaviour to smCameraImagePush() which never blocks and discards the oldest 
+  frame if the input fifo is full. This is provided so users can push in frames 
+  and avoid any frames being dropped. This guarantees all images pushed in will 
+  appear in the image data coming out of the engine via the head-pose callback.
+  
+  ** However using this function does NOT guarantee all pushed frames will be 
+     processed.
+  
+  By default the engine provides a real-time guarantee. This can now be toggled
+  via the new functions smHTSetRealtimeTracking() and smHTGetRealtimeTracking()
+  as described about.
+  
+* Added matching push() overload method to ImagePushCamera C++ wrapper class.
+  
+* Updated image-push sample code for TestAppImagePush.
+
+* Updated ImagePush sample code blocks in the user manual to show how to use 
+  smCameraImagePushBlock() function as well as the engine realtime mode 
+  function smHTV2SetRealtimeTracking().
+
+* Engines now attempt to disable automatic throttling of framerate on 
+  WDM cameras (webcams) to ensure tracking is sustained >=30Hz in low-light 
+  conditions.
+  
+  In addition, WDM camera types now offer smCameraExposureMode exposure mode 
+  settings:
+  - SM_API_EXPOSURE_MODE_AUTO (default)
+    > Driver controls exposure.
+  - SM_API_EXPOSURE_MODE_FLICKERLESS_50HZ
+    > Shutter fixed to avoid 50Hz flicker
+    > Automatic exposure disabled in driver
+    > Engine can optionally control shutter and gain (preferred) via 
+    > smHTSetAutoBrightness().
+  - SM_API_EXPOSURE_MODE_FLICKERLESS_60HZ
+    > Shutter fixed to avoid 60Hz flicker
+    > Automatic exposure disabled in driver
+    > Engine can optionally control shutter and gain (preferred) via 
+    > smHTSetAutoBrightness().
+  - SM_API_EXPOSURE_MODE_SUNLIGHT
+    > Automatic exposure disabled in driver
+    > Engine can optionally control shutter (preferred) and gain via 
+    > smHTSetAutoBrightness().
+
+  Please note: On some Logitech cameras with the "RightLight" feature, 
+  automatic throttling cannot be disabled in software until the user has 
+  disabled the RightLight feature on the driver control panel beforehand.
+
+* The HeadTracker can now intelligently control WDM camera image quality
+  using smHTSetAutoBrightness().
+  This is possible whenever the exposure mode is set to a value *other* than 
+  SM_API_EXPOSURE_MODE_AUTO (which is when the camera driver is in control). 
+  Previously the engine would only adjust the WDM camera's "brightness" 
+  parameter resulting in washed out images.
+  
+  Instead the exposure time and the sensor gain are now being controlled
+  depending on the exposure-mode (see above). 
+
+* Added file sm_api_ar.h which contains augmented reality functions:
+  - smARGetWorldCoordMatricesFromLensParams() determines OpenGL model-view and 
+     projection matrices.
+  - smARGetFaceToWorldTransformMatrix() determines OpenGL transformation 
+    matrix that takes points in face-space and coverts them into world 
+    coordinates.
+
+* Added "TestAppGL" - this is an OpenGL based Augmented Reality sample 
+  application, that draws the face-coordinate axes over live video. This
+  also shows how to obtain and use image data from faceAPI. It requires
+  download and installation of Qt, and makes use of the C++ wrappers.
+
+* Added faceAPI function in sm_api_image.h to convert image formats:
+  - smImageCreateConvert() - create a new image from an existing image, 
+     in a specific format.
+
+* Added conversion method to the C++ class sm::faceapi::Image.
+
+* Modified the C++ class sm::faceapi::Image to enable reference counted
+  shallow copying via asignment and construction. This makes handling
+  of image data much easier, and this is demonstrated in TestAppGL.
+
+* Added PS3Eye camera API library to distribution, as it is required by 
+  TestAppImagePush but is no longer available for download.
+
+* Corrected the version of the Microsoft Visual C++ runtime libraries
+  in the Redist subfolder (vc_redist.exe) to match the ones used to build
+  smft32.dll.
+
+* Improved Qt compatibility:
+
+  - Added API functions smAPIInternalQtGuiDisable() and smAPIInternalQtGuiIsDisabled()
+
+    These allow the prevention of any internal usage of Qt Gui classes to improve 
+    compatibility with applications that are using a different versions Qt. 
+
+    The trade-off is video-display functionality is disabled in thise mode. 
+
+    Please note smAPIInternalQtGuiDisable() must be called before smAPIInit().
+
+    For an example of a Qt application that uses faceAPI see TestAppGL.
+
+  - Changed smft32.dll and related DLLs which depend on QtCore4.dll to instead reference
+    QtCore0.dll, which is renamed. This allows applications to place different versions of 
+    QtCore4.dll into the same folder without DLL naming conflict.
+
+--------------------------------------------------------------------------------
+Changes V3.2.2
+--------------------------------------------------------------------------------
+
+* Added missing head-pose filter functions missing from 3.2.1 release. 
+
+* Updated C++ and Qt wrappers to use new head-pose filter functions.
+
+--------------------------------------------------------------------------------
+Changes V3.2.1
+--------------------------------------------------------------------------------
+
+* Bug fix for newer Intel CPUs causing startup crash.
+
+* Addition of head-pose filter level parameter for HeadTrackerEngineV2 to reduce
+  noise primarily on X and Y rotation signals. The filter parameter has three 
+  possible values:
+  - 0 is for no filtering
+  - 1 is for some filtering (default)
+  - 2 is for maximum filtering
+
+  New API functions in sm_api_headtrackerv2controls.h: 
+  - smHTV2SetHeadPoseFilterLevel()
+  - smHTV2GetHeadPoseFilterLevel()
+
+--------------------------------------------------------------------------------
+Changes V3.2.0
+--------------------------------------------------------------------------------
+
+* The nature of the face-texture generation process has been changed so that 
+  face textures are now produced per-frame when the head is within pose limits. 
+  Previously a texture would only be generated for the first frame of tracking. 
+  Now textures are produced whenever the face is tracking and the head is 
+  oriented toward the camera within 10 degrees left/right, and +30 deg tilted up 
+  or -15 titled down, from the camera axis.
+
+* Fixed resource directory bug where resource folder was being searched for
+  at the location of the .exe not the .dll.
+  
+* Updated included PointGrey Driver to 1.8.3.23, certified for Windows-7 64-bit.
+
+* Updated included HASP Driver to 5.86, compatible with Windows-7.
+
+* Updated included Visual Studio vc_redist.exe to be correct (latest) version.
+
+* PLEASE NOTE: due to the change in texture behaviour this is a +0.1 minor release 
+  and so the name of the DLL file has changed from smft31.dll to smft32.dll
+
+--------------------------------------------------------------------------------
+Changes V3.1.6
+--------------------------------------------------------------------------------
+
+* Fixed bug preventing loading movie files with capitalized file extensions 
+  (e.g. .AVI)
+
+* Fixed bug preventing the instantiation of multiple engines in the same process
+  when camera brightness control is enabled.
+  
+--------------------------------------------------------------------------------
+Changes V3.1.5
+--------------------------------------------------------------------------------
+
+* Fixed bug preventing creation of multiple image-push or file cameras.
+
+* Fixed bug checking the "offset" input parameter range in 
+  smHTSetHeadPosePredictionPeriodOffset().
+
+* Fixed race condition occuring in initialization of CPU performance monitoring 
+  code. Also added better failure handling when Windows PDH framework 
+  is not available to the process.
+  
+* Reduced memory bandwidth when working with I420 image types. I420 is the most 
+  efficient color format for faceAPI.
+
+* Refactor of camera exposure control logic, particularly for PointGrey cameras.
+
+* Added API functions for controlling camera exposure:
+	- Added enum smCameraExposureMode
+	- smCameraGetNumExposureModes(...)
+	- smCameraEnumExposureModes(...)
+	- smCameraGetExposureMode(...)
+	- smCameraSetExposureMode(...)
+	- smCameraSetImageBrightness(...)
+	- smCameraGetImageBrightness(...)
+	- smCameraSetReflectionMinimize(...)
+	- smCameraGetReflectionMinimize(...)
+
+* Set default exposure-mode for PointGrey cameras to be Indoor Flickerless 50Hz. 
+
+* Fixed issue causing slowdown and crashes when lens-parameters are used that 
+  have radial distortion coefficients. faceAPI V3 engines now ignore any radial 
+  distortion coefficients. This has been fixed in the trunk and faceAPI V4 
+  engines will operate with radial distortion correctly.
+
+--------------------------------------------------------------------------------
+Changes V3.1.4
+--------------------------------------------------------------------------------
+
+* Fixed memory handling bug when using color images from PointGrey cameras
+  causing frames to be displayed out of order.
+
+* Made all image related functions in sm_api_image.h re-entrant, allowing 
+  them to be called from within callback routines. This fixes an API design bug
+  where it was not previously possible to obtain the output image without 
+  incurring a potential deadlock on shutdown. Clarified documentation and 
+  sample code with regard to this issue. 
+
+* Added installation note for HASP drivers on Windows 7.
+
+--------------------------------------------------------------------------------
+Changes V3.1.3
+--------------------------------------------------------------------------------
+
+* Fixed BSOD reportedly occuring with some webcams. This bug was a result of 
+  memory bandwith performance optimizations made in version 3.1.1.
+
+--------------------------------------------------------------------------------
+Changes V3.1.2
+--------------------------------------------------------------------------------
+
+* Fixed a DirectShow bug occuring with some video-files and webcams
+  where images are appearing corrupted or flipped.
+
+--------------------------------------------------------------------------------
+Changes V3.1.1
+--------------------------------------------------------------------------------
+
+This update improves usability with PointGrey cameras and fixes some 
+performance and stability issues.
+
+* Removed the restriction of a single PointGrey camera per process.
+  Multiple engines can now be created with multiple PointGrey cameras.
+
+* Improved compatibility with different PointGrey camera models (including 
+  those with color sensors).
+
+* smCameraShowControlPanel() now shows the PointGrey GUI as seen in FlyCap.
+
+* Added a function smCameraPtGreyRestoreMemoryChannel() to allow user-specific 
+  configurations to be loaded from the on-board memory that is available 
+  in some PointGrey cameras (we recommend using the Firefly MV).
+
+* Added functions smCameraGetType(), and smCameraGetModelName().
+
+* Reduced memory bandwidth of head-tracking real-time loop, improving overall
+  performance of all engines.
+
+* Fixed bug with video-recording mechanism where remaining images in memory were being 
+  discarded instead of written to disk, truncating the video file.
+
+* Fixed crash bug occuring when changing cameras.
+
+* Removed 21MB of binary data from Resources sub-folder.
+
+--------------------------------------------------------------------------------
+Changes V3.1.0
+--------------------------------------------------------------------------------
+
+* API DLL is now smft31.dll
+
+* Pixel coordinates of face landmarks (in smFaceLandmark) are now set by 
+  head-tracking engines.
+
+* Fixed bug in smHTCurrentHeadPose() where the eyeball positions were not being 
+  set in the smEngineHeadPoseData.
+
+* Added function smAPILicenseInfoString() to provide details of the current 
+  faceAPI license status, including any time-trial expiry date.
+
+* Added smCameraVideoFrame as a second argument to callbacks:
+  smHTHeadPoseCallback and smHTFaceDataCallback.
+  The smCameraVideoFrame provided by the callback contains the original image, 
+  frame-number and UTC time, and is provided alongside the measurement data so 
+  output measurements can be correctly synchronized with input images. 
+  This changes the nature of the way the engines can be used by applications; 
+  previously the architecture was "image in => data out", now it is 
+  "image in => image + data out", allowing the engines to be used as elements 
+  in pipelined architectures.
+
+* Added function smImageAddRef() to allow reference counting on image handles. 
+  This is so the C++ wrapper class SMImage can manage shallow copies, and also 
+  allows the user to prevent the image handle that is passed in the 
+  smCameraVideoFrame in the measurement callbacks from being destroyed when the 
+  callback completes.
+  
+* Changed functions smCameraCreateImagePush() and smCameraCreateFile() to use a 
+  smCameraSettings argument.
+
+* Removed function smCameraGetInfo() and replaced with function 
+  smCameraGetCurrentFormat() to obtain the camera's current video format.
+
+* Added function smCameraImagePushSetFrameRate() to notify the engine of a 
+  change in frame-rate of the image-push camera.
+
+* Added function smCameraHasControlPanel() to determine if a camera has any 
+  controls that can be shown to the user.
+
+* Added function smEngineGetCamera() to obtain camera handle that is in use by an
+  engine.
+
+* Added function smEngineHasCameraControlPanel() to determine if camera in use 
+  by the engine has any controls that can be shown to the user.
+
+* Tracking engines now compute tracking ranges based on image resolution
+  and lens field-of-view settings. A side effect is that switching cameras 
+  will change the default tracking ranges. The benefit is that (1) engines
+  can be run on higher resolution images or with large focal-length lenses
+  with much larger tracking ranges, and (2) initial range settings are 
+  guaranteed to be sensible (provided the lens parameters passed to the 
+  engine are correct).
+  
+* Added function smFaceSearchGetRangeBounds() to determine maximum and mininum
+  possible range of faces given an image resolution and lens calibration
+  parameters.
+
+* Added function smHTGetTrackingRangeBounds() to determine maximum and mininum
+  possible range of faces from an existing engine handle.
+
+* Remove #define constants SM_HT_MIN_RANGE and SM_HT_MAX_RANGE, as these are
+  now dynamic.
+
+* Changed from "unsigned short *" to "wchar_t *" in string functions
+  Added static check that sizeof(wchar_t) == sizeof(unsigned short) as code
+  does not yet support 4-byte wchar_t.
+
+* Added function smVideoDisplayShow() to show an initially hidden display.
+
+* Added flag SM_API_VIDEO_DISPLAY_COLOR to show a video-display with color video
+  (only works if camera input images are color).
+
+* Added zooming and panning of video-displays using mouse wheel, mouse drag.
+
+* Changed video recording functions to use WMV Advanced Profile, WMV9, WMV8 
+  codecs, if available in that order.
+  This fixed a bug where compressed videos could not be made on Vista.
+  Video files produced now have .wmv file extension.
+
+* Changed behaviour of smVideoDisplayRecordingStart() so it does not append "_0"
+  to the user supplied filename. It now uses the filename provided, modified 
+  only to have the correct file extension and will overwrite any existing file.
+  
+* Completed C++ and Qt wrapper libraries, now part of the installation.
+
+* Added sample project "TestAppImagePush" showing how to correctly use the 
+  image-push camera interface for interfacing with a custom camera. The sample
+  uses a Sony PS3Eye camera at also shows tracking at higher frame-rates than an
+  ordinary webcam. The sample requires a Qt4 and a third-party driver, and makes 
+  use of the new C++ and Qt wrapper libraries. Please note, this sample requires
+  a Development License.
+
+* Changes to sample project "TestAppConsole" that prints more information and 
+  illustrates use of mutexes with callback functions as many customers are 
+  unfamiliar with threading issues.
+  Also illustrates use of smHTCurrentHeadPose() to obtain interpolated 
+  measurements vs the callback-per-sample approach.
+
+* Upgraded IPP from 5.3.3 to 5.3.4 fixing an issue with incorrect
+  processor-specific DLL dispatching, which was causing unsupported instruction 
+  crashes on some newer Intel processors.
+
+* Added Visual Studio runtime to set of installed redistributables.
+
+* Fixed Qt incompatibility issues. Qt4 can now be used in conjunction with 
+  smft31.dll as evidenced by the Qt wrapper libraries.
+  
+* Fixed thread shutdown issue in tracking engines related to 
+  the face acquisition (or "autoinit") process. This would exhibit as
+  the tracker never finding the face.
+
+* Non-commercial License: removed restrictions from functions in sm_api_image.h
+
+* Non-commercial License: smEngineGetCamera() now available. 
+
+* Non-commercial License: removed restrictions from some functions in sm_api_camera.h
+  so the camera video-format can be read, and calibrated lens-parameters can now be set.
+
+* Development License: added PtGrey FlyCapture 1.8b8 driver files to 
+  installation. PLEASE NOTE: only supports the following monochrome models 
+  on 32-bit versions of Windows XP or Vista:
+  - Flea
+  - Flea2
+  - FireflyMV (USB or Firewire)
+  To install the drivers connect the camera and then browse to this
+  folder (typically C:\Program Files\SeeingMachines\FaceTrackingAPI 3.1\Drivers\PointGrey)  
+
+* Development License: upgraded Alladin HASP SRM to version 3.60 to fix HASP
+  installer failures under Vista 64-bit.
+
+--------------------------------------------------------------------------------
+V3.0.3
+--------------------------------------------------------------------------------
+
+* Improvement to eyebrow tracking stability
+
+* Fixed crash occuring on engine shutdown due to static variable co-dependency.
+
+* Fixed crash occuring when smLoggingSetFileOutputEnable() called before 
+  smAPIInit().
+
+* Fixed bug in smEngineDestroy() where engines were not being destroyed until
+  all associated video-displays also destroyed.
+
+--------------------------------------------------------------------------------
+V3.0.2
+--------------------------------------------------------------------------------
+
+* Added tracking of lips and eyebrows.
+
+* Orthographic frontal face-texture generated on first tracking frame.
+
+* Smoother head-tracking using new pose-minimization technique.
+
+* Head-pose prediction technique updated to account for variable latency in the 
+  processing.
+
+* Added head-pose interpolation function that uses the time of call to predict
+  the current pose, allowing for smoother real-time feedback loops such as 
+  pose-dependent 3D rendering.
+
+* Added new camera types that take input from movie files (FileCamera) and user 
+  supplied image memory (ImagePushCamera).
+
+* Added algorithm function smFileTrack() for deterministic tracking of movie 
+  files.
+
+* Added algorithm function smFaceSearch() for finding faces in short image 
+  sequences.
+
+* Tracking now flexible to input image resolution.
+
+* Added native support for many input image formats. See sm_api_imagetypes.h
+
+* Many bug-fixes with respect to use of the DirectShow API and improvements to 
+  flexibility with different camera and video-file types.
+
+* Deep optimization of tracking engine architecture and core image processing 
+  algorithms greatly improving CPU utilization.
+
+* Added ability to record compressed videos from displays in realtime.
+
+* New CamCal V2 tool and .lens file (now XML)
+
+--------------------------------------------------------------------------------
+V2.2.2
+--------------------------------------------------------------------------------
+
+* Improved tracking performance at low framerates (15Hz)
+
+* Improved video rendering performance issue mainly occuring when video is 
+  fullscreen.
+
+* Removed all DLL dependencies on relative paths for accessing resource files.
+
+* Tested with latest Logitech camera drivers (qc1150.exe)
+
+* Fixed crash bug sometimes occuring on startup when default Microsoft USB
+  camera driver is being used.
+
+* Fixed occasional crash bug due to race-condition on thread startup.
+
+* Known issue: sometimes third-party software unregisters DirectShow default
+  filters. The API depends on the SampleGrabber filter. When this is missing an
+  error occurs when creating the tracking engine. The fix is to re-register 
+  qedit.dll as follows:
+	> regsvr32 /u %SystemRoot%\system32\qedit.dll
+	> regsvr32 %SystemRoot%\system32\qedit.dll
+
+--------------------------------------------------------------------------------
+V2.1.1
+--------------------------------------------------------------------------------
+
+* Removed bug in HeadTrackingEngineV2 causing significant instability in 
+  head-pose solution. This improves robustness to motion and low-framerates and 
+  decreases the measurement noise.
+
+* Added capability to recover from tracking failures when not facing frontal.
+
+--------------------------------------------------------------------------------
+V2.1.0
+--------------------------------------------------------------------------------
+
+* HeadTrackerV2 performance improved: less CPU, more robust. 
+  Faster initialization.
+
+* Added support for any windows driver-model cameras able to run VGA with 1 of
+  the formats: RGB24, I420, YUY2.
+
+* Added support for camera lens calibration and approximating calibration from 
+  a field-of-view value.
+
+* Added option to enable / disable automatic control of image brightness.
+
+* Added option to enable / disable log files
+
+* Header files now properly compile in a C environment.
+
+--------------------------------------------------------------------------------
+V2.0.0
+--------------------------------------------------------------------------------
+
+* New HeadTrackingEngineV2. New headtracker can track head-pose over a much 
+  larger range of rotation angles.
+
+--------------------------------------------------------------------------------
+V1.0.9
+--------------------------------------------------------------------------------
+
+* Fixed bug occuring with VideoWindow occuring when it was shown as a child 
+  window of a modal dialog that is closed then recreated.
+
+--------------------------------------------------------------------------------
+V1.0.8
+--------------------------------------------------------------------------------
+
+* Fixed bug occuring when API is initialized and shutdown multiple times.
+
+--------------------------------------------------------------------------------
+V1.0.7
+--------------------------------------------------------------------------------
+
+* Changed behaviour of video window creation, so behaviour on consecutive calls 
+  is consistent.
+
+* Added head-pose prediction of 33ms to counter measurement latency due to 
+  camera exposure.
+
+* Tweaked process measurement noise in kalman filter to reduce gain on angular 
+  velocity estimates.
+
+--------------------------------------------------------------------------------
+V1.0.6
+--------------------------------------------------------------------------------
+
+* Replaced Rockey Dongle with Alladin HASP.
+
+* Added Alladin HASP runtime redistributables to distribution.
+
+--------------------------------------------------------------------------------
+V1.0.5
+--------------------------------------------------------------------------------
+
+* Added IPP runtime redistributable.
+
+--------------------------------------------------------------------------------
+V1.0.4
+--------------------------------------------------------------------------------
+
+* Fixed bug with VideoDisplay window not responding to Windows API commands.
+
+* Fixed bug with VideoDisplay window being reparented as a top-level window 
+  instead of destroyed when windows parent is destroyed.
+
+--------------------------------------------------------------------------------
+V1.0.3
+--------------------------------------------------------------------------------
+
+* Fixed bug with window layout behaviour of video display when set as a child 
+  window.
+
+* Fixed bug where engine would not restart properly if start() is called.
+
+* Added some keypress commmands to the TestAppConsole project to toggle restart 
+  mode and manually restart the engine.
+
+--------------------------------------------------------------------------------
+V1.0.2
+--------------------------------------------------------------------------------
+
+* Video display window defaults to 320x240, but is resizable.
+
+* Changed video display window behaviour so that when it is created without a 
+  parent, it is a top-level window and gets it's own task-bar entry and when 
+  created with a parent it's layout becomes determined by the parent.
+
+* Fixed rare crash bug occuring in histogram equalization phase of auto-init.
+
+* Added missing msvcrt DLL to installer.
+
+--------------------------------------------------------------------------------
+V1.0.1
+--------------------------------------------------------------------------------
+
+* Fixed crash bug occuring sometimes after tracking initialization.
+
+--------------------------------------------------------------------------------
+V1.0.0
+--------------------------------------------------------------------------------
+
+* Provides an API to HeadTracker V1.0 technology. This corresponds to the 
+  technology seen in HeadTrackingDemo-V4.1.0
+
+* Comes with sample MFC and Console Visual Studio projects
+
+* Currently restricted to a Logitech Quickcam Pro 5000 webcam

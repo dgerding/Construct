@@ -1,0 +1,192 @@
+﻿<html>
+
+	<!--
+		
+		The content displayed within this page is dictated by the output JSON file that contains information
+			regarding the analysis. Within each ProcedureOutput implementation is a Label property, which
+			is linked to a corresponding DataTemplate element. The linking is done within LayoutConfig.js.
+		
+		-->
+
+	<head>
+		<title></title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="jquery.min.js"></script>
+		<script src="BoxAndWhisker.js"></script>
+		<script src="TabController.js"></script>
+		<script src="LayoutConfig.js"></script>
+		<script type="text/javascript" src="LayoutGenerator.js"></script>
+
+		<script type="text/javascript">
+			AnalysisData = null;
+			/* Just take the analysis data and shove it in a global variable for now, we'll deal
+			 *		with it once the entire document's loaded
+			 */
+			function TestAnalysisLoad(analysisData) {
+				AnalysisData = analysisData;
+			}
+		</script>
+
+		<script type="text/javascript" src="AnalyticsData.js"></script>
+
+		<script type="text/javascript">
+			$(function () {
+				var layoutGenerators = [];
+				TabManager.allocateTabs(AnalysisData.Categories.length);
+
+				for (var i = 0; i < AnalysisData.Categories.length; i++) {
+					TabManager.getTabByIndex(i).setName(AnalysisData.Categories[i]);
+					layoutGenerators.push(new LayoutGenerator(TabManager.getTabByIndex(i)));
+				}
+
+				var rawData = AnalysisData.AnalysisOutput;
+				/* Iterate through the stages and create the structure outline */
+				for (var i = 0; i < rawData.length; i++) {
+					var currentStage = rawData[i];
+
+					for (var p = 0; p < currentStage.ProcedureResults.length; p++) {
+						var currentProcedure = currentStage.ProcedureResults[p];
+						var categoryIndex = AnalysisData.Categories.indexOf(currentProcedure.Category);
+
+						layoutGenerators[categoryIndex].addProcedureDataToStage(currentStage.StageName, currentProcedure);
+					}
+				}
+
+				//	Generate the data within the tabs
+				for (var i = 0; i < layoutGenerators.length; i++) {
+					layoutGenerators[i].generateLayout();
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="DataTemplates" style="display: none">
+			<!-- Maintains various template elements that are cloned and inserted into the output divs. -->
+			<div id="DirectionToPointProcedureTemplate">
+				<canvas class="WhiskerPlot" width="500" height="175"></canvas><br />
+				(All angles are in degrees.)<br />
+                Average Angle: <span class="AverageAngle"></span><br />
+				Standard Dev.: <span class="StandardDeviation"></span><br />
+				<br />
+                Minimum Angle: <span class="MinAngle"></span><br />
+                First Quartile: <span class="FirstQuartile"></span><br />
+                Median Quartile: <span class="SecondQuartile"></span><br />
+                Third Quartile: <span class="ThirdQuartile"></span><br />
+				Maximum Angle: <span class="MaxAngle"></span><br />
+				<br />
+
+				<h4>XY Plane Summary</h4>
+				<canvas class="XYWhisker" width="500" height="175"></canvas><br />
+				Mean: <span class="XYMean"></span><br />
+				SD: <span class="XYSD"></span><br />
+				<br />
+
+				Min: <span class="XYMin"></span><br />
+				Q1: <span class="XYQ1"></span><br />
+				Q2: <span class="XYQ2"></span><br />
+				Q3: <span class="XYQ3"></span><br />
+				Max: <span class="XYMax"></span><br />
+				<br />
+
+				<h4>XZ Plane Summary</h4>
+				<canvas class="XZWhisker" width="500" height="175"></canvas><br />
+				Mean: <span class="XZMean"></span><br />
+				SD: <span class="XZSD"></span><br />
+				<br />
+
+				Min: <span class="XZMin"></span><br />
+				Q1: <span class="XZQ1"></span><br />
+				Q2: <span class="XZQ2"></span><br />
+				Q3: <span class="XZQ3"></span><br />
+				Max: <span class="XZMax"></span><br />
+				<br />
+
+				<h4>YZ Plane Summary</h4>
+				<canvas class="YZWhisker" width="500" height="175"></canvas><br />
+				Mean: <span class="YZMean"></span><br />
+				SD: <span class="YZSD"></span><br />
+				<br />
+
+				Min: <span class="YZMin"></span><br />
+				Q1: <span class="YZQ1"></span><br />
+				Q2: <span class="YZQ2"></span><br />
+				Q3: <span class="YZQ3"></span><br />
+				Max: <span class="YZMax"></span><br />
+			</div>
+			<div id="GenericVectorProcedureTemplate">
+				<canvas class="WhiskerPlot" width="500" height="175"></canvas><br />
+				(All angles are in degrees.)<br />
+				Average Vector Magnitude: <span class="AverageMagnitude"></span><br />
+				Average Vector: <span class="AverageVector"></span><br />
+				<br />
+				(Angular comparisons are done against the average vector.)<br />
+				Angular Standard Deviation: <span class="AngularStandardDeviation"></span><br />
+				Average Angular Difference: <span class="AverageAngular"></span><br />
+				<br />
+				Min Angular Difference: <span class="MinAngular"></span><br />
+				First Quartile Angular Difference: <span class="FirstQuartileAngular"></span><br />
+				Second Quartile Angular Difference: <span class="SecondQuartileAngular"></span><br />
+				Third Quartile Angular Difference: <span class="ThirdQuartileAngular"></span><br />
+				Max Angular Difference: <span class="MaxAngular"></span><br />
+				<br />
+
+				<h4>XY Plane Summary</h4>
+				<canvas class="XYWhisker" width="500" height="175"></canvas><br />
+				Mean: <span class="XYMean"></span><br />
+				SD: <span class="XYSD"></span><br />
+				<br />
+
+				Min: <span class="XYMin"></span><br />
+				Q1: <span class="XYQ1"></span><br />
+				Q2: <span class="XYQ2"></span><br />
+				Q3: <span class="XYQ3"></span><br />
+				Max: <span class="XYMax"></span><br />
+				<br />
+
+				<h4>XZ Plane Summary</h4>
+				<canvas class="XZWhisker" width="500" height="175"></canvas><br />
+				Mean: <span class="XZMean"></span><br />
+				SD: <span class="XZSD"></span><br />
+				<br />
+
+				Min: <span class="XZMin"></span><br />
+				Q1: <span class="XZQ1"></span><br />
+				Q2: <span class="XZQ2"></span><br />
+				Q3: <span class="XZQ3"></span><br />
+				Max: <span class="XZMax"></span><br />
+				<br />
+
+				<h4>YZ Plane Summary</h4>
+				<canvas class="YZWhisker" width="500" height="175"></canvas><br />
+				Mean: <span class="YZMean"></span><br />
+				SD: <span class="YZSD"></span><br />
+				<br />
+
+				Min: <span class="YZMin"></span><br />
+				Q1: <span class="YZQ1"></span><br />
+				Q2: <span class="YZQ2"></span><br />
+				Q3: <span class="YZQ3"></span><br />
+				Max: <span class="YZMax"></span><br />
+				
+			</div>
+			<div id="DataReliabilityProcedureTemplate">
+				Reliability Factor: <span class="Reliability"></span><br />
+				Non-Null Snapshots: <span class="NonNull"></span><br />
+				Null Snapshots: <span class="Null"></span><br />
+				Total Snapshots: <span class="Total"></span>
+			</div>
+            <div id="AngleBetweenAngleProcedureTemplate"></div>
+            <div id="DistanceBetweenPointsProcedureTemplate"></div>
+
+			<div id="StageLabelTemplate">
+				<h2 class="LabelTarget"></h2>
+				<div class="DataContainer"></div>
+			</div>
+		</div>
+		<div id="TabsContainer">
+		</div>
+		<div id="ContentContainer">
+
+		</div>
+	</body>
+</html>

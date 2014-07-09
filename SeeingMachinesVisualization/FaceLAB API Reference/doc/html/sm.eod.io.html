@@ -1,0 +1,348 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html><head><title>Python: package sm.eod.io</title>
+</head><body bgcolor="#f0f0f8">
+
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#7799ee">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong><a href="sm.html"><font color="#ffffff">sm</font></a>.<a href="sm.eod.html"><font color="#ffffff">eod</font></a>.io</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial">&nbsp;</font></td></tr></table>
+    <p></p>
+<p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#aa55cc">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Package Contents</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#aa55cc"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><table width="100%" summary="list"><tr><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td><td width="25%" valign=top></td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ee77aa">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Classes</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#ee77aa"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><dl>
+<dt><font face="helvetica, arial"><a href="sm.eod.html#EODError">sm.eod.EODError</a>
+</font></dt><dd>
+<dl>
+<dt><font face="helvetica, arial"><a href="sm.eod.io.html#EngineOutputDataFileError">EngineOutputDataFileError</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#SerialPortError">SerialPortError</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#SocketError">SocketError</a>
+</font></dt></dl>
+</dd>
+<dt><font face="helvetica, arial"><a href="sm.eod.io.html#CompressingFileWriter">CompressingFileWriter</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#DecompressingFileReader">DecompressingFileReader</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#EngineOutputDataFileReader">EngineOutputDataFileReader</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#EngineOutputDataFileWriter">EngineOutputDataFileWriter</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#FileReader">FileReader</a>
+</font></dt><dt><font face="helvetica, arial"><a href="sm.eod.io.html#FileWriter">FileWriter</a>
+</font></dt></dl>
+ <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="CompressingFileWriter">class <strong>CompressingFileWriter</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Allows&nbsp;writing&nbsp;compressed&nbsp;data&nbsp;to&nbsp;a&nbsp;log&nbsp;file.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="CompressingFileWriter-__init__"><strong>__init__</strong></a>(self, file_path<font color="#909090">=None</font>)</dt><dd><tt>Constructs&nbsp;and&nbsp;optionally&nbsp;opens&nbsp;a&nbsp;log&nbsp;file&nbsp;for&nbsp;writing.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SerializableError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;error&nbsp;occured&nbsp;while&nbsp;trying&nbsp;to&nbsp;open&nbsp;the&nbsp;file.</tt></dd></dl>
+
+<dl><dt><a name="CompressingFileWriter-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;the&nbsp;file&nbsp;if&nbsp;open.</tt></dd></dl>
+
+<dl><dt><a name="CompressingFileWriter-isOpen"><strong>isOpen</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;file&nbsp;is&nbsp;currently&nbsp;opened.</tt></dd></dl>
+
+<dl><dt><a name="CompressingFileWriter-write"><strong>write</strong></a>(self)</dt><dd><tt>Writes&nbsp;the&nbsp;object&nbsp;to&nbsp;the&nbsp;file.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SerializableError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;error&nbsp;occured&nbsp;while&nbsp;writing&nbsp;to&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#CompressingFileWriter-close">close</a>()&nbsp;will&nbsp;have&nbsp;been&nbsp;automatically&nbsp;called.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="DecompressingFileReader">class <strong>DecompressingFileReader</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Allows&nbsp;sequential&nbsp;access&nbsp;to&nbsp;a&nbsp;log&nbsp;file&nbsp;containing&nbsp;compressed&nbsp;objects.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="DecompressingFileReader-__init__"><strong>__init__</strong></a>(self, arg<font color="#909090">=None</font>)</dt><dd><tt>Initializes&nbsp;the&nbsp;reader<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;arg&nbsp;&nbsp;&nbsp;If&nbsp;None&nbsp;then&nbsp;the&nbsp;reader&nbsp;is&nbsp;un-opened.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;a&nbsp;string&nbsp;then&nbsp;the&nbsp;file&nbsp;is&nbsp;opened&nbsp;and&nbsp;if<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;fails&nbsp;a&nbsp;SerializationError&nbsp;is&nbsp;raised.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;If&nbsp;it&nbsp;is&nbsp;a&nbsp;SerializableCompressorDecoderFactory&nbsp;object<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;then&nbsp;the&nbsp;reader&nbsp;is&nbsp;un-opened&nbsp;but&nbsp;will&nbsp;use&nbsp;the&nbsp;decoder&nbsp;factory<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;for&nbsp;deserialization.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SerializableError&nbsp;Failed&nbsp;to&nbsp;open&nbsp;file&nbsp;for&nbsp;reading.</tt></dd></dl>
+
+<dl><dt><a name="DecompressingFileReader-atEnd"><strong>atEnd</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;more&nbsp;data&nbsp;to&nbsp;be&nbsp;read.</tt></dd></dl>
+
+<dl><dt><a name="DecompressingFileReader-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;the&nbsp;file&nbsp;if&nbsp;open.</tt></dd></dl>
+
+<dl><dt><a name="DecompressingFileReader-isOpen"><strong>isOpen</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;file&nbsp;is&nbsp;currently&nbsp;opened.</tt></dd></dl>
+
+<dl><dt><a name="DecompressingFileReader-read"><strong>read</strong></a>(self)</dt><dd><tt>Reads&nbsp;the&nbsp;next&nbsp;Serializable&nbsp;object&nbsp;from&nbsp;the&nbsp;file.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SerializableError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;error&nbsp;occured&nbsp;while&nbsp;reading&nbsp;from&nbsp;the&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#DecompressingFileReader-close">close</a>()&nbsp;will&nbsp;have&nbsp;been&nbsp;automatically&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="DecompressingFileReader-setDecoderFactory"><strong>setDecoderFactory</strong></a>(self, decoder_factory)</dt><dd><tt>Sets&nbsp;the&nbsp;decoder&nbsp;factory&nbsp;to&nbsp;use&nbsp;for&nbsp;decompressing&nbsp;data.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;decoder_factory&nbsp;&nbsp;&nbsp;The&nbsp;decoder&nbsp;factory&nbsp;to&nbsp;use&nbsp;for&nbsp;decompresing.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;invalid_argument&nbsp;&nbsp;<a href="#DecompressingFileReader-isOpen">isOpen</a>()&nbsp;is&nbsp;not&nbsp;False.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EngineOutputDataFileError">class <strong>EngineOutputDataFileError</strong></a>(<a href="sm.eod.html#EODError">sm.eod.EODError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>An&nbsp;error&nbsp;raised&nbsp;when&nbsp;EngineOutputData&nbsp;file&nbsp;operations&nbsp;go&nbsp;bad.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="EngineOutputDataFileError-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initializes&nbsp;the&nbsp;error.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;message&nbsp;&nbsp;&nbsp;Message&nbsp;describing&nbsp;error.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="sm.eod.html#EODError">sm.eod.EODError</a>:<br>
+<dl><dt><a name="EngineOutputDataFileError-className"><strong>className</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;class&nbsp;as&nbsp;a&nbsp;string.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EngineOutputDataFileReader">class <strong>EngineOutputDataFileReader</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Reads&nbsp;log&nbsp;files.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="EngineOutputDataFileReader-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initializes&nbsp;the&nbsp;reader</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileReader-areFilesOpen"><strong>areFilesOpen</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;files&nbsp;are&nbsp;currently&nbsp;opened.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileReader-closeFiles"><strong>closeFiles</strong></a>(self)</dt><dd><tt>Closes&nbsp;any&nbsp;open&nbsp;files.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileReader-endOfData"><strong>endOfData</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;there&nbsp;is&nbsp;more&nbsp;data&nbsp;to&nbsp;be&nbsp;read.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileReader-openFiles"><strong>openFiles</strong></a>(self, objects_to_read_or_dir, dir)</dt><dd><tt>Opens&nbsp;all&nbsp;the&nbsp;'.fll'&nbsp;files&nbsp;in&nbsp;the&nbsp;specified&nbsp;directory&nbsp;for&nbsp;reading.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;objects_to_read_or_dir&nbsp;&nbsp;&nbsp;&nbsp;A&nbsp;VectorInt8&nbsp;containing&nbsp;the&nbsp;object&nbsp;IDs&nbsp;of&nbsp;the&nbsp;objects<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to&nbsp;read,&nbsp;or&nbsp;a&nbsp;directory&nbsp;path&nbsp;to&nbsp;read&nbsp;all&nbsp;object&nbsp;from.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;dir&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;directory&nbsp;to&nbsp;read&nbsp;log&nbsp;files&nbsp;from&nbsp;if&nbsp;objects_to_read_or_dir<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is&nbsp;a&nbsp;VectorInt8&nbsp;instance.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;<a href="#EngineOutputDataFileError">EngineOutputDataFileError</a>&nbsp;No&nbsp;log&nbsp;files&nbsp;in&nbsp;dir,&nbsp;dir&nbsp;is&nbsp;not&nbsp;a&nbsp;directory,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or&nbsp;a&nbsp;log&nbsp;file&nbsp;could&nbsp;not&nbsp;be&nbsp;opened&nbsp;for&nbsp;reading.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileReader-readData"><strong>readData</strong></a>(self)</dt><dd><tt>Assemble&nbsp;an&nbsp;EngineOutputData&nbsp;object&nbsp;from&nbsp;the&nbsp;log&nbsp;files.<br>
+&nbsp;<br>
+Reads&nbsp;an&nbsp;EngineOutputData&nbsp;from&nbsp;each&nbsp;file,&nbsp;and&nbsp;attaches&nbsp;any&nbsp;sub-objects&nbsp;from&nbsp;it&nbsp;that<br>
+have&nbsp;a&nbsp;corresponding&nbsp;entry&nbsp;in&nbsp;the&nbsp;_objects_to_read&nbsp;vector&nbsp;to&nbsp;a&nbsp;new<br>
+EngineOutputData.&nbsp;<br>
+&nbsp;<br>
+If&nbsp;the&nbsp;ends&nbsp;of&nbsp;the&nbsp;files&nbsp;have&nbsp;ben&nbsp;reached,&nbsp;None&nbsp;is&nbsp;returned.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;<a href="#EngineOutputDataFileError">EngineOutputDataFileError</a>&nbsp;A&nbsp;log&nbsp;file&nbsp;did&nbsp;not&nbsp;contain&nbsp;an&nbsp;EngineOutputData<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;top&nbsp;level&nbsp;object.&nbsp;<a href="#EngineOutputDataFileReader-closeFiles">closeFiles</a>()&nbsp;will&nbsp;have&nbsp;been<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;automatically&nbsp;called.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SerializableError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;error&nbsp;occured&nbsp;while&nbsp;reading&nbsp;from&nbsp;the&nbsp;files,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;or,&nbsp;duplicate&nbsp;object&nbsp;IDs&nbsp;were&nbsp;found&nbsp;in&nbsp;different<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;log&nbsp;files.&nbsp;<a href="#EngineOutputDataFileReader-closeFiles">closeFiles</a>()&nbsp;will&nbsp;have&nbsp;been&nbsp;automatically<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;called.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="EngineOutputDataFileWriter">class <strong>EngineOutputDataFileWriter</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Writes&nbsp;log&nbsp;files.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="EngineOutputDataFileWriter-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initializes&nbsp;the&nbsp;writer.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileWriter-areFilesOpen"><strong>areFilesOpen</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;files&nbsp;are&nbsp;currently&nbsp;opened.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileWriter-closeFiles"><strong>closeFiles</strong></a>(self)</dt><dd><tt>Closes&nbsp;any&nbsp;open&nbsp;files.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileWriter-newFiles"><strong>newFiles</strong></a>(self, log_file_path, file_buffer_size<font color="#909090">=32768</font>)</dt><dd><tt>Open&nbsp;a&nbsp;new&nbsp;logfile&nbsp;for&nbsp;writing.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;log_file_path&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;path&nbsp;to&nbsp;a&nbsp;file&nbsp;to&nbsp;write&nbsp;to.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;file_buffer_size&nbsp;&nbsp;The&nbsp;size&nbsp;of&nbsp;the&nbsp;file&nbsp;buffer.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;<a href="#EngineOutputDataFileError">EngineOutputDataFileError</a>&nbsp;An&nbsp;error&nbsp;occurred&nbsp;while&nbsp;opening&nbsp;the&nbsp;files.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileWriter-objectIDToFileName"><strong>objectIDToFileName</strong></a>(object_id)</dt><dd><tt>Returns&nbsp;the&nbsp;filename&nbsp;that&nbsp;represents&nbsp;the&nbsp;data&nbsp;specified&nbsp;by&nbsp;object_id.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;object_id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;object&nbsp;ID&nbsp;to&nbsp;get&nbsp;the&nbsp;filename&nbsp;for.<br>
+&nbsp;<br>
+The&nbsp;currently&nbsp;known&nbsp;object&nbsp;IDs&nbsp;are:<br>
+&nbsp;&nbsp;-&nbsp;TimingOutputData&nbsp;"Timing"<br>
+&nbsp;&nbsp;-&nbsp;HeadOutputData&nbsp;"Head"<br>
+&nbsp;&nbsp;-&nbsp;HeadOutputDataV2&nbsp;"HeadV2"<br>
+&nbsp;&nbsp;-&nbsp;EyeOutputData&nbsp;"Eye"<br>
+&nbsp;&nbsp;-&nbsp;FeatureSetsByCamera&nbsp;"Features"<br>
+&nbsp;&nbsp;-&nbsp;FaceOutputData&nbsp;"Face"<br>
+&nbsp;&nbsp;-&nbsp;FaceOutputDataV2&nbsp;"FaceV2"<br>
+&nbsp;&nbsp;-&nbsp;WorldOutputData&nbsp;"World"<br>
+&nbsp;&nbsp;-&nbsp;WorldOutputDataV2&nbsp;"WorldV2"<br>
+&nbsp;&nbsp;-&nbsp;EngineStateOutputData&nbsp;"EngineState"<br>
+&nbsp;&nbsp;-&nbsp;InertiaOutputData&nbsp;"Inertia"<br>
+&nbsp;&nbsp;-&nbsp;CustomEventOutputData&nbsp;"Custom_Events"<br>
+&nbsp;&nbsp;-&nbsp;GPSOutputData&nbsp;"GPS"<br>
+&nbsp;&nbsp;-&nbsp;GPSOutputDataV2&nbsp;"GPSV2"<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;<a href="#EngineOutputDataFileError">EngineOutputDataFileError</a>&nbsp;The&nbsp;object&nbsp;ID&nbsp;is&nbsp;not&nbsp;recognized.</tt></dd></dl>
+
+<dl><dt><a name="EngineOutputDataFileWriter-writeData"><strong>writeData</strong></a>(self, label)</dt><dd><tt>Writes&nbsp;data&nbsp;to&nbsp;the&nbsp;open&nbsp;logfiles.<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;data&nbsp;&nbsp;The&nbsp;EngineOutputData&nbsp;instance&nbsp;to&nbsp;write.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Each&nbsp;top-level&nbsp;sub&nbsp;object&nbsp;that&nbsp;has&nbsp;serializeEnabled()&nbsp;==&nbsp;True&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;corresponds&nbsp;to&nbsp;an&nbsp;open&nbsp;logfile&nbsp;is&nbsp;extracted&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;data&nbsp;and&nbsp;written&nbsp;to&nbsp;file.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FileReader">class <strong>FileReader</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Reads&nbsp;log&nbsp;files.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FileReader-__init__"><strong>__init__</strong></a>(self, file_path<font color="#909090">=None</font>)</dt><dd><tt>Initializes&nbsp;the&nbsp;reader</tt></dd></dl>
+
+<dl><dt><a name="FileReader-atEnd"><strong>atEnd</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;there&nbsp;is&nbsp;no&nbsp;more&nbsp;data&nbsp;to&nbsp;be&nbsp;read.</tt></dd></dl>
+
+<dl><dt><a name="FileReader-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;the&nbsp;file&nbsp;if&nbsp;open.</tt></dd></dl>
+
+<dl><dt><a name="FileReader-isOpen"><strong>isOpen</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;file&nbsp;is&nbsp;currently&nbsp;opened.</tt></dd></dl>
+
+<dl><dt><a name="FileReader-read"><strong>read</strong></a>(self)</dt><dd><tt>Reads&nbsp;the&nbsp;next&nbsp;Serializable&nbsp;object&nbsp;from&nbsp;the&nbsp;file.<br>
+&nbsp;<br>
+Returns&nbsp;a&nbsp;2-tuple&nbsp;of&nbsp;(Serialiable,int)</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="FileWriter">class <strong>FileWriter</strong></a></font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Reads&nbsp;log&nbsp;files.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="FileWriter-__init__"><strong>__init__</strong></a>(self, file_path<font color="#909090">=None</font>)</dt><dd><tt>Initializes&nbsp;the&nbsp;writer</tt></dd></dl>
+
+<dl><dt><a name="FileWriter-close"><strong>close</strong></a>(self)</dt><dd><tt>Close&nbsp;the&nbsp;file&nbsp;if&nbsp;open.</tt></dd></dl>
+
+<dl><dt><a name="FileWriter-isOpen"><strong>isOpen</strong></a>(self)</dt><dd><tt>Returns&nbsp;True&nbsp;if&nbsp;file&nbsp;is&nbsp;currently&nbsp;opened.</tt></dd></dl>
+
+<dl><dt><a name="FileWriter-write"><strong>write</strong></a>(self)</dt><dd><tt>Writes&nbsp;the&nbsp;object&nbsp;to&nbsp;file&nbsp;if&nbsp;serializableEnabled()<br>
+&nbsp;<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;may&nbsp;raise&nbsp;the&nbsp;following&nbsp;exceptions:<br>
+&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;SerializableError&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;An&nbsp;error&nbsp;occured&nbsp;while&nbsp;writing&nbsp;to&nbsp;file.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#FileWriter-close">close</a>()&nbsp;will&nbsp;have&nbsp;been&nbsp;automatically&nbsp;called.</tt></dd></dl>
+
+<dl><dt><a name="FileWriter-writeNoThrow"><strong>writeNoThrow</strong></a>(self)</dt><dd><tt>Writes&nbsp;the&nbsp;object&nbsp;to&nbsp;file&nbsp;if&nbsp;serializableEnabled()<br>
+&nbsp;<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;object&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;Serializable&nbsp;derived&nbsp;object&nbsp;to&nbsp;write.<br>
+&nbsp;<br>
+&nbsp;<br>
+Returns&nbsp;True&nbsp;if&nbsp;no&nbsp;error&nbsp;occurred.&nbsp;If&nbsp;False&nbsp;is&nbsp;returned<br>
+the&nbsp;writer&nbsp;is&nbsp;automatically&nbsp;closed.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SerialPortError">class <strong>SerialPortError</strong></a>(<a href="sm.eod.html#EODError">sm.eod.EODError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Raised&nbsp;when&nbsp;an&nbsp;error&nbsp;occurs&nbsp;dealing&nbsp;with&nbsp;the&nbsp;serial&nbsp;port.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SerialPortError-__init__"><strong>__init__</strong></a>(self, message, timeout<font color="#909090">=False</font>)</dt><dd><tt>Initializes&nbsp;the&nbsp;error&nbsp;object&nbsp;with&nbsp;a&nbsp;message&nbsp;and&nbsp;timeout&nbsp;flag.<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;message&nbsp;&nbsp;&nbsp;Message&nbsp;describing&nbsp;error.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;timeout&nbsp;&nbsp;&nbsp;Flag&nbsp;indicating&nbsp;error&nbsp;is&nbsp;due&nbsp;to&nbsp;a&nbsp;timeout.</tt></dd></dl>
+
+<dl><dt><a name="SerialPortError-timeout"><strong>timeout</strong></a>(self)</dt><dd><tt>Returns&nbsp;true&nbsp;if&nbsp;the&nbsp;error&nbsp;was&nbsp;due&nbsp;to&nbsp;timeout&nbsp;on&nbsp;read&nbsp;or&nbsp;write</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="sm.eod.html#EODError">sm.eod.EODError</a>:<br>
+<dl><dt><a name="SerialPortError-className"><strong>className</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;class&nbsp;as&nbsp;a&nbsp;string.</tt></dd></dl>
+
+</td></tr></table> <p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#ffc8d8">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#000000" face="helvetica, arial"><a name="SocketError">class <strong>SocketError</strong></a>(<a href="sm.eod.html#EODError">sm.eod.EODError</a>)</font></td></tr>
+    
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Raised&nbsp;when&nbsp;an&nbsp;error&nbsp;occurs&nbsp;dealing&nbsp;with&nbsp;the&nbsp;network&nbsp;sockets.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
+<td width="100%">Methods defined here:<br>
+<dl><dt><a name="SocketError-__init__"><strong>__init__</strong></a>(self, message)</dt><dd><tt>Initializes&nbsp;the&nbsp;error<br>
+The&nbsp;arguments&nbsp;are:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;-&nbsp;message&nbsp;&nbsp;&nbsp;Message&nbsp;describing&nbsp;error.</tt></dd></dl>
+
+<hr>
+Methods inherited from <a href="sm.eod.html#EODError">sm.eod.EODError</a>:<br>
+<dl><dt><a name="SocketError-className"><strong>className</strong></a>(self)</dt><dd><tt>Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;the&nbsp;class&nbsp;as&nbsp;a&nbsp;string.</tt></dd></dl>
+
+</td></tr></table></td></tr></table><p>
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="section">
+<tr bgcolor="#55aa55">
+<td colspan=3 valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial"><big><strong>Data</strong></big></font></td></tr>
+    
+<tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<td width="100%"><strong>DEFAULT_PORT_NUMBER</strong> = 2001<br>
+<strong>DEFAULT_TCP_PORT_NUMBER</strong> = 3000<br>
+<strong>MAXIMUM_PORT_NUMBER</strong> = 5000<br>
+<strong>MINIMUM_PORT_NUMBER</strong> = 2000</td></tr></table>
+</body></html>

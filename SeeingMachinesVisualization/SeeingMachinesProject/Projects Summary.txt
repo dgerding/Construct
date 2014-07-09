@@ -1,0 +1,34 @@
+
+- Analytics Compiler:
+Utilizes SMFramework.Testing to apply analytics over a dataset. Stores the result and provides a
+convenient HTML/jQuery-based view of those results.
+
+- BatchDataTransform:
+Applies the transformations defined within a cluster configuration over an arbitrary number of
+raw data recordings.
+
+- CalibrationTool:
+Unfinished/unutilized project; meant to provide a means of automatically configuring a signal
+through data sampling.
+
+- FaceDataGenerator:
+Used for development purposes; generates a CSV recording based on the given parameters.
+
+- MetricsTesting:
+Used for development of the "data quality" metric
+
+- RawDataCollection:
+Listens for signal data and stores the raw data in a processed CSV format. (Readable by any
+application using PlaybackDataStream, data just isn't transformed. Optimal method of capturing
+data, since the results aren't influenced by possibly-incorrect cluster configurations. Data
+captured can be later transformed via BatchDataTransform.)
+
+- SensorConfigurationViewer:
+GUI application for viewing/editing signal cluster configuration files.
+
+- SMFramework:
+Common framework containing code that's used in various projects throughout the solution.
+
+- SMVisualization:
+Application for visually representing faceLAB data recordings in a 3D environment. Can display
+either realtime data or data from a CSV recording.

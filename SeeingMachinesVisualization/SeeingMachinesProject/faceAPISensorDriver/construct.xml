@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SensorTypeSource Name="FaceAPISensor" ID="AA0F1B51-7C50-44D2-8F8C-E1A72DA367CF" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
+	<DataType Name="HeadPose" ID="A841FD8F-56C6-4B9B-99EF-BF0249037FA3">
+		<DataTypeProperty Name="HeadX" ID="01B3DB83-7155-417E-BE56-4C9F6CD86532" Type="float" />
+		<DataTypeProperty Name="HeadY" ID="78492DBA-1A81-4070-82DB-1176AF79CC58" Type="float" />
+		<DataTypeProperty Name="HeadZ" ID="5A7D7677-571A-44B3-95C0-1EBE47901995" Type="float" />
+		
+		<DataTypeProperty Name="LeftEyeX" ID="50B82CE2-B510-45DF-90CB-2516D954140D" Type="float" />
+		<DataTypeProperty Name="LeftEyeY" ID="0125ED93-FE38-4705-9CD5-A38B5F5179A9" Type="float" />
+		<DataTypeProperty Name="LeftEyeZ" ID="1607D213-3F4F-4E5A-9633-B9D6884FB9FD" Type="float" />
+
+		<DataTypeProperty Name="RightEyeX" ID="4D26CAEC-1CE5-4400-B89F-6D908D09B856" Type="float" />
+		<DataTypeProperty Name="RightEyeY" ID="943EA8A9-21A4-476D-A635-D79FFD1B4A90" Type="float" />
+		<DataTypeProperty Name="RightEyeZ" ID="F1912AB0-3CCC-417F-98F9-B71CBA0D9664" Type="float" />
+
+		<DataTypeProperty Name="HeadRotationRadiansX" ID="B43C088C-56FE-41D7-9FF8-C2307A9CCC0C" Type="float" />
+		<DataTypeProperty Name="HeadRotationRadiansY" ID="1318F7A6-22A2-4248-B0B3-C8F19475C3FE" Type="float" />
+		<DataTypeProperty Name="HeadRotationRadiansZ" ID="07A06CC2-7E94-4974-A941-A81507890372" Type="float" />
+
+		<DataTypeProperty Name="Confidence" ID="CF12944B-95DB-4FA3-8A0B-F8748D2BD98C" Type="float" />
+	</DataType>
+</SensorTypeSource>

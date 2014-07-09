@@ -1,0 +1,16 @@
+
+### Building on top of FaceAPI requires:
+
+1. Linking to smft32.lib
+2. Copying of ALL items in the 'faceAPI/bin' folder to the executable's location
+	* DLLs are required for proper operation (faceAPI provides tools for quickly standing up a viewing window, hence the inclusion of Qt DLLs)
+	* The 'resources' folder
+
+### Building with the C++ faceAPISensor project
+
+The C++ sensor code is built into a DLL *only* under Release mode. Building in Debug compiles to an executable for testing logic. The built DLL is output to faceAPISensor/bin/Release. If the C++ code is changed and rebuilt, make sure you:
+
+1. Rebuild in Release mode to get the DLL built
+2. Copy the DLL to the faceAPISensorDriver folder (overwrite the old one)
+3. Rebuild the faceAPISensorDriver so that the DLL will be copied to the driver's output location
+4. Make sure that the FaceAPI-dependent files are also copied to the driver's output location (must be done manually, grab this from faceAPISensor/bin.)

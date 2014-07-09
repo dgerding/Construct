@@ -1,0 +1,24 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SignalR Simple Chat</title>
+</head>
+<body>
+    <script src="Scripts/jquery-1.6.4.min.js" ></script>
+    <script src="Scripts/jquery.signalR-1.0.1.js"></script>
+    <script src="http://daisy.colum.edu/ScrubbeR/signalr/hubs"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var chat = $.connection.testHub;
+            chat.client.TimeChange = function (timeStamp) {
+                document.write("hello");
+            };
+
+            $.connection.hub.start().done(function () {
+            });
+        });
+    </script>
+</body>
+</html>
