@@ -49,10 +49,10 @@ namespace SMVisualization.Visualization
 			FaceData interpretedData = SeeingModule.EvaluateCameraData(m_Group[moduleIndex].SensorConfiguration, faceData, false);
 			m_Group[moduleIndex].UseDirectCameraData(interpretedData);
 
-			LastFaceData[moduleIndex] = faceData;
+			LastFaceData[moduleIndex]= interpretedData;
 
 			if (targetDatabase != null)
-				FaceDataSerialization.WriteFaceDataToDatabase(interpretedData, targetDatabase);
+				FaceDataSerialization.WriteFaceDataToDatabase(faceData, targetDatabase);
 		}
 
 		public void Draw()
@@ -64,7 +64,7 @@ namespace SMVisualization.Visualization
 			{
 				for (int i = 0; i < m_Group.Length; i++)
 				{
-					PersonModel.Draw(m_Group[i], m_RenderOptions.SubjectOptions[i]);
+					PersonModel.Draw(m_Group[i], m_Group, m_RenderOptions.SubjectOptions[i]);
 				}
 			}
 

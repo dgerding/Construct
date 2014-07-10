@@ -145,7 +145,7 @@ namespace SMFramework
 
 			result.FaceTextureData = data.FaceTextureData;
 
-			if (data.CoordinateSystem == FaceData.CoordinateSystemType.Local)
+			if (data.CoordinateSystem == FaceData.CoordinateSystemType.Local || (useInverseMatrix && data.CoordinateSystem == FaceData.CoordinateSystemType.Global))
 			{
 				Vector3 globalRotationRadians = new Vector3(
 					MathHelper.ToRadians(configuration.GlobalRotationDegrees.X),
@@ -178,8 +178,16 @@ namespace SMFramework
 
 				/* What transformations do we need? */
 				Vector2 gazeOffset = new Vector2(localRotationRadians.X + globalRotationRadians.X, localRotationRadians.Y + globalRotationRadians.Y);
-				result.LeftEyeGazeRotation = data.LeftEyeGazeRotation + gazeOffset;
-				result.RightEyeGazeRotation = data.RightEyeGazeRotation + gazeOffset;
+				if (useInverseMatrix)
+				{
+					result.LeftEyeGazeRotation = data.LeftEyeGazeRotation - gazeOffset;
+					result.RightEyeGazeRotation = data.RightEyeGazeRotation - gazeOffset;
+				}
+				else
+				{
+					result.LeftEyeGazeRotation = data.LeftEyeGazeRotation + gazeOffset;
+					result.RightEyeGazeRotation = data.RightEyeGazeRotation + gazeOffset;
+				}
 
 				result.HeadRotation = data.HeadRotation;
 				if (useInverseMatrix)
@@ -207,6 +215,8 @@ namespace SMFramework
 
 		public void UseDirectCameraData(FaceData data)
 		{
+			m_LastFaceData = data;
+
 			SignalLabel = data.SignalLabel;
 
 			m_Person.DataSource					= data;

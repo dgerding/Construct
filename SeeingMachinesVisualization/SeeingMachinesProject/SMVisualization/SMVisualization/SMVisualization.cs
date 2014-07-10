@@ -6,6 +6,8 @@ using System;
 using System.IO;
 using System.Diagnostics;
 using SMVisualization.Visualization;
+using System.Collections.Generic;
+using System.Linq;
 
 /*
  * Built-in model-based world representation
@@ -176,7 +178,7 @@ namespace SMVisualization
 
 		protected override void LoadContent()
 		{
-			this.IsFixedTimeStep = false;
+			this.IsFixedTimeStep = true;
 			Device = GraphicsDevice;
 			Instance = this;
 
@@ -345,6 +347,8 @@ namespace SMVisualization
 				if (currentFace == null)
 					continue;
 
+				float[] attendenceConfidences = new float[Sensors.SensorConfigurations.Count];
+
 				if (currentFace.CoordinateSystem == FaceData.CoordinateSystemType.Local)
 					currentFace = SeeingModule.EvaluateCameraData(Sensors.SensorConfigurations[i], currentFace, false);
 
@@ -361,18 +365,25 @@ namespace SMVisualization
 						targetFace = SeeingModule.EvaluateCameraData(Sensors.SensorConfigurations[j], targetFace, false);
 
 					float thisFrameAttendance = facialAttendanceDetector.GetFacialAttendance(currentFace, targetFace);
-
-					if (thisFrameAttendance < 0.4f)
-						continue;
-
-					Vector3 attendanceLineStart = currentFace.HeadPosition;
-					Vector3 attendenceLineVector = targetFace.HeadPosition - currentFace.HeadPosition;
-
-					attendanceLineStart += attendenceLineVector / 5;
-					Vector3 attendenceLineEnd = attendanceLineStart + attendenceLineVector / 5;
-
-					m_PrimitiveBatch.AddLine(attendanceLineStart, attendenceLineEnd);
+					attendenceConfidences[j] = thisFrameAttendance;
 				}
+
+				var searchableConfidences = new List<float>(attendenceConfidences);
+				float bestConfidence = searchableConfidences.Max();
+
+				if (bestConfidence <= 0.5)
+					continue;
+
+				int bestIndex = searchableConfidences.FindIndex(f => f == bestConfidence);
+
+				FaceData attendedFace = World.LastFaceData[bestIndex];
+				Vector3 attendanceLineStart = currentFace.HeadPosition;
+				Vector3 attendenceLineVector = attendedFace.HeadPosition - currentFace.HeadPosition;
+
+				attendanceLineStart += attendenceLineVector / 5;
+				Vector3 attendenceLineEnd = attendanceLineStart + attendenceLineVector / 5;
+
+				m_PrimitiveBatch.AddLine(attendanceLineStart, attendenceLineEnd);
 			}
 
 			m_PrimitiveBatch.DrawPolygons(Camera.ViewspaceMatrix);

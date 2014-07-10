@@ -46,7 +46,7 @@ namespace SMVisualization.Visualization.Worlds
 			m_DisplayCache[newData.SignalLabel] = newPerson;
 		}
 
-		public void Draw(SeeingModule data, SubjectRenderOptions renderOptions)
+		public void Draw(SeeingModule data, SeeingModule[] moduleBatch, SubjectRenderOptions renderOptions)
 		{
 			//	If no render options were specified, use the default options (new instance)
 			if (renderOptions == null)
@@ -68,6 +68,9 @@ namespace SMVisualization.Visualization.Worlds
 			{
 				m_PrimitiveBatch.ActiveColor = Color.Tan;
 				ShapeHelper.DrawEllipse(Vector3.Zero, person.Size, m_PrimitiveBatch);
+				//Vector3 sphereSize = new Vector3((person.Size.X + person.Size.Y + person.Size.Z) / 3.0f);
+				//ShapeHelper.DrawEllipse(Vector3.Zero, sphereSize, m_PrimitiveBatch);
+
 				m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
 			}
 
@@ -85,6 +88,40 @@ namespace SMVisualization.Visualization.Worlds
 				}
 			}
 
+			if (renderOptions.DrawHeadOrientationAttendance)
+			{
+				Color previousColor = m_PrimitiveBatch.ActiveColor;
+
+				Vector3 headOrientationNormal = new Vector3(
+					(float)(Math.Sin(-person.RotationEuler.Y) * Math.Cos(person.RotationEuler.X)),
+					(float)Math.Sin(person.RotationEuler.X),
+					-(float)(Math.Cos(-person.RotationEuler.Y) * Math.Cos(person.RotationEuler.X))
+				) * 20.0f;
+
+				FacialAttendanceDetector facialAttendanceDetector = new FacialAttendanceDetector();
+				foreach (var module in moduleBatch)
+				{
+					if (module == data)
+						continue;
+
+					Vector3 currentTargetHeadSize;
+					if (m_DisplayCache.ContainsKey(module.SignalLabel))
+						currentTargetHeadSize = m_DisplayCache[module.SignalLabel].Size;
+					else
+						currentTargetHeadSize = person.Size;
+
+					if (facialAttendanceDetector.IsHeadOrientationAttending(data.LastFaceData, module.LastFaceData, currentTargetHeadSize))
+					{
+						m_PrimitiveBatch.ActiveColor = Color.Green;
+						break;
+					}
+				}
+
+				m_PrimitiveBatch.AddLine(person.WorldSpacePosition, person.WorldSpacePosition + headOrientationNormal);
+
+				m_PrimitiveBatch.ActiveColor = previousColor;
+			}
+
 			if (renderOptions.DrawGazeRay)
 				m_PrimitiveBatch.AddLine(person.WorldSpaceForeheadPosition, person.VergencePoint);
 
@@ -92,7 +129,7 @@ namespace SMVisualization.Visualization.Worlds
 			{
 				Vector3 vergenceNormal = (person.VergencePoint - person.WorldSpaceForeheadPosition);
 				vergenceNormal /= vergenceNormal.Length();
-				m_PrimitiveBatch.AddLine(person.WorldSpaceForeheadPosition, person.WorldSpaceForeheadPosition + vergenceNormal * 100.0F);
+				m_PrimitiveBatch.AddLine(person.WorldSpaceForeheadPosition, person.WorldSpaceForeheadPosition + vergenceNormal * 10.0F);
 			}
 
 			float rayLength = Units.Centimeter * 5.0F;

@@ -8,6 +8,6 @@ namespace SMVisualization.Visualization
 {
 	public interface PersonRenderer
 	{
-		void Draw(SeeingModule source, SubjectRenderOptions renderOptions);
+		void Draw(SeeingModule source, SeeingModule[] moduleBatch, SubjectRenderOptions renderOptions);
 	}
 }

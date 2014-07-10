@@ -389,52 +389,54 @@ namespace SMFramework
 			}
 
 #else
-			CurrentData = new FaceData();
+			var newData = new FaceData();
 
 			//	Fill fake geometry
-
-			CurrentData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
-			CurrentData.HeadPosition = new Vector3(0.1f, 0.1f, 0.1f);
+			newData.SignalLabel = CurrentData.SignalLabel;
+			newData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
+			newData.HeadPosition = new Vector3(0.1f, 0.1f, 0.1f);
 
 			const float featuresPlaneZ = -Units.Meter * 0.075f;
 
-			CurrentData.LeftEyebrowVertices = new List<Vector3>();
-			CurrentData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 6, Units.Centimeter * 2, featuresPlaneZ));
-			CurrentData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 4, Units.Centimeter * 2.5f, featuresPlaneZ));
-			CurrentData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 2, Units.Centimeter * 2, featuresPlaneZ));
+			newData.LeftEyebrowVertices = new List<Vector3>();
+			newData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 6, Units.Centimeter * 2, featuresPlaneZ));
+			newData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 4, Units.Centimeter * 2.5f, featuresPlaneZ));
+			newData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 2, Units.Centimeter * 2, featuresPlaneZ));
 
-			CurrentData.RightEyebrowVertices = new List<Vector3>();
-			CurrentData.RightEyebrowVertices.Add(new Vector3(Units.Centimeter * 2, Units.Centimeter * 2, featuresPlaneZ));
-			CurrentData.RightEyebrowVertices.Add(new Vector3(Units.Centimeter * 4, Units.Centimeter * 2.5f, featuresPlaneZ));
-			CurrentData.RightEyebrowVertices.Add(new Vector3(Units.Centimeter * 6, Units.Centimeter * 2, featuresPlaneZ));
+			newData.RightEyebrowVertices = new List<Vector3>();
+			newData.RightEyebrowVertices.Add(new Vector3(Units.Centimeter * 2, Units.Centimeter * 2, featuresPlaneZ));
+			newData.RightEyebrowVertices.Add(new Vector3(Units.Centimeter * 4, Units.Centimeter * 2.5f, featuresPlaneZ));
+			newData.RightEyebrowVertices.Add(new Vector3(Units.Centimeter * 6, Units.Centimeter * 2, featuresPlaneZ));
 
-			CurrentData.MouthOuterUpperLipVertices = new List<Vector3>();
-			CurrentData.MouthOuterUpperLipVertices.Add(new Vector3(Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
-			CurrentData.MouthOuterUpperLipVertices.Add(new Vector3(Units.Centimeter * 2, -Units.Centimeter * 6.2f, featuresPlaneZ));
-			CurrentData.MouthOuterUpperLipVertices.Add(new Vector3(0, -Units.Centimeter * 6, featuresPlaneZ));
-			CurrentData.MouthOuterUpperLipVertices.Add(new Vector3(-Units.Centimeter * 2, -Units.Centimeter * 6.2f, featuresPlaneZ));
-			CurrentData.MouthOuterUpperLipVertices.Add(new Vector3(-Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthOuterUpperLipVertices = new List<Vector3>();
+			newData.MouthOuterUpperLipVertices.Add(new Vector3(Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthOuterUpperLipVertices.Add(new Vector3(Units.Centimeter * 2, -Units.Centimeter * 6.2f, featuresPlaneZ));
+			newData.MouthOuterUpperLipVertices.Add(new Vector3(0, -Units.Centimeter * 6, featuresPlaneZ));
+			newData.MouthOuterUpperLipVertices.Add(new Vector3(-Units.Centimeter * 2, -Units.Centimeter * 6.2f, featuresPlaneZ));
+			newData.MouthOuterUpperLipVertices.Add(new Vector3(-Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
 
-			CurrentData.MouthInnerUpperLipVertices = new List<Vector3>();
-			CurrentData.MouthInnerUpperLipVertices.Add(new Vector3(Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
-			CurrentData.MouthInnerUpperLipVertices.Add(new Vector3(Units.Centimeter * 1.67f, -Units.Centimeter * 6.5f, featuresPlaneZ));
-			CurrentData.MouthInnerUpperLipVertices.Add(new Vector3(0, -Units.Centimeter * 6.3f, featuresPlaneZ));
-			CurrentData.MouthInnerUpperLipVertices.Add(new Vector3(-Units.Centimeter * 1.67f, -Units.Centimeter * 6.5f, featuresPlaneZ));
-			CurrentData.MouthInnerUpperLipVertices.Add(new Vector3(-Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthInnerUpperLipVertices = new List<Vector3>();
+			newData.MouthInnerUpperLipVertices.Add(new Vector3(Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthInnerUpperLipVertices.Add(new Vector3(Units.Centimeter * 1.67f, -Units.Centimeter * 6.5f, featuresPlaneZ));
+			newData.MouthInnerUpperLipVertices.Add(new Vector3(0, -Units.Centimeter * 6.3f, featuresPlaneZ));
+			newData.MouthInnerUpperLipVertices.Add(new Vector3(-Units.Centimeter * 1.67f, -Units.Centimeter * 6.5f, featuresPlaneZ));
+			newData.MouthInnerUpperLipVertices.Add(new Vector3(-Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
 
-			CurrentData.MouthInnerLowerLipVertices = new List<Vector3>();
-			CurrentData.MouthInnerLowerLipVertices.Add(new Vector3(Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
-			CurrentData.MouthInnerLowerLipVertices.Add(new Vector3(Units.Centimeter * 1.67f, -Units.Centimeter * 7.5f, featuresPlaneZ));
-			CurrentData.MouthInnerLowerLipVertices.Add(new Vector3(0, -Units.Centimeter * 7.7f, featuresPlaneZ));
-			CurrentData.MouthInnerLowerLipVertices.Add(new Vector3(-Units.Centimeter * 1.67f, -Units.Centimeter * 7.5f, featuresPlaneZ));
-			CurrentData.MouthInnerLowerLipVertices.Add(new Vector3(-Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthInnerLowerLipVertices = new List<Vector3>();
+			newData.MouthInnerLowerLipVertices.Add(new Vector3(Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthInnerLowerLipVertices.Add(new Vector3(Units.Centimeter * 1.67f, -Units.Centimeter * 7.5f, featuresPlaneZ));
+			newData.MouthInnerLowerLipVertices.Add(new Vector3(0, -Units.Centimeter * 7.7f, featuresPlaneZ));
+			newData.MouthInnerLowerLipVertices.Add(new Vector3(-Units.Centimeter * 1.67f, -Units.Centimeter * 7.5f, featuresPlaneZ));
+			newData.MouthInnerLowerLipVertices.Add(new Vector3(-Units.Centimeter * 3.5f, -Units.Centimeter * 7, featuresPlaneZ));
 
-			CurrentData.MouthOuterLowerLipVertices = new List<Vector3>();
-			CurrentData.MouthOuterLowerLipVertices.Add(new Vector3(Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
-			CurrentData.MouthOuterLowerLipVertices.Add(new Vector3(Units.Centimeter * 2, -Units.Centimeter * 7.8f, featuresPlaneZ));
-			CurrentData.MouthOuterLowerLipVertices.Add(new Vector3(0, -Units.Centimeter * 8, featuresPlaneZ));
-			CurrentData.MouthOuterLowerLipVertices.Add(new Vector3(-Units.Centimeter * 2, -Units.Centimeter * 7.8f, featuresPlaneZ));
-			CurrentData.MouthOuterLowerLipVertices.Add(new Vector3(-Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthOuterLowerLipVertices = new List<Vector3>();
+			newData.MouthOuterLowerLipVertices.Add(new Vector3(Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
+			newData.MouthOuterLowerLipVertices.Add(new Vector3(Units.Centimeter * 2, -Units.Centimeter * 7.8f, featuresPlaneZ));
+			newData.MouthOuterLowerLipVertices.Add(new Vector3(0, -Units.Centimeter * 8, featuresPlaneZ));
+			newData.MouthOuterLowerLipVertices.Add(new Vector3(-Units.Centimeter * 2, -Units.Centimeter * 7.8f, featuresPlaneZ));
+			newData.MouthOuterLowerLipVertices.Add(new Vector3(-Units.Centimeter * 4, -Units.Centimeter * 7, featuresPlaneZ));
+
+			CurrentData = newData;
 
 			return true;
 #endif

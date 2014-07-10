@@ -14,13 +14,14 @@ namespace SMVisualization
 		public bool DrawEyeBrows = false;
 		public bool DrawEyes = true;
 		public bool DrawPupils = false;
-		public bool DrawGazeRay = true;
+		public bool DrawGazeRay = false;
 		public bool DrawExtendedGazeRay = false;
 		public bool DrawMouth = false;
 		public bool DrawSubject = true;
 		public bool DrawCameraStream = false;
 		public bool DrawLeftEyeGaze = true;
 		public bool DrawRightEyeGaze = true;
-		public bool DrawFacialAttendanceInfo = true;
+		public bool DrawFacialAttendanceInfo = false;
+		public bool DrawHeadOrientationAttendance = true;
 	}
 }
