@@ -340,7 +340,7 @@ namespace SMVisualization
 			FacialAttendanceDetector facialAttendanceDetector = new FacialAttendanceDetector();
 			for (int i = 0; i < World.LastFaceData.Length; i++)
 			{
-				if (!m_RenderOptions.SubjectOptions[i].DrawFacialAttendanceInfo)
+				if (!m_RenderOptions.SubjectOptions[i].DrawFacialAttendanceInfo || !m_RenderOptions.SubjectOptions[i].DrawSubject)
 					continue;
 
 				FaceData currentFace = World.LastFaceData[i];

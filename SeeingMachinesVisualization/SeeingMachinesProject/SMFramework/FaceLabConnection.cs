@@ -178,20 +178,22 @@ namespace SMFramework
 
 						if (eod != null)
 						{
-							CurrentData = new FaceData();
+							var newData = new FaceData();
+							newData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
+							newData.SignalLabel = newData.SignalLabel;
 
 							EngineOutputData outputData = eod;
 
 							FaceOutputDataV2 faceOutput = outputData.FaceOutputData();
 							if (faceOutput != null)
 							{
-								CurrentData.WearingGlasses = faceOutput.WearingGlasses() == WearingGlassesType.WEARING_GLASSES_YES;
-								CurrentData.LandmarkCount = faceOutput.FaceLandmarks().Size();
+								newData.WearingGlasses = faceOutput.WearingGlasses() == WearingGlassesType.WEARING_GLASSES_YES;
+								newData.LandmarkCount = faceOutput.FaceLandmarks().Size();
 
 								FaceTextureOutputData faceTexture = faceOutput.FaceTexture();
 								if (faceTexture != null)
 								{
-									CurrentData.FaceTextureData = faceTexture.FaceTexture();
+									newData.FaceTextureData = faceTexture.FaceTexture();
 								}
 
 								FaceLandmarkMap landmarkMap = faceOutput.FaceLandmarks();
@@ -220,13 +222,13 @@ namespace SMFramework
 										faceOutlineUVs.Add(new Vector2(currentOutlineLandmark.ftc.u, currentOutlineLandmark.ftc.v));
 									}
 
-									CurrentData.FaceBoundsVertices = faceOutlineVertices;
-									CurrentData.FaceBoundsUVs = faceOutlineUVs;
+									newData.FaceBoundsVertices = faceOutlineVertices;
+									newData.FaceBoundsUVs = faceOutlineUVs;
 								}
 								else
 								{
-									CurrentData.FaceBoundsVertices = null;
-									CurrentData.FaceBoundsUVs = null;
+									newData.FaceBoundsVertices = null;
+									newData.FaceBoundsUVs = null;
 								}
 								#endregion
 
@@ -236,40 +238,40 @@ namespace SMFramework
 								if (LandmarkMapHasMouthOutline(landmarkMap))
 								{
 									//	Points added from top-to-bottom, left-to-right
-									CurrentData.MouthOuterUpperLipVertices = new List<Vector3>();
-									CurrentData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(4).fc));
-									CurrentData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(100).fc));
-									CurrentData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(101).fc));
-									CurrentData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(102).fc));
-									CurrentData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(5).fc));
+									newData.MouthOuterUpperLipVertices = new List<Vector3>();
+									newData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(4).fc));
+									newData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(100).fc));
+									newData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(101).fc));
+									newData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(102).fc));
+									newData.MouthOuterUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(5).fc));
 
-									CurrentData.MouthInnerUpperLipVertices = new List<Vector3>();
-									CurrentData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(200).fc));
-									CurrentData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(201).fc));
-									CurrentData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(202).fc));
-									CurrentData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(203).fc));
-									CurrentData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(204).fc));
+									newData.MouthInnerUpperLipVertices = new List<Vector3>();
+									newData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(200).fc));
+									newData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(201).fc));
+									newData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(202).fc));
+									newData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(203).fc));
+									newData.MouthInnerUpperLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(204).fc));
 
-									CurrentData.MouthInnerLowerLipVertices = new List<Vector3>();
-									CurrentData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(200).fc));
-									CurrentData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(207).fc));
-									CurrentData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(206).fc));
-									CurrentData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(205).fc));
-									CurrentData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(204).fc));
+									newData.MouthInnerLowerLipVertices = new List<Vector3>();
+									newData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(200).fc));
+									newData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(207).fc));
+									newData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(206).fc));
+									newData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(205).fc));
+									newData.MouthInnerLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(204).fc));
 
-									CurrentData.MouthOuterLowerLipVertices = new List<Vector3>();
-									CurrentData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(4).fc));
-									CurrentData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(105).fc));
-									CurrentData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(104).fc));
-									CurrentData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(103).fc));
-									CurrentData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(5).fc));
+									newData.MouthOuterLowerLipVertices = new List<Vector3>();
+									newData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(4).fc));
+									newData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(105).fc));
+									newData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(104).fc));
+									newData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(103).fc));
+									newData.MouthOuterLowerLipVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(5).fc));
 								}
 								else
 								{
-									CurrentData.MouthOuterUpperLipVertices = null;
-									CurrentData.MouthInnerUpperLipVertices = null;
-									CurrentData.MouthInnerLowerLipVertices = null;
-									CurrentData.MouthOuterLowerLipVertices = null;
+									newData.MouthOuterUpperLipVertices = null;
+									newData.MouthInnerUpperLipVertices = null;
+									newData.MouthInnerLowerLipVertices = null;
+									newData.MouthOuterLowerLipVertices = null;
 								}
 
 								#endregion
@@ -278,26 +280,26 @@ namespace SMFramework
 
 								if (LandmarkMapHasLeftEyebrow(landmarkMap))
 								{
-									CurrentData.LeftEyebrowVertices = new List<Vector3>();
-									CurrentData.LeftEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(400).fc));
-									CurrentData.LeftEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(401).fc));
-									CurrentData.LeftEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(402).fc));
+									newData.LeftEyebrowVertices = new List<Vector3>();
+									newData.LeftEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(400).fc));
+									newData.LeftEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(401).fc));
+									newData.LeftEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(402).fc));
 								}
 								else
 								{
-									CurrentData.LeftEyebrowVertices = null;
+									newData.LeftEyebrowVertices = null;
 								}
 
 								if (LandmarkMapHasRightEyebrow(landmarkMap))
 								{
-									CurrentData.RightEyebrowVertices = new List<Vector3>();
-									CurrentData.RightEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(300).fc));
-									CurrentData.RightEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(301).fc));
-									CurrentData.RightEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(302).fc));
+									newData.RightEyebrowVertices = new List<Vector3>();
+									newData.RightEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(300).fc));
+									newData.RightEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(301).fc));
+									newData.RightEyebrowVertices.Add(FaceCoordinateToXNA3(landmarkMap.Get(302).fc));
 								}
 								else
 								{
-									CurrentData.RightEyebrowVertices = null;
+									newData.RightEyebrowVertices = null;
 								}
 
 								#endregion
@@ -308,13 +310,13 @@ namespace SMFramework
 							HeadOutputDataV2 headOutput = outputData.HeadOutputData();
 							if (headOutput != null)
 							{
-								CurrentData.HeadPosition = SeeingMachinesVectorToXNA(headOutput.HeadPosition());
-								CurrentData.RightEyePosition = SeeingMachinesVectorToXNA(headOutput.HeadEyeBallPos(EyeId.RIGHT_EYE));
-								CurrentData.LeftEyePosition = SeeingMachinesVectorToXNA(headOutput.HeadEyeBallPos(EyeId.LEFT_EYE));
+								newData.HeadPosition = SeeingMachinesVectorToXNA(headOutput.HeadPosition());
+								newData.RightEyePosition = SeeingMachinesVectorToXNA(headOutput.HeadEyeBallPos(EyeId.RIGHT_EYE));
+								newData.LeftEyePosition = SeeingMachinesVectorToXNA(headOutput.HeadEyeBallPos(EyeId.LEFT_EYE));
 
-								CurrentData.HeadRotation = SeeingMachinesVectorToXNA(headOutput.HeadRotation());
+								newData.HeadRotation = SeeingMachinesVectorToXNA(headOutput.HeadRotation());
 
-								CurrentData.HeadPositionConfidence = (float)headOutput.HeadPositionConfidence();
+								newData.HeadPositionConfidence = (float)headOutput.HeadPositionConfidence();
 							}
 
 							EyeOutputData eyeOutput = outputData.EyeOutputData();
@@ -323,37 +325,37 @@ namespace SMFramework
 								PupilOutputData pupilOutput = outputData.EyeOutputData().PupilOutputData();
 								if (pupilOutput != null)
 								{
-									CurrentData.RightPupilDiameter = pupilOutput.PupilDiameter(0);
-									CurrentData.LeftPupilDiameter = pupilOutput.PupilDiameter(1);
+									newData.RightPupilDiameter = pupilOutput.PupilDiameter(0);
+									newData.LeftPupilDiameter = pupilOutput.PupilDiameter(1);
 
-									CurrentData.RightPupilPosition = SeeingMachinesVectorToXNA3(pupilOutput.PupilPosition(0));
-									CurrentData.LeftPupilPosition = SeeingMachinesVectorToXNA3(pupilOutput.PupilPosition(1));
+									newData.RightPupilPosition = SeeingMachinesVectorToXNA3(pupilOutput.PupilPosition(0));
+									newData.LeftPupilPosition = SeeingMachinesVectorToXNA3(pupilOutput.PupilPosition(1));
 								}
 
 								EyeClosureOutputData closureOutput = eyeOutput.EyeClosureOutputData();
 								if (closureOutput != null)
 								{
-									CurrentData.IsBlinking = closureOutput.Blinking();
-									CurrentData.RightEyeClosure = closureOutput.EyeClosure((int)EyeId.RIGHT_EYE);
-									CurrentData.LeftEyeClosure = closureOutput.EyeClosure((int)EyeId.LEFT_EYE);
-									CurrentData.RightEyeClosureConfidence = closureOutput.EyeClosureConfidence((int)EyeId.RIGHT_EYE);
-									CurrentData.LeftEyeClosureConfidence = closureOutput.EyeClosureConfidence((int)EyeId.LEFT_EYE);
+									newData.IsBlinking = closureOutput.Blinking();
+									newData.RightEyeClosure = closureOutput.EyeClosure((int)EyeId.RIGHT_EYE);
+									newData.LeftEyeClosure = closureOutput.EyeClosure((int)EyeId.LEFT_EYE);
+									newData.RightEyeClosureConfidence = closureOutput.EyeClosureConfidence((int)EyeId.RIGHT_EYE);
+									newData.LeftEyeClosureConfidence = closureOutput.EyeClosureConfidence((int)EyeId.LEFT_EYE);
 								}
 
 								GazeOutputData gazeOutput = eyeOutput.GazeOutputData();
 								if (gazeOutput != null)
 								{
-									CurrentData.RightEyeGazeRotation = SeeingMachinesVectorToXNA2(gazeOutput.GazeRotation((int)EyeId.RIGHT_EYE));
-									CurrentData.LeftEyeGazeRotation = SeeingMachinesVectorToXNA2(gazeOutput.GazeRotation((int)EyeId.LEFT_EYE));
-									CurrentData.RightEyeGazeQualityLevel = (int)gazeOutput.GazeQualityLevel((int)EyeId.RIGHT_EYE);
-									CurrentData.LeftEyeGazeQualityLevel = (int)gazeOutput.GazeQualityLevel((int)EyeId.LEFT_EYE);
+									newData.RightEyeGazeRotation = SeeingMachinesVectorToXNA2(gazeOutput.GazeRotation((int)EyeId.RIGHT_EYE));
+									newData.LeftEyeGazeRotation = SeeingMachinesVectorToXNA2(gazeOutput.GazeRotation((int)EyeId.LEFT_EYE));
+									newData.RightEyeGazeQualityLevel = (int)gazeOutput.GazeQualityLevel((int)EyeId.RIGHT_EYE);
+									newData.LeftEyeGazeQualityLevel = (int)gazeOutput.GazeQualityLevel((int)EyeId.LEFT_EYE);
 								}
 							}
 
 
-							CurrentData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
-							CurrentData.SnapshotTimestamp = DateTime.UtcNow;
-							CurrentData.FaceLabFrameIndex = outputData.FrameNum();
+							newData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
+							newData.SnapshotTimestamp = DateTime.UtcNow;
+							newData.FaceLabFrameIndex = outputData.FrameNum();
 
 
 							/* WARNING: This is in a try/catch since GazeVergencePoint fails whenever there isn't
@@ -365,12 +367,14 @@ namespace SMFramework
 							 */
 							try
 							{
-								CurrentData.VergencePosition = SeeingMachinesVectorToXNA3(eodutils.GazeVergencePoint(outputData));
+								newData.VergencePosition = SeeingMachinesVectorToXNA3(eodutils.GazeVergencePoint(outputData));
 							}
 							catch
 							{
-								CurrentData.VergencePosition = Vector3.Zero;
+								newData.VergencePosition = Vector3.Zero;
 							}
+
+							CurrentData = newData;
 						}
 						else
 						{
