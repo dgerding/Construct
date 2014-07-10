@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="a7615745-62f1-41cc-b749-caf4b34e3969" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Construct.Aggregation.wsdl" MetadataType="Wsdl" ID="372297d2-113d-48e7-934d-84742b4eba19" SourceId="1" SourceUrl="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="52230029-8346-42c4-89c5-a65c41bc22dd" SourceId="1" SourceUrl="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" />
+    <MetadataFile FileName="Construct.Aggregation.xsd" MetadataType="Schema" ID="9f77f4af-9964-4bec-ba6f-03754929afd8" SourceId="1" SourceUrl="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="a62d4385-7c2a-49eb-87da-266402a9d890" SourceId="1" SourceUrl="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" />
+    <MetadataFile FileName="Microsoft.SqlServer.Types.xsd" MetadataType="Schema" ID="52eb1a47-9ce2-4943-b84e-071d57ceccb7" SourceId="1" SourceUrl="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="75e6ba83-5d9d-490d-99bf-fff2950bd85c" SourceId="1" SourceUrl="http://davidgerding-pc/IAggregator/0c89f6c2-c749-4085-b0ea-163c419f5ac3/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

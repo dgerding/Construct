@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationWorkspace>
+  <RecentItems>
+    <RecentItem Key="Construct.UX.ViewModels.Data.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.UX.ViewModels.Sources.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="94dff786-8cc8-42e8-ac00-4dabe67ca8a7.-" IsPinned="false" Type="Innovasys.ContentAuthoring.Topics.RecentTopic" Assembly="Innovasys.ContentAuthoring.Topics">
+      <HandlerName>TOPICS</HandlerName>
+      <Category>Topics</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.Data.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.UX.ViewModels.Visualizations.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.UX.ViewModels.Sessions.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.UX.ViewModels.Meaning.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.UX.ViewModels.Learning.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.Sources.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.Server.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.Learning.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Utilities.Shared.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.MessageBrokering.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.MessageBrokering.Serialization.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.Meaning.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Models.Data.PropertyValues.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+    <RecentItem Key="Construct.Server.Entities.dxc.-" IsPinned="false" Type="Innovasys.DocumentX.ContentFiles.RecentContentFile" Assembly="Innovasys.DocumentX.ContentFiles">
+      <HandlerName>CONTENT FILES</HandlerName>
+      <Category>Content Files</Category>
+    </RecentItem>
+  </RecentItems>
+  <ProjectProfileApplicationPlugin DesignTimeProjectProfile="6b2cfb6d-7340-49af-9cfb-d31ec7a4a0d5" DesignTimeProjectLocale="-" />
+</ApplicationWorkspace>

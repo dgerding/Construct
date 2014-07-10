@@ -1,0 +1,23 @@
+[ 07.05.2012 - 11:06:23 ]
+    (MSG) [2] in SMILExtract : openSMILE starting!
+[ 07.05.2012 - 11:06:23 ]
+    (MSG) [2] in SMILExtract : config file is: .\emo_valence_net.conf
+[ 07.05.2012 - 11:06:23 ]
+    (MSG) [2] in cComponentManager : successfully registered 119 component types.
+[ 07.05.2012 - 11:06:23 ]
+    (MSG) [2] in configManager : reading config file '.\emo_valence_net.conf'
+[ 07.05.2012 - 11:06:23 ]
+    (MSG) [2] in instance 'arffsink' : writing ARFF header (989 features)...
+[ 07.05.2012 - 11:06:23 ]
+    (MSG) [2] in instance 'valence' : loading LibSVM model(s) ...
+[ 07.05.2012 - 11:06:25 ]
+    (WARN) [1] in cLibsvmLiveSink : number of selected features (988) does not match the support vector size in the model (987)!
+[ 07.05.2012 - 11:06:25 ]
+    (WARN) [1] in cLibsvmLiveSink : number of features to scale (988) does not match the support vector size in the model (987)!
+[ 07.05.2012 - 11:06:25 ]
+    (MSG) [2] in instance 'valence' : Models loaded. Ready to classify!
+[ 07.05.2012 - 11:06:25 ]
+    (MSG) [2] in cComponentManager : successfully finished createInstances
+                                 (27 component instances were finalised, 1 data memories were finalised)
+[ 07.05.2012 - 11:06:25 ]
+    (MSG) [2] in cComponentManager : starting single thread processing loop

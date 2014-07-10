@@ -1,0 +1,1 @@
+    Private Dim $fieldName As #if($isNullable)Nullable(Of #end$fieldType#if($isArrayType)()#end#if($isNullable))#end#if($isPk || $isInverse) '#end#if($isPk)pk#end#if($isInverse)inverse $inverse#end

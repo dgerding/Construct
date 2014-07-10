@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.UX.Runtime.WindowsClient\bin\Debug\Construct.UX.ViewModels.Meaning.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes />
+  </State>
+  <LastSelectedItem>Construct.UX.ViewModels.Meaning~Construct.UX.ViewModels.Meaning.ViewModel</LastSelectedItem>
+  <item qn="Construct.UX.ViewModels.Meaning~Construct.UX.ViewModels.Meaning.ViewModel">
+    <summary ChangeDateTime="2013-02-15T18:36:26.2901668Z">Meaning ViewModel. This class holds&amp;nbsp;data for the View to present in the user interface, as well as exposing a service interface to the Meaning Model via WCF.</summary>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

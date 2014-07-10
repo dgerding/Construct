@@ -1,0 +1,43 @@
+﻿<docking:RadSplitContainer x:Class="Construct.UX.Views.Visualizations.TimebarVisualization"
+                    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:this="clr-namespace:Construct.UX.Views.Visualizations"
+                    xmlns:telerik="clr-namespace:Telerik.Windows;assembly=Telerik.Windows.Controls"
+                    xmlns:docking="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Docking"
+                    xmlns:controls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+                    xmlns:timebar="clr-namespace:Telerik.Windows.Controls.TimeBar;assembly=Telerik.Windows.Controls.DataVisualization"
+                    xmlns:sparklines="clr-namespace:Telerik.Windows.Controls.Sparklines;assembly=Telerik.Windows.Controls.DataVisualization"
+                    xmlns:dataVisualization="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.DataVisualization"
+                    mc:Ignorable="d" d:DesignHeight="360" d:DesignWidth="800" 
+                    >
+    <docking:RadPaneGroup>
+        <docking:RadDocumentPane Title="Series Visualizer" CanUserClose="False">
+            <docking:RadDocumentPane.Content>
+                <Grid MinHeight="360" MinWidth="800">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+
+                    <dataVisualization:RadTimeBar Grid.Column="0" x:Name="timeBar">
+                        
+                        <ItemsControl ItemsSource="{Binding Sparklines}" x:Name="ContentGrid">
+                            <!--
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            -->
+                        </ItemsControl>
+                        
+                    </dataVisualization:RadTimeBar>
+
+                    <this:Labeler x:Name="labeler" Grid.Column="1" IsEnabled="False" />
+                </Grid>
+            </docking:RadDocumentPane.Content>
+        </docking:RadDocumentPane>
+    </docking:RadPaneGroup>
+</docking:RadSplitContainer>

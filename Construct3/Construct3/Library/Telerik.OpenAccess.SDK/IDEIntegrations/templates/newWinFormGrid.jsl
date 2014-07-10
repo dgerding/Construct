@@ -1,0 +1,117 @@
+package %DefaultNamespace%;
+
+import System.Drawing.*;
+import System.Collections.*;
+import System.ComponentModel.*;
+import System.Windows.Forms.*;
+
+/**
+ * Summary description for %ClassName%.
+ */
+public class %ClassName% extends System.Windows.Forms.Form
+{
+	private System.Windows.Forms.Button buttonSave;
+	private System.Windows.Forms.Button buttonCancel;
+	private System.Windows.Forms.DataGrid dataGrid1;
+	/**
+	 * Required designer variable.
+	 */
+	private System.ComponentModel.IContainer components = null;
+
+	public %ClassName%()
+	{
+		//
+		// Required for Windows Form Designer support
+		//
+		InitializeComponent();
+
+		//
+		// TODO: Add any constructor code after InitializeComponent call
+		//
+	}
+
+	/**
+	 * Clean up any resources being used.
+	 */
+	protected void Dispose(boolean disposing)
+	{
+		if (disposing)
+		{
+			if (components != null)
+			{
+				components.Dispose();
+			}
+		}
+		super.Dispose(disposing);
+	}
+
+	#region Windows Form Designer generated code
+	/**
+	 * Required method for Designer support - do not modify
+	 * the contents of this method with the code editor.
+	 */
+	private void InitializeComponent()
+	{
+		this.components = new System.ComponentModel.Container();
+
+		this.buttonSave = new System.Windows.Forms.Button();
+		this.buttonCancel = new System.Windows.Forms.Button();
+		this.dataGrid1 = new System.Windows.Forms.DataGrid();
+		((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).BeginInit();
+		this.SuspendLayout();
+		// 
+		// buttonSave
+		// 
+		this.buttonSave.set_Anchor(((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right))));
+		this.buttonSave.set_Location(new System.Drawing.Point(613, 10));
+		this.buttonSave.set_Name("buttonSave");
+		this.buttonSave.set_TabIndex(1);
+		this.buttonSave.set_Text("&SaveAll");
+		this.buttonSave.add_Click( new System.EventHandler(this.buttonSave_Click) );
+		// 
+		// buttonCancel
+		// 
+		this.buttonCancel.set_Anchor(((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left))));
+		this.buttonCancel.set_Location(new System.Drawing.Point(8, 10));
+		this.buttonCancel.set_Name("buttonCancel");
+		this.buttonCancel.set_TabIndex(2);
+		this.buttonCancel.set_Text("&CancelAll");
+		this.buttonCancel.add_Click( new System.EventHandler(this.buttonCancel_Click) );
+		// 
+		// dataGrid1
+		// 
+		this.dataGrid1.set_Anchor(((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+			| System.Windows.Forms.AnchorStyles.Left) 
+			| System.Windows.Forms.AnchorStyles.Right))));
+		this.dataGrid1.set_CaptionVisible(false);
+		this.dataGrid1.set_DataMember("");
+		this.dataGrid1.set_HeaderForeColor(System.Drawing.SystemColors.get_ControlText());
+		this.dataGrid1.set_Location(new System.Drawing.Point(8, 50));
+		this.dataGrid1.set_Name("dataGrid1");
+		this.dataGrid1.set_Size(new System.Drawing.Size(680, 424));
+		this.dataGrid1.set_TabIndex(0);
+		// 
+		// %ClassName%
+		// 
+		this.set_AutoScaleBaseSize(new System.Drawing.Size(5, 13));
+		this.set_ClientSize(new System.Drawing.Size(696, 485));
+		this.get_Controls().Add(this.buttonSave);
+		this.get_Controls().Add(this.buttonCancel);
+		this.get_Controls().Add(this.dataGrid1);
+		this.set_Name("%ClassName%");
+		this.set_Text("%ClassName%");
+		((System.ComponentModel.ISupportInitialize)(this.dataGrid1)).EndInit();
+		this.ResumeLayout(false);
+
+	}
+	#endregion
+
+	private void buttonSave_Click (Object sender, System.EventArgs e)
+	{
+		this.objectProvider1.SaveAll();
+	}
+	private void buttonCancel_Click (Object sender, System.EventArgs e)
+	{
+		this.objectProvider1.CancelAll();
+	}
+}

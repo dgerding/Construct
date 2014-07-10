@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="bb077dc4-23af-42a6-85a3-fe53d0ceaaed" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" Protocol="mex" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Construct.Aggregation.wsdl" MetadataType="Wsdl" ID="e74e04ce-4e15-47bf-9ebf-50cb75131b70" SourceId="1" SourceUrl="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" />
+    <MetadataFile FileName="service.wsdl" MetadataType="Wsdl" ID="fca97542-52f2-4a02-80c2-e22ecd4085fe" SourceId="1" SourceUrl="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" />
+    <MetadataFile FileName="Construct.Aggregation.xsd" MetadataType="Schema" ID="02fa57f3-7616-48fe-b5ca-06df34bdf2c1" SourceId="1" SourceUrl="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" />
+    <MetadataFile FileName="service.xsd" MetadataType="Schema" ID="1ea22515-6573-4312-a18c-06ff593f6c2a" SourceId="1" SourceUrl="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" />
+    <MetadataFile FileName="Microsoft.SqlServer.Types.xsd" MetadataType="Schema" ID="04eceed2-669e-4181-9433-4ae4d3799f6c" SourceId="1" SourceUrl="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" />
+    <MetadataFile FileName="Arrays.xsd" MetadataType="Schema" ID="805998e9-c79f-4016-8357-c681cd063ed9" SourceId="1" SourceUrl="http://palpatine/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/mex" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

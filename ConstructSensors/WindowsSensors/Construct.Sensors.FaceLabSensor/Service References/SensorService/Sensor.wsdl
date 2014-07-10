@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Sensor" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:49980/Sensor.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:49980/Sensor.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:49980/Sensor.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Construct.Sensors.SensorBase" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISensor_Start_InputMessage">
+    <wsdl:part name="parameters" element="tns:Start" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_Start_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StartResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_Stop_InputMessage">
+    <wsdl:part name="parameters" element="tns:Stop" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_Stop_OutputMessage">
+    <wsdl:part name="parameters" element="tns:StopResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_EmitData_InputMessage">
+    <wsdl:part name="parameters" element="tns:EmitData" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_EmitData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:EmitDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_GetDataUsingDataContract_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContract" />
+  </wsdl:message>
+  <wsdl:message name="ISensor_GetDataUsingDataContract_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetDataUsingDataContractResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISensor">
+    <wsdl:operation name="Start">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISensor/Start" message="tns:ISensor_Start_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISensor/StartResponse" message="tns:ISensor_Start_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Stop">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISensor/Stop" message="tns:ISensor_Stop_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISensor/StopResponse" message="tns:ISensor_Stop_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EmitData">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISensor/EmitData" message="tns:ISensor_EmitData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISensor/EmitDataResponse" message="tns:ISensor_EmitData_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISensor/GetDataUsingDataContract" message="tns:ISensor_GetDataUsingDataContract_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISensor/GetDataUsingDataContractResponse" message="tns:ISensor_GetDataUsingDataContract_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISensor" type="tns:ISensor">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Start">
+      <soap:operation soapAction="http://tempuri.org/ISensor/Start" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Stop">
+      <soap:operation soapAction="http://tempuri.org/ISensor/Stop" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EmitData">
+      <soap:operation soapAction="http://tempuri.org/ISensor/EmitData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDataUsingDataContract">
+      <soap:operation soapAction="http://tempuri.org/ISensor/GetDataUsingDataContract" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sensor">
+    <wsdl:port name="BasicHttpBinding_ISensor" binding="tns:BasicHttpBinding_ISensor">
+      <soap:address location="http://localhost:49980/Sensor.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

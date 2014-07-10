@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.Server.Runtime.WindowsUX\bin\Debug\Construct.Server.Models.Meaning.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">0</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.Server.Models.Meaning~Construct.Server.Models.Meaning.Model~GetTaxonomyLabels</LastSelectedItem>
+  <item qn="Construct.Server.Models.Meaning~Construct.Server.Models.Meaning.Model">
+    <summary ChangeDateTime="2013-02-14T22:05:57.9277081Z">Meaning Model class. Exposes service interface to add Meaning&amp;nbsp;entities (Labels and Taxonomies)&amp;nbsp;to Construct, as well as fetch collections of those objects.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Meaning~Construct.Server.Models.Meaning.Model~Add">
+    <summary ChangeDateTime="2013-02-14T22:06:54.3093829Z">Service method exposed for inserting an ORM object into the database.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Meaning~Construct.Server.Models.Meaning.Model~GetLabels">
+    <summary ChangeDateTime="2013-02-14T22:07:16.4636131Z">This method is exposed as a service and returns a collection of all Labels (as ORM objects) that are in Construct.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Meaning~Construct.Server.Models.Meaning.Model~GetTaxonomies">
+    <summary ChangeDateTime="2013-02-14T22:07:26.3069815Z">This method is exposed as a service and returns a collection of all Taxonomies (as ORM objects) that are in Construct.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Meaning~Construct.Server.Models.Meaning.Model~GetTaxonomyLabels">
+    <summary ChangeDateTime="2013-02-14T22:09:21.2616453Z">This method is exposed as a service and returns a collection of all TaxonomyLabels (as ORM objects) that are in Construct.</summary>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

@@ -1,0 +1,25 @@
+﻿<views:View x:Class="Construct.UX.Views.Sessions.View"
+            xmlns:sessionView="clr-namespace:Construct.UX.Views.Sessions"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:views="clr-namespace:Construct.UX.Views;assembly=Construct.UX.Views"
+            xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+            mc:Ignorable="d" 
+            d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="LayoutRoot">
+
+        <telerik:RadDocking Name="SessionDock">
+
+            <telerik:RadSplitContainer Name="SessionWorkflowPanelsContainer" MinWidth="500" >
+                <telerik:RadPaneGroup SelectedIndex="0" >
+                    <telerik:RadPane IsPinned="True" Title="Sessions" Header="Sessions">
+                        <sessionView:SessionPanel x:Name="theSessionPanel" />
+                    </telerik:RadPane>
+                </telerik:RadPaneGroup>
+            </telerik:RadSplitContainer>
+
+        </telerik:RadDocking>
+    </Grid>
+</views:View>

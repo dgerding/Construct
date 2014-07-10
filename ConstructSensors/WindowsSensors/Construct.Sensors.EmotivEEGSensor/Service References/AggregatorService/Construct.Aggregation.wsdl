@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://Construct.Aggregation" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://Construct.Aggregation" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://Construct.Aggregation/Imports">
+      <xsd:import namespace="http://Construct.Aggregation" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import namespace="http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Types" />
+      <xsd:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAggregator_GetID_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetID" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_GetID_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIDResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_AddItem_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddItem" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_AddItem_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_AddTelemtry_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddTelemtry" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_AddTelemtry_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddTelemtryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_AddStream_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddStream" />
+  </wsdl:message>
+  <wsdl:message name="IAggregator_AddStream_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddStreamResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAggregator">
+    <wsdl:operation name="GetID">
+      <wsdl:input wsaw:Action="http://Construct.Aggregation/IAggregator/GetID" message="tns:IAggregator_GetID_InputMessage" />
+      <wsdl:output wsaw:Action="http://Construct.Aggregation/IAggregator/GetIDResponse" message="tns:IAggregator_GetID_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddItem">
+      <wsdl:input wsaw:Action="http://Construct.Aggregation/IAggregator/AddItem" message="tns:IAggregator_AddItem_InputMessage" />
+      <wsdl:output wsaw:Action="http://Construct.Aggregation/IAggregator/AddItemResponse" message="tns:IAggregator_AddItem_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddTelemtry">
+      <wsdl:input wsaw:Action="http://Construct.Aggregation/IAggregator/AddTelemtry" message="tns:IAggregator_AddTelemtry_InputMessage" />
+      <wsdl:output wsaw:Action="http://Construct.Aggregation/IAggregator/AddTelemtryResponse" message="tns:IAggregator_AddTelemtry_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddStream">
+      <wsdl:input wsaw:Action="http://Construct.Aggregation/IAggregator/AddStream" message="tns:IAggregator_AddStream_InputMessage" />
+      <wsdl:output wsaw:Action="http://Construct.Aggregation/IAggregator/AddStreamResponse" message="tns:IAggregator_AddStream_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+</wsdl:definitions>

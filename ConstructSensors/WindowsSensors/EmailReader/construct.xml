@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SensorTypeSource Name="EmailReader" ID="405D4464-2BA8-49A9-AD98-99174B2EBCA3" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
+	<DataType Name="Email" ID="C50C1A0C-5251-4FEF-A60B-9224BB3671A5">
+		<DataTypeProperty Name="UserName" ID="{697D58BC-C652-4DCD-AC4A-6B62560378D5}" Type="string" />
+		<DataTypeProperty Name="MessageSenderName" ID="9A24BAFC-E58E-4363-B1A6-AAAEDB6AA515" Type="string" />
+		<DataTypeProperty Name="MessageSenderEmail" ID="6485EA56-A28F-45FA-8BBB-99DB1B48DE63" Type="string" />
+		<DataTypeProperty Name="MessageSenderIP" ID="3D0B40CB-7220-4CE1-893B-80137BEF7CCC" Type="string" />
+		<DataTypeProperty Name="MessageDateUTC" ID="F3AE7086-424F-41AC-A1FF-954E808A6E36" Type="string" />
+		<DataTypeProperty Name="MessageSubject" ID="85436B61-2DAC-4BB5-AB1F-112C9F0A2577" Type="string" />
+		<DataTypeProperty Name="MessageText" ID="F41E1C1E-9D39-44ED-8EE7-BDFE11A81FC2" Type="string" />
+	</DataType>
+</SensorTypeSource>

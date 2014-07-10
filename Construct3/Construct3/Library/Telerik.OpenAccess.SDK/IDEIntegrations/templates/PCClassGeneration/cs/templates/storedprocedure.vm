@@ -1,0 +1,11 @@
+        public static IQueryResult $methodName(IObjectScope scope$paramDecls)
+        {
+            IQuery query = scope.GetSqlQuery("$(sqlExpression)",null,"$(sqlParams)");
+            
+            IQueryResult res = query.Execute(new object[] {$paramNames});
+            int a = res.Count;//Actually executes the query
+            
+            #foreach( $outParam in $outParams )$outParam;#end
+            
+            return res;
+        }

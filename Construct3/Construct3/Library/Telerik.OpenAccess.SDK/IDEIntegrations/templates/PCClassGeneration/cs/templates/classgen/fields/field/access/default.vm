@@ -1,0 +1,6 @@
+        [Telerik.OpenAccess.FieldAlias("$(fieldName)")]
+        public $fieldType#if($isNullable)?#end#if($isArrayType)[]#end $fieldNameCaps
+        {
+            get { return $fieldName; }
+            set { this.$fieldName = value; }
+        }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="17b818ed-4ed4-4eb4-a346-e5a68e7bb968" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="VisualizationsService.disco" MetadataType="Disco" ID="b26fc786-ab18-49f2-bdbb-d9de0c5ad687" SourceId="1" SourceUrl="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?disco" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="593f0399-08a8-4b31-baa2-106c60de7fd3" SourceId="1" SourceUrl="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?wsdl" />
+    <MetadataFile FileName="VisualizationsService.xsd" MetadataType="Schema" ID="b3526dfd-4456-4dfc-a7de-e3e6694f5943" SourceId="1" SourceUrl="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd0" />
+    <MetadataFile FileName="VisualizationsService1.xsd" MetadataType="Schema" ID="49a8a490-8316-4a15-b723-1454e70998db" SourceId="1" SourceUrl="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd1" />
+    <MetadataFile FileName="VisualizationsService2.xsd" MetadataType="Schema" ID="9eb88e9b-8b32-4379-8630-43a10f1ad363" SourceId="1" SourceUrl="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd2" />
+    <MetadataFile FileName="VisualizationsService3.xsd" MetadataType="Schema" ID="11c1387e-0358-4d60-bcb5-9f2ea0721aee" SourceId="1" SourceUrl="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

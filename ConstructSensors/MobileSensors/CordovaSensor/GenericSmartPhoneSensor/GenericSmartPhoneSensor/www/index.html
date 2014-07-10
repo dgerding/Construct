@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;" />
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+
+		<title>Cordova WP7</title>
+
+		<link rel="stylesheet" href="master.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
+
+		<script type="text/javascript" charset="utf-8" src="cordova-1.6.0.js"></script>
+		<script type="text/javascript" charset="utf-8" src="json2.js"></script>
+		<script type="text/javascript">
+
+			document.addEventListener("deviceready", onDeviceReady, false);
+
+			// once the device ready event fires, you can safely do your thing! -jm
+			function onDeviceReady()
+			{
+				document.getElementById("welcomeMsg").innerHTML += "Construct Smartphone Sensor is ready.";
+				console.log("onDeviceReady. You should see this message in Visual Studio's output window.");
+				//alert("hello?");
+			}
+
+			// Called when capture operation is finished    
+			function captureSuccess(mediaFiles)
+			{
+			    console.log('Entering captureSuccess..');
+				var i, len;
+				for (i = 0, len = mediaFiles.length; i < len; i += 1)
+				{
+					console.log('Attempting upload of file:' + mediaFiles[i].toString());
+					uploadFile(mediaFiles[i]);
+	            }
+	            
+                console.log('Exiting captureSuccess..');
+                        
+			}
+
+			// Called if something bad happens.    
+			function captureError(error)
+			{
+				var msg = 'An error occurred during capture: ' + error.code;
+				navigator.notification.alert(msg, null, 'Uh oh!');
+			}
+                
+			// A button will call this function    
+			function captureVideo()
+			{       
+				//alert('capture started');
+				console.log('Entered capture..');
+				// Launch device video recording application,         
+				// allowing user to capture up to 2 video clips        
+				navigator.device.capture.captureVideo(captureSuccess, captureError, { limit: 2 });
+				console.log('Exiting capture..');
+			}    
+			
+            // Upload files to server
+			function uploadFile(mediaFile) {
+			    console.log('Entering uploadfile..');
+                        
+			    var ft = new FileTransfer(),
+                    path = mediaFile.fullPath,
+                    name = mediaFile.name;
+
+			    ft.upload(path,
+                          "http://daisy.colum.edu/deputeyes/upload.php",
+                            function (result) {
+                                console.log('Upload success: ' + result.responseCode);
+                                console.log(result.bytesSent + ' bytes sent');
+                                alert("uh oh" + error.code);
+                            },
+                            function (error) {
+                                console.log('Error uploading file ' + path + ': ' + error.code);
+                                alert("uh oh" + error.code);
+
+                            },
+                            { fileName: name });
+			}
+		</script>
+
+	</head>
+	<body>
+		<h1 id="welcomeMsg">Smart Phone Sensor</h1>
+		<button onclick="captureVideo();">Capture Video</button> <br/>
+
+	</body>
+</html>

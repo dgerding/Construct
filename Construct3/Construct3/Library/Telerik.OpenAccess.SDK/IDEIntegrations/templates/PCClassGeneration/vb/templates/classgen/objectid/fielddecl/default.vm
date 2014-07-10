@@ -1,0 +1,1 @@
+        Public Dim $oidFieldName#if($isNullable)?#end As $oidFieldType

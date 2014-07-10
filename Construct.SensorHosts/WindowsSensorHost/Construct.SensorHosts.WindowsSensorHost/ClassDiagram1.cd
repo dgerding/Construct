@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Construct.SensorHosts.WindowsSensorHost.SensorHostWindowsService">
+    <Position X="1.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQUBAAAAaAAQIAIMoCAIAAHAwAKEAEAAMgCAAAAECk=</HashCode>
+      <FileName>Service.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Construct.Sensors.RandomNumberSensor.SensorImplementation">
+    <Position X="14" Y="0.5" Width="1.5" />
+    <TypeIdentifier />
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -1,0 +1,45 @@
+    ' Application identity objectid-class.
+    Public Class ID 
+        Implements Telerik.OpenAccess.IObjectId
+#foreach($oidFieldDecl in $oidFieldDecls)
+$oidFieldDecl
+#end
+        Public Sub New()
+        End Sub
+
+        Public Sub New(s As String)
+            Dim i As Integer
+            Dim p As Integer
+            p = 0
+        $ctorCode
+        End Sub
+
+        Overrides Overloads Public Function Equals(ByVal o As Object) As Boolean
+            If Me Is o Then
+                Return True
+            End If
+            If Not TypeOf o Is $className.ID Then
+                Return False
+            End If
+
+            Dim id As $className.ID = CType( o, $className.ID)
+#foreach($fld in $oidFields)
+            If Me.$fld <> id.$fld Then 
+                Return False
+            End If#end
+            Return True
+        End Function
+
+        Overrides Public Function GetHashCode() As Integer
+            Dim result As Integer = 0
+            $hashcodeCode
+            Return result
+        End Function
+
+        Overrides Public Function ToString() As String
+            Dim buffer As System.Text.StringBuilder = New System.Text.StringBuilder()
+#foreach($fld in $oidFields)
+            buffer.Append($fld)#if($ISNOTLAST).Append("-")#end#end
+            Return buffer.ToString()
+        End Function
+    End Class

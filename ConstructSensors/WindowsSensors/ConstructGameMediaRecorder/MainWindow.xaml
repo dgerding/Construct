@@ -1,0 +1,39 @@
+﻿<Window x:Class="ConstructGameMediaRecorder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="800" Width="1200" xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation" Loaded="Window_Loaded">
+    <Grid HorizontalAlignment="Center">
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Name="stackPanelLeft" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200">
+                <ListBox Name="Devices"></ListBox>
+                <Label Content="Label" FontSize="30" Name="hostNameLabel" />
+                <Label Content="Label" FontSize="40" Name="playerColorLabel" />
+                <TextBox Name="GameID" FontSize="40" HorizontalAlignment="Center" MinWidth="100"/>
+                <TextBox Name="SessionID" FontSize="40" HorizontalAlignment="Center" MinWidth="100" TextChanged="SessionID_TextChanged" />
+                
+                <Label Content="Label" FontSize="40" Name="playerNameLabel" />
+            </StackPanel>
+            <StackPanel Width="200">
+                <Label Content="Headset Audio" />
+                <TextBlock Name="HeadsetAudioStatus" Text="Blah" />
+            </StackPanel>
+            <StackPanel Width="300">
+                <Label Content="Webcam" />
+                <ContentControl Height="240" HorizontalAlignment="Left" Margin="12,12,0,0" Name="WebCamContent" VerticalAlignment="Top" Width="300"></ContentControl>
+                <ComboBox Name="videoDevicesListBox" Width="300" SelectionChanged="videoDevicesListBox_SelectionChanged" />
+                <ComboBox Name="audioDevicesListBox" Width="300" SelectionChanged="audioDevicesListBox_SelectionChanged" />
+                <TextBlock Name="WebCamStatus" Text="Blah" HorizontalAlignment="Center" />
+            </StackPanel>
+            
+            <StackPanel HorizontalAlignment="Right" Name="stackPanelRight" VerticalAlignment="Top" Width="300" Visibility="Hidden">
+                <Label Content="Screen Recording" />
+                <ContentControl Height="240" HorizontalAlignment="Left" Margin="12,12,0,0" Name="ScreenRecordingContent" VerticalAlignment="Top" Width="300"></ContentControl>
+                <ComboBox Name="screenRecordingDevicesListBox" Width="300" SelectionChanged="screenRecordingDevicesListBox_SelectionChanged" />
+                <TextBlock Name="ScreenRecordingStatus" VerticalAlignment="Top" Text="Blah" />
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Name="stackPanelCenter" VerticalAlignment="Top" Width="100">
+                <Button Content="Record" Height="100" Width="100" Name="recordButton" Click="recordButton_Click" VerticalAlignment="Center"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

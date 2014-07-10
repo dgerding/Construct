@@ -1,0 +1,46 @@
+-------------------------------------------------------
+What is included in this package:
+-------------------------------------------------------
+1. Annotated Screen Shots: A folder containing images of what the client and controlelr UI look like when running correctly.  These are just visual samples.
+
+2. Code Drop - (date): 
+	-- iOS folder: MonoTouch solution file and all project source code for building the sensor app
+
+	-- Windows folder: Visual Studio solution for building the web service, unit tests and a test UI for controlling running sensors.
+
+3. Application Architecture.docx: Explains the system architecture, algorithms, and components being delivered
+
+4. Build and Deploy Server Components.docx: Describes how to build and run and verify all windows components
+
+5. Build and Deploy iOS Components.docx: Describes how to build the iOS senor app from source code
+
+6. Invoices: previous invoices
+
+7. Remote Sensor Proposal.docx: original proposal
+
+
+-------------------------------------------------------
+What to do:
+-------------------------------------------------------
+
+1. Read the Application Architecture doc to get a foundational understanding of what is being delivered
+
+2. Follow the server build/deployment doc steps to verify a working web service that is push-button deployable after code change/recompile cycles.  
+
+3. Run the SensorServiceTests project.  Make sure 11/11 unit tests pass.  This assures that the test server can run on IIS Express on port 8888 for F5 debugging scenarios
+
+4. Follow the sensor build/deploy doc steps
+
+5. Run the app on a sensor and press the play button on the sensor app to put it in command listen mode
+
+6. Publish the web service (if you did not do that already in step 2).  This runs the service inside IIS (NOT IIS Express) and on port 8000 (not 8888).  
+
+7. Run the SensorCommandTestUI from Visual Studio.  The running sensor should show up in the list and be controllable.
+
+Contact steve.millar@windstream.net with questions.
+
+706-265-6317 (I work out of my home so feel free to leave a business message on the line if I am not there when you call)
+
+
+
+

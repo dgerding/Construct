@@ -1,0 +1,1 @@
+    Private Dim $fieldName As IList(OF $fieldType) = New List(OF $fieldType)() #if($isInverse)'inverse $inverse#end

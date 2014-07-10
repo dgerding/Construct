@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<WalkThroughs>
+  <WalkThrough name="CompleteReverse" displayname="Reverse Mapping" filter="MainWindow">
+    <content>{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2508;}\viewkind4\uc1\pard\f0\fs22 1. Create a new Solution and add a Windows Forms Project.\par
+2. Start the {\field{\*\fldinst{HYPERLINK "http://EnableProject" }}{\fldrslt{\cf1\ul Enable Project Wizard}}}\cf0\ulnone\f0\fs22  and follow instructions\par
+3. Start the {\field{\*\fldinst{HYPERLINK "http://ReverseMapping" }}{\fldrslt{\cf1\ul Reverse Mapping Tool}}}\cf0\ulnone\f0\fs22  and follow instructions\par
+}</content>
+</WalkThrough>
+  <WalkThrough name="CompleteForward" displayname="Forward Mapping" filter="MainWindow">
+    <content>{\rtf1\ansi\ansicpg1252\deff0\deflang1033\deflangfe1033{\fonttbl{\f0\fswiss\fprq2\fcharset0 Calibri;}}
+{\colortbl ;\red0\green0\blue255;}
+{\*\generator Msftedit 5.41.21.2508;}\viewkind4\uc1\pard\f0\fs22 1. Create a new Solution and add a Windows Forms Project.\par
+2. Start the {\field{\*\fldinst{HYPERLINK "http://EnableProject" }}{\fldrslt{\cf1\ul Enable Project Wizard}}}\cf0\ulnone\f0\fs22  and follow instructions\par
+3. Implement one or more classes to persist.\par
+}</content>
+  </WalkThrough>
+</WalkThroughs>

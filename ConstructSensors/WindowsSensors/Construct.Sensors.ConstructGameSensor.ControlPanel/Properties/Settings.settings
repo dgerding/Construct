@@ -1,0 +1,22 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Columbia.CCF.UI.ControlPanel.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="CCFConnectionString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=daisy.colum.edu;Initial Catalog=CCF;Persist Security Info=True;User ID=CCF;Password=!!thewoodsarelovelydarkanddeep??&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=daisy.colum.edu;Initial Catalog=CCF;Persist Security Info=True;User ID=CCF;Password=!!thewoodsarelovelydarkanddeep??</Value>
+    </Setting>
+    <Setting Name="CCFConnectionString1" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+  &lt;ConnectionString&gt;Data Source=daisy.colum.edu;Initial Catalog=CCF;Persist Security Info=True;User ID=ccf;Password=!!thewoodsarelovelydarkanddeep??&lt;/ConnectionString&gt;
+  &lt;ProviderName&gt;System.Data.SqlClient&lt;/ProviderName&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
+      <Value Profile="(Default)">Data Source=daisy.colum.edu;Initial Catalog=CCF;Persist Security Info=True;User ID=ccf;Password=!!thewoodsarelovelydarkanddeep??</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

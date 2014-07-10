@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E38F4F21-E285-4F32-B232-9B31B4AC611B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Construct.Server.Models.Learning</RootNamespace>
+    <AssemblyName>Construct.Server.Models.Learning</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Library\Nlog\NLog.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="NLog.Extended">
+      <HintPath>..\Library\Nlog\NLog.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.OpenAccess, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.Runtime, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.Runtime.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ICallback.cs" />
+    <Compile Include="IModel.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Construct.MessageBrokering.Serialization\Construct.MessageBrokering.Serialization.csproj">
+      <Project>{C590BE2C-E012-42D5-B3FC-A896D7162952}</Project>
+      <Name>Construct.MessageBrokering.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
+      <Project>{f47859ff-b24a-492a-995a-f7f124a14099}</Project>
+      <Name>Construct.MessageBrokering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Entities\Construct.Server.Entities.csproj">
+      <Project>{7f520999-8299-452f-bebc-78fb6b0c60b3}</Project>
+      <Name>Construct.Server.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Common\Construct.Server.Models.csproj">
+      <Project>{E38E2CCA-C7C6-4C3D-818B-35D2832EBBE0}</Project>
+      <Name>Construct.Server.Models</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data.PropertyValues\Construct.Server.Models.Data.PropertyValues.csproj">
+      <Project>{228B31D3-FFBD-4AE2-AFEC-EB9E3EE43DED}</Project>
+      <Name>Construct.Server.Models.Data.PropertyValues</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data\Construct.Server.Models.Data.csproj">
+      <Project>{14BC45FE-9473-4FDD-B311-27FF70623C8B}</Project>
+      <Name>Construct.Server.Models.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Utilities.Shared\Construct.Utilities.Shared.csproj">
+      <Project>{CFA681FF-1E84-45FC-9D1F-C14FDA66983B}</Project>
+      <Name>Construct.Utilities.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

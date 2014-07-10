@@ -1,0 +1,17 @@
+﻿name: EmotivEEGSensor
+version: 1000
+uri:
+file:
+
+sourceTypeID: 631B67DC-B41B-44C8-A7A3-761BCB842332
+sourceID: 5B81639D-8BEC-4C8C-8256-290502E8F330
+
+version string for filenames:
+.631B67DC-B41B-44C8-A7A3-761BCB842332.1000
+
+server uri:
+http://daisy/99a519b1-fd3d-4f6e-b19a-5daeffc76255
+
+debug command line args
+
+5B81639D-8BEC-4C8C-8256-290502E8F330 http://192.168.82.250/IAggregator/59D0F230-164C-4033-B48A-220FC36C5FBD/ 631B67DC-B41B-44C8-A7A3-761BCB842332

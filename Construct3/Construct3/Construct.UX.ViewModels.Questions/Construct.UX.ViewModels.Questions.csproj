@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{36CC4686-303F-4E16-897F-0D3491E2B95A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Construct.UX.ViewModels.Questions</RootNamespace>
+    <AssemblyName>Construct.UX.ViewModels.Questions</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Service References\QuestionsServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Construct.Server.Models.Data.PropertyValues\Construct.Server.Models.Data.PropertyValues.csproj">
+      <Project>{228B31D3-FFBD-4AE2-AFEC-EB9E3EE43DED}</Project>
+      <Name>Construct.Server.Models.Data.PropertyValues</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Utilities.Shared\Construct.Utilities.Shared.csproj">
+      <Project>{CFA681FF-1E84-45FC-9D1F-C14FDA66983B}</Project>
+      <Name>Construct.Utilities.Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels\Construct.UX.ViewModels.csproj">
+      <Project>{D0BB050A-0F4C-40F9-843C-8AD9BCEE850D}</Project>
+      <Name>Construct.UX.ViewModels</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Service References\QuestionsServiceReference\Construct.UX.ViewModels.Questions.QuestionsServiceReference.DataType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\Construct.UX.ViewModels.Questions.QuestionsServiceReference.Property.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\Construct.UX.ViewModels.Questions.QuestionsServiceReference.PropertyParent.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\Construct.UX.ViewModels.Questions.QuestionsServiceReference.PropertyType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\Construct.UX.ViewModels.Questions.QuestionsServiceReference.Question.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\QuestionsService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\QuestionsService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\QuestionsService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\QuestionsServiceReference\Service.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\QuestionsServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\QuestionsServiceReference\QuestionsService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\QuestionsServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\QuestionsServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\QuestionsServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

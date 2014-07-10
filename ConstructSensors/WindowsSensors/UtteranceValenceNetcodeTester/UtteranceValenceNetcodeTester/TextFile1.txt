@@ -1,0 +1,4 @@
+﻿#define TCPWAVESOURCE_CHUNK_DATA    01   // wave file
+#define TCPWAVESOURCE_CHUNK_DATAANDTEXT	03 // text and wave
+#define TCPWAVESOURCE_CHUNK_CONTROL 11   // control message (todo)
+#define TCPWAVESOURCE_CHUNK_RESULT  21   // result message

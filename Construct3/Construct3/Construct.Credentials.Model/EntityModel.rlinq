@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="EntitiesModel" namespace="Construct.Credentials.Model" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="EntitiesModel" backend="azure" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="Construct.Credentials.Model" default="true">
+      <orm:class name="User" behavior="readwrite" uniqueId="e81cb707-3ead-48ba-9307-a6ae76ddc6d1">
+        <orm:table name="User" />
+        <orm:identity>
+          <orm:key-generator name="guid" />
+          <orm:single-field field-name="_iD" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_userName" property="UserName" behavior="readwrite" uniqueId="dd02e15d-3a39-47a6-beeb-785702ef0c46" type="System.String">
+          <orm:column name="UserName" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_lastName" property="LastName" behavior="readwrite" uniqueId="761f386e-c641-4f1a-88f4-475f520352e2" type="System.String">
+          <orm:column name="LastName" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_iD" property="ID" behavior="readwrite" uniqueId="9651d26d-9515-4c42-850f-d57938854acf" type="System.Guid">
+          <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
+        </orm:field>
+        <orm:field name="_firstName" property="FirstName" behavior="readwrite" uniqueId="e6d15bf2-4a93-4203-b037-d6a8005d4c86" type="System.String">
+          <orm:column name="FirstName" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="Varchar" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="Server" behavior="readwrite" uniqueId="f499eae1-73f2-4515-8338-32cd99ac7390">
+        <orm:table name="Server" />
+        <orm:identity>
+          <orm:key-generator name="guid" />
+          <orm:single-field field-name="_iD" />
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_serverName" property="ServerName" behavior="readwrite" uniqueId="35ee2758-c082-4f71-b364-262005c9386d" type="System.String">
+          <orm:column name="ServerName" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_iD" property="ID" behavior="readwrite" uniqueId="b1977844-dd8a-4286-a926-e355ff610ea7" type="System.Guid">
+          <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
+        </orm:field>
+        <orm:field name="_connectionString" property="ConnectionString" behavior="readwrite" uniqueId="cadfc8ec-8c20-4938-a593-7882b804d9b4" type="System.String">
+          <orm:column name="ConnectionString" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="LongVarchar" />
+        </orm:field>
+        <orm:field name="_rootServiceUri" property="RootServiceUri" behavior="readwrite" uniqueId="7b58105a-9129-48c1-bb0d-b629a7ada46f" type="System.String">
+          <orm:column name="RootServiceUri" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="LongVarchar" />
+        </orm:field>
+      </orm:class>
+      <orm:class name="PasswordCredential" behavior="readwrite" uniqueId="352742ca-4792-4f3a-9ca7-d9fd7a385019">
+        <orm:table name="PasswordCredential" />
+        <orm:identity>
+          <orm:multiple-field>
+            <orm:single-field field-name="_userID" />
+            <orm:single-field field-name="_password" />
+          </orm:multiple-field>
+        </orm:identity>
+        <orm:concurrency strategy="changed" />
+        <orm:field name="_userID" property="UserID" behavior="readwrite" uniqueId="3cbd4e2a-57b6-4158-8fc3-0bd2807cc2a8" type="System.Guid">
+          <orm:column name="UserID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
+        </orm:field>
+        <orm:field name="_password" property="Password" behavior="readwrite" uniqueId="f4445b42-1a43-465d-8606-f70421b04dd0" type="System.String">
+          <orm:column name="Password" sql-type="nvarchar" nullable="false" length="50" scale="0" primary-key="true" ado-type="Varchar" />
+        </orm:field>
+        <orm:field name="_isCurrent" property="IsCurrent" behavior="readwrite" uniqueId="0791e006-7feb-408d-8427-eafaa629435f" type="System.Boolean">
+          <orm:column name="isCurrent" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+        </orm:field>
+      </orm:class>
+    </orm:namespace>
+    <orm:schema schema="">
+      <orm:table name="User">
+        <orm:column name="UserName" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="Varchar" />
+        <orm:column name="LastName" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="Varchar" />
+        <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
+        <orm:column name="FirstName" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="Varchar" />
+      </orm:table>
+      <orm:table name="Server">
+        <orm:column name="ServerName" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="Varchar" />
+        <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
+        <orm:column name="ConnectionString" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="LongVarchar" />
+        <orm:column name="RootServiceUri" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="LongVarchar" />
+      </orm:table>
+      <orm:table name="PasswordCredential">
+        <orm:column name="UserID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
+        <orm:column name="Password" sql-type="nvarchar" nullable="false" length="50" scale="0" primary-key="true" ado-type="Varchar" />
+        <orm:column name="isCurrent" sql-type="bit" nullable="false" length="0" scale="0" ado-type="Bit" />
+      </orm:table>
+    </orm:schema>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>ServersConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>data source=mc7t5hoo37.database.windows.net;initial catalog=ConstructServers;user ID=ConstructServerLogin;password=!!TheWoodsAreLovelyDarkAndDeep??</AppConfigConnectionString>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <MappingDefinitionType>Xml</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings>
+      <DeploymentProject>Construct.Credentials.Model</DeploymentProject>
+    </SchemaUpdateSettings>
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>azure</Backend>
+        <ProviderName>System.Data.SqlClient</ProviderName>
+        <Logging>
+          <MetricStoreSnapshotInterval>0</MetricStoreSnapshotInterval>
+        </Logging>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <Types>
+    <DomainClass Id="e81cb707-3ead-48ba-9307-a6ae76ddc6d1" name="User" namespace="Construct.Credentials.Model" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="9651d26d-9515-4c42-850f-d57938854acf" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="_iD" />
+      <Property Id="e6d15bf2-4a93-4203-b037-d6a8005d4c86" name="FirstName" label="FirstName : String" kind="Persistent" fieldName="_firstName" />
+      <Property Id="761f386e-c641-4f1a-88f4-475f520352e2" name="LastName" label="LastName : String" kind="Persistent" fieldName="_lastName" />
+      <Property Id="dd02e15d-3a39-47a6-beeb-785702ef0c46" name="UserName" label="UserName : String" kind="Persistent" fieldName="_userName" />
+    </DomainClass>
+    <DomainClass Id="f499eae1-73f2-4515-8338-32cd99ac7390" name="Server" namespace="Construct.Credentials.Model" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="b1977844-dd8a-4286-a926-e355ff610ea7" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="_iD" />
+      <Property Id="cadfc8ec-8c20-4938-a593-7882b804d9b4" name="ConnectionString" label="ConnectionString : String" kind="Persistent" fieldName="_connectionString" />
+      <Property Id="7b58105a-9129-48c1-bb0d-b629a7ada46f" name="RootServiceUri" label="RootServiceUri : String" kind="Persistent" fieldName="_rootServiceUri" />
+      <Property Id="35ee2758-c082-4f71-b364-262005c9386d" name="ServerName" label="ServerName : String" kind="Persistent" fieldName="_serverName" />
+    </DomainClass>
+    <DomainClass Id="352742ca-4792-4f3a-9ca7-d9fd7a385019" name="PasswordCredential" namespace="Construct.Credentials.Model" showPropertiesCompartment="true" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+      <Property Id="f4445b42-1a43-465d-8606-f70421b04dd0" name="Password" label="Password : String" kind="Persistent" identity="true" fieldName="_password" />
+      <Property Id="3cbd4e2a-57b6-4158-8fc3-0bd2807cc2a8" name="UserID" type="Guid" label="UserID : Guid" kind="Persistent" identity="true" fieldName="_userID" />
+      <Property Id="0791e006-7feb-408d-8427-eafaa629435f" name="IsCurrent" type="Boolean" label="IsCurrent : Boolean" kind="Persistent" fieldName="_isCurrent" />
+    </DomainClass>
+  </Types>
+  <domainContext>
+    <domainModelHasDomainContext Id="b46098fa-fd68-41c4-a0e4-939bc176beef">
+      <domainContainer name="EntitiesModel" namespace="Construct.Credentials.Model" showPropertiesCompartment="true">
+        <entitySetProperty name="Users" namespace="Construct.Credentials.Model" type="User" label="Users : IQueryable&lt;Construct.Credentials.Model.User&gt;" />
+        <entitySetProperty name="Servers" namespace="Construct.Credentials.Model" type="Server" label="Servers : IQueryable&lt;Construct.Credentials.Model.Server&gt;" />
+        <entitySetProperty name="PasswordCredentials" namespace="Construct.Credentials.Model" type="PasswordCredential" label="PasswordCredentials : IQueryable&lt;Construct.Credentials.Model.PasswordCredential&gt;" />
+      </domainContainer>
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>

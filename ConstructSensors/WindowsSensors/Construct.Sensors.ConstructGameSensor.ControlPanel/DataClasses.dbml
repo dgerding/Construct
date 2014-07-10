@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="CCF" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=daisy.colum.edu;Initial Catalog=CCF;Persist Security Info=True;User ID=ccf" SettingsObjectName="Columbia.CCF.UI.ControlPanel.Properties.Settings" SettingsPropertyName="CCFConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.def_Objects" Member="def_Objects">
+    <Type Name="def_Object">
+      <Column Name="ObjectDefId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ObjectTypeId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ObjectName" Type="System.String" DbType="NVarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="Pseudonim" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="playerNumber" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isAvailable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

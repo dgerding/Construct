@@ -1,0 +1,86 @@
+The following is information about the eye-tracking technology used in this
+experiment. Please read the text aloud so the computer can calibrate to your voice. 
+^
+During this study you will be using eye-tracking technology. Each eye tracking set
+consists of two infrared cameras. There are two sets per person, four cameras total.
+The camera sets each have infrared emitters, which help the cameras to see you. The
+software detects glints in your eyes from the infrared emitters and can then detect
+where you are looking. This technology is very accurate in that if you are looking at
+a computer monitor, the software can tell you exactly what pixel you are looking at.
+^
+The software is not limited to just computer screens. It can also detect where in
+three-dimensional space you are focusing. For instance, if you are looking at the
+person sitting across from you, the software can tell us the exact X, Y, and Z location
+of where you are focusing. Along with eye tracking, the software can track facial
+features. With this information we can track your lips to determine if you are
+smiling or frowning. This type of technology is most commonly used in airplanes to
+track where the pilot is looking. 
+^
+You were asked not to wear glasses during this study. That is because the cameras
+will detect other light reflecting off them that isn’t from your eyes. This confusion
+happens during the calibration process. The process of calibrating the cameras
+consists of a few different steps. First, we set what is called a “head model”. This is
+where the machine detects tracking points on your face and eyes. We need to do
+this for both of the camera sets in front of you. This process can be a little awkward
+because you will see your face up close on the computer screen. Just bear with us
+though, it will be over shortly.
+^
+Then, we calibrate the gaze. This portion consists of looking directly into each
+camera in the set. This will detect the ocular distance between your eyes. This helps
+us get more precise data out of the process. Once the head model is set and your
+gaze is calibrated, we then need to start logging data. This way we can go back to the
+data later and study it.
+^
+After all that is done the final step is to link the two data streams together. We link
+the data from two camera sets because this gives us better quality of data overall, as
+well as allowing us to track a wider range of head and eye movement and rotation.
+During the test you can look anywhere in the room and rotate your head however
+you want. However, it is very important to stay sitting at the same height so that you
+do not slip out of the frame.
+^
+The following are the instructions for the game you will be playing after the voice
+calibration process. Please read them aloud.
+
+Thank you for participating in our experiment. Before we begin we will go over the
+controls and objectives for the game you will be playing.
+^
+How do I move my character?
+Move the mouse to control where you are looking. Use the W key to move your
+character forward, the A key to move your character left, the S key to move your
+character backwards and the D key to move your character right. The spacebar
+key will make your character jump. Jumping is useful for showing your teammates
+where you are. The E key will magnify your vision; this can be useful for examining
+things closely.
+^
+What is the objective of the game?
+In the game you will be solving a puzzle by placing colored blocks into a specific
+pattern. The puzzle will be made up of red, blue, yellow, orange, and purple blocks.
+Your objective is to solve the puzzle as quickly as possible. Time is of the essence.
+There will be a scoreboard visible for your benefit. The scoreboard will display the
+number of correct and incorrect blocks placed. The scoreboard will also display the
+amount of time elapsed. The different colored blocks used for solving the puzzle will
+begin in the middle of the room. Once the puzzle is complete, the game will end. We
+will come back into the room after about thirty seconds, so please do not remove
+any equipment till we return into the room; you may talk once the game is complete.
+^
+How do I pick up a block?
+To pick up a block use the left mouse click while your cursor is over the block. You
+may only hold one block at a time. Click the mouse again to put the block down. You
+can place a block into the puzzle or on the ground. You cannot hand a block off to
+another player, nor can you take a block from another players possession. So to pass
+off a block, one player will put a block down and then the other will pick it up. In the
+game there may be more objects you can pick up, such as other blocks. 
+^
+How can I work with my team?
+While playing the game, you may not verbally communicate with your teammates.
+However, you are encouraged to communicate nonverbally in any way. The game
+will pause at certain stages of completion, and further instructions will be displayed.
+Please read these instructions carefully. The team will need to make decisions in
+response to these instructions. During this time, you are allowed to talk to your
+teammates. For confidentiality reasons you are only to refer to each other by your
+alias names. It will be valuable to use this time to discuss strategies for solving
+the puzzle. Once the game continues, you are no longer allowed to talk to your
+teammates. 
+^
+We wish you all the best of luck on your most pressing mission.
+Do you understand these instructions?

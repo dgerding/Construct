@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='utf-16'?>
+<TypeSource Name='FaceDetectorSensor' ID='F7C94746-397E-4F26-ACA3-20DB45E82248' ParentID='5C11FBBD-9E36-4BEA-A8BE-06E225250EF8'>
+	<SensorType Name='FaceDetectorItem' ID='41339968-23EB-49D6-A2F8-DE5CED0C3ECF' SensorHostTypeID='EDA0FF3E-108B-45D5-BF58-F362FABF2EFE'>
+		<DataType>
+			<DataTypeProperty Name='X' Type='int' ID='099C82BD-4FF9-4A7D-920C-C4F7711E4608'/>
+			<DataTypeProperty Name='Y' Type='int' ID='71DB7D0A-F210-4AB1-AB9E-2B4A25F1FED6'/>
+			<DataTypeProperty Name='Height' Type='int' ID='AF911FC3-3CCA-4781-A21F-4BD79235F0BC'/>
+			<DataTypeProperty Name='Width' Type='int' ID='584F95CE-CCA9-4E22-B032-30A2B12B596E'/>
+			<DataTypeProperty Name='Neighbors' Type='int' ID='44CFB7AE-BB3A-4989-9F7D-040511C6B6D2'/>
+		</DataType>
+	</SensorType>
+</TypeSource>

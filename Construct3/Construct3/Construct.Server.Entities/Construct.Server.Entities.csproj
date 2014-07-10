@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7F520999-8299-452F-BEBC-78FB6B0C60B3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Construct.Server.Entities</RootNamespace>
+    <AssemblyName>Construct.Server.Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <GenerateSerializationAssemblies>On</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Library\Nlog\NLog.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="NLog.Extended, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Library\Nlog\NLog.Extended.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.DomainServices.Hosting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.ServiceModel.DomainServices.Server, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.OpenAccess.Config, Version=1.0.0.0, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342, processorArchitecture=MSIL">
+      <HintPath>..\Library\Telerik.OpenAccess\Build\Product\bin\Telerik.OpenAccess.Config.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.Ria.Extensions, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.Ria.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.Runtime, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.Runtime.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.Windows, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.Windows.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Adapters\DataType.adapter.cs" />
+    <Compile Include="Adapters\DataTypeSource.adapter.cs" />
+    <Compile Include="Adapters\HumanReadableSensor.adapter..cs" />
+    <Compile Include="Adapters\Item.adapter.cs" />
+    <Compile Include="Adapters\Label.adapter.cs" />
+    <Compile Include="Adapters\Property.adapter.cs" />
+    <Compile Include="Adapters\PropertyParent.adapter.cs" />
+    <Compile Include="Adapters\PropertyType.adapater.cs" />
+    <Compile Include="Adapters\Question.adapter.cs" />
+    <Compile Include="Adapters\QuestionParameter.adapter.cs" />
+    <Compile Include="Adapters\QuestionTypeSource.adapter.cs" />
+    <Compile Include="Adapters\Sensor.adapter.cs" />
+    <Compile Include="Adapters\SensorCommand.adapter.cs" />
+    <Compile Include="Adapters\SensorCommandParameter.adapter.cs" />
+    <Compile Include="Adapters\SensorHost.adapter.cs" />
+    <Compile Include="Adapters\SensorHostType.adapter.cs" />
+    <Compile Include="Adapters\SensorRuntime.adapter.cs" />
+    <Compile Include="Adapters\SensorTypeSource.adapter.cs" />
+    <Compile Include="Adapters\Session.adapter.cs" />
+    <Compile Include="Adapters\SessionSource.adapter.cs" />
+    <Compile Include="Adapters\Source.adapter.cs" />
+    <Compile Include="Adapters\Taxonomy.adapter.cs" />
+    <Compile Include="Adapters\TaxonomyLabel.adapter.cs" />
+    <Compile Include="Adapters\Visualization.adapter.cs" />
+    <Compile Include="Adapters\Visualizer.adapter.cs" />
+    <Compile Include="Extensions\SensorHost.extension.cs" />
+    <Compile Include="Generated\Constant.generated.cs" />
+    <Compile Include="Generated\DataType.generated.cs" />
+    <Compile Include="Generated\DataTypeSource.generated.cs" />
+    <Compile Include="Generated\EntitiesModelFluentMetadataSource.cs" />
+    <Compile Include="Generated\EntityDiagrams.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityDiagrams.rlinq</DependentUpon>
+    </Compile>
+    <Compile Include="Generated\HumanReadableSensor.generated.cs" />
+    <Compile Include="Generated\Item.generated.cs" />
+    <Compile Include="Generated\Label.generated.cs" />
+    <Compile Include="Generated\Property.generated.cs" />
+    <Compile Include="Generated\PropertyParent.generated.cs" />
+    <Compile Include="Generated\PropertyType.generated.cs" />
+    <Compile Include="Generated\Question.generated.cs" />
+    <Compile Include="Generated\QuestionParameter.generated.cs" />
+    <Compile Include="Generated\QuestionTypeSource.generated.cs" />
+    <Compile Include="Generated\Sensor.generated.cs" />
+    <Compile Include="Generated\SensorCommand.generated.cs" />
+    <Compile Include="Generated\SensorCommandParameter.generated.cs" />
+    <Compile Include="Generated\SensorHost.generated.cs" />
+    <Compile Include="Generated\SensorHostType.generated.cs" />
+    <Compile Include="Generated\SensorRuntime.generated.cs" />
+    <Compile Include="Generated\SensorTypeSource.generated.cs" />
+    <Compile Include="Generated\Session.generated.cs" />
+    <Compile Include="Generated\SessionDesign.generated.cs" />
+    <Compile Include="Generated\SessionDesignNode.generated.cs" />
+    <Compile Include="Generated\SessionNode.generated.cs" />
+    <Compile Include="Generated\SessionSource.generated.cs" />
+    <Compile Include="Generated\Source.generated.cs" />
+    <Compile Include="Generated\Taxonomy.generated.cs" />
+    <Compile Include="Generated\TaxonomyLabel.generated.cs" />
+    <Compile Include="Generated\Visualization.generated.cs" />
+    <Compile Include="Generated\Visualizer.generated.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\key.snk">
+      <Link>key.snk</Link>
+    </None>
+    <None Include="App.Config" />
+    <OpenAccessDeploy Include="Generated\EntityDiagrams.rlinq">
+      <Generator>MetaModelCodeGenerator</Generator>
+      <LastGenOutput>EntityDiagrams.cs</LastGenOutput>
+    </OpenAccessDeploy>
+    <None Include="Generated\EntityDiagrams.rlinq.diagram">
+      <DependentUpon>EntityDiagrams.rlinq</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
+      <Project>{F47859FF-B24A-492A-995A-F7F124A14099}</Project>
+      <Name>Construct.MessageBrokering</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <Import Condition="Exists('$(MSBuildExtensionsPath)\OpenAccess.targets')" Project="$(MSBuildExtensionsPath)\OpenAccess.targets" />
+</Project>

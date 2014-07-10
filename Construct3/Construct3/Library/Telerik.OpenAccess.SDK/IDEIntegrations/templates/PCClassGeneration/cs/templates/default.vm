@@ -1,0 +1,2 @@
+using System;
+#foreach( $import in $imports )using ${import};#end

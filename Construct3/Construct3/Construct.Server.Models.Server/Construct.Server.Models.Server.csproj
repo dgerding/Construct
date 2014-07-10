@@ -1,0 +1,158 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{40ECD97B-8780-4BD4-A251-8428C97982B7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Construct.Server.Models.Server</RootNamespace>
+    <AssemblyName>Construct.Server.Models.Server</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\Library\Nlog\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog.Extended">
+      <HintPath>..\Library\Nlog\NLog.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Server.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Construct.MessageBrokering.Transponder\Construct.MessageBrokering.Transponder.csproj">
+      <Project>{17FE8CEC-F429-40D5-BF57-DDE3C7FB592C}</Project>
+      <Name>Construct.MessageBrokering.Transponder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
+      <Project>{F47859FF-B24A-492A-995A-F7F124A14099}</Project>
+      <Name>Construct.MessageBrokering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Common\Construct.Server.Models.csproj">
+      <Project>{E38E2CCA-C7C6-4C3D-818B-35D2832EBBE0}</Project>
+      <Name>Construct.Server.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data.PropertyValues\Construct.Server.Models.Data.PropertyValues.csproj">
+      <Project>{228B31D3-FFBD-4AE2-AFEC-EB9E3EE43DED}</Project>
+      <Name>Construct.Server.Models.Data.PropertyValues</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data\Construct.Server.Models.Data.csproj">
+      <Project>{14BC45FE-9473-4FDD-B311-27FF70623C8B}</Project>
+      <Name>Construct.Server.Models.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Learning\Construct.Server.Models.Learning.csproj">
+      <Project>{E38F4F21-E285-4F32-B232-9B31B4AC611B}</Project>
+      <Name>Construct.Server.Models.Learning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Meaning\Construct.Server.Models.Meaning.csproj">
+      <Project>{DA18B0FF-8DEA-497B-99E2-17E5C61D6062}</Project>
+      <Name>Construct.Server.Models.Meaning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Questions\Construct.Server.Models.Questions.csproj">
+      <Project>{885125A7-98A0-4BAC-A1EF-6CD274313A90}</Project>
+      <Name>Construct.Server.Models.Questions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Sessions\Construct.Server.Models.Sessions.csproj">
+      <Project>{B0E52472-EF3A-4D22-A4AE-39E27BB49AEA}</Project>
+      <Name>Construct.Server.Models.Sessions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Sources\Construct.Server.Models.Sources.csproj">
+      <Project>{F6F5E292-B015-4FF1-9A93-15893CCF0F49}</Project>
+      <Name>Construct.Server.Models.Sources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Visualizations\Construct.Server.Models.Visualizations.csproj">
+      <Project>{FE923E3C-7419-474C-B55D-BB3BF598CDB8}</Project>
+      <Name>Construct.Server.Models.Visualizations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Data\Construct.Server.Services.Data.csproj">
+      <Project>{CC5506B9-B5A0-4643-9D5B-10021C481060}</Project>
+      <Name>Construct.Server.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Learning\Construct.Server.Services.Learning.csproj">
+      <Project>{86B6865E-3558-4212-A83B-98ED3AB72E09}</Project>
+      <Name>Construct.Server.Services.Learning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Meaning\Construct.Server.Services.Meaning.csproj">
+      <Project>{5B457124-F54C-4A85-98DD-D3872FEF7C60}</Project>
+      <Name>Construct.Server.Services.Meaning</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Questions\Construct.Server.Services.Questions.csproj">
+      <Project>{D6BB4A3B-E3F3-4014-930C-ADD9DA9CEDEF}</Project>
+      <Name>Construct.Server.Services.Questions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Sessions\Construct.Server.Services.Sessions.csproj">
+      <Project>{A1A69BE6-147D-4195-822F-D83D46729B46}</Project>
+      <Name>Construct.Server.Services.Sessions</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Sources\Construct.Server.Services.Sources.csproj">
+      <Project>{7F97D56C-4519-4962-9121-E739A1B317AF}</Project>
+      <Name>Construct.Server.Services.Sources</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Visualizations\Construct.Server.Services.Visualizations.csproj">
+      <Project>{B518C5E4-89D0-43D2-B2E9-0405EDE311B7}</Project>
+      <Name>Construct.Server.Services.Visualizations</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Utilities.Shared\Construct.Utilities.Shared.csproj">
+      <Project>{4ca48f7f-0a40-4f33-830c-2c0d99e120c6}</Project>
+      <Name>Construct.Utilities.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

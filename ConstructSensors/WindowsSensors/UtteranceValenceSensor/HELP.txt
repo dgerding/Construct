@@ -1,0 +1,8 @@
+To Start up from cmd, use the following:
+==============================================
+.\SMILExtract.exe -C .\emo_valence_net.conf
+
+
+If SMILExtract is crashing on startup, check the following:
+==============================================================
+Make sure Both UtteranceValenceSensor and SMILExtract.exe are set to run as admin

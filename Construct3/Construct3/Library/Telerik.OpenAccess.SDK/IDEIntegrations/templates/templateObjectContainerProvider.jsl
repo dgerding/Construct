@@ -1,0 +1,128 @@
+//Copyright (c) %CompanyName%.  All rights reserved.
+//
+package %DefaultNamespace%;
+
+import %ProductNamespace%.*;
+import %ProductNamespace%.Util.*;
+
+/// <summary>
+/// Summary description for %ClassName%.
+/// </summary>
+public class %ClassName% implements IObjectScopeProvider, IObjectContainerProvider, IDBConnection
+{
+	private Database		myDatabase = null;
+	private IObjectScope	myScope = null;
+	private ObjectContainer myContainer = null;
+
+	static private %ClassName%		the%ClassName% = null;
+
+	public %ClassName%()
+	{
+	}
+
+	public %ClassName%( ObjectContainer aContainer )
+	{
+		this.myContainer = aContainer;
+	}
+
+	static public Database Database()
+	{
+		if( the%ClassName% == null )
+			the%ClassName% = new %ClassName%();
+
+		if( the%ClassName%.myDatabase == null )
+		{
+			the%ClassName%.myDatabase = %ProductNamespace%.Database.Get( "%ConnectionName%" );
+			try
+			{ the%ClassName%.myDatabase.get_Properties().set_ConnectionTimeout( 10000 );}
+			catch (Exception exc)
+			{}
+		}
+		return the%ClassName%.myDatabase;
+	}
+
+	static public IObjectScope ObjectScope()
+	{
+		Database();
+
+		if( the%ClassName%.myScope == null )
+			the%ClassName%.myScope = GetNewObjectScope();
+
+		return the%ClassName%.myScope;
+	}
+
+	static public IObjectScope GetNewObjectScope()
+	{
+		Database db = Database();
+
+		IObjectScope newScope = db.GetObjectScope(%GetObjectScopeParameters%);
+		return newScope;
+	}
+	static public ObjectContainer ObjectContainer()
+	{
+		if( the%ClassName% == null )
+			the%ClassName% = new %ClassName%();
+		if( the%ClassName%.myContainer == null )
+			the%ClassName%.myContainer = GetNewObjectContainer();
+
+		return the%ClassName%.myContainer;
+	}
+	static public ObjectContainer	GetNewObjectContainer()
+	{
+		ObjectContainer	oc = new ObjectContainer();
+		oc.set_DBConnection( new %ClassName%( oc ) );
+		oc.set_AutoSync( true );
+		return oc;
+	}
+
+#region IDBConnection Members
+
+	public ObjectContainer.ChangeSet Load( FillInstructionData instrData )
+	{
+		ObjectContainer.ChangeSet	ccData = null;
+		IObjectScope				os = %ClassName%.GetNewObjectScope();
+
+		os.get_Transaction().Begin();
+		try
+		{
+			FillInstruction	fillInstr = FillInstruction.Deserialize( instrData );
+
+			ccData = fillInstr.Execute( os );
+		}
+		finally
+		{
+			os.get_Transaction().Rollback();
+			os.Dispose();
+		}
+		return ccData;
+	}
+
+	public void						Save( ObjectContainer.ChangeSet changes )
+	{
+		IObjectScope		os = %ClassName%.GetNewObjectScope();
+		try
+		{
+			ObjectContainer.CommitChanges( changes, %ProductNamespace%.ObjectContainer.Verify.Changed, os, true, false );
+		}
+		finally
+		{
+			os.Dispose();
+		}
+	}
+
+	public ObjectContainer.ChangeSet	Sync( ObjectContainer.ChangeSet changes )
+	{
+		ObjectContainer.ChangeSet	ccData = null;
+		IObjectScope		os = %ClassName%.GetNewObjectScope();
+		try
+		{
+			ccData = ObjectContainer.CommitChanges( changes, %ProductNamespace%.ObjectContainer.Verify.Changed, os, true, true );
+		}
+		finally
+		{
+			os.Dispose();
+		}
+		return ccData;
+	}
+#endregion
+}

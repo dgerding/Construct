@@ -1,0 +1,3 @@
+To Start up from cmd, use the following:
+==============================================
+.\SMILExtract.exe -C .\emo_valence_net.conf

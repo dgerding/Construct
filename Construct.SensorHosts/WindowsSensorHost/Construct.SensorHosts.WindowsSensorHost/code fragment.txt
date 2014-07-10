@@ -1,0 +1,7 @@
+﻿
+                
+                /*
+                newProcess.StartInfo.Password = new System.Security.SecureString();
+                new List<char>("user".ToArray()).ForEach(ch => newProcess.StartInfo.Password.AppendChar(ch));
+                */
+                

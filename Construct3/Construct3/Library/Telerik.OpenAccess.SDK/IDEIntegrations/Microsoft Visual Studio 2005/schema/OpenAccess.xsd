@@ -1,0 +1,1942 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Schema definition for Telerik OpenAccess ORM configuration files. 
+     Location: 
+        VS.NET 2005: <installroot>\Xml\Schemas  (if not reconfigured to some different location)
+        VS.NET 2003: <installroot>\Common7\Packages\schemas\xml
+-->
+
+<!-- VS complains, if elementFormDefault is "unqualified", so it has to be set to "qualified" with the
+     respective vs specific defaults -->
+<!-- Unfortunately, the current xml schema does not allow to express the type of one attribute to 
+     be dependent on the value of another attribute. This bites us with key-value extensions. -->
+<!--   
+  xmlns:vs="http://schemas.microsoft.com/Visual-Studio-Intellisense" 
+  vs:requireattributequotes="true" 
+  vs:defaultnamespacequalifier="" 
+  vs:defaultnsprefix="">
+-->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+  targetNamespace="http://www.telerik.com/OpenAccess" 
+  xmlns="http://www.telerik.com/OpenAccess"
+  elementFormDefault="qualified"
+  attributeFormDefault="unqualified">
+
+  <xsd:element name="openaccess" type="openaccessType"/>
+
+  <xsd:complexType name="openaccessType">
+    <xsd:annotation>
+      <xsd:documentation>This is the configuration section for Telerik OpenAccess.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:all>
+      <xsd:element name="references" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>This section defines the assemblies to be searched in order to find persistent classes.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="reference" type="referenceType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="connections" minOccurs="0" maxOccurs="1" >
+        <xsd:annotation>
+          <xsd:documentation>This section defines the logical connection to physical server mappings.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="connection" type="connectionType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="backendconfigurations" minOccurs="0" maxOccurs="1" >
+        <xsd:annotation>
+          <xsd:documentation>This section defines the backend+driver settings.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="backendconfiguration" type="backendconfigurationType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="mappings" minOccurs="0" maxOccurs="1" >
+        <xsd:annotation>
+          <xsd:documentation>This section defines the class -- table mappings.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mapping" type="mappingType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+          <xsd:attribute name="current" type="xsd:IDREF" use="required">
+            <xsd:annotation>
+              <xsd:documentation>The ID of the current mapping.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:attribute>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="artificial" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The section to declare artificial (not present in compiled code) fields and classes.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="mapping" type="mappingType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="referenceType">
+    <xsd:annotation>
+      <xsd:documentation>Describes a required assembly.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:attribute name="assemblyname" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The name of the assembly to search for persistent classes.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="configrequired" type="booleanCaseInsensitive">
+      <xsd:annotation>
+        <xsd:documentation>Controls whether the referenced assembly needs to have a config file.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <!-- to be discussed: ordering -->
+  <xsd:complexType name="connectionType">
+    <xsd:annotation>
+      <xsd:documentation>Defines a logical connection.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:all>
+      <xsd:element name="connectionString" type="xsd:string" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The connection string to use or a connection string name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="databasename" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database as given by the database server.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="servername" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database server (logical name or IP address), optionally with instance name.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="integratedSecurity" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether integrated security is used or not (user+password must be given then).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="user" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The user name to be used when integratedSecurity=false .</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="password" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The password to be used when integratedSecurity=false .</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="connectionParams" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>For internal purposes only.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="backendconfigurationname" type="xsd:IDREF" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The id of the backend configuration to be used by this connection.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="references" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>This section defines the connection specific assemblies to be searched in order to find persistent classes.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="reference" type="referenceType" minOccurs="0" maxOccurs="unbounded"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="id" type="xsd:ID" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The connection ID as to be used during Database.Get().</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="file" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The file name containing the connection information node; connection node in this file must be empty.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <!-- todo -->
+  <xsd:complexType name="backendconfigurationType">
+    <xsd:annotation>
+      <xsd:documentation>Defines a database backend configuration.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:all>
+      <xsd:element name="mappingname" type="xsd:string" >
+        <!-- Could also be an xsd:IDREF -->
+        <xsd:annotation>
+          <xsd:documentation>The ID of the mapping to be used for this backend configuration.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="isolationLevel" type="isolationLevelEnumeration" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The isolation level to be used for this backend configuration.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="checkModelConsistencyOnCommit" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the model is checked for consistency.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="initSql" minOccurs="0" type="xsd:string" >
+        <xsd:annotation>
+          <xsd:documentation>A single SQL statement that is used when a connection was created. This is usable for application role restrictions or other initialization purposes. When the string ends with ';COMMIT', the transaction on the connection is committed. Additional initialization statements can be added with initSql1 .</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="initSql1" minOccurs="0" type="xsd:string" >
+        <xsd:annotation>
+          <xsd:documentation>A single SQL statement that is used after the initSql statement. Requires that the initSql statement is present; see initSql for more documentation. Additional initialization statements can be added with initSql2.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="initSql2" minOccurs="0" type="xsd:string" >
+        <xsd:annotation>
+          <xsd:documentation>A single SQL statement that is used after the initSql1 statement. Requires that the initSql1 and initSql statements are present; see initSql for more documentation. Additional initialization statements can be added with initSql3 (and initSql4, initSql5 etc.).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="validateSql" minOccurs="0" type="xsd:string" >
+        <xsd:annotation>
+          <xsd:documentation>A SQL string that is used when a connection is validated; must return at least one row. (Default: supplied for you by Telerik.OpenAccess)</xsd:documentation>
+        </xsd:annotation>
+			</xsd:element>
+			<xsd:element name="mediumTrust" minOccurs="0" type="booleanCaseInsensitive" >
+        <xsd:annotation>
+          <xsd:documentation>When working in a medium trust environment (ASP.NET), this setting can be used to switch off some critical operations (threading) so that no SecurityException is thrown. Setting this to true will avoid the creation of the connection pool background thread, and long running queries are not cancelled. (Default: false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logging.logEvents" type="logLevelEnumeration" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The amount of logging information to be generated. (Default: none)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logging.LogErrorsToWindowsEventLog" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls whether errors are logged to the Windows Application Event Log or not.
+            (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logging.logEventsToSysOut" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls whether logging information is printed to the console or not.
+            (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logging.logEventsToTrace" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls whether logging information is put to .Net framework tracing facilities.
+            (Default:true)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The name of the log downloader implementation class (default log downloader implementation if not set).
+            Can be set to 'none' when no log downloader is to be used.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.filename" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The file name to be used by the background log downloader. To enable asynchronous event
+            logging, you need to specify logDownloader.eventText or logDownloader.metricBinary as well.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.eventText" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls that events are logged by the logDownloader thread in textual form.
+            (Default:false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.metricBinary" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls that metric values are logged by the logDownloader thread in binary form.
+            (Default:false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.append" type="xsd:boolean" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls the append/overwrite behavior; binary logs are always overwritten.
+            (Default:false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.maxFileSizeK" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the maximum size of any of the files written in K. When a file exceeds this size it rolls over to a series of numbered backups. The oldest file has the highest backup number.
+            (Default:1000)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.backups" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the number of backups to be maintained for each file.
+            (Default:1)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.eventPollSecs" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the number of seconds between each poll for new events.
+            (Default:1)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.metricPollSecs" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the number of seconds between each poll for new metric values.
+            (Default:1)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="logDownloader.dateFormat" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the format of dates to be written to the event text file. 
+            (Default:HH:mm:ss.FFF)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="option.Multithreaded" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether synchronization is used on the in-memory structures like object scope for concurrent multi-threaded access. (Default: false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dbNullForeignKey" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether nullable references use foreign key constraints in the database. (Default:Oracle=true,false otherwise)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="performanceCounter" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether performance counter are used. (Default: false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheEnabled" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether ObjectScopes of the same Database instance can share a cache. (Default: false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2QueryCacheEnabled" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether Queries against the same Database instance can share a cache. (Default:false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2QueryCacheMaxQueries" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of queries to be cached when l2QueryCacheEnabled=true .</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheMaxObjects" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The number of objects to be cached when l2CacheEnabled=true. (Default: 10000)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport" type="clusterTransport" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>To synchronize multiple l2 caches in a cluster the name of the cluster synchronization mechanism needs to be specified here. If nothing is specified (default), no cluster synchronization takes place.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport.multicastaddr" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>MSMQ: Specifies the multicast address to use when l2 cache synchronization is used. Must be like 224.0.0.1:9999 where a numeric ip address is given together with a port number. See http://www.iana.org/assignments/multicast-addresses for a list of assigned addresses. (Default:empty)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport.localpath" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>MSMQ: Specifies the path name for the private message queue when l2 cache synchronization is used. (Default:{multicastaddr}_{PID})</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport.app" type="xsd:int" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>MSMQ: Specifies the app identifier when l2 cache synchronization is used. This setting can be used for filtering purposes; all cluster participants must use the same value. (Default:0)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport.expiration" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>MSMQ: Specifies the time-to-reach-queue property of the l2 cache synchronization messages in milliseconds. (Default:2000)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport.administrationqueue" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>MSMQ: Specifies the message queue to which undelivered messages are to be sent. If not given, no negative acknowledgement happens. The format is MACHINENAME\PublicQueueName. (Default:empty)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="l2CacheClusterTransport.tracing" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>MSMQ: Controls tracing of the l2 cache synchronization. (Default:false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="metricStoreCapacity" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Number of snapshots to store in the metric store. (Default:0)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="metricSnapshotIntervalMs" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Number of milliseconds between two snapshots in the metric store. (Default:1000)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="pmCacheRefType" type="kindOfReference" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>The kind of reference to be used in the oid->object map. (Default:AUTO)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="blockWhenFull" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Threads attempting to obtain a connection will wait until one is available if true (the default); otherwise an exception is
+            thrown and a pool.full event is logged.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="testOnAlloc" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If true then each connection is validated before leaving the pool. This may have a
+            serious negative impact on performance. (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="testOnRelease" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If true then each connection is validated before being returned to the pool. This may
+            have a serious negative impact on performance. (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="waitForConOnStartup" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If this is true then Telerik.OpenAccess will wait until it can
+            successfully connect to the database before starting. If false it will fail to start. This is useful in
+            production to avoid timing issues with database startup and application deployment. (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="testWhenIdle" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If true then idle connections are tested periodically by a background thread.
+            Connections that fail validation are discarded. (Default: true)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="testOnException" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If true then connections involved in an exception thrown by the database driver are
+            validated before being returned to the pool. (Default: true)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="maxConAge" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Active connections that have been inactive or busy for this many seconds are
+            closed. A pool.contimeout event is logged if this happens. (Default: 1000)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="testInterval" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The number of seconds between idle connection test runs and active connection timeout checks. (Default:120)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="maxActive" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The maximum number of active connections opened by the connection pool. (Default:10)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="maxIdle" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The maximum number of idle connections kept by the connection pool. (Default: 10)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="minIdle" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The minimum number of idle connections kept by the connection pool. (Default: 2)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="retryIntervalMs" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The number of milliseconds before the connection pool make another attempt to open the connection. (Default:1000).
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="retryCount" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The number of retries before the connection pool propagates failing connection attempts. (0:infinite,-1:no retries, default:30).
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="conTimeout" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The number of seconds before inactive or busy connections are closed. (Default:120)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="lockTimeout" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The number of milliseconds before the relational server gives
+            up trying to aquire a lock. Not supported for all database backends. (Default: no limit)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="reserved" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The number of connection the connection pool reserves for primary key generation avoiding deadlock situations during commit. (Default:1).
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="psCacheMax" type="xsd:integer" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Set the maximum number of prepared statements to cache per connection. If left
+            unspecified this defaults to a value reasonable for the database in use (currently only limited on Oracle to 30).
+            Use 0 for unlimited pooling and -1 to disable prepared statement pooling.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="useDelimitedSQL" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to false, the generated SQL will not be delimited and identifiers for tables,
+              columns, constrains and indexes  cannot contain whitespaces, reserved words and dots. (Default: true)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="useUTCForAutoSets" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to true, the used DateTime value for the auto set fields will be calculated using 
+            DateTime.Now.ToUniversalTime(). (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="useUTCForReads" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to true, all DateTime values that are read from the database will be in UTC format. (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dbNamegen.appendDisambiguation" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+						When set to true, the automatically generated table, column, index, constraint names will use an appended number to make them unique in cases where otherwise no unique name is generated. Additionally, a warning is generated that an explicit name should be given. When set to false, the
+						disambiguation does not take place and an error is generated. (Default: true)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dbNamegen.useModelNames" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to true, the generated table, column, index, constraint names will use the unmangled
+            class model names. This requires to delimit the SQL so that reserved keywords in the
+            various SQL dialects won't confuse the database backend. When set to true, a model field
+              with name 'name' will generate a column named 'name'; when not set to true, the column
+            is named 'nme'.  (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="useStoredProceduresForDelete" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to true, stored procedures will be used when rows are deleted.
+            (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>      
+      <xsd:element name="useStoredProceduresForUpdate" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to true, stored procedures will be used when rows are updated.
+            (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>    
+      <xsd:element name="useStoredProceduresForInsert" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            When set to true, stored procedures will be used when rows are inserted.
+            (Default: false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>    
+      <xsd:element name="dbNamegen.spDeleteFormat" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the name format used for delete stored procedures. The parameters are 0=tablename 1=classname 2=action 3=maxnamelength.
+            (Default: sp_oa_del_{0})
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dbNamegen.spDeleteLinkRowFormat" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the name format used for delete link table rows stored procedures. The parameters are 0=tablename 1=classname 2=action 3=maxnamelength.
+            (Default: sp_oa_unlink{0})
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="dbNamegen.spUpdateFormat" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the name format used for update stored procedures. The parameters are 0=tablename 1=classname 2=action 3=maxnamelength.
+            (Default: sp_oa_upd_{0})
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>      
+      <xsd:element name="dbNamegen.spInsertFormat" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Sets the name format used for insert stored procedures. The parameters are 0=tablename 1=classname 2=action 3=maxnamelength.
+            (Default: sp_oa_ins_{0})
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>      
+      <xsd:element name="databaseMapping" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Allows the mapping of logical database names as given by the table definitions to
+            physical database names for SQL generation. Different logical databases can be mapped
+            to the same physical database; the database schemata are generated in the same way as
+            without mapping. The default is to use the logical database name as the physical too.
+            Syntax is logicalName=physicalName, and for MSSQL the physicalName can be of form
+            server servername].[databasename when the database is located on a linked database server.
+            In order to specify the physicalName as the name of the default database use a colon (MyDB1=:).
+            Additional mappings can be given by databaseMapping1, databaseMapping2, ... etc.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="databaseMapping1" type="xsd:string" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            See databaseMapping documentation; additional database mapping entries can be
+            given with increasing consecutive numbers starting at 1 appended to databaseMapping.
+            Ignore XML schema warnings for higher numbers.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="managedManyToMany" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If set to true then many-to-many relationships of Telerik.OpenAccess instances are handled automatically. (Default:false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="managedOneToMany" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            If set to true then one-to-many relationships of Telerik.OpenAccess instances are handled automatically. (Default:false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-do-not-create" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Default setting to control database table creation. Useful in legacy database situations.(Default:false)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.cache-strategy" type="yesnoall" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls how instances of a class are cached: 'no' means no caching, 'yes' to cache instances, 'all' to cache all instances on read access. (Default:yes)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-optimistic-locking" type="optimisticlocking" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls how instances of a class are checked for modifications. (Default:version)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-inheritance" type="inheritance" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the default mapping strategy for derived persistence capable classes.(Default:flat)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-class-id" type="classidgenerationtype" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies the algorithm to be used for the calculation of discriminator column value. (Default:hash)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.oids-in-default-fetch-group" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            Default setting to control if the OIDs (primary keys) of referenced instances are retrieved along with the
+            default fetch group fields. (Default:true, as this usually provides better performance)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.tableName" type="xsd:string" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: The name of the table used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.keyColumnName" type="xsd:string" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: The name of the table name column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.valueColumnName" type="xsd:string" minOccurs="0" maxOccurs="1" >
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: The name of the last used number column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.keyColumnLength" type="xsd:unsignedInt" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: Length of the table name column (default:64).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.createTable" type="booleanCaseInsensitive" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: Controls whether the table is created (default:true).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.grabSize" type="xsd:unsignedInt" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: The number of instances creatable per update of the table; values greater than 1 improve performance, but might generate holes in the sequence (default:10).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.start" type="xsd:unsignedInt" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: First primary key when table has no row; otherwise max(id)+1 is used (Default:0).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.pkConstraint" type="xsd:string" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>HIGHLOW key generator: Name of the primary key constraint of the table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="ext.db-key-generator.ignoreMissingTables" type="booleanCaseInsensitive" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>
+            HIGHLOW key generator: Controls the check during database open operation. 
+            Use with care. If a table is missing in the actual database the keygen table entry will not be written and no 
+            objects can be created (Default: false). 
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="typeMap" type="typeMapType" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>Specifies user defined type mapping between CLR, SQL and ADO.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+		<xsd:element name="lockSqlSuffix" type="xsd:string" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>Specifies the SQL that is used as suffix during lock statements (Default: FOR UPDATE, backend specific).</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+		<xsd:element name="nullsFirst" type="booleanCaseInsensitive" minOccurs="0" maxOccurs="1">
+			<xsd:annotation>
+				<xsd:documentation>Specifies if the database should sort nulls first. (Default: backend specific (Oracle:false,MSSQL:true)).</xsd:documentation>
+			</xsd:annotation>
+		</xsd:element>
+    <xsd:element name="likeWithEscape" type="booleanCaseInsensitive" minOccurs="0" maxOccurs="1">
+      <xsd:annotation>
+        <xsd:documentation>Specifies if the database should use the LIKE 'pattern' ESCAPE '\' form. (Default: backend specific (Oracle:false,MSSQL:true)).</xsd:documentation>
+      </xsd:annotation>
+    </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="id" type="xsd:ID" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The id of this backend configuration.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="backend" type="backendEnumerationType" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The database type of this backend configuration.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="driver" type="driverEnumerationType">
+      <xsd:annotation>
+        <xsd:documentation>The database driver to be used for this backend configuration.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:simpleType name="backendEnumerationType">
+    <xsd:annotation>
+      <xsd:documentation>The known database backends.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="mssql" />
+      <xsd:enumeration value="oracle" />
+      <xsd:enumeration value="mysql" />
+      <xsd:enumeration value="sqlanywhere" />
+      <xsd:enumeration value="ads" />
+      <xsd:enumeration value="firebird" />
+      <xsd:enumeration value="azure" />
+      <xsd:enumeration value="sqlce" />
+      <xsd:enumeration value="vistadb" />
+      <xsd:enumeration value="sqlite" />
+      <xsd:enumeration value="postgresql" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="driverEnumerationType">
+    <xsd:annotation>
+      <xsd:documentation>The known database driver implementations.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="genericADO2" />
+      <xsd:enumeration value="ntds" />
+      <xsd:enumeration value="odp" />
+      <xsd:enumeration value="mySqlOpenaccess" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="yesnoall">
+    <xsd:annotation>
+      <xsd:documentation>The known caching strategies.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="all" />
+      <xsd:enumeration value="no" />
+      <xsd:enumeration value="yes" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="optimisticlocking">
+    <xsd:annotation>
+      <xsd:documentation>The known approaches for optimistic concurrency control checking.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="version">
+				<xsd:annotation>
+					<xsd:documentation>An integer column is used for checking; a new value is computed on the client.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+      <xsd:enumeration value="changed">
+				<xsd:annotation>
+					<xsd:documentation>All changed columns (without float/double columns) are checked with their before-value.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+      <xsd:enumeration value="all">
+				<xsd:annotation>
+					<xsd:documentation>All columns (without float/double) are checked with their before-value.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+      <xsd:enumeration value="backend">
+				<xsd:annotation>
+					<xsd:documentation>A database backend specific approach is used where the server controls the values.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+      <xsd:enumeration value="timestamp">
+				<xsd:annotation>
+					<xsd:documentation>A DateTime column is used for checking; a new value is computed on the client.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+      <xsd:enumeration value="none">
+				<xsd:annotation>
+					<xsd:documentation>No concurrency control takes place.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="inheritance">
+    <xsd:annotation>
+      <xsd:documentation>The known approaches for class->table mapping.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="flat" />
+      <xsd:enumeration value="horizontal" />
+      <xsd:enumeration value="vertical" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="classidgenerationtype">
+    <xsd:annotation>
+      <xsd:documentation>The known approaches for class discriminator generation.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="no" />
+      <xsd:enumeration value="hash" />
+      <xsd:enumeration value="name" />
+      <xsd:enumeration value="fullname" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- actually not really case-insensitive -->
+  <xsd:simpleType name="booleanCaseInsensitive">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="true" />
+      <xsd:enumeration value="True" />
+      <xsd:enumeration value="TRUE" />
+      <xsd:enumeration value="false" />
+      <xsd:enumeration value="False" />
+      <xsd:enumeration value="FALSE" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="typeMapType">
+    <xsd:sequence>
+      <xsd:element name="typeMapping" maxOccurs="unbounded" minOccurs="0">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element name="CLRType" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies the CLR type to map (like System.Nullable`1[[System.Int32).
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ADOType" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies the specific ADO type to map (like LONGVARCHAR).
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="SQLType" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies the general SQL type to map (like VARCHAR).
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Nulls" type="booleanCaseInsensitive" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies if null values are allowed.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Length" type="xsd:integer" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies the length of the type.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Scale" type="xsd:integer" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies the scale of the type.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="Converter" type="xsd:string" minOccurs="0">
+              <xsd:annotation>
+                <xsd:documentation>
+                  Specifies the AdoTypeConverter to be used for the type.
+                </xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <!-- todo -->
+  <xsd:complexType name="mappingType">
+    <xsd:annotation>
+      <xsd:documentation>Defines a mapping between in-memory objects and database tables.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeMapping" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="namespace" type="namespaceType" minOccurs="0" maxOccurs="unbounded" />
+      <!-- xsd:any processContents="skip" minOccurs="0"/ -->
+    </xsd:sequence>
+    <xsd:attribute name="id" type="xsd:ID" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="namespaceType">
+    <xsd:annotation>
+      <xsd:documentation>All persistent class definition of a namespace.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element name="class" type="classType" maxOccurs="unbounded" />
+        <xsd:element name="extension" type="extensionTypeNamespace" minOccurs="0" maxOccurs="unbounded"/>
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The namespace name; must match the namespace in code exactly.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+  
+  <xsd:complexType name="classType">
+    <xsd:annotation>
+      <xsd:documentation>All definitions for a class like fetch groups, fields and mapping specific details.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <!-- xsd:any processContents="skip" minOccurs="0" maxOccurs="unbounded"/-->
+      <xsd:choice minOccurs="0" maxOccurs="unbounded">
+        <xsd:element name="extension" type="extensionTypeClass" />
+        <xsd:element name="field" type="fieldType">
+          <xsd:annotation>
+            <xsd:documentation>Definitions for a class member.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>        
+        <xsd:element name="procedures" type="proceduresTypeClass" maxOccurs="1">
+          <xsd:annotation>
+            <xsd:documentation>Definitions for the stored procedures used by the class for insert, update and delete.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+        <xsd:element name="fetch-group" minOccurs="0" maxOccurs="unbounded" type="fetchGroupType">
+          <xsd:annotation>
+            <xsd:documentation>Definition of fields forming a named fetch group.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>        
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The class name; must match the class name in code exactly (without namespace).</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="behavior" type="behaviorType" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>Controls the behavior of insert, update and delete operations for instances of this type. (Default:readwrite)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="identity-type" type="identityTypeEnum" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>
+          The identity type of the class; controls who is responsible to provide new
+          objects with their identity. This information should not be specified in the mapping, because
+          it belongs to the code domain.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="identityfieldtype" type="validIdentityFieldTypes" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>
+          The type of the 'id' field for an artificial type is specified with this attribute.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="persistence-capable-superclass" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>
+          The full name of the persistence capable base type for an artificial type is specified with this attribute.
+          This attribute must not be used with the normal persistent classes, only with artificial types.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <!-- todo: collection can only appear once -->
+  <xsd:complexType name="fieldType">
+    <xsd:choice minOccurs="0" maxOccurs="unbounded">      
+      <xsd:element name="extension" type="extensionTypeField" />
+      <xsd:element name="collection">
+        <xsd:annotation>
+          <xsd:documentation>Definitions for a collection member.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="extension" type="extensionTypeCollection" minOccurs="0" maxOccurs="unbounded" />
+            <xsd:element name="procedures" type="proceduresTypeCollection" minOccurs="0" maxOccurs="1">
+              <xsd:annotation>
+                <xsd:documentation>Definitions for the stored procedures used by the link table to add, remove or clear rows.</xsd:documentation>
+              </xsd:annotation>
+            </xsd:element>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="map">
+        <xsd:annotation>
+          <xsd:documentation>Definitions for a map member.</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="extension" type="extensionTypeMap" minOccurs="0" maxOccurs="unbounded" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:choice>
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The class member name.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="null-value" type="nullValueEnumeration">
+      <xsd:annotation>
+        <xsd:documentation>Controls the behavior when no value is given for this reference field at Transaction.Commit().</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="behavior" type="behaviorType" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>
+          <xsd:documentation>Controls the behavior of insert, update and delete operations for this field. (Default:readwrite)</xsd:documentation>
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="clr" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The type of the artificial field.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeMapping">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeMappingNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionMappingEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeMappingNested">
+    <xsd:attribute name="key" type="extensionMappingEnumerationNested" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeNamespace">
+    <xsd:attribute name="key" type="extensionNamespaceEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="proceduresTypeClass">
+    <xsd:all>
+      <xsd:element name="insert" type="procedureDefinition"  minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Definition of the stored procedure used to insert new instances into the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="update" type="procedureDefinition" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Definition of the stored procedure used to update instances in the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="delete" type="procedureDefinition" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Definition of the stored procedure used to delete instances from the database.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="proceduresTypeCollection">
+    <xsd:all>
+      <xsd:element name="add" type="procedureDefinition" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Definition of the stored procedure used to add a new row in the link table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="remove" type="procedureDefinition" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Definition of the stored procedure used to remove a row from the link table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="clear" type="procedureDefinition" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Definition of the stored procedure used to remove all rows of an owner from the link table.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="procedureDefinition">
+    <xsd:sequence minOccurs="1" maxOccurs="1">
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+        <xsd:element name="parameter" type="procedureParameterType"/>
+      </xsd:sequence>      
+      <xsd:element name="code" minOccurs="0" maxOccurs="1">
+        <xsd:annotation>
+          <xsd:documentation>The database specific code of the stored procedure. 
+          If specified, the stored procedure is modifiable during schema update.
+          Parameters must be referenced by the database specific prefix like @ or %; OpenAccess does not process this given text.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The unique name of the stored procedure without delimitation. When no name is given, a unique name is created.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="dynamicSql" type="xsd:boolean" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>When set to true, no stored procedure is used, but dynamic SQL is executed. (Default:false)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="create" type="xsd:boolean" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>When set to false, no stored procedure is created during schema update. (Default:true)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="rowsAffectedParam" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The name of the output parameter that contains the number of rows affected by the procedure. (Default:null)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="autoIncParam" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>The name of the output parameter that contains the value of the autoinc column as generated by the server. (Default:null)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="procedureParameterType">
+    <xsd:annotation>
+      <xsd:documentation>The definition of a parameter to the stored procedure.</xsd:documentation>
+    </xsd:annotation>
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeFieldNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The name of the parameter without database specific prefix like @ or %.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="mode" type="parameterModeType" use="optional" default="in">
+      <xsd:annotation>
+        <xsd:documentation>The direction in which values flow.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="field" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A valid field name or a pseudo field name like db-table-name, db-procedure-name, db-primary-key.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="column" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A column name without delimiters which exists on the table used by the class.</xsd:documentation>
+      </xsd:annotation>      
+    </xsd:attribute>
+    <xsd:attribute name="constant" type="xsd:string" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>A constant value to pass. Per default a VARCHAR column is assumed; other types need additional mapping information like db-sql-type.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="cc" type="booleanCaseInsensitive" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>Indicates that the parameter carries the old value of the field or column for concurrency control.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:simpleType name="parameterModeType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="in">
+        <xsd:annotation>
+          <xsd:documentation>Input parameter</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="inout">
+        <xsd:annotation>
+          <xsd:documentation>Input/Output parameter</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="out">
+        <xsd:annotation>
+          <xsd:documentation>Output parameter</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:complexType name="extensionTypeClass">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeClassNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionClassEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeClassNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeClassNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionClassEnumerationNested" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeClassNestedNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeClassNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="xsd:string"/>
+    <xsd:attribute name="value" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeField">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeFieldNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionFieldEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeFieldNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeFieldNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionDbColumnEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeFieldNestedNested">
+    <xsd:attribute name="key" type="xsd:string" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <!-- Collection -->
+  <xsd:complexType name="extensionTypeCollection">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeCollectionNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionCollectionEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeCollectionNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeCollectionNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionCollectionEnumerationNested" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeCollectionNestedNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeCollectionNestedNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="xsd:string" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeCollectionNestedNestedNested">
+	  <xsd:sequence>
+		  <xsd:element name="extension" type="extensionTypeCollectionNestedNestedNestedNested" minOccurs="0" maxOccurs="unbounded" />
+	  </xsd:sequence>
+    <xsd:attribute name="key" type="xsd:string" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeCollectionNestedNestedNestedNested">
+	<xsd:attribute name="key" type="extensionDbColumnEnumeration" use="required" />
+	<xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+	
+  <!-- Map -->
+  <xsd:complexType name="extensionTypeMap">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeMapNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionCollectionEnumeration" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeMapNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeMapNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="extensionMapEnumerationNested" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeMapNestedNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeMapNestedNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="xsd:string" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeMapNestedNestedNested">
+    <xsd:sequence>
+      <xsd:element name="extension" type="extensionTypeMapNestedNestedNestedNested" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+    <xsd:attribute name="key" type="xsd:string" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <xsd:complexType name="extensionTypeMapNestedNestedNestedNested">
+    <xsd:attribute name="key" type="xsd:string" use="required" />
+    <xsd:attribute name="value" type="xsd:string" use="required"/>
+  </xsd:complexType>
+
+  <!-- Mapping -->
+  <xsd:simpleType name="extensionMappingEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="artificial-types">
+        <xsd:annotation>
+          <xsd:documentation>The (full path) name of a file with artificial fields, type and mapping information. The xml schema format is the same as for normal mapping starting with a mapping node.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extensionMappingEnumerationNested">
+    <xsd:restriction base="xsd:string">
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <!-- Namespace -->
+  <xsd:simpleType name="extensionNamespaceEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="interface">
+        <xsd:annotation>
+          <xsd:documentation>
+            Declares an interface type to be persistent in the database. All implementing types must be persistent as well.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>  
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <!-- Class -->
+  <xsd:simpleType name="extensionClassEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="db-table-name">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database table to be used. The name can include the database, catalog and schema in the following form: 'databasename'.'catalogname'.'schemaname'.'tablename'</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-class-id">
+        <xsd:annotation>
+          <xsd:documentation>The hierarchy specific unique numerical or string value to associate rows with classes; must not be modified if instances already exist!</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="class-id">
+        <xsd:annotation>
+          <xsd:documentation>The unique numerical value to identify a persistent type. It is used in object id instances to associate them with a its persistent type. The default value for db-class-id.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-key-generator">
+        <xsd:annotation>
+          <xsd:documentation>The class name of the key generator implementation to be used: AUTOINC, HIGHLOW or VERIFY (Default:HIGHLOW).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-primary-key">
+        <xsd:annotation>
+          <xsd:documentation>A database column definition for the internal identity column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-index">
+        <xsd:annotation>
+          <xsd:documentation>A database index definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-optimistic-locking">
+        <xsd:annotation>
+          <xsd:documentation>Controls how optimistic locking is performed for this class: none, version, timestamp,all or changed (Default:version).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-do-not-create-table">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the database table is created or not (Default:false).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-inheritance">
+        <xsd:annotation>
+          <xsd:documentation>Controls the base table inheritance mapping: flat, vertical, horizontal (Default:flat).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="delete-orphans">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the unreferenced instances in a inverse foreign key 1:n relationship can be deleted (Default:false).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="cache-strategy">
+        <xsd:annotation>
+          <!-- TODO datastore level -->
+          <xsd:documentation>
+            Controls how instances of a class are cached. This can be set at datastore and class level. The value set at
+            datastore level becomes the default for all classes in that datastore. This is ignored if a cache is
+            not being used. (Values: all, yes, no)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="fetch-group">
+        <xsd:annotation>
+          <xsd:documentation>
+            Declares a fetch group. Fields declared in this fetch group will be fetched together from
+            the database server when needed. You must declare all fields in this element using the
+            field-name extension.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-splitted-table">
+        <xsd:annotation>
+          <xsd:documentation>Declares a splitted table that can be referenced by fields. The columns of the referencing fields will be created in this table.</xsd:documentation>
+        </xsd:annotation>        
+      </xsd:enumeration>      
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="fetchGroupType">
+    <xsd:sequence>
+      <xsd:choice>
+        <xsd:element name="field" maxOccurs="unbounded" type="fetchFieldType">
+          <xsd:annotation>
+            <xsd:documentation>Names a field to be part of a fetch group.</xsd:documentation>
+          </xsd:annotation>
+        </xsd:element>
+      </xsd:choice>
+    </xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>Name of the fetch group. Must match exactly the name used by the FetchPlan API.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:complexType name="fetchFieldType">
+    <xsd:attribute name="name" type="xsd:string" use="required">
+      <xsd:annotation>
+        <xsd:documentation>The exact name of the field to be included in the fetch group; must match the name of the field in code.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="fetch-depth" type="xsd:unsignedInt">
+      <xsd:annotation>
+        <xsd:documentation>
+          Defines the depth of the reference traversal, in cases where an object of a particular
+          type refers to an object of the same type.
+        </xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+    <xsd:attribute name="fetch-group" type="xsd:string">
+      <xsd:annotation>
+        <xsd:documentation>An additional fetch group which is automatically added to the fetch plan for the
+        referenced objects only.</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:simpleType name="extensionClassEnumerationNested">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="field-name">
+        <xsd:annotation>
+          <xsd:documentation>
+            Names a field participating in the fetch group.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-unique"/>
+      <xsd:enumeration value="db-clustered"/>
+      <xsd:enumeration value="db-do-not-create-table">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the database table is created or not (Default:false).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-use-join"/>
+      <xsd:enumeration value="db-column">
+        <xsd:annotation>
+          <xsd:documentation>Controls column settings.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="property">
+        <xsd:annotation>
+          <xsd:documentation>Allows to pass context dependend properties though the value attribute in a propertyname=value syntax. HIGHLOW key generator properties: Start,GrabSize,TableName,KeyColumnName,ValueColumnName,KeyColumnLength,CreateTable,PkConstraint</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-constraint">
+        <xsd:annotation>
+          <xsd:documentation>Explicit name of a referential integrity constraint or 'no' to disable the constraint generation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-ref">
+        <xsd:annotation>
+          <xsd:documentation>Defines column properties for part of a reference to an application identity class using a composite primary key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>    
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extensionFieldEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="db-column">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls the settings for the column used for the field. Can be made backend specific by
+            specifying the backend with the value attribute, e.g. value="mssql" .
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-ref">
+        <xsd:annotation>
+          <xsd:documentation>Defines column properties for part of a reference to an application identity class using a composite primary key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-use-join">
+        <xsd:annotation>
+          <xsd:documentation>Controls which joins are used: inner, outer or none.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-constraint">
+        <xsd:annotation>
+          <xsd:documentation>Explicit name of a referential integrity constraint or 'no' to disable the constraint generation.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-class-id">
+        <xsd:annotation>
+          <xsd:documentation>Controls the discriminator used when inheritance is used.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="field">
+        <xsd:annotation>
+          <xsd:documentation>Settings for nested structures</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="dependent">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether a reference to a persistent class or the persistent values in a collection, array or map are to be considered dependent (Default:false).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="autoset">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the field is automatically set by Telerik.OpenAccess when new instances and/or changes are committed; may only be used on DateTime, byte, short and int fields (Values:none,created,modified,both; Default:none).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="fetch-group">
+        <xsd:annotation>
+          <xsd:documentation>
+            Defines the fetch group to be loaded upon request of this field.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="valid-class">
+        <xsd:annotation>
+          <xsd:documentation>
+            Defines a class name to be valid for this interface or System.Object reference field. Optionally,
+            a class id might be specified, which then overrides the normal class id. (e.g. value="Restaurant=R")
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="null-value">
+        <xsd:annotation>
+          <xsd:documentation>
+            Controls the behavior when a null value is encountered on the field during commit: exception, default, none. (Default: none)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-table-name">
+        <xsd:annotation>
+          <xsd:documentation>
+            Specifies a table where the column of the field should be stored.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extensionDbColumnEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="db-type">
+        <xsd:annotation>
+          <xsd:documentation>The type of the database column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-sql-type">
+        <xsd:annotation>
+          <xsd:documentation>The backend specific type of this database column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-column-name">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-length">
+        <xsd:annotation>
+          <xsd:documentation>The length of the database column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-scale">
+        <xsd:annotation>
+          <xsd:documentation>The scale (digits after decimal point) of the database column.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-column">
+        <xsd:annotation>
+          <xsd:documentation>The column specification for db-ref.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="null-value">
+        <xsd:annotation>
+          <xsd:documentation>The behavior when a null value is encountered. Applies only to tables generated by OpenAccess. (Values:default,exception)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="field">
+        <xsd:annotation>
+          <xsd:documentation>Defines the settings of nested structures.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-converter">
+        <xsd:annotation>
+          <xsd:documentation>Defines the name of a converter to use. (Values: default, internal class name, assembly qualified name)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extensionCollectionEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="db-link-table">
+        <xsd:annotation>
+          <xsd:documentation>Defines the link table used to store a collection, map or array field.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ordered">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the collection maintains order or not (Default:true).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="ordering">
+        <xsd:annotation>
+          <xsd:documentation>Specifies which field of the element class is used for ordering. (Example: 'date descending')</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="inverse">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the collection is stored invers or not (Default:false).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="managed">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the reference field used to create the collection is kept in sync with the collection instance (Default:false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extensionCollectionEnumerationNested">
+    <!-- Defines also map keys -->
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="db-index">
+        <xsd:annotation>
+          <xsd:documentation>A database index definition.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-table-name">
+        <xsd:annotation>
+          <xsd:documentation>The name of the database table to be used for the class.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-owner-ref">
+        <xsd:annotation>
+          <xsd:documentation>The column that references the class containing the field that the link table is for.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-value">
+        <xsd:annotation>
+          <xsd:documentation>A value column for the collection or map.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-sequence">
+        <xsd:annotation>
+          <xsd:documentation>The sequence number column for collections that are ordered to maintain the ordering.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="db-do-not-create-table">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the database table is created or not (Default:false).</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extensionMapEnumerationNested" >
+    <!-- Reuses collection keys -->
+    <xsd:union>
+      <xsd:simpleType>
+        <xsd:restriction base="extensionCollectionEnumerationNested"/>
+      </xsd:simpleType>
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="db-key">
+            <xsd:annotation>
+              <xsd:documentation>A key column for the map.</xsd:documentation>
+            </xsd:annotation>
+          </xsd:enumeration>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:union>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="isolationLevelEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="READ_COMMITTED"/>
+      <xsd:enumeration value="READ_UNCOMMITTED"/>
+      <xsd:enumeration value="REPEATABLE_READ"/>
+      <xsd:enumeration value="SERIALIZABLE"/>
+      <xsd:enumeration value="SNAPSHOT"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="logLevelEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="none">
+        <xsd:annotation>
+          <xsd:documentation>Do not generate logging information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="errors">
+        <xsd:annotation>
+          <xsd:documentation>Generate logging information for errors.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="normal">
+        <xsd:annotation>
+          <xsd:documentation>Generate logging information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="verbose">
+        <xsd:annotation>
+          <xsd:documentation>Generate lots of logging information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="all">
+        <xsd:annotation>
+          <xsd:documentation>Generate all logging information.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="nullValueEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="none"/>
+      <xsd:enumeration value="exception"/>
+      <xsd:enumeration value="default"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="joinEnumeration">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="inner"/>
+      <xsd:enumeration value="outer"/>
+      <xsd:enumeration value="no"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="kindOfReference">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="STRONG">
+        <xsd:annotation>
+          <xsd:documentation>
+            The reference is made strongly and never released in the ObjectScope.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="WEAK">
+        <xsd:annotation>
+          <xsd:documentation>
+            The reference is made weakly and the GC can reclaim memory at it's will.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="AUTO">
+        <xsd:annotation>
+          <xsd:documentation>
+            The reference is made strongly for fetched data (until the next transaction's begin) and
+            weakly for user instances.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="clusterTransport">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MSMQ"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="identityTypeEnum">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="application"/>
+      <xsd:enumeration value="datastore"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="behaviorType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="readwrite">
+        <xsd:annotation>
+          <xsd:documentation>
+            The class or field can be inserted, updated and deleted; default.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="insertonly">
+        <xsd:annotation>
+          <xsd:documentation>
+            The class or field can only be inserted.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="readonly">
+        <xsd:annotation>
+          <xsd:documentation>
+            The class or field is read-only; insert, update and delete are not allowed.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="validIdentityFieldTypes">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="System.String"/>
+      <xsd:enumeration value="System.Guid"/>
+      <xsd:enumeration value="System.Int16"/>
+      <xsd:enumeration value="System.Int32"/>
+      <xsd:enumeration value="System.Int64"/>
+      <xsd:enumeration value="System.Char"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+</xsd:schema>

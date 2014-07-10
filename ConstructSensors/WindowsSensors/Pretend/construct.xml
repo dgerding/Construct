@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SensorTypeSource Name="PretendSensor" ID="E94765C3-F31A-4158-86AE-FAEBDD2FF478" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
+	<DataType Name="PretendPayload" ID="11878896-8D84-4904-B6C6-1BF66E53F957">
+		<DataTypeProperty Name="Thing" ID="249D135B-66D3-45F7-BD97-955B7D96A877" Type="int" />
+	</DataType>
+</SensorTypeSource>

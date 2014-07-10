@@ -1,0 +1,5 @@
+        [Telerik.OpenAccess.FieldAlias("$(fieldName)")]
+        public IList<$fieldType> ${fieldNameCaps}s
+        {
+            get { return $fieldName; }
+        }

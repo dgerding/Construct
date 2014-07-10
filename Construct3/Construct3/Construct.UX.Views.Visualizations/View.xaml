@@ -1,0 +1,53 @@
+﻿<views:View x:Class="Construct.UX.Views.Visualizations.View"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:views="clr-namespace:Construct.UX.Views;assembly=Construct.UX.Views"
+            xmlns:this="clr-namespace:Construct.UX.Views.Visualizations"
+            xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+            xmlns:controls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
+            xmlns:datavisualization="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.DataVisualization"
+            xmlns:my="clr-namespace:System;assembly=mscorlib"
+            mc:Ignorable="d" 
+            d:DesignHeight="800" d:DesignWidth="1200">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TabControl Grid.Row="0" Grid.Column="0">
+            <TabItem Header="Create">
+                <StackPanel>
+                    <Label>Name</Label>
+                    <TextBox Name="nameTextBox" TextChanged="NameChanged"></TextBox>
+                    
+                    <Label>DataType</Label>
+                    <ComboBox Name="dataTypeComboBox" IsEnabled="False" ItemsSource="{Binding DataTypes}" SelectionChanged="DataTypeSelectionChanged" DisplayMemberPath="Name" DropDownOpened="DataTypeComboBoxDropDownOpened"/>
+                    
+                    <Label>Property</Label>
+                    <ComboBox Name="propertiesComboBox" IsEnabled="False" ItemsSource="{Binding Properties}" SelectionChanged="PropertySelectionChanged" DisplayMemberPath="Name"/>
+                    
+                    <Label>SourceID</Label>
+                    <ComboBox Name="sourcesComboBox" IsEnabled="False" ItemsSource="{Binding Sources}" SelectionChanged="SourceSelectionChanged" DisplayMemberPath="ID"/>
+
+                    <Label>Visualizer</Label>
+                    <ComboBox Name="visualizerComboBox" IsEnabled="False" ItemsSource="{Binding Visualizers}" SelectionChanged="VisualizerSelectionChanged" DisplayMemberPath="Name"/>
+
+                    <Button Name="createButton" IsEnabled="False" Content="Create" Width="100" Height="30" HorizontalAlignment="Right" Click="CreateClicked"/>
+                    
+                    <ListBox Name="listBox" ItemsSource="{Binding Visualizations}" DisplayMemberPath="Name" Height="200"/>
+                    
+                    <Button Content="Display" Click="Button_Click" />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+        
+        <this:VisualizationWindow x:Name="VisualizationWindow" Grid.Column="1" Grid.Row="0">
+            
+        </this:VisualizationWindow>
+    </Grid>
+</views:View>

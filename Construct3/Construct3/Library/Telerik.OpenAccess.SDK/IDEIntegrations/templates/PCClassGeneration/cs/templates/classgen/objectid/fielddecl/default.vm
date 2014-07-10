@@ -1,0 +1,1 @@
+            public $oidFieldType#if($isNullable)?#end $oidFieldName; //pk

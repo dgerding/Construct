@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.Server.Models.Sources\bin\Debug\Construct.Server.Models.Sources.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">0</Attribute>
+      <Attribute key="TabContainerSelectedTabIndex" valuetype="integer">1</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSources</LastSelectedItem>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddQuestionArgs">
+    <summary ChangeDateTime="2013-02-07T18:29:45.5923085Z">Class to hold the serialized arguments for the AddQuestion Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorArgs">
+    <summary ChangeDateTime="2013-02-07T18:29:59.1264149Z">Class to hold the serialized arguments for the AddSensor Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorHostArgs">
+    <summary ChangeDateTime="2013-02-07T18:30:06.1602215Z">Class to hold the serialized arguments for the AddSensorHost Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.GenericSensorCommandArgs">
+    <summary ChangeDateTime="2013-02-07T18:30:17.7069305Z">Class to hold the serialized arguments for the GenericSensorCommand Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.LoadSensorArgs">
+    <summary ChangeDateTime="2013-02-07T18:30:24.9757841Z">Class to hold the serialized arguments for the LoadSensor Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StartSensorArgs">
+    <summary ChangeDateTime="2013-02-07T18:30:34.0534601Z">Class to hold the serialized arguments for the StartSensor Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StopSensorArgs">
+    <summary ChangeDateTime="2013-02-07T18:30:39.6421169Z">Class to hold the serialized arguments for the StopSensor Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.UnloadSensorArgs">
+    <summary ChangeDateTime="2013-02-07T18:30:45.2236331Z">Class to hold the serialized arguments for the UnloadSensor Service call</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model">
+    <summary ChangeDateTime="2013-02-14T22:04:55.231753Z">Sources Model class. Exposes service&amp;nbsp;interface&amp;nbsp;to control sensor activity (forwarded via sensor hosts), as well as services for requesting collections of objects representing rows in a database. The objects in the returned collections can be altered and then reinserted into the database and the changed objects will create updates to database rows.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.SensorInstaller">
+    <summary ChangeDateTime="2013-02-07T19:18:36.6225114Z">SensorInstaller provides an interface for uploading an sensor to the Construct server. It creates entities representing the types created of the new sensor uploading process, and uploads the sensor runtime package to the server.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddQuestionArgs~Temp">
+    <summary ChangeDateTime="2013-02-07T19:51:38.7373782Z">Placeholder property because AddQuestion is probably in the wrong place</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorArgs~DownloadUri">
+    <summary ChangeDateTime="2013-02-07T19:52:50.9817946Z">Uri of server that sensor is being downloaded from</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorArgs~HumanName">
+    <summary ChangeDateTime="2013-02-07T19:52:59.3390926Z">Human readable name of the Sensor's type</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorArgs~Overwrite">
+    <summary ChangeDateTime="2013-02-07T19:53:20.9119798Z">Bool controling whether or not to overwrite an existing version of this sensor on disc.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorArgs~Version">
+    <summary ChangeDateTime="2013-02-07T19:53:29.6461732Z">Version number of this sensor.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.AddSensorArgs~ZippedFileName">
+    <summary ChangeDateTime="2013-02-07T20:07:47.3696282Z">Filename of the sensor zip when download is finished</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.GenericSensorCommandArgs~ArgsList">
+    <summary ChangeDateTime="2013-02-07T20:09:55.6612825Z">List of command name and arg value pairs for the command to be executed.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.GenericSensorCommandArgs~CommandName">
+    <summary ChangeDateTime="2013-02-07T20:10:00.1231747Z">Name of the command</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.GenericSensorCommandArgs~SensorRendezvous">
+    <summary ChangeDateTime="2013-02-07T20:10:31.0765645Z">The Rendezvous (Uri) of the sensor receiving the command.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.LoadSensorArgs~HostID">
+    <summary ChangeDateTime="2013-02-07T20:11:19.1114775Z">ID of the sensor to be loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.LoadSensorArgs~SensorTypeSourceID">
+    <summary ChangeDateTime="2013-02-08T15:49:11.5587825Z">ID of the type of sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.LoadSensorArgs~SourceID">
+    <summary ChangeDateTime="2013-02-07T20:11:45.4795503Z">ID of the source being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.LoadSensorArgs~StartupArgs">
+    <summary ChangeDateTime="2013-02-07T20:12:06.9691851Z">Command line args to be passed along to the sensor when it starts up.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.LoadSensorArgs~Version">
+    <summary ChangeDateTime="2013-02-07T20:12:17.9606457Z">Version of&amp;nbsp;the sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~Add">
+    <summary ChangeDateTime="2013-02-07T21:24:20.1906153Z">Service method exposed for inserting an ORM object into the database.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetDataTypes">
+    <summary ChangeDateTime="2013-02-07T21:26:53.2608339Z">Service method that retrieves collection of DataType ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetDataTypeSources">
+    <summary ChangeDateTime="2013-02-07T21:27:00.8003415Z">Service method that retrieves collection of DataTypeSource ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetHumanReadableSensors">
+    <summary ChangeDateTime="2013-02-07T21:27:11.0067825Z">&lt;p&gt;Service method that retrieves collection of HumanReadableSensor ORM objects from the database These are identical to the Sensor ORM objects, but with a human readable name.&lt;/p&gt;</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSensorCommands">
+    <summary ChangeDateTime="2013-02-07T21:27:17.2864383Z">Service method that retrieves collection of SensorCommand ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSensorHosts">
+    <summary ChangeDateTime="2013-02-07T21:27:29.6453097Z">Service method that retrieves collection of SensorHost ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSensorHostTypes">
+    <summary ChangeDateTime="2013-02-07T21:27:41.0919987Z">Service method that retrieves collection of SensorHostType ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSensorRuntimes">
+    <summary ChangeDateTime="2013-02-07T21:27:48.2284186Z">Service method that retrieves collection of SensorRuntime ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSensors">
+    <summary ChangeDateTime="2013-02-07T21:27:54.9233199Z">Service method that retrieves collection of Sensor ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSensorTypeSources">
+    <summary ChangeDateTime="2013-02-07T21:28:05.7358821Z">Service method that retrieves collection of SensorTypeSource ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~GetSources">
+    <summary ChangeDateTime="2013-02-07T21:28:17.1895725Z">Service method that retrieves collection of Source ORM objects from the database</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~LoadSensor">
+    <summary ChangeDateTime="2013-02-07T21:32:48.052458Z">Service method that exposes the ability to load a sensor into memory on a targeted machine by instructing a sensor host on that machine to start the process.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~StartSensor">
+    <summary ChangeDateTime="2013-02-07T23:00:39.9277641Z">Service method that exposes the ability to start an already loaded&amp;nbsp;sensor on a targeted machine by instructing a sensor host on that machine to start the process.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~StopSensor">
+    <summary ChangeDateTime="2013-02-07T23:00:56.5741509Z">Service method that exposes the ability to stop an already loaded&amp;nbsp;sensor on a targeted machine by instructing a sensor host on that machine to stop the process.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.Model~UnloadSensor">
+    <summary ChangeDateTime="2013-02-07T23:01:11.9860329Z">Service method that exposes the ability to unload a sensor on a targeted machine by instructing a sensor host on that machine to kill the process.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.SensorInstaller~AddSensorEntities">
+    <summary ChangeDateTime="2013-02-08T15:48:16.0378425Z">This method generates all the ORM objects representing the type metadata related to a sensor (DataType, DataTypeSource, Property, PropertyType etc).</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StartSensorArgs~HostID">
+    <summary ChangeDateTime="2013-02-08T15:48:46.5689853Z">ID of the sensor to be loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StartSensorArgs~SensorTypeSourceID">
+    <summary ChangeDateTime="2013-02-08T15:49:16.8782463Z">ID of the type of sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StartSensorArgs~SourceID">
+    <summary ChangeDateTime="2013-02-08T15:49:24.0670839Z">ID of the source being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StartSensorArgs~Version">
+    <summary ChangeDateTime="2013-02-08T15:49:29.6391981Z">Version of&amp;nbsp;the sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StopSensorArgs~HostID">
+    <summary ChangeDateTime="2013-02-08T15:49:58.2361167Z">ID of the sensor to be loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.UnloadSensorArgs~HostID">
+    <summary ChangeDateTime="2013-02-08T15:50:00.2385171Z">ID of the sensor to be loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StopSensorArgs~SensorTypeSourceID">
+    <summary ChangeDateTime="2013-02-08T15:50:07.5933879Z">ID of the type of sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.UnloadSensorArgs~SensorTypeSourceID">
+    <summary ChangeDateTime="2013-02-08T15:50:10.6680027Z">ID of the type of sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StopSensorArgs~SourceID">
+    <summary ChangeDateTime="2013-02-08T15:50:15.3973485Z">ID of the source being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.UnloadSensorArgs~SourceID">
+    <summary ChangeDateTime="2013-02-08T15:50:18.0838857Z">ID of the source being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.StopSensorArgs~Version">
+    <summary ChangeDateTime="2013-02-08T15:50:23.2263507Z">Version of&amp;nbsp;the sensor being loaded</summary>
+  </item>
+  <item qn="Construct.Server.Models.Sources~Construct.Server.Models.Sources.UnloadSensorArgs~Version">
+    <summary ChangeDateTime="2013-02-08T15:50:28.3963479Z">Version of&amp;nbsp;the sensor being loaded</summary>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

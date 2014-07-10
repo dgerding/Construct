@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Construct.Server.Services.PropertyValue.Service1" CodeBehind="PropertyValueService.svc.cs" %>

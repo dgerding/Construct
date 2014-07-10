@@ -1,0 +1,6 @@
+    <Telerik.OpenAccess.FieldAlias("$(fieldName)")> _
+    Public ReadOnly Property ${fieldNameCaps}s As IDictionary(OF $keyType,$valueType)
+        Get
+            Return $fieldName
+        End Get
+    End Property

@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.Server.Runtime.WindowsUX\bin\Debug\Construct.Server.Entities.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">0</Attribute>
+      <Attribute key="TabContainerSelectedTabIndex" valuetype="integer">1</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.Server.Entities~Construct.Server.Entities.Adapters.Visualization</LastSelectedItem>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.DataType">
+    <summary ChangeDateTime="2013-02-08T22:20:04.6926557Z">This class represents an underlying DataType in Construct; each DataType has number of properties which are theirselves DataTypes. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+    <remarks ChangeDateTime="2013-02-08T22:28:24.7170415Z">These notions of type can be confusing. For an example, you may have a Dog DataType, with an Age Property. That Property is associated with exactly one PropertyParent object which shows that the Age Property is connected to the Dog DataType, but it is &lt;strong&gt;also&lt;/strong&gt; associated with exactly one PropertyType object which shows that the Age Property is itself an Int DataType.</remarks>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.DataTypeSource">
+    <summary ChangeDateTime="2013-02-11T21:39:04.3494955Z">This class represents the source of a DataType in Construct, or more simply, the kind of thing that emits data. A DataTypeSouce may be the source of multiple DataTypes. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.EntitiesModel">
+    <summary ChangeDateTime="2013-02-08T21:40:28.4756887Z">This class provides an interface to retrieving, altering and reinserting single ORM entities or collections of ORM entities to and from the database.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.EntitiesModelFluentMetadataSource">
+    <summary ChangeDateTime="2013-02-08T21:44:40.0643353Z">Code generated class used by Open Access</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.HumanReadableSensor">
+    <summary ChangeDateTime="2013-02-08T21:49:58.8079189Z">This class represents a Sensor with the addition of a human readable SensorTypeSource name added. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Item">
+    <summary ChangeDateTime="2013-02-08T21:58:45.213907Z">This class represents the header data in a Data Message sent in Construct. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Label">
+    <summary ChangeDateTime="2013-02-08T22:11:18.1352805Z">This class represents a Label that can be associated with any number of Taxonomies. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Property">
+    <summary ChangeDateTime="2013-02-08T22:23:41.1231371Z">This class represents a property of a DataType, Properties are associated with some number of DataTypes, and are DataTypes of A some kind, theirselves. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+    <remarks ChangeDateTime="2013-02-08T22:28:19.5593413Z">These notions of type can be confusing. For an example, you may have a Dog DataType, with an Age Property. That Property is associated with exactly one PropertyParent object which shows that the Age Property is connected to the Dog DataType, but it is &lt;strong&gt;also&lt;/strong&gt; associated with exactly one PropertyType object which shows that the Age Property is itself an Int DataType.</remarks>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.PropertyParent">
+    <remarks ChangeDateTime="2013-02-08T22:28:12.7812547Z">These notions of type can be confusing. For an example, you may have a Dog DataType, with an Age Property. That Property is associated with exactly one PropertyParent object which shows that the Age Property is connected to the Dog DataType, but it is &lt;strong&gt;also&lt;/strong&gt; associated with exactly one PropertyType object which shows that the Age Property is itself an Int DataType.</remarks>
+    <summary ChangeDateTime="2013-02-08T23:07:39.4541586Z">This class represents the association between a &lt;strong&gt;Property&lt;/strong&gt; and its &lt;strong&gt;Parent's DataType&lt;/strong&gt;. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.PropertyType">
+    <remarks ChangeDateTime="2013-02-08T22:28:08.4449875Z">These notions of type can be confusing. For an example, you may have a Dog DataType, with an Age Property. That Property is associated with exactly one PropertyParent object which shows that the Age Property is connected to the Dog DataType, but it is &lt;strong&gt;also&lt;/strong&gt; associated with exactly one PropertyType object which shows that the Age Property is itself an Int DataType.</remarks>
+    <summary ChangeDateTime="2013-02-08T23:07:29.9784649Z">This class represents the association between a &lt;strong&gt;Property &lt;/strong&gt;and its &lt;strong&gt;own DataType&lt;/strong&gt;. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Question">
+    <summary ChangeDateTime="2013-02-11T22:30:32.6972015Z">&lt;p&gt;This class represents a Query about data in Construct, and is represented by 'n + 1' DataTypes corresponding to the Query wrapped in 'n' different time intervals, and 1 interval for all time. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.&lt;/p&gt;</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.QuestionParameter">
+    <summary ChangeDateTime="2013-02-11T22:30:35.8762373Z">This entity represents a parameter passed into a Construct Question. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Sensor">
+    <summary ChangeDateTime="2013-02-11T22:30:38.7798179Z">This class represents a sensor instance that can be brought into existance on a machine. It will be the Source of any data that is emitted by this Sensor and can potentially emit multiple DataTypes. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.SensorCommand">
+    <summary ChangeDateTime="2013-02-11T22:30:46.3597337Z">This class represents a sensor specific command that can be sent to a type of Sensor.&amp;nbsp;It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.SensorHost">
+    <summary ChangeDateTime="2013-02-11T22:30:49.2663149Z">This class represents the sensor host service that runs on any machine that participates in Construct's Sensor network. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.SensorHostType">
+    <summary ChangeDateTime="2013-02-11T22:30:51.3767369Z">This class represents the type of platform a Sensor Host is running on (windows, iOS, etc). It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.SensorRuntime">
+    <summary ChangeDateTime="2013-02-11T22:30:53.8682351Z">This class represents the package of files for the sensor runtime. Normally this is zip with a sensor executable, it includes Sensor Type Source,&amp;nbsp; Version, and install date info. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.SensorTypeSource">
+    <summary ChangeDateTime="2013-02-11T22:30:59.9288471Z">This class represents a Data Type Source that is also a Sensor. Any Data Type Source in Construct that is a sensor is a Sensor Type Source. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Source">
+    <summary ChangeDateTime="2013-02-11T22:31:02.9774567Z">This class represents an extent source of Data in Construct; all Data in Construct must come from some Source. This could be a Sensor or a Question. Additionally all Sources are of some DataTypeSource, that is, they can emit some number of DataTypes, and therefore are a DataTypeSource. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Taxonomy">
+    <summary ChangeDateTime="2013-02-11T22:31:06.0234659Z">This class represents a tree that relates connected concepts. The nodes that denote the ideas that are connected are Labels. The same Label can be part of multiple Taxonomies. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.TaxonomyLabel">
+    <summary ChangeDateTime="2013-02-11T22:31:31.7134031Z">This class represents the specific pairing of one Label with one Taxonomy. It is an ORM (Object Relational Model) entity, and is created from a database row, and can be used to update it.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.DataType">
+    <summary ChangeDateTime="2013-02-14T21:22:44.9615285Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.DataTypeSource">
+    <summary ChangeDateTime="2013-02-14T21:22:46.9783769Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.HumanReadableSensor">
+    <summary ChangeDateTime="2013-02-14T21:22:49.0787519Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Item">
+    <summary ChangeDateTime="2013-02-14T21:22:50.8891139Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Label">
+    <summary ChangeDateTime="2013-02-14T21:22:52.7454851Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Property">
+    <summary ChangeDateTime="2013-02-14T21:22:54.2747909Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.PropertyParent">
+    <summary ChangeDateTime="2013-02-14T21:22:55.8351029Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.PropertyType">
+    <summary ChangeDateTime="2013-02-14T21:22:58.3039967Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Question">
+    <summary ChangeDateTime="2013-02-14T21:23:04.6492655Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.QuestionParameter">
+    <summary ChangeDateTime="2013-02-14T21:23:06.2724617Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.QuestionTypeSource">
+    <summary ChangeDateTime="2013-02-14T21:23:08.9915339Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Sensor">
+    <summary ChangeDateTime="2013-02-14T21:23:10.9489253Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.SensorCommand">
+    <summary ChangeDateTime="2013-02-14T21:23:13.4824319Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.SensorCommandParameter">
+    <summary ChangeDateTime="2013-02-14T21:23:15.2957945Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.SensorHost">
+    <summary ChangeDateTime="2013-02-14T21:23:17.4886331Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.SensorHostType">
+    <summary ChangeDateTime="2013-02-14T21:23:19.2009755Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.SensorRuntime">
+    <summary ChangeDateTime="2013-02-14T21:23:20.6102573Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.SensorTypeSource">
+    <summary ChangeDateTime="2013-02-14T21:23:23.0127377Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Source">
+    <summary ChangeDateTime="2013-02-14T21:23:24.9161183Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Taxonomy">
+    <summary ChangeDateTime="2013-02-14T21:23:27.0779507Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.TaxonomyLabel">
+    <summary ChangeDateTime="2013-02-14T21:23:29.0623475Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Visualizer">
+    <summary ChangeDateTime="2013-02-14T21:23:31.3528055Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <item qn="Construct.Server.Entities~Construct.Server.Entities.Adapters.Visualization">
+    <summary ChangeDateTime="2013-02-14T21:24:05.2967758Z">This is an adapter class. Refer to the ORM entity class by the name same for documentation.</summary>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

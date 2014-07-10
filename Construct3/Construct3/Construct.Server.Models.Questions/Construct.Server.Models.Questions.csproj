@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{885125A7-98A0-4BAC-A1EF-6CD274313A90}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Construct.Server.Models.Questions</RootNamespace>
+    <AssemblyName>Construct.Server.Models.Questions</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\Library\Nlog\NLog.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="NLog.Extended">
+      <HintPath>..\Library\Nlog\NLog.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Telerik.Windows.Controls, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Telerik.OpenAccess, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Extensions\MemberInfoExtensions.cs" />
+    <Compile Include="Data\TypeExtensions.cs" />
+    <Compile Include="Expressions\ExpressionTypeConverter.cs" />
+    <Compile Include="Expressions\NodeExpression.cs" />
+    <Compile Include="ICallback.cs" />
+    <Compile Include="IModel.cs" />
+    <Compile Include="Model.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\CountingParserErrorListener.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\ExpressionParser.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\ExpressionParser.OperatorPrecedence.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\DateTimeLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\EscapingLiteralLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\IdentifierLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\IdentifierLexer.Escaping.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\Lexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\LexerBase.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\LiteralLexerBase.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\LiteralReaderLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\NameLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\NumberLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\OperatorLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\SafeLiteralReaderLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\StartEndLiteralLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\StringLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\Lexers\SyntaxLexer.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\ParserContext.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\ParserErrorListener.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SourceInfoMetadataExtensions.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SourceLocation.Comparable.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SourceLocation.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SourceReader.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SourceReaderExtensions.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SourceSpan.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\SyntaxErrorException.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Parser\ThrowingParserErrorListener.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\ClrExpressionRuntime.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\ClrExpressionRuntime.DefaultFunctions.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\ClrMemberAccessResolver.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\ClrMethodResolver.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\CountingRuntimeErrorListener.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\ExpressionExecutionContext.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\Extensions\ExpressionExtensions.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\Extensions\ExpressionNodeOperatorExtensions.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\GenericMethodInfo.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\IMemberAccessResolver.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\IMethodResolver.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\LinqExpressionTranslator.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\LinqExpressionTranslator.SpecialCases.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\MethodInfoFunctionDefinition.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\RuntimeErrorListener.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\RuntimeExecutionException.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\StaticPropertyFunctionDefinition.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime.Static\ThrowingRuntimeErrorListener.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\DefinitionBase.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\DefinitionMetadata.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\ExpressionExecutionScope.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\ExpressionRuntime.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\FunctionDefinition.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\ParameterDefinition.cs" />
+    <Compile Include="Telerik_Expressions\Expressions.Runtime\VariableDefinition.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\BinaryExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ConstantExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionHelper.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNode.FactoryMethods.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNode.Metadata.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeOperator.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeOperatorCategory.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeStringBuilder.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeTranslator.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeTranslator.Visitor.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeType.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\ExpressionNodeVisitor.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\FunctionExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\IMemberInvocationExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\IndexExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\MemberExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Ast\UnaryExpressionNode.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\IMetadataProvider.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\DateTimeToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\DecimalToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\DoubleToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\IdentifierToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\IntegerToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\KeywordToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\LiteralToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\NamedToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\NumberToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\OperatorToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\ReservedToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\StringToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\SyntaxToken.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\SyntaxToken.TokenTypes.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\Token.cs" />
+    <Compile Include="Telerik_Expressions\Expressions\Tokens\TokenType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Construct.MessageBrokering.Serialization\Construct.MessageBrokering.Serialization.csproj">
+      <Project>{C590BE2C-E012-42D5-B3FC-A896D7162952}</Project>
+      <Name>Construct.MessageBrokering.Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
+      <Project>{f47859ff-b24a-492a-995a-f7f124a14099}</Project>
+      <Name>Construct.MessageBrokering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Entities\Construct.Server.Entities.csproj">
+      <Project>{7f520999-8299-452f-bebc-78fb6b0c60b3}</Project>
+      <Name>Construct.Server.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Common\Construct.Server.Models.csproj">
+      <Project>{E38E2CCA-C7C6-4C3D-818B-35D2832EBBE0}</Project>
+      <Name>Construct.Server.Models</Name>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data.PropertyValues\Construct.Server.Models.Data.PropertyValues.csproj">
+      <Project>{228B31D3-FFBD-4AE2-AFEC-EB9E3EE43DED}</Project>
+      <Name>Construct.Server.Models.Data.PropertyValues</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Utilities.Shared\Construct.Utilities.Shared.csproj">
+      <Project>{CFA681FF-1E84-45FC-9D1F-C14FDA66983B}</Project>
+      <Name>Construct.Utilities.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Construct.Server.Entities.Adapters.DataType.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\Grouping\Aggregates\" />
+    <Folder Include="Expressions\Filtering\" />
+    <Folder Include="Expressions\Grouping\Aggregates\" />
+    <Folder Include="Expressions\MemberAccess\Dynamic\" />
+    <Folder Include="Expressions\MemberAccess\Tokenizer\" />
+    <Folder Include="Expressions\Selection\" />
+    <Folder Include="Expressions\Sorting\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

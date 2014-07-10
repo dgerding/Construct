@@ -1,0 +1,10 @@
+﻿name: WindowsTranscriptionSensor
+version: 1000
+uri:
+file:
+
+TypeSourceID: DC060EBE-7D1D-4CFD-8471-4BE50CF41D65
+sourceID: F13FB82A-638C-4399-8849-73FE264287E3
+
+version string for filenames:
+.DC060EBE-7D1D-4CFD-8471-4BE50CF41D65.1000

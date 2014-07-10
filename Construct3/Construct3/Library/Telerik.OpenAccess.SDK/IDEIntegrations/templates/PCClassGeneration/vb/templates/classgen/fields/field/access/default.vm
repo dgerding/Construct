@@ -1,0 +1,9 @@
+    <Telerik.OpenAccess.FieldAlias("$(fieldName)")> _
+    Public Property $fieldNameCaps() As #if($isNullable)Nullable(Of #end$fieldType#if($isArrayType)()#end#if($isNullable))#end
+        Get
+            Return $fieldName
+        End Get
+        Set( ByVal Value As #if($isNullable)Nullable(Of #end$fieldType#if($isArrayType)()#end#if($isNullable))#end )
+            Me.$fieldName = Value
+        End Set
+    End Property

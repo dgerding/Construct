@@ -1,0 +1,7 @@
+        public static IEnumerable<$type> $methodName(IObjectScope scope$paramDecls)
+        {
+            Query<$type> query = scope.GetSqlQuery<$type>("$(sqlExpression)","$(sqlParams)");
+            QueryResultEnumerable<$type> res = query.ExecuteEnumerable(new object[] {$paramNames});
+            
+            return res;
+        }

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Taxonomy">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Taxonomy" nillable="true" type="tns:Taxonomy" />
+  <xs:complexType name="Label">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Label" nillable="true" type="tns:Label" />
+  <xs:complexType name="TaxonomyLabel">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LabelID" type="ser:guid" />
+      <xs:element minOccurs="0" name="TaxonomyID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="TaxonomyLabel" nillable="true" type="tns:TaxonomyLabel" />
+  <xs:complexType name="ArrayOfTaxonomy">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Taxonomy" nillable="true" type="tns:Taxonomy" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTaxonomy" nillable="true" type="tns:ArrayOfTaxonomy" />
+  <xs:complexType name="ArrayOfLabel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Label" nillable="true" type="tns:Label" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLabel" nillable="true" type="tns:ArrayOfLabel" />
+  <xs:complexType name="ArrayOfTaxonomyLabel">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="TaxonomyLabel" nillable="true" type="tns:TaxonomyLabel" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfTaxonomyLabel" nillable="true" type="tns:ArrayOfTaxonomyLabel" />
+</xs:schema>

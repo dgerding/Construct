@@ -1,0 +1,41 @@
+        // Application identity objectid-class.
+        // Used template: $usedTemplate
+        public class ID : Telerik.OpenAccess.IObjectId 
+        {
+#foreach($oidFieldDecl in $oidFieldDecls)$oidFieldDecl#end
+            public ID() 
+            {
+            }
+
+            public ID(string s) 
+            {
+                int i, p = 0;
+$ctorCode
+            }
+
+            public override bool Equals(object o) 
+            {
+                if (this == o) return true;
+                if (!(o is $className.ID)) return false;
+
+                $className.ID id = ($className.ID) o;
+#foreach($fld in $oidFields)
+                if(this.$fld != id.$fld) return false;#end
+                return true;
+            }
+
+            public override int GetHashCode() 
+            {
+                int result = 0;
+$hashcodeCode
+                return result;
+            }
+
+            public override string ToString() 
+            {
+                System.Text.StringBuilder buffer = new System.Text.StringBuilder();
+#foreach($fld in $oidFields)
+                buffer.Append($fld)#if($ISNOTLAST).Append('-')#end;#end
+                return buffer.ToString();
+            }
+        }

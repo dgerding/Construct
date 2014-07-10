@@ -1,0 +1,75 @@
+//Copyright (c) %CompanyName%.  All rights reserved.
+//
+package %DefaultNamespace%;
+
+import System.* ;
+import System.Collections.*;
+import System.ComponentModel.*;
+import System.Data.*;
+import System.Diagnostics.*;
+import System.Web.*;
+import System.Web.Services.*;
+
+import %ProductNamespace%.*;
+import %ProductNamespace%.Util.*;
+
+/// <summary>
+/// Summary description for %ClassName%.
+/// </summary>
+/** @attribute WebService(Namespace="%DefaultNamespace%") */
+public class %ClassName% extends System.Web.Services.WebService
+{
+	public %ClassName%()
+	{
+		//CODEGEN: This call is required by the ASP.NET Web Services Designer
+		InitializeComponent();
+	}
+
+	#region Component Designer generated code
+		
+	/**
+	 * Required by the Web Services Designer 
+	 */
+	private IContainer components = null;
+				
+	/**
+	 * Required method for Designer support - do not modify
+	 * the contents of this method with the code editor.
+	 */
+	private void InitializeComponent()
+	{
+	}
+
+	/**
+	 * Clean up any resources being used.
+	 */
+	protected void Dispose(boolean disposing )
+	{
+		if(disposing && components != null)
+		{
+			components.Dispose();
+		}
+		super.Dispose(disposing);		
+	}
+
+	#endregion
+
+	#region %ProductNames% generated code
+	/** @attribute WebMethod() */
+	public %ProductNamespace%.ObjectContainer.ChangeSet Load( FillInstructionData instr )
+	{
+		return new ObjectContainerProvider1().Load( instr );
+	}
+	/** @attribute WebMethod() */
+	public void Save( %ProductNamespace%.ObjectContainer.ChangeSet changes )
+	{
+		new ObjectContainerProvider1().Save( changes );
+		return;
+	}
+	/** @attribute WebMethod() */
+	public %ProductNamespace%.ObjectContainer.ChangeSet Sync( %ProductNamespace%.ObjectContainer.ChangeSet changes )
+	{
+		return new ObjectContainerProvider1().Sync( changes );
+	}
+	#endregion
+}

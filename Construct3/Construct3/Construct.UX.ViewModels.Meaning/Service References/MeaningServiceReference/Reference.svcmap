@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4f870f01-4cd1-468a-b1e3-0c9f486fea6d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="33fe57b4-8d46-46cb-b11c-43e4ecbf8eab" SourceId="1" SourceUrl="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc?wsdl" />
+    <MetadataFile FileName="MeaningService.xsd" MetadataType="Schema" ID="a84dda45-cd0c-4df3-b4eb-6ca3fee1c125" SourceId="1" SourceUrl="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc?xsd=xsd2" />
+    <MetadataFile FileName="MeaningService1.xsd" MetadataType="Schema" ID="0e017683-ab20-4726-9fb4-116177cb7b80" SourceId="1" SourceUrl="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc?xsd=xsd0" />
+    <MetadataFile FileName="MeaningService2.xsd" MetadataType="Schema" ID="409884e3-58cd-4fc4-88a3-4515fa9c5ae0" SourceId="1" SourceUrl="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc?xsd=xsd1" />
+    <MetadataFile FileName="MeaningService.disco" MetadataType="Disco" ID="c6445492-e4ed-48e3-98b2-9118b7d2963e" SourceId="1" SourceUrl="http://localhost:10000/00000000-0000-0000-0000-000000000000/Meaning/MeaningService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

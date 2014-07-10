@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="ddb50a51-13f5-4763-a8b4-db5c35a9d2af" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>false</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://daisy.colum.edu:8000/Credentials/CredentialsService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="CredentialsService.xsd" MetadataType="Schema" ID="68a02077-f2a2-4def-9cf2-bf01c74ea67e" SourceId="1" SourceUrl="http://daisy.colum.edu:8000/Credentials/CredentialsService.svc?xsd=xsd1" />
+    <MetadataFile FileName="CredentialsService.wsdl" MetadataType="Wsdl" ID="d356e61c-f44b-484a-b35c-ae7435759786" SourceId="1" SourceUrl="http://daisy.colum.edu:8000/Credentials/CredentialsService.svc?wsdl" />
+    <MetadataFile FileName="CredentialsService.disco" MetadataType="Disco" ID="72376327-985e-410b-b3ef-500f1fc24285" SourceId="1" SourceUrl="http://daisy.colum.edu:8000/Credentials/CredentialsService.svc?disco" />
+    <MetadataFile FileName="CredentialsService1.xsd" MetadataType="Schema" ID="966caeb6-2bf7-4116-b52f-6677b7987abf" SourceId="1" SourceUrl="http://daisy.colum.edu:8000/Credentials/CredentialsService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

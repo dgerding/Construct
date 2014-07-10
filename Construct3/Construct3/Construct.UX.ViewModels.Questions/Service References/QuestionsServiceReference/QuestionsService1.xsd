@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:11000/00000000-0000-0000-0000-000000000000/Questions/QuestionsService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Question">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataTypeID" type="ser:guid" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="LinqExpression" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PropertyID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Question" nillable="true" type="tns:Question" />
+  <xs:complexType name="QuestionTypeSource">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsCategory" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsReadOnly" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentID" nillable="true" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="QuestionTypeSource" nillable="true" type="tns:QuestionTypeSource" />
+  <xs:complexType name="ArrayOfDataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="DataType" nillable="true" type="tns:DataType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDataType" nillable="true" type="tns:ArrayOfDataType" />
+  <xs:complexType name="DataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataTypeParentID" type="ser:guid" />
+      <xs:element minOccurs="0" name="DataTypeSourceID" type="ser:guid" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsCoreType" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsReadOnly" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DataType" nillable="true" type="tns:DataType" />
+  <xs:complexType name="ArrayOfProperty">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Property" nillable="true" type="tns:Property" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProperty" nillable="true" type="tns:ArrayOfProperty" />
+  <xs:complexType name="Property">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tag" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Property" nillable="true" type="tns:Property" />
+  <xs:complexType name="ArrayOfPropertyParent">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyParent" nillable="true" type="tns:PropertyParent" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyParent" nillable="true" type="tns:ArrayOfPropertyParent" />
+  <xs:complexType name="PropertyParent">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Property">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="ParentDataTypeID" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PropertyParent" nillable="true" type="tns:PropertyParent" />
+  <xs:complexType name="ArrayOfPropertyType">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PropertyType" nillable="true" type="tns:PropertyType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPropertyType" nillable="true" type="tns:ArrayOfPropertyType" />
+  <xs:complexType name="PropertyType">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:PropertyParent">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PropertyDataTypeID" type="ser:guid" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PropertyType" nillable="true" type="tns:PropertyType" />
+  <xs:complexType name="ArrayOfQuestion">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Question" nillable="true" type="tns:Question" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfQuestion" nillable="true" type="tns:ArrayOfQuestion" />
+</xs:schema>

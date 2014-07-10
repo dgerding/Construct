@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SensorTypeSource Name="SapiSensor" ID="07FA86D6-9181-4EBD-84C2-BB3CDF021BBB" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
+	<DataType Name="Transcription" ID="26265F71-DB2A-4194-ADE3-DE983600D28D">
+		<DataTypeProperty Name="TranscribedText" ID="659C11DC-D8C4-4D1D-8ECC-379004191758" Type="string" />
+	</DataType>
+</SensorTypeSource>

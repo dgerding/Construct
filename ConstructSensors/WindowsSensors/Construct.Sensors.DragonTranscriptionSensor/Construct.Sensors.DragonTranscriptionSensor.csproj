@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{617CB503-2ABE-4459-AC79-6245A65FB9F3}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Construct.Sensors.DragonTranscriptionSensor</RootNamespace>
+    <AssemblyName>DragonTranscriptionSensor.1027AB45-7059-4BD0-84F0-ED2AE472B70A.1000</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Alvas.Audio">
+      <HintPath>..\Library\Alvas.Audio.dll</HintPath>
+    </Reference>
+    <Reference Include="Interop.DNSTools">
+      <HintPath>..\Library\Interop.DNSTools.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Library\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DragonObject.cs" />
+    <Compile Include="DragonTranscriptionSensor.cs" />
+    <Compile Include="DragonTranscriptionSensorDriver.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpeechProfileBuilder.cs" />
+    <Compile Include="Transcribe.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="construct.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SensorInfo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Construct2\Construct.Base.Wcf\Construct.Base.Wcf.csproj">
+      <Project>{496CECB6-232A-4D08-BF26-BA93B0CAB013}</Project>
+      <Name>Construct.Base.Wcf</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Construct2\Construct.Dataflow.Brokering.Messaging\Construct.Dataflow.Brokering.Messaging.csproj">
+      <Project>{B7512CBC-9870-4D7A-B771-BD5DA6F0CDCC}</Project>
+      <Name>Construct.Dataflow.Brokering.Messaging</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Construct2\Construct.Dataflow.Brokering\Construct.Dataflow.Brokering.csproj">
+      <Project>{569623E8-18D9-48AD-8CC8-FF65EABAD7C5}</Project>
+      <Name>Construct.Dataflow.Brokering</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Construct2\Construct.Dataflow.SensorSerializationAssistant\Construct.Dataflow.SensorSerializationAssistant.csproj">
+      <Project>{DF4C8301-9B31-43C5-B5E7-DE764F5C769C}</Project>
+      <Name>Construct.Dataflow.SensorSerializationAssistant</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Sensors\Construct.Sensors.csproj">
+      <Project>{5DDB820F-16BF-48E6-857E-AC60066844BB}</Project>
+      <Name>Construct.Sensors</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

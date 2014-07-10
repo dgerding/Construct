@@ -1,0 +1,10 @@
+    Public Shared Function $methodName(ByVal scope As IObjectScope$paramDecls) As IQueryResult
+        Dim query As IQuery = scope.GetSqlQuery("$(sqlExpression)", Nothing, "$(sqlParams)")
+        Dim res As IQueryResult = query.Execute(New Object() {$paramNames})
+        Dim count As Integer = res.Count 'executes the query
+		
+		#foreach( $outParam in $outParams )$outParam #end
+		
+        Return res
+    End Function
+

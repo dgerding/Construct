@@ -1,0 +1,62 @@
+﻿<views:View x:Class="Construct.UX.Views.Questions.View"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+            xmlns:views="clr-namespace:Construct.UX.Views;assembly=Construct.UX.Views"
+            mc:Ignorable="d" 
+            d:DesignHeight="300" d:DesignWidth="300">
+    <Grid x:Name="LayoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Select type to view">
+            <StackPanel Grid.Column="0" Margin="15">
+                <Label>
+                    Select a DataType
+                </Label>
+                <ComboBox x:Name="DataTypesComboBox" ItemsSource="{Binding DataTypes}"
+                          DisplayMemberPath="Name"
+                          Height="25" 
+                          VerticalAlignment="Top"
+                          Margin= "0,0,0,10" SelectionChanged="DataTypesComboBox_SelectionChanged">
+            
+                </ComboBox>
+
+                <Label>
+                    Select a Property
+                </Label>
+                <ComboBox x:Name="PropertiesComboBox" ItemsSource="{Binding Properties}"
+                          DisplayMemberPath="Name"
+                          Height="25" 
+                          VerticalAlignment="Top"
+                          Margin= "0,0,0,10" SelectionChanged="PropertiesComboBox_SelectionChanged">
+
+                </ComboBox>
+            </StackPanel>
+        </GroupBox>
+        <telerik:RadGridView x:Name="QuestionsGridView" Grid.Column="1"
+							 ItemsSource="{Binding PropertyValues}"
+							 IsSynchronizedWithCurrentItem="True"
+							 CanUserFreezeColumns="False"
+							 RowIndicatorVisibility="Collapsed"
+                             VerticalAlignment="Top"
+							 MinHeight="386"
+							 MaxHeight="500"
+							 Width="748"
+							 ColumnWidth="*"
+							 ShowGroupPanel="False">
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewExpressionColumn UniqueName="ExpressionColumn"
+                                                  MaxWidth="150">
+                    <telerik:GridViewExpressionColumn.Header>
+                        <telerik:RadButton Content="Expression"
+										   Click="OnExpressionButtonClick"/>
+                    </telerik:GridViewExpressionColumn.Header>
+                </telerik:GridViewExpressionColumn>
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+    </Grid>
+</views:View>

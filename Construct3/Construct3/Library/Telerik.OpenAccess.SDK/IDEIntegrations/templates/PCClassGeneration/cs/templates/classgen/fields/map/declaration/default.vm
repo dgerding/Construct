@@ -1,0 +1,1 @@
+        private IDictionary<$keyType,$valueType> $fieldName = new Dictionary<$keyType,$valueType>();

@@ -1,0 +1,8 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<TypeSource Name='DragonTranscriptionSensor' ID='1027AB45-7059-4BD0-84F0-ED2AE472B70A' ParentID='5C11FBBD-9E36-4BEA-A8BE-06E225250EF8'>
+  <SensorType Name='DragonTranscription' ID='F8512B1B-4637-404A-8A56-07518F8487E7' SensorHostTypeID='EDA0FF3E-108B-45D5-BF58-F362FABF2EFE'>
+    <DataType>
+      <DataTypeProperty Name='DragonTranscription' Type='string' ID='BF3C6168-8139-4220-8DE2-8C10F1880904'/>
+    </DataType>
+  </SensorType>
+</TypeSource>

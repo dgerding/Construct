@@ -1,0 +1,32 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="MonoTouch.Dialog/Elements/Json.cs">
+    <Files>
+      <File FileName="RemoteSensor/RemoteSensorViewController.cs" Line="9" Column="20" />
+      <File FileName="RemoteSensor/Configuration/Settings.cs" Line="37" Column="19" />
+      <File FileName="MonoTouch.Dialog/Elements/Json.cs" Line="303" Column="6" />
+      <File FileName="RemoteSensor/Configuration/AppData.cs" Line="1" Column="1" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="MonoTouch.Dialog" expanded="True">
+            <Node name="Elements" expanded="True" />
+          </Node>
+          <Node name="RemoteSensor" expanded="True" selected="True">
+            <Node name="CaptureManager" expanded="True" />
+            <Node name="Configuration" expanded="True" />
+            <Node name="SensorClient" expanded="True" />
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.RemoteSensor>
+    <IPhoneSimulatorTarget-Debug_27CiPhoneSimulator Device="IPad" SdkVersion="5.0" />
+  </MonoDevelop.Ide.ItemProperties.RemoteSensor>
+</Properties>

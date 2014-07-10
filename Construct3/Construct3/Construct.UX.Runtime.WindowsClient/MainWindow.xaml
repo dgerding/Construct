@@ -1,0 +1,133 @@
+﻿<telerik:RadRibbonWindow xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"  
+                         x:Class="Construct.UX.WindowsClient.MainWindow"
+                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                         xmlns:telerikRibbonBar="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.RibbonView" 
+                         xmlns:telerikTransitions="clr-namespace:Telerik.Windows.Controls.TransitionEffects;assembly=Telerik.Windows.Controls" 
+                         xmlns:telerikDocking="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Docking"
+                         xmlns:cal="http://www.codeplex.com/prism"
+                         mc:Ignorable="d" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                         xmlns:sh="clr-namespace:Construct.UX.WindowsClient"  
+                         Height="400" Width="800"
+                         Title="Shell" Background="White"
+                         
+                         Loaded="RadRibbonWindow_Loaded" 
+                         Closing="RadRibbonWindow_Closing" 
+                         
+                         >
+    <Grid x:Name="LayoutRoot" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+        </Grid.RowDefinitions>
+
+        <Grid x:Name="MainStackPanel" Grid.Row="0" MinWidth="240">
+            
+                <telerik:RadRibbonView x:Name="ShellRibbonBar1" VerticalAlignment="Stretch" Title="Construct 3" ApplicationButtonImageSource="ConstructAppIcon.png"  SelectionChanged="ShellRibbonBar1_SelectionChanged"
+                                   CollapseThresholdSize="100,100" CollapsedChanged="ShellRibbonBar1_CollapsedChanged">
+                    <telerik:RadRibbonView.Backstage>
+
+                        <telerik:RadRibbonBackstage>
+                            <telerik:RadRibbonBackstageItem Name="AppMenuServerButton" Header="Construct Server" >
+                                <Grid Width="200" HorizontalAlignment="Left">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Grid.RowSpan="1">
+                                        <Label Content="Construct Server" HorizontalContentAlignment="Right" />
+                                        <Label Content="Login" HorizontalContentAlignment="Right" />
+                                        <Label Content="Password" HorizontalContentAlignment="Right" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1" Grid.ColumnSpan="1" Grid.RowSpan="1">
+                                        <TextBox x:Name="txtServer" Text="Construct3" TabIndex="0" />
+                                        <TextBox x:Name="txtLogin" Text="root" TabIndex="1"  />
+                                        <TextBox x:Name="txtPassword" Text="root" TabIndex="2" />
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="1">
+
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right">
+                                        <telerik:RadButton Name="LoginToServerButton" DockPanel.Dock="Right" Content="Login" IsDefault="True" Click="LoginToServer_Click"/>
+                                        <telerik:RadButton Name="DisconnectFromServerButton" DockPanel.Dock="Right" Content="Disconnect" IsDefault="True" Click="DisconnectFromServer_Click" Visibility="Hidden"/>
+                                        <Label ></Label>
+                                        <Label ></Label>
+                                        <telerik:RadButton Name="WipeDatabaseAndRestoreDefaultsButton" DockPanel.Dock="Right" Content="Wipe Database and Restore Defaults" IsDefault="True" Click="WipeDatabaseAndRestoreDefaultsButton_Click" Visibility="Hidden"/>
+                                        <telerik:RadButton Name="LoadTestItemDataSet" DockPanel.Dock="Right" Content="Attempt to load TestItem Data." IsDefault="True" Click="LoadTestItemDataSet_Click" Visibility="Hidden"/>
+                                    </StackPanel>
+                                </Grid>
+
+                            </telerik:RadRibbonBackstageItem>
+                            <telerik:RadRibbonBackstageItem Name="AppMenuUsersButton" Header="Setting and Preferences" Click="AppMenuSettingsAndPreferencesButton_Click">
+                                <StackPanel >
+                                    <TextBox Name="WorkingDirectoryPathTextBox" Text="C:\Construct" />
+                                </StackPanel>
+
+                            </telerik:RadRibbonBackstageItem>
+                            <telerik:RadRibbonBackstageItem Name="AppMenuAboutButton" Header="About" Click="AppMenuAboutButton_Click">
+                                <Grid>
+                                    <StackPanel >
+
+                                        <Image Height="50" Name="image1" Stretch="Fill" Width="50" Source="/Construct.UX.WindowsClient;component/Construct.ico" />
+                                        <Label Content="Construct 2.0"  HorizontalAlignment="Center" Name="labelProject" VerticalAlignment="Top" />
+                                        <Label Content="Proprietary and Confidential "  HorizontalAlignment="Center"  Name="labelProprietary" VerticalAlignment="Top" />
+                                        <ListBox Name="LogListBox" ></ListBox>
+
+                                    </StackPanel>
+
+                                </Grid>
+                            </telerik:RadRibbonBackstageItem>
+
+                        </telerik:RadRibbonBackstage>
+
+                    </telerik:RadRibbonView.Backstage>
+
+                </telerik:RadRibbonView>
+            
+        </Grid>
+
+        <Grid Name="transitionWin" Grid.Row="1">
+
+        </Grid>
+
+        <StatusBar Name="statusBar" Grid.Row="2">
+            <StatusBarItem>
+                <TextBlock Name="StatusItemServerName" Text="{Binding sessionInfo.ConnectionString, StringFormat='Server Name: \{0\}'}"/>
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock> |</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem>
+                <Label Content="HELLO"  Name="LastLogMessageLabel" >
+                    <Label.Style>
+                        <Style TargetType="Label">
+                            <Style.Triggers>
+                                <EventTrigger RoutedEvent="Label.Loaded">
+                                    <EventTrigger.Actions>
+                                        <BeginStoryboard>
+                                            <Storyboard TargetProperty="Opacity">
+                                                <DoubleAnimation  Storyboard.TargetProperty="Opacity" From="1" To=".25" Duration="0:0:3" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger.Actions>
+                                </EventTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Label.Style>
+                </Label>
+
+            </StatusBarItem>
+
+        </StatusBar>
+
+    </Grid>
+</telerik:RadRibbonWindow>

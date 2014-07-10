@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.Server.Runtime.WindowsUX\bin\Debug\Construct.MessageBrokering.Serialization.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">184</Attribute>
+      <Attribute key="TabContainerSelectedTabIndex" valuetype="integer">1</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant</LastSelectedItem>
+  <item qn="Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant">
+    <summary ChangeDateTime="2013-02-08T20:25:40.7076985Z">ConstructSerializationAssistant exposes functionality for deserializing JSON Messages received from the broker into Commands Telemetries and Data, as well as Persisting Data to a database.</summary>
+  </item>
+  <item qn="Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant~GetCommand">
+    <summary ChangeDateTime="2013-02-14T22:11:35.9457801Z">Returns a Command object from a json string that represents a Command.</summary>
+    <remarks ChangeDateTime="2013-02-14T22:14:14.9456073Z">The json strings that are passed into this method will be commands sent from a Construct Sensor or Sensor Host</remarks>
+  </item>
+  <item qn="Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant~GetItem(String)">
+    <summary ChangeDateTime="2013-02-14T22:11:31.2162747Z">Returns a &lt;em&gt;dynamically&lt;/em&gt; typed data object from a json string that represents a Datum.</summary>
+    <remarks ChangeDateTime="2013-02-14T22:13:48.6956595Z">The json strings that are passed into this method will be Data emitted from a Construct Sensor</remarks>
+  </item>
+  <item qn="Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant~GetItemHeader">
+    <summary ChangeDateTime="2013-02-14T22:11:27.7737459Z">Returns an Item&amp;nbsp;ORM object (containing metadata about the datum) from a json string that represents a Datum.</summary>
+    <remarks ChangeDateTime="2013-02-14T22:13:55.1919585Z">The json strings that are passed into this method will be Data emitted from a Construct Sensor</remarks>
+  </item>
+  <item qn="Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant~GetTelemetry">
+    <summary ChangeDateTime="2013-02-14T22:11:45.6941295Z">Returns a Command object from a json string that represents a Telemetry.</summary>
+    <remarks ChangeDateTime="2013-02-14T22:14:10.7143611Z">The json strings that are passed into this method will be Telemetry sent from a Construct Sensor or Sensor Host</remarks>
+  </item>
+  <item qn="Construct.MessageBrokering.Serialization~Construct.MessageBrokering.Serialization.ConstructSerializationAssistant~Persist(String)">
+    <summary ChangeDateTime="2013-02-14T22:12:49.9575135Z">Persists a json string representing a Datum to a backing database.</summary>
+    <remarks ChangeDateTime="2013-02-14T22:14:20.8597899Z">The json strings that are passed into this method will be Data emitted from a Construct Sensor.</remarks>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

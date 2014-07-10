@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="Construct.UX.Views.Sources.SensorCommandsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:data="clr-namespace:Telerik.Windows.Data;assembly=Telerik.Windows.Data"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             mc:Ignorable="d" 
+             d:DesignWidth="300"
+             Margin="10">
+    <Grid>
+        <GroupBox 
+            Header="Sensor Command List" 
+            Name="SensorCommandListGroupBox"
+            />
+        <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="22"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="80"/>
+                </Grid.ColumnDefinitions>
+
+                <telerik:RadGridView Name="SensorCommandGridView"
+                                     AutoGenerateColumns="False"
+                                     Width="Auto"
+                                     ShowGroupPanel="False"
+                                     Grid.Row="1"
+                                     Grid.ColumnSpan="4"
+                                     SelectedItem="{Binding CurrentSensorCommand}"
+                                     SelectionMode="Single"
+                                     IsSynchronizedWithCurrentItem="True"
+                                     ItemsSource="{Binding CurrentSensorCommandList}"
+                                     RowDetailsVisibilityMode="VisibleWhenSelected"
+                                     SelectionChanged="SensorCommandGridView_SelectionChanged"
+                                     IsReadOnly="False"
+                                     >
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewDataColumn DataMemberBinding="{Binding CommandName}" 
+                                                    Header="Commands"
+                                                    Width="240" 
+                                                    IsReadOnly="False"
+                                                    />
+                    </telerik:RadGridView.Columns>
+
+                    <telerik:RadGridView.RowDetailsTemplate>
+                        <DataTemplate>
+                            <telerik:RadGridView x:Name="CommandParametersGridView"
+                                                 CanUserFreezeColumns="False"
+                                                 AutoGenerateColumns="False"
+                                                 Loaded="CommandParametersGridView_Loaded"
+                                                 CellEditEnded="CommandParametersGridView_CellEditEnded"
+                                                 ShowGroupPanel="False"
+                                                 >
+                                <telerik:RadGridView.Columns>
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Key}" Header="Parameter Name" Width="120" />
+                                    <telerik:GridViewDataColumn DataMemberBinding="{Binding Value, Mode=TwoWay}" Header="Parameter Value" Width="120" 
+                                                                IsReadOnly="False">
+                                        <telerik:GridViewDataColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Value}" />
+                                            </DataTemplate>
+                                        </telerik:GridViewDataColumn.CellTemplate>
+                                        <telerik:GridViewDataColumn.CellEditTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding Value, Mode=TwoWay}"/>
+                                            </DataTemplate>
+                                        </telerik:GridViewDataColumn.CellEditTemplate>
+                                    </telerik:GridViewDataColumn>
+
+                                </telerik:RadGridView.Columns>
+                            </telerik:RadGridView>
+                        </DataTemplate>
+                    </telerik:RadGridView.RowDetailsTemplate>
+
+                </telerik:RadGridView>
+                <telerik:RadButton Name="ExecuteSelectedSensorCommand"
+                                   Grid.Row="2"
+                                   Grid.ColumnSpan="2"
+                                   HorizontalContentAlignment="Center" 
+                                   Content="Execute Sensor Command"
+                                   Click="ExecuteSelectedSensorCommand_Click" 
+                                   IsEnabled="True" />
+            </Grid>
+        </StackPanel>
+    </Grid>
+</UserControl>

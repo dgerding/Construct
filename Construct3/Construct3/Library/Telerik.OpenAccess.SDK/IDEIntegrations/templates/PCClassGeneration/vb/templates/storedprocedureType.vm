@@ -1,0 +1,7 @@
+    Public Shared Function $methodName(ByVal scope As IObjectScope$paramDecls) As IEnumerable (Of $type)
+        Dim query As Query(Of $type) = scope.GetSqlQuery(Of $type)("$(sqlExpression)","$(sqlParams)")
+        Dim res As QueryResultEnumerable(Of $type) = query.ExecuteEnumerable(New Object() {$paramNames})
+        
+        Return res
+    End Function
+

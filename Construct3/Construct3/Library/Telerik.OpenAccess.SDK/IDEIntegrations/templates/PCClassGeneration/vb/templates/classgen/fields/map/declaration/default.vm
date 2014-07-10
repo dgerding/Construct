@@ -1,0 +1,1 @@
+    Private Dim $fieldName As IDictionary(OF $keyType,$valueType) = New Dictionary(OF $keyType,$valueType)()

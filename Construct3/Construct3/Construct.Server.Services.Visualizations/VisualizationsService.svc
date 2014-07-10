@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Construct.Server.Services.Visualizations.Service" CodeBehind="VisualizationsService.svc.cs" %>

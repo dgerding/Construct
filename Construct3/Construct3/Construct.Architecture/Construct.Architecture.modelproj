@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{d62b3b49-ba5f-4a1a-8c8f-e9ea21d39c35}</ProjectGuid>
+    <ArchitectureToolsVersion>1.0.0.0</ArchitectureToolsVersion>
+    <Name>Construct.Architecture</Name>
+    <RootNamespace>Construct.Architecture</RootNamespace>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v10.0\ArchitectureTools\Microsoft.VisualStudio.TeamArchitect.ModelingProject.targets" />
+  <ItemGroup>
+    <Folder Include="ModelDefinition\" />
+    <Content Include="ClassDependencies1.dgml">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="ModelDefinition\Construct.Architecture.uml">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Construct.MessageBrokering.Transponder\Construct.MessageBrokering.Transponder.csproj">
+      <Name>Construct.MessageBrokering.Transponder</Name>
+      <Project>{17fe8cec-f429-40d5-bf57-dde3c7fb592c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
+      <Name>Construct.MessageBrokering</Name>
+      <Project>{f47859ff-b24a-492a-995a-f7f124a14099}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Entities\Construct.Server.Entities.csproj">
+      <Name>Construct.Server.Entities</Name>
+      <Project>{7f520999-8299-452f-bebc-78fb6b0c60b3}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Common\Construct.Server.Models.csproj">
+      <Name>Construct.Server.Models</Name>
+      <Project>{e38e2cca-c7c6-4c3d-818b-35d2832ebbe0}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Credentials\Construct.Server.Models.Credentials.csproj">
+      <Name>Construct.Server.Models.Credentials</Name>
+      <Project>{bae114a6-877a-4b3f-834f-d6b57cd44323}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data\Construct.Server.Models.Data.csproj">
+      <Name>Construct.Server.Models.Data</Name>
+      <Project>{14bc45fe-9473-4fdd-b311-27ff70623c8b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Learning\Construct.Server.Models.Learning.csproj">
+      <Name>Construct.Server.Models.Learning</Name>
+      <Project>{e38f4f21-e285-4f32-b232-9b31b4ac611b}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Meaning\Construct.Server.Models.Meaning.csproj">
+      <Name>Construct.Server.Models.Meaning</Name>
+      <Project>{da18b0ff-8dea-497b-99e2-17e5c61d6062}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Questions\Construct.Server.Models.Questions.csproj">
+      <Name>Construct.Server.Models.Questions</Name>
+      <Project>{885125a7-98a0-4bac-a1ef-6cd274313a90}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Sessions\Construct.Server.Models.Sessions.csproj">
+      <Name>Construct.Server.Models.Sessions</Name>
+      <Project>{b0e52472-ef3a-4d22-a4ae-39e27bb49aea}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Sources\Construct.Server.Models.Sources.csproj">
+      <Name>Construct.Server.Models.Sources</Name>
+      <Project>{f6f5e292-b015-4ff1-9a93-15893ccf0f49}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Visualizations\Construct.Server.Models.Visualizations.csproj">
+      <Name>Construct.Server.Models.Visualizations</Name>
+      <Project>{fe923e3c-7419-474c-b55d-bb3bf598cdb8}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Credentials\Construct.Server.Services.Credentials.csproj">
+      <Name>Construct.Server.Services.Credentials</Name>
+      <Project>{98b7722e-4668-4c17-b7a3-6910f01e5f62}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Data\Construct.Server.Services.Data.csproj">
+      <Name>Construct.Server.Services.Data</Name>
+      <Project>{cc5506b9-b5a0-4643-9d5b-10021c481060}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Learning\Construct.Server.Services.Learning.csproj">
+      <Name>Construct.Server.Services.Learning</Name>
+      <Project>{86b6865e-3558-4212-a83b-98ed3ab72e09}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Meaning\Construct.Server.Services.Meaning.csproj">
+      <Name>Construct.Server.Services.Meaning</Name>
+      <Project>{5b457124-f54c-4a85-98dd-d3872fef7c60}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Questions\Construct.Server.Services.Questions.csproj">
+      <Name>Construct.Server.Services.Questions</Name>
+      <Project>{d6bb4a3b-e3f3-4014-930c-add9da9cedef}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Sessions\Construct.Server.Services.Sessions.csproj">
+      <Name>Construct.Server.Services.Sessions</Name>
+      <Project>{a1a69be6-147d-4195-822f-d83d46729b46}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Sources\Construct.Server.Services.Sources.csproj">
+      <Name>Construct.Server.Services.Sources</Name>
+      <Project>{7f97d56c-4519-4962-9121-e739a1b317af}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Services.Visualizations\Construct.Server.Services.Visualizations.csproj">
+      <Name>Construct.Server.Services.Visualizations</Name>
+      <Project>{b518c5e4-89d0-43d2-b2e9-0405ede311b7}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Credentials\Construct.UX.ViewModels.Credentials.csproj">
+      <Name>Construct.UX.ViewModels.Credentials</Name>
+      <Project>{7044daef-75b7-4567-b956-4dd9a87a3156}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Data\Construct.UX.ViewModels.Data.csproj">
+      <Name>Construct.UX.ViewModels.Data</Name>
+      <Project>{413e70ed-deec-4a99-bd13-1abb307161cc}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Learning\Construct.UX.ViewModels.Learning.csproj">
+      <Name>Construct.UX.ViewModels.Learning</Name>
+      <Project>{5c46b8cb-61d9-444e-a151-3656d99b378c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Meaning\Construct.UX.ViewModels.Meaning.csproj">
+      <Name>Construct.UX.ViewModels.Meaning</Name>
+      <Project>{1d400772-60e3-4f96-98e9-c1e54e77660a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Questions\Construct.UX.ViewModels.Questions.csproj">
+      <Name>Construct.UX.ViewModels.Questions</Name>
+      <Project>{36cc4686-303f-4e16-897f-0d3491e2b95a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Sessions\Construct.UX.ViewModels.Sessions.csproj">
+      <Name>Construct.UX.ViewModels.Sessions</Name>
+      <Project>{146ebeaf-615b-46ce-a3ac-99cc2019cb07}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels.Sources\Construct.UX.ViewModels.Sources.csproj">
+      <Name>Construct.UX.ViewModels.Sources</Name>
+      <Project>{4fd8d658-bdd6-4bd5-b734-1e5312b86894}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.ViewModels\Construct.UX.ViewModels.csproj">
+      <Name>Construct.UX.ViewModels</Name>
+      <Project>{d0bb050a-0f4c-40f9-843c-8ad9bcee850d}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Data\Construct.UX.Views.Data.csproj">
+      <Name>Construct.UX.Views.Data</Name>
+      <Project>{edc20b55-f4c1-4818-a787-36971cb1f82c}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Learning\Construct.UX.Views.Learning.csproj">
+      <Name>Construct.UX.Views.Learning</Name>
+      <Project>{0c12d678-ce96-4cc8-9c7c-17910b782163}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Meaning\Construct.UX.Views.Meaning.csproj">
+      <Name>Construct.UX.Views.Meaning</Name>
+      <Project>{1967b1a4-4759-4fc5-8d1b-f659ca40c144}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Questions\Construct.UX.Views.Questions.csproj">
+      <Name>Construct.UX.Views.Questions</Name>
+      <Project>{11770662-9360-4d0a-b78f-1be3515bd5be}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Sessions\Construct.UX.Views.Sessions.csproj">
+      <Name>Construct.UX.Views.Sessions</Name>
+      <Project>{6831d8cb-1a31-45a8-ae7c-d2703cb8f603}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Sources\Construct.UX.Views.Sources.csproj">
+      <Name>Construct.UX.Views.Sources</Name>
+      <Project>{a928ab45-d887-48b2-8c32-d9d9a0e4549f}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Visualizations\Construct.UX.Views.Visualizations.csproj">
+      <Name>Construct.UX.Views.Visualizations</Name>
+      <Project>{79d33504-60f0-4b28-9713-749bd4abbebd}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views\Construct.UX.Views.csproj">
+      <Name>Construct.UX.Views</Name>
+      <Project>{fc8dc39d-1d58-4150-a306-54f9adb5f8db}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.WindowsClient\Construct.UX.WindowsClient.csproj">
+      <Name>Construct.UX.WindowsClient</Name>
+      <Project>{fc343978-181a-46da-972c-2f8699099086}</Project>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

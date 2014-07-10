@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<Extensibility xmlns="http://schemas.microsoft.com/AutomationExtensibility">
+	<HostApplication>
+		<Name>Microsoft Visual Studio</Name>
+		<Version>9.0</Version>
+	</HostApplication>
+	<Addin>
+		<FriendlyName>Telerik OpenAccess</FriendlyName>
+		<Description>Build and deploy database solution</Description>
+		<Assembly>C:\Program Files (x86)\Telerik\OpenAccess ORM\sdk\Telerik.OpenAccess.SDK.AddIn.dll</Assembly>
+		<FullClassName>Telerik.OpenAccess.Sdk.Addin.VSAddin.OpenAccessAddin80</FullClassName>
+		<LoadBehavior>5</LoadBehavior>
+		<CommandPreload>1</CommandPreload>
+		<CommandLineSafe>1</CommandLineSafe>
+	</Addin>
+</Extensibility>

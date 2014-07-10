@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Types" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Microsoft.SqlServer.Types" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="SqlGeography">
+    <xs:sequence>
+      <xs:element name="_geometry" type="tns:GeoData" />
+      <xs:element name="_isNull" type="xs:boolean" />
+      <xs:element name="_srid" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SqlGeography" nillable="true" type="tns:SqlGeography" />
+  <xs:complexType name="GeoData">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="m_extendedUserProperties" type="tns:ExtendedGeometryProperties" />
+      <xs:element name="m_fValid" type="xs:boolean" />
+      <xs:element name="m_figures" nillable="true" type="tns:ArrayOfFigure" />
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="m_mValues" nillable="true" type="q1:ArrayOfdouble" />
+      <xs:element name="m_points" nillable="true" type="tns:ArrayOfPoint" />
+      <xs:element name="m_shapes" nillable="true" type="tns:ArrayOfShape" />
+      <xs:element xmlns:q2="http://schemas.microsoft.com/2003/10/Serialization/Arrays" name="m_zValues" nillable="true" type="q2:ArrayOfdouble" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GeoData" nillable="true" type="tns:GeoData" />
+  <xs:simpleType name="ExtendedGeometryProperties">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:list>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="IsWholeGlobeProp" />
+          <xs:enumeration value="None">
+            <xs:annotation>
+              <xs:appinfo>
+                <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:enumeration>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:list>
+  </xs:simpleType>
+  <xs:element name="ExtendedGeometryProperties" nillable="true" type="tns:ExtendedGeometryProperties" />
+  <xs:complexType name="ArrayOfFigure">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Figure" type="tns:Figure" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfFigure" nillable="true" type="tns:ArrayOfFigure" />
+  <xs:complexType name="Figure">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="figureAttribute" type="tns:FigureAttributes" />
+      <xs:element name="pointOffset" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Figure" nillable="true" type="tns:Figure" />
+  <xs:simpleType name="FigureAttributes">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ExteriorRing">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Stroke" />
+      <xs:enumeration value="InteriorRing">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="FigureAttributes" nillable="true" type="tns:FigureAttributes" />
+  <xs:complexType name="ArrayOfPoint">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Point" type="tns:Point" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPoint" nillable="true" type="tns:ArrayOfPoint" />
+  <xs:complexType name="Point">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="x" type="xs:double" />
+      <xs:element name="y" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Point" nillable="true" type="tns:Point" />
+  <xs:complexType name="ArrayOfShape">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Shape" type="tns:Shape" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShape" nillable="true" type="tns:ArrayOfShape" />
+  <xs:complexType name="Shape">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="figureOffset" type="xs:int" />
+      <xs:element name="parentOffset" type="xs:int" />
+      <xs:element name="type" type="tns:OpenGisType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Shape" nillable="true" type="tns:Shape" />
+  <xs:simpleType name="OpenGisType">
+    <xs:annotation>
+      <xs:appinfo>
+        <ActualType Name="unsignedByte" Namespace="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GeometryCollection">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">7</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MultiPolygon">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">6</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MultiLineString">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="MultiPoint">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Polygon">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="LineString">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Point">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Unknown">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="OpenGisType" nillable="true" type="tns:OpenGisType" />
+</xs:schema>

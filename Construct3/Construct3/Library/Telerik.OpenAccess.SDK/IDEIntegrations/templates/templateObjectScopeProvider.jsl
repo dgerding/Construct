@@ -1,0 +1,90 @@
+//Copyright (c) %CompanyName%.  All rights reserved.
+//
+// usage example:
+//
+// // Get ObjectScope from Helper
+// IObjectScope scope = %ClassName%.ObjectScope();
+// // start transaction
+// scope.get_Transaction().Begin();
+// // create new persistent object person and add to scope
+// Person p = new Person();
+// scope.Add(p);
+// // commit transction
+// scope.get_Transaction().Commit();
+//
+
+package %DefaultNamespace%;
+
+import %ProductNamespace%.*;
+import %ProductNamespace%.Util.*;
+
+/// <summary>
+/// Summary description for %ClassName%.
+/// </summary>
+public class %ClassName% implements IObjectScopeProvider
+{
+	private Database		myDatabase = null;
+	private IObjectScope	myScope = null;
+
+	static private %ClassName% the%ClassName% = null;
+
+	public %ClassName%()
+	{
+	}
+
+    /** Adjusts for dynamic loading when no entry assembly is available/configurable. 
+  	*/
+    static public void AdjustForDynamicLoad()
+    {
+        if( the%ClassName% == null )
+            the%ClassName% = new %ClassName%();
+
+        if( the%ClassName%.myDatabase == null )
+        {
+            String assumedInitialConfiguration =
+                       "<%RootNodeName%>" +
+                           "<references>" +
+                               "<reference assemblyname='PLACEHOLDER' configrequired='True'/>" +
+                           "</references>" +
+                       "</%RootNodeName%>";
+            System.Reflection.Assembly dll = %ClassName%.class.ToType().get_Assembly();
+            assumedInitialConfiguration = assumedInitialConfiguration.Replace(
+                                                "PLACEHOLDER", dll.GetName().get_Name());
+            System.Xml.XmlDocument xmlDoc = new System.Xml.XmlDocument();
+            xmlDoc.LoadXml(assumedInitialConfiguration);
+            Database db = %ProductNamespace%.Database.Get("%ConnectionName%", xmlDoc.get_DocumentElement(),
+                                        new System.Reflection.Assembly[] { dll } );
+
+            the%ClassName%.myDatabase = db;
+        }
+    }
+
+	static public Database Database()
+	{
+		if( the%ClassName% == null )
+			the%ClassName% = new %ClassName%();
+
+		if( the%ClassName%.myDatabase == null )
+			the%ClassName%.myDatabase = %ProductNamespace%.Database.Get( "%ConnectionName%" );
+
+		return the%ClassName%.myDatabase;
+	}
+
+	static public IObjectScope ObjectScope()
+	{
+		Database();
+
+		if( the%ClassName%.myScope == null )
+			the%ClassName%.myScope = GetNewObjectScope();
+
+		return the%ClassName%.myScope;
+	}
+
+	static public IObjectScope GetNewObjectScope()
+	{
+		Database db = Database();
+
+		IObjectScope newScope = db.GetObjectScope(%GetObjectScopeParameters%);
+		return newScope;
+	}
+}

@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.Server.Runtime.WindowsUX\bin\Debug\Construct.Server.Models.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">0</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.Server.Models~Construct.Server.Models.Model</LastSelectedItem>
+  <item qn="Construct.Server.Models~Construct.Server.Models.Model">
+    <summary ChangeDateTime="2013-02-14T21:56:48.2980827Z">This is the base Model class from which others derive</summary>
+    <remarks ChangeDateTime="2013-02-14T21:56:48.2980827Z">Model classes in Construct expose service interfaces to their respective View Models. Check each of them (Source, Data, Learning, Meaning, Questions, Sessions, Visualizations) to see what is exposed from each Model.</remarks>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

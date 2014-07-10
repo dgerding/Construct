@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<SensorTypeSource Name="[SensorName]" ID="[SensorTypeID]" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
+	<DataType Name="[TypeName]" ID="[DataTypeID]">
+		<DataTypeProperty Name="[PropertyName]" ID="[PropertyID]" Type="[PropertyType]" />
+	</DataType>
+</SensorTypeSource>

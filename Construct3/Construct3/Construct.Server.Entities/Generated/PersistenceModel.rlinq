@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<DomainModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" dslVersion="2.0.0.0" name="PersistenceModel" namespace="Construct.Server.Entities" showPropertiesCompartment="true" xmlns="http://www.telerik.com/ORM">
+  <orm:orm name="PersistenceModel" backend="mssql" xmlns:orm="http://tempuri.org/ORM">
+    <orm:namespace name="Construct.Server.Entities" default="true" />
+    <orm:schema schema="" />
+    <orm:relational-naming-settings>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
+      <orm:source-strategy>Property</orm:source-strategy>
+    </orm:relational-naming-settings>
+  </orm:orm>
+  <ModelSettings xmlns="">
+    <AppConfigConnectionPropertyName>Construct3_PersistenceConnection</AppConfigConnectionPropertyName>
+    <AppConfigConnectionString>Data Source=daisy.colum.edu;Initial Catalog=Construct3_Persistence;User ID=Construct;Password=ConstructifyConstructifyConstructify</AppConfigConnectionString>
+    <InitialCatalog>Construct3_Persistence</InitialCatalog>
+    <NamingSettings>
+      <ClassRules>
+        <CaseMode>PascalCase</CaseMode>
+        <PluralizationMode>Singularize</PluralizationMode>
+      </ClassRules>
+      <FieldRules>
+        <AddPrefix>_</AddPrefix>
+        <CaseMode>CamelCase</CaseMode>
+      </FieldRules>
+      <PropertyRules>
+        <CaseMode>PascalCase</CaseMode>
+      </PropertyRules>
+    </NamingSettings>
+    <CodeGenerationSettings>
+      <MappingDefinitionType>Fluent</MappingDefinitionType>
+    </CodeGenerationSettings>
+    <SchemaUpdateSettings />
+    <BackendConfigurationSettings>
+      <BackendConfiguration>
+        <Backend>mssql</Backend>
+        <ProviderName>System.Data.SqlClient</ProviderName>
+      </BackendConfiguration>
+    </BackendConfigurationSettings>
+  </ModelSettings>
+  <domainContext>
+    <domainModelHasDomainContext Id="c707448b-467f-44d7-8a3c-f240d1b069e1">
+      <domainContainer name="PersistenceModel" namespace="Construct.Server.Entities" showPropertiesCompartment="true" />
+    </domainModelHasDomainContext>
+  </domainContext>
+</DomainModel>

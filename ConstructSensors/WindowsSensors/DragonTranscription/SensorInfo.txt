@@ -1,0 +1,113 @@
+﻿name: DragonTranscriptionSensor
+version: 1000
+uri:
+file:
+
+typeSourceID: 1027AB45-7059-4BD0-84F0-ED2AE472B70A
+sourceID: F8512B1B-4637-404A-8A56-07518F8487E7
+
+version string for filenames:
+.1027AB45-7059-4BD0-84F0-ED2AE472B70A.1000
+
+server uri:
+http://daisy/99a519b1-fd3d-4f6e-b19a-5daeffc76255
+
+commandline args
+
+F8512B1B-4637-404A-8A56-07518F8487E7 http://192.168.82.250/IAggregator/F8512B1B-4637-404A-8A56-07518F8487E7/ 1027AB45-7059-4BD0-84F0-ED2AE472B70A
+
+"http://SKYNET/AE9E3C31-09C8-4835-8E2D-286922ADB3F6/68b7c925-c121-48a3-bd51-4f59c9e1a273" 
+TrevorDragonServer
+US English | Large | General
+E:\DragonOutputBeHere
+
+	eda0ff3e-108b-45d5-bf58-f362fabf2efe	192.168.82.24	http://192.168.82.24/f721f879-9f84-412f-ae00-632cfea5a1f3/1f0ab154-5e32-410a-9305-6a03ffb6996c
+
+--AddUtteranceSensor
+Johnny5
+732e7146-7810-45bf-90ca-07c3a7532a54
+
+--Create Profile
+ConstructTrevor
+US English | Large | General
+US English | BestMatch IV
+
+--Select Profile
+SessionName
+ConstructTrevor
+US English | Large | General
+
+
+--SelectOutputDirectory
+C:/DragonOutput/Woo/
+
+US English | Large | General
+US English | BestMatch IV
+
+Enrollment ProcessIDs
+
+Salt 593A17F4-2780-4BB4-8466-F578F77693C8
+Sassafras C27DFD6F-3C24-4F7A-82FC-ED5B338F2BD5
+Allspice 2C784A13-3855-46B3-A9DD-3901C8B697EB
+Cilantro 7CA451C5-7E6A-4715-944D-2EC95136166A
+
+2e1f2ff3-6efa-4bb6-ad8f-f7bd5638383a	eda0ff3e-108b-45d5-bf58-f362fabf2efe	T3500-Salt	http://t3500-salt/f721f879-9f84-412f-ae00-632cfea5a1f3/2e1f2ff3-6efa-4bb6-ad8f-f7bd5638383a
+
+1d6694c2-a6f9-48ed-b900-0c26c590a21d	eda0ff3e-108b-45d5-bf58-f362fabf2efe	T3500-Sassafras	http://t3500-sassafras/f721f879-9f84-412f-ae00-632cfea5a1f3/1d6694c2-a6f9-48ed-b900-0c26c590a21d
+
+125083b8-0105-471a-ab09-b19537789649	eda0ff3e-108b-45d5-bf58-f362fabf2efe	T3500-Allspice	http://t3500-allspice/f721f879-9f84-412f-ae00-632cfea5a1f3/125083b8-0105-471a-ab09-b19537789649
+
+05e322c1-f972-457d-a018-8413434521e3	eda0ff3e-108b-45d5-bf58-f362fabf2efe	T3500-Cilantro	http://t3500-cilantro/f721f879-9f84-412f-ae00-632cfea5a1f3/05e322c1-f972-457d-a018-8413434521e3
+
+
+
+Davros
+aa094b9f-afbc-4802-b8c8-7154a7a8b6da
+ConstructRoel
+US English | Large | General
+C:\DragonTranscriptions\ConstructRoel
+
+
+Palpatine
+8b51bcfe-d18a-44ff-8320-81569baa9fe2
+ConstructDave
+US English | Large | General
+C:\DragonTranscriptions\ConstructDave
+
+
+R2D2
+4afa76ce-abbf-4113-b1d1-347a5bc328a7				
+ConstructAlex
+US English | Large | General
+C:\DragonTranscriptions\ConstructAlex
+
+
+Skynet
+7f878fd1-6b5a-4407-a0b0-5b8fe22fae92
+ConstructChris
+US English | Large | General
+C:\DragonTranscriptions\ConstructChris
+
+
+WALL-E
+2f78e1ad-1f65-4fc8-99d1-8e36f422bddb
+ConstructMaurice
+US English | Large | General
+C:\DragonTranscriptions\ConstructMaurice
+
+
+WOPR
+9427b907-9ece-45e4-b958-363501e55fb6
+ConstructTyler
+US English | Large | General
+C:\DragonTranscriptions\ConstructTyler
+
+
+Signal7-PC
+0c759762-2a39-4096-86d7-09cec30789fa
+ConstructElisa
+US English | Large | General
+C:\DragonTranscriptions\ConstructElisa
+
+
+

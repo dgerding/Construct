@@ -1,0 +1,1 @@
+        private IList<$fieldType> $fieldName = new List<$fieldType>(); #if($isInverse) // inverse $inverse#end

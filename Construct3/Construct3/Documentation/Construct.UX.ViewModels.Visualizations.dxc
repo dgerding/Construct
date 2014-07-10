@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.UX.Runtime.WindowsClient\bin\Debug\Construct.UX.ViewModels.Visualizations.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">0</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.UX.ViewModels.Visualizations~Construct.UX.ViewModels.Visualizations.ViewModel</LastSelectedItem>
+  <item qn="Construct.UX.ViewModels.Visualizations~Construct.UX.ViewModels.Visualizations.ViewModel">
+    <summary ChangeDateTime="2013-02-15T18:37:27.6261118Z">Visualizations ViewModel. This class holds&amp;nbsp;data for the View to present in the user interface, as well as exposing a service interface to the&amp;nbsp;Visualizations&amp;nbsp;Model via WCF.</summary>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

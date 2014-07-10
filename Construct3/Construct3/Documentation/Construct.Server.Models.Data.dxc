@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentFile Version="2010" Moniker="Construct.Server.Runtime.WindowsUX\bin\Debug\Construct.Server.Models.Data.dll" DocType="DX.NET" IsLocalizationDisabled="false">
+  <RelatedProject>Documentation.dxp</RelatedProject>
+  <State>
+    <Attributes>
+      <Attribute key="scrollPosition" valuetype="integer">188</Attribute>
+      <Attribute key="TabContainerSelectedTabIndex" valuetype="integer">1</Attribute>
+    </Attributes>
+  </State>
+  <LastSelectedItem>Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.TypesAssemblyCreator</LastSelectedItem>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.Model">
+    <summary ChangeDateTime="2013-02-14T21:42:45.8438681Z">Data Model class. Exposes service interface to add DataTypes to Construct. Additionally is reponsible for perisiting Construct Data.</summary>
+    <remarks ChangeDateTime="2013-02-14T21:42:45.8508695Z">&lt;p&gt;Each Model has a Broker, and the Data Model's broker is hooked up to listen for items received from Construct Sensors. When it does, it calls Broker.Persist() which saves the value in the received item to the backing database.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The Data Model Add______PropertyValue methods possibly should not be public, they may be only so that tests could access them. The fact that tests needed scope on them but didn't have it may be indication that they were misdesigned.&lt;/p&gt;</remarks>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.Model~AddType">
+    <summary ChangeDateTime="2013-02-14T21:50:55.9491938Z">This method is exposed as a service to allow for new DataTypes to be added to Construct. It can either take in formated xml or a DataType entity object.</summary>
+    <exampleintro ChangeDateTime="2013-02-14T21:51:18.0071653Z">&lt;p&gt;Here is an example of the xml a "TestSensor" has. This would be passed to the Add() call in order to add the TestSensor DataType to Construct.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;?xml version='1.0' encoding='utf-16'?&amp;gt;&lt;br&gt;
+&amp;lt;SensorTypeSource&amp;nbsp; Name='TestSensor' ID='38196E9E-A581-4326-B6F2-C4120F89D4CC' ParentID='5C11FBBD-9E36-4BEA-A8BE-06E225250EF8' SensorHostTypeID='EDA0FF3E-108B-45D5-BF58-F362FABF2EFE' Version='1000'&amp;gt;&lt;br&gt;
+&amp;nbsp; &amp;lt;DataType Name='Test' ID='0c89f6c2-c749-4085-b0ea-163c419f5ac3'&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheInt' Type='int' ID='14F0E115-3EF3-4D59-882C-5E622B8849DB'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheBool' Type='bool' ID='388A0BC9-6010-40BD-BAD0-ACCDAFE35912'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheString' Type='string' ID='92EBA461-1872-4504-A26E-A46C292AB623'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheBytes' Type='byte[]' ID='715E510E-D7E9-439E-BF6A-7B4F213CA71C'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheGuid' Type='Guid' ID='12E166B9-8DB7-4EF6-BAC7-F86ECABD4843'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='intOne' Type='int' ID='B919F2B4-1BFC-4A2E-A9E6-41B692F31307'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='doubleOne' Type='double' ID='D7535E8F-A3B3-43CA-B6D5-EEAD354B0B8A'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='name' Type='string' ID='3994D895-998D-49F6-A0AB-29D1A3026838'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;lt;/DataType&amp;gt;&lt;br&gt;
+&amp;lt;/SensorTypeSource&amp;gt;&lt;/p&gt;</exampleintro>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.Model~GetAllTypes">
+    <summary ChangeDateTime="2013-02-14T21:52:05.4036433Z">This method is exposed as a service and returns a collection of all DataTypes (as ORM objects) that are in Construct.</summary>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypeCreator">
+    <summary ChangeDateTime="2013-02-15T18:55:08.6069651Z">This class creates DataTypes for Construct, as well as &lt;em&gt;dynamically &lt;/em&gt;generating a new CLR type that has the same schema shape as the newly defined Construct DataType.</summary>
+    <remarks ChangeDateTime="2013-02-15T19:04:28.1288191Z">&lt;p&gt;This class was not necessarily well designed with regard to its methods. Things are in class scope that do not need to be, but are now stuck there because different methods expect them to be accessable from there, instead of local scope. Also visibility is not necessarily intuitive. Some things should conceptually be private, but are needed as public to allow for outside things to get the behaviors they desire.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;The main offenders are CreateConstructType() and ImportSensorDataTypeSource(). They both need to be public, but ImportSensorXMLDescription() calls CreateConstructType(). Should probably make a private method that they both call instead.&lt;/p&gt;</remarks>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypeCreator~CreateConstructType">
+    <summary ChangeDateTime="2013-02-15T19:06:07.8637633Z">&lt;p&gt;Creates a Construct DataType, as well as the underlying Property, PropertyType, and PropertyParent&amp;nbsp;objects. Then generates the &lt;em&gt;dynamic&lt;/em&gt; CLR Type to match this Construct DataType with the same "shape".&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; After calling this method, you &lt;strong&gt;&lt;em&gt;must&lt;/em&gt;&lt;/strong&gt; call CommitQueuedDataType(), or the DataType will not be persisted.&lt;/p&gt;</summary>
+    <remarks ChangeDateTime="2013-02-15T19:03:33.2571857Z">&lt;p&gt;The CommitQueuedDataType() method is an unfortunate hack. The reason for it is, again,&amp;nbsp;a poorly designed method. After the DataType was created, but before it had been persisted, we do dynamic CLR Type generation. Unfortunately, if the dynamic compilation fails, commonly because the generated source code has an error in it, the method will throw an exception and abort &lt;em&gt;before getting to persist the DataTypes.&lt;/em&gt;&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;To get around this, we defered the peristing until the dynamic compilation had finished, ensuring that the "difficult" part of the code had succeeded. This is very, very, bad that we let the design be influed by poor code quality instead of fixing the code quality problem. Instead what we &lt;strong&gt;should&lt;/strong&gt; have done is have a test suite to ensure the dynamic code generation validity, or &lt;strong&gt;&lt;em&gt;NOT USE META PROGRAMING &lt;/em&gt;&lt;/strong&gt;(because it is awfully hairy).&lt;/p&gt;</remarks>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypeCreator~CommitQueuedDataType">
+    <summary ChangeDateTime="2013-02-15T19:15:36.6453767Z">&lt;p&gt;Commits the queued DataTypes (and sub Properties, PropertyTypes, and PropertyParents) to peristence.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;NOTE:&lt;/strong&gt; This method is &lt;strong&gt;only&lt;/strong&gt; to be called as&amp;nbsp;a pair AFTER CreateConstructType() is called.&lt;/p&gt;</summary>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypeCreator~AddPropertyValuePersistenceSupport">
+    <summary ChangeDateTime="2013-02-15T19:20:22.501975Z">Calls a database stored procedure to generated a table to hold the data of a single Property entry in a DataType.</summary>
+    <remarks ChangeDateTime="2013-02-15T19:20:22.501975Z">This method (and the backing stored procedure) will be called once for every Property that a Construct DataType has. The table that is created will have a column for each of the metadata values in Data (ItemID, SourceID, Interval, StartTime, Latitude, Longitude), and one called "Value" that will hold whichever type of value that particular Property was typed as (Int, bool, string, etc)</remarks>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypeCreator~ImportSensorDataTypeSource">
+    <summary ChangeDateTime="2013-02-16T00:13:35.5087654Z">Reads in an xml Data Description, then uses it to create a Construct DataTypeSource, DataType(s), and their sub Property, PropertyTypes, and PropertyParent objects. It then uses them to call CreateConstructType()</summary>
+    <exampleintro ChangeDateTime="2013-02-16T00:11:47.4129678Z">&lt;p&gt;Here is an example of the xml a "TestSensor" has. This would be passed to the Add() call in order to add the TestSensor DataType to Construct.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;&amp;lt;?xml version='1.0' encoding='utf-16'?&amp;gt;&lt;br&gt;
+&amp;lt;SensorTypeSource&amp;nbsp; Name='TestSensor' ID='38196E9E-A581-4326-B6F2-C4120F89D4CC' ParentID='5C11FBBD-9E36-4BEA-A8BE-06E225250EF8' SensorHostTypeID='EDA0FF3E-108B-45D5-BF58-F362FABF2EFE' Version='1000'&amp;gt;&lt;br&gt;
+&amp;nbsp; &amp;lt;DataType Name='Test' ID='0c89f6c2-c749-4085-b0ea-163c419f5ac3'&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheInt' Type='int' ID='14F0E115-3EF3-4D59-882C-5E622B8849DB'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheBool' Type='bool' ID='388A0BC9-6010-40BD-BAD0-ACCDAFE35912'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheString' Type='string' ID='92EBA461-1872-4504-A26E-A46C292AB623'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheBytes' Type='byte[]' ID='715E510E-D7E9-439E-BF6A-7B4F213CA71C'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='TheGuid' Type='Guid' ID='12E166B9-8DB7-4EF6-BAC7-F86ECABD4843'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='intOne' Type='int' ID='B919F2B4-1BFC-4A2E-A9E6-41B692F31307'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='doubleOne' Type='double' ID='D7535E8F-A3B3-43CA-B6D5-EEAD354B0B8A'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;nbsp;&amp;lt;DataTypeProperty Name='name' Type='string' ID='3994D895-998D-49F6-A0AB-29D1A3026838'/&amp;gt;&lt;br&gt;
+&amp;nbsp;&amp;lt;/DataType&amp;gt;&lt;br&gt;
+&amp;lt;/SensorTypeSource&amp;gt;&lt;/p&gt;</exampleintro>
+    <remarks ChangeDateTime="2013-02-16T00:18:23.8513958Z">This method calls CreateConstructType(), and afterwards, CommitQueuedDataType(), which abstracts the potential confusion of their use away from the caller. If the dynamic compilation of the CLR type created to hold the new Construct DataType data fails (because of malformed xml or something else), this method will abort and not persist the desired new Construct DataType.</remarks>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypeCreationInfo">
+    <summary ChangeDateTime="2013-02-16T00:19:08.6713586Z">This class is created to hold the metadata about a new Construct DataType</summary>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.DataTypePropertyCreationInfo">
+    <summary ChangeDateTime="2013-02-16T00:19:43.3244882Z">This class is created to hold the metadata about a new Construct DataType's Property</summary>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.TypesAssemblyCreator">
+    <summary ChangeDateTime="2013-02-16T00:42:53.1998937Z">&lt;strong&gt;Copy&lt;/strong&gt;This class is responsible for managing the CLR Assembly objects used by Construct to hold Data in a strongly typed way. It also dynamically creates the new assemblies and the loads them as CLR Assembly objects when the runtime introduces a new DataType.</summary>
+    <remarks ChangeDateTime="2013-02-16T00:42:53.2389015Z">&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;Copy/Paste from "ReturnTypeAssembly()" method for visibility:&lt;/strong&gt;&lt;/p&gt;&lt;p&gt;&lt;strong&gt;&lt;/strong&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;We ended up not using the psuedo dynamic CLR strong types to store the data of each of the DataTypes in Construct, because it was just too difficult to manage. We lacked understanding of how "dynamic-ness" worked in C#, including (but not limited to) Assembly and&amp;nbsp;AppDomain Types, how modules are "loaded" into memory, and what responsibilities we have as their consumers.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Before trying to fix the problems with this class, we need to make&lt;em&gt; &lt;/em&gt;sure we know why we are using these dynamic strong types to hold data. As far as I understand, it was to act as ORM objects to give us an interface to creating/updating/deleteing the database with objects we can manipulate in code.&lt;strong&gt; I possit that this is NOT the best design to solve the problem of CRUD operations for dynamic data.&lt;/strong&gt; I feel that we designed ourself into a corner, and forced ourselves to work with unnatural constraints in solving the problems we were interested in.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The above not withstanding, here is what I think we should do if we wanted to redesign this class/method/structure to be more useful/sane.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;If we wanted to use modules and load them programmatically (whether they were dynamically compiled or not) we needed to have a better management scheme in place to regulate access and control to those dlls. We had problems of having to pass around the absolute path to where we were storing dlls, OR trying to guess if they were located in the executing directory (as well as multiple notions of "executing directory" since we had multiple things executing). We would need to create a structure mechanism (API of some kind) to handle this.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;After fixing the above problem of managing modules, we would need to fix the problem of &lt;em&gt;dynamic&lt;/em&gt; modules, which in this case means sanitation of the dynamic source code creation process. Far too often we would regress our pipeline because of bugs in the CodeGeneration pipeline, because of it being far too easy to shoot yourself in the foot.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;</remarks>
+  </item>
+  <item qn="Construct.Server.Models.Data~Construct.Server.Models.Data.CodeGeneration.TypesAssemblyCreator~ReturnTypeAssembly">
+    <summary ChangeDateTime="2013-02-16T00:34:36.22771Z">Returns a loaded assembly from disk or creates a new assembly to load if it is not found</summary>
+    <remarks ChangeDateTime="2013-02-16T00:42:01.5075567Z">&lt;p&gt;We ended up not using the psuedo dynamic CLR strong types to store the data of each of the DataTypes in Construct, because it was just too difficult to manage. We lacked understanding of how "dynamic-ness" worked in C#, including (but not limited to) Assembly and&amp;nbsp;AppDomain Types, how modules are "loaded" into memory, and what responsibilities we have as their consumers.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;Before trying to fix the problems with this class, we need to make&lt;em&gt; &lt;/em&gt;sure we know why we are using these dynamic strong types to hold data. As far as I understand, it was to act as ORM objects to give us an interface to creating/updating/deleteing the database with objects we can manipulate in code.&lt;strong&gt; I possit that this is NOT the best design to solve the problem of CRUD operations for dynamic data.&lt;/strong&gt; I feel that we designed ourself into a corner, and forced ourselves to work with unnatural constraints in solving the problems we were interested in.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;&lt;p&gt;The above not withstanding, here is what I think we should do if we wanted to redesign this class/method/structure to be more useful/sane.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;If we wanted to use modules and load them programmatically (whether they were dynamically compiled or not) we needed to have a better management scheme in place to regulate access and control to those dlls. We had problems of having to pass around the absolute path to where we were storing dlls, OR trying to guess if they were located in the executing directory (as well as multiple notions of "executing directory" since we had multiple things executing). We would need to create a structure mechanism (API of some kind) to handle this.&lt;/p&gt;
+
+&lt;p&gt;&amp;nbsp;&lt;/p&gt;
+
+&lt;p&gt;After fixing the above problem of managing modules, we would need to fix the problem of &lt;em&gt;dynamic&lt;/em&gt; modules, which in this case means sanitation of the dynamic source code creation process. Far too often we would regress our pipeline because of bugs in the CodeGeneration pipeline, because of it being far too easy to shoot yourself in the foot.&lt;/p&gt;&lt;p&gt;&amp;nbsp;&lt;/p&gt;</remarks>
+  </item>
+  <Filters>
+    <CONTENTSTORECOMMON>
+      <IsIncludedItemsOnly>true</IsIncludedItemsOnly>
+    </CONTENTSTORECOMMON>
+    <CONTENTSTORELOCALIZATION>
+      <IsPrimaryLocaleContentPreviewEnabled>true</IsPrimaryLocaleContentPreviewEnabled>
+    </CONTENTSTORELOCALIZATION>
+    <DX.NETCONTENTSTOREFILTER>
+      <ShowProtectedMembers>true</ShowProtectedMembers>
+      <ShowProtectedFriendMembers>true</ShowProtectedFriendMembers>
+      <ShowFriendMembers>false</ShowFriendMembers>
+      <ShowPrivateMembers>false</ShowPrivateMembers>
+      <ShowInheritedMembers>false</ShowInheritedMembers>
+      <IsSourceCodeContentVisible>true</IsSourceCodeContentVisible>
+    </DX.NETCONTENTSTOREFILTER>
+  </Filters>
+</ContentFile>

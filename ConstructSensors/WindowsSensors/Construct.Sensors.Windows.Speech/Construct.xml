@@ -1,0 +1,8 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<TypeSource Name='WindowsTranscriptionSensor' ID='DC060EBE-7D1D-4CFD-8471-4BE50CF41D65' ParentID='5C11FBBD-9E36-4BEA-A8BE-06E225250EF8'>
+  <SensorType Name='WindowsTranscriptionItem' ID='F13FB82A-638C-4399-8849-73FE264287E3' SensorHostTypeID='EDA0FF3E-108B-45D5-BF58-F362FABF2EFE'>
+    <DataType>
+      <DataTypeProperty Name='windowsTranscriptionValue' Type='object' ID='AB7070F2-8071-428A-A543-4F9F9D4AFC91'/>
+    </DataType>
+  </SensorType>
+</TypeSource>

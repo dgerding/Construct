@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<publishData>
+  <publishProfile publishUrl="http://192.168.82.6" deleteExistingFiles="False" ftpAnonymousLogin="False" ftpPassiveMode="True" msdeploySite="ColumbiaCollege/SensorService" msdeploySiteID="" msdeployRemoteSitePhysicalPath="" msdeployAllowUntrustedCertificate="False" msdeploySkipExtraFilesOnServer="True" msdeployMarkAsApp="False" profileName="SensorService_IIS" publishMethod="MSDeploy" replaceMatchingFiles="True" userName="iam\kyle.reden" savePWD="False" userPWD="" SelectedForPublish="True" />
+</publishData>

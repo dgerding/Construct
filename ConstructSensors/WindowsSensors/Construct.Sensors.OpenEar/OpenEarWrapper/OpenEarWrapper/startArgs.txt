@@ -1,0 +1,1 @@
+﻿-C emo_valence.conf -I words.wav -T words.txt -O words.txt.out
