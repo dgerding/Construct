@@ -88,6 +88,10 @@ namespace Construct.Server.Models.Data
 				if (this.OnPersist != null)
 					this.OnPersist(this, data);
 			};
+
+			GenerateSourcesDataSummary(new Guid[] { Guid.Parse("BB97FBE8-BF86-4FD1-8A23-BE43AB07E8D3"),
+													Guid.Parse("C21891B6-DA37-4385-986F-668321651C1D"),
+													Guid.Parse("F05132EA-B2EE-4B12-8396-4483BE148796") });
         }
 
         private void InitializeSerializationAssistant()
@@ -129,6 +133,73 @@ namespace Construct.Server.Models.Data
                 assistant.AddPropertyIDTable(dataType.Name, tempDict);
             }
         }
+
+		private SourcesDataSummary GenerateSourcesDataSummary(Guid[] sourceIds)
+		{
+			SourcesDataSummary result = new SourcesDataSummary();
+
+			using (var model = GetNewModel())
+			{
+				var typesOfSources = model.SensorTypeSources.Where(sts => sts.Sensors.Any(s => sourceIds.Contains(s.ID)));
+				List<DataType> typesEmittedBySources = new List<DataType>();
+
+				foreach (var sourceType in typesOfSources)
+					foreach (var emittedDataType in sourceType.DataTypes)
+						if (!typesEmittedBySources.Any(matchedType => matchedType.ID == emittedDataType.ID))
+							typesEmittedBySources.Add(emittedDataType);
+
+
+				List<PropertyParent> propertiesInTypes = typesEmittedBySources.SelectMany(dt => dt.PropertyParents).ToList();
+
+				result.DataPropertyNames = new String[propertiesInTypes.Count];
+				result.DataPropertyTypes = new Type[propertiesInTypes.Count];
+				result.DataPropertyFrequencies = new float[propertiesInTypes.Count];
+
+				int currentPropertyIndex = 0;
+				foreach (var property in propertiesInTypes)
+				{
+					var propertyType = property as PropertyType;
+
+					String propertyName = property.DataType.Name + "_" + property.Name;
+					Type propertyPrimitiveType;
+					float propertyFrequency;
+
+					switch (propertyType.DataType.Name)
+					{
+						case ("bool"):	propertyPrimitiveType = typeof(bool); break;
+						case ("string"):propertyPrimitiveType = typeof(string); break;
+						case ("Guid"):	propertyPrimitiveType = typeof(Guid); break;
+						case ("long"):	propertyPrimitiveType = typeof(long); break;
+						case ("double"):propertyPrimitiveType = typeof(double); break;
+						case ("byte[]"):propertyPrimitiveType = typeof(byte[]); break;
+						case ("float"): propertyPrimitiveType = typeof(float); break;
+						case ("Object"):propertyPrimitiveType = typeof(object); break;
+						case ("int"):	propertyPrimitiveType = typeof(int); break;
+						default:		propertyPrimitiveType = null; break;
+					}
+
+					//	TODO: Take into account number of sensors outputting a property
+
+					//	Hard-coded frequencies TODO: Add estimated frequency output to sensor DTD
+					switch (property.DataType.Name)
+					{
+						case ("Transcription"): propertyFrequency = 0.25f; break;
+						case ("HeadPose"): propertyFrequency = 60.0f; break;
+						case ("FaceData"): propertyFrequency = 60.0f; break;
+						case ("Utterance"): propertyFrequency = 0.25f; break;
+						default: propertyFrequency = 0.0f; break;
+					}
+					
+					result.DataPropertyNames[currentPropertyIndex] = propertyName;
+					result.DataPropertyTypes[currentPropertyIndex] = propertyPrimitiveType;
+					result.DataPropertyFrequencies[currentPropertyIndex] = propertyFrequency;
+
+					currentPropertyIndex++;
+				}
+			}
+
+			return result;
+		}
 
 		public uint GetNumberOfItemsInTimespan(DateTime startTime, DateTime endTime, Guid? itemTypeId, Guid? sourceId)
 		{

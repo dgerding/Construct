@@ -31,37 +31,37 @@ namespace Construct.MessageBrokering.Serialization
 
 
 
-		Guid getDataTypeGuid();
-		Guid[] getSourceIds();
-		DateTime getStartTimeUTC();
-		DateTime getEndTimeUTC();
-
-		String constructServerUri;
-		public void example()
-		{
-			ItemComposer itemComposer = new ItemComposer(constructServerUri);
-
-			Guid myDataSourceId = getDataTypeGuid();
-			Guid[] mySourceIds = getSourceIds(); // Can be null (specified all sources that emit that datatype)
-			DateTime startTime = getStartTimeUTC();
-			DateTime endTime = getEndTimeUTC();
-
-			ComposedItemCollection itemCollection = itemComposer.SynthesizeData(myDataSourceId, mySourceIds, startTime, endTime);
-
-			foreach (Guid propertyTypeId in itemCollection.Doubles.Keys)
-			{
-				Dictionary<Guid, ValuePayload<double>> itemsWithProperty = itemCollection.Doubles[propertyTypeId];
-
-				foreach (Guid itemId in itemsWithProperty.Keys)
-				{
-					ValuePayload<double> currentValue = itemsWithProperty[itemId];
-					// currentValue.Value
-					// currentValue.Latitude
-					// currentValue.Longitude
-					// currentValue.StartTime
-					// currentValue.TimeSpan
-				}
-			}
-		}
+// 		Guid getDataTypeGuid();
+// 		Guid[] getSourceIds();
+// 		DateTime getStartTimeUTC();
+// 		DateTime getEndTimeUTC();
+// 
+// 		String constructServerUri;
+// 		public void example()
+// 		{
+// 			ItemComposer itemComposer = new ItemComposer(constructServerUri);
+// 
+// 			Guid myDataSourceId = getDataTypeGuid();
+// 			Guid[] mySourceIds = getSourceIds(); // Can be null (specified all sources that emit that datatype)
+// 			DateTime startTime = getStartTimeUTC();
+// 			DateTime endTime = getEndTimeUTC();
+// 
+// 			ComposedItemCollection itemCollection = itemComposer.SynthesizeData(myDataSourceId, mySourceIds, startTime, endTime);
+// 
+// 			foreach (Guid propertyTypeId in itemCollection.Doubles.Keys)
+// 			{
+// 				Dictionary<Guid, ValuePayload<double>> itemsWithProperty = itemCollection.Doubles[propertyTypeId];
+// 
+// 				foreach (Guid itemId in itemsWithProperty.Keys)
+// 				{
+// 					ValuePayload<double> currentValue = itemsWithProperty[itemId];
+// 					// currentValue.Value
+// 					// currentValue.Latitude
+// 					// currentValue.Longitude
+// 					// currentValue.StartTime
+// 					// currentValue.TimeSpan
+// 				}
+// 			}
+// 		}
 	}
 }
