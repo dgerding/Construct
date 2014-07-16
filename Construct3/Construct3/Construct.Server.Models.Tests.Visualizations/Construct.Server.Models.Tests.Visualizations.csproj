@@ -44,13 +44,11 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="Telerik.OpenAccess, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
-      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.OpenAccess">
+      <HintPath>..\Library\Telerik.OpenAccess\Telerik.OpenAccess.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
-      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Telerik.OpenAccess.35.Extensions">
+      <HintPath>..\Library\Telerik.OpenAccess\Telerik.OpenAccess.35.Extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
