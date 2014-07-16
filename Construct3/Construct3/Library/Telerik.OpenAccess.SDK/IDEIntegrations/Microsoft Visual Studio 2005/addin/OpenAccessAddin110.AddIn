@@ -5,9 +5,9 @@
 		<Version>11.0</Version>
 	</HostApplication>
 	<Addin>
-		<FriendlyName>Telerik OpenAccess</FriendlyName>
+		<FriendlyName>Telerik Data Access</FriendlyName>
 		<Description>Build and deploy database solution</Description>
-		<Assembly>C:\Program Files (x86)\Telerik\OpenAccess ORM\sdk\Telerik.OpenAccess.SDK.AddIn.dll</Assembly>
+		<Assembly>C:\Program Files (x86)\Telerik\Data Access\sdk\Telerik.OpenAccess.SDK.AddIn.dll</Assembly>
 		<FullClassName>Telerik.OpenAccess.Sdk.Addin.VSAddin.OpenAccessAddin80</FullClassName>
 		<LoadBehavior>5</LoadBehavior>
 		<CommandPreload>1</CommandPreload>

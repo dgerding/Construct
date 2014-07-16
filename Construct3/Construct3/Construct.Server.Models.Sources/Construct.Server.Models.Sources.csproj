@@ -56,13 +56,13 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="Telerik.OpenAccess, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+    <Reference Include="Telerik.OpenAccess, Version=2014.2.617.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
       <Private>True</Private>
-      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\Telerik\Data Access\bin\Telerik.OpenAccess.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2012.3.1209.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
-      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2014.2.617.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\Data Access\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>

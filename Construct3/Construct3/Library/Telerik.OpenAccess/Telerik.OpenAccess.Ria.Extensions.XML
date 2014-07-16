@@ -6,7 +6,7 @@
     <members>
         <member name="T:Telerik.OpenAccess.Ria.AttachChanges">
             <summary>
-            Handles all attachement and compare operations for a DomainService with persistent objects.
+            Handles all attachments and compare operations for a DomainService with persistent objects.
             </summary>
         </member>
         <member name="M:Telerik.OpenAccess.Ria.AttachChanges.#ctor(System.ServiceModel.DomainServices.Server.ChangeSet,Telerik.OpenAccess.OpenAccessContext,System.Action{System.Object,System.ServiceModel.DomainServices.Server.ChangeSetEntry},System.Func{System.ServiceModel.DomainServices.Server.ChangeSetEntry,System.Collections.Generic.IEnumerable{System.String},System.Boolean},System.Func{System.ServiceModel.DomainServices.Server.ChangeSetEntry,System.Exception,System.Boolean},System.ServiceModel.DomainServices.Server.DomainServiceDescription)">

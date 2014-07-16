@@ -904,6 +904,12 @@
             <exception cref="T:System.InvalidOperationException">The type of the table is
             not generic.</exception>
         </member>
+        <member name="M:Telerik.OpenAccess.Web.OpenAccessLinqDataSourceView.DisposeContext(System.Object)">
+            <summary>
+            Disposes the data context.
+            </summary>
+            <param name="dataContext">The data context to dispose.</param>
+        </member>
         <member name="E:Telerik.OpenAccess.Web.OpenAccessLinqDataSourceView.ContextCreated">
             <summary>
             Occurs after an instance of the context type object has been created.
@@ -1039,6 +1045,13 @@
             <summary>Gets or sets the name of a property or field of the domain context class
             that contains the data collection.</summary>
             <returns>The name of the property that represents the data collection.</returns>
+        </member>
+        <member name="P:Telerik.OpenAccess.Web.OpenAccessLinqDataSourceView.EntityType">
+            <summary>
+            Gets the type of a property or field of the domain context class
+            that contains the data collection.
+            </summary>
+            <returns>The type of the property that represents the data collection.</returns>
         </member>
     </members>
 </doc>

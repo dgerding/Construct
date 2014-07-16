@@ -6,7 +6,7 @@
     <members>
         <member name="T:Telerik.OpenAccess.ServiceHost.IProfilerService">
             <summary>
-            Web service interface to be used by the OpenAccess profiler
+            Web service interface to be used by the Telerik Data Access profiler
             </summary>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.IProfilerService.GetServiceVersion">
@@ -38,31 +38,31 @@
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.IProfilerService.GetMetrics(System.String,System.DateTime)">
             <summary>
-            Returns a list of OpenAccess metrics.
+            Returns a list of Telerik Data Access metrics.
             </summary>
             <param name="databaseName">The name of the database instance generating these metrics</param>
             <param name="from">Timestamp to restrict the history of metrics.</param>
-            <returns>List of OpenAccess metrics.</returns>
+            <returns>List of Telerik Data Access metrics.</returns>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.IProfilerService.GetEventsById(System.String,System.Int32)">
             <summary>
-            Returns a list of OpenAccess log events.
+            Returns a list of Telerik Data Access log events.
             </summary>
             <param name="databaseName">The name of the database instance generating these metrics</param>
             <param name="fromId">Integer value to restrict the history of the log events.</param>
-            <returns>List of OpenAccess log events.</returns>
+            <returns>List of Telerik Data Access log events.</returns>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.IProfilerService.GetEventsByDate(System.String,System.DateTime)">
             <summary>
-            Returns a list of OpenAccess log events.
+            Returns a list of Telerik Data Access log events.
             </summary>
             <param name="databaseName">The name of the database instance generating these metrics</param>
             <param name="from">Timestamp to restrict the history of log events.</param>
-            <returns>List of OpenAccess log events.</returns>
+            <returns>List of Telerik Data Access log events.</returns>
         </member>
         <member name="T:Telerik.OpenAccess.ServiceHost.ProfilerService">
             <summary>
-            Web service implementation to be used by the OpenAccess profiler
+            Web service implementation to be used by the Telerik Data Access profiler
             </summary>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.ProfilerService.GetServiceVersion">
@@ -71,8 +71,8 @@
             <returns>A version number to detect if client and server can work together.</returns>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.ProfilerService.GetOpenAccessVersion">
-            <summary>Returns the OpenAccess version number.</summary>
-            <returns>OpenAccess version number of the server side used OpenAccess version.</returns>
+            <summary>Returns the Telerik Data Access version number.</summary>
+            <returns>Telerik Data Access version number of the server side used OpenAccess version.</returns>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.ProfilerService.GetServerTimeUTC">
             <summary>
@@ -88,31 +88,31 @@
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.ProfilerService.GetMetrics(System.String,System.DateTime)">
             <summary>
-            Returns a list of OpenAccess metrics.
+            Returns a list of Telerik Data Access metrics.
             </summary>
             <param name="databaseName">The name of the database instance generating these metrics</param>
             <param name="from">Timestamp to restrict the history of metrics.</param>
-            <returns>List of OpenAccess metrics.</returns>
+            <returns>List of Telerik Data Access metrics.</returns>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.ProfilerService.GetEventsById(System.String,System.Int32)">
             <summary>
-            Returns a list of OpenAccess log events.
+            Returns a list of Telerik Data Access log events.
             </summary>
             <param name="databaseName">The name of the database instance generating these metrics</param>
             <param name="fromId">Integer value to restrict the history of the log events.</param>
-            <returns>List of OpenAccess log events.</returns>
+            <returns>List of Telerik Data Access log events.</returns>
         </member>
         <member name="M:Telerik.OpenAccess.ServiceHost.ProfilerService.GetEventsByDate(System.String,System.DateTime)">
             <summary>
-            Returns a list of OpenAccess log events.
+            Returns a list of Telerik Data Access log events.
             </summary>
             <param name="databaseName">The name of the database instance generating these metrics</param>
             <param name="from">Timestamp to restrict the history of log events.</param>
-            <returns>List of OpenAccess log events.</returns>
+            <returns>List of Telerik Data Access log events.</returns>
         </member>
         <member name="T:Telerik.OpenAccess.ServiceHost.ServiceHostManager">
              <summary>
-             Manager for the OpenAccess profiler web service.
+             Manager for the Telerik Data Access profiler web service.
              </summary>
              <example>
              In a web application the HttpApplication can be used to start and stop the web server.

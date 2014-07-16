@@ -194,6 +194,11 @@
           <xsd:documentation>Controls whether the model is checked for consistency.</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <xsd:element name="allowCascadeDelete" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls the default cascading delete behavior for persistent instances. (Default:false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
       <xsd:element name="initSql" minOccurs="0" type="xsd:string" >
         <xsd:annotation>
           <xsd:documentation>A single SQL statement that is used when a connection was created. This is usable for application role restrictions or other initialization purposes. When the string ends with ';COMMIT', the transaction on the connection is committed. Additional initialization statements can be added with initSql1 .</xsd:documentation>
@@ -413,6 +418,31 @@
           <xsd:documentation>The kind of reference to be used in the oid->object map. (Default:AUTO)</xsd:documentation>
         </xsd:annotation>
       </xsd:element>
+      <xsd:element name="ReadWithoutTransactions" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Performing queries can happen without a temporary server side transaction. (Default:true)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementBatchingEnabled" type="booleanCaseInsensitive" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls if statement batching is used. (Default:true)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementBatchingThreshold" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When statement batching is enabled: Number of similar rows that must be processed in the same transaction to use batching. (Default:1)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="StatementBatchingSize" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>When statement batching is enabled: Maximum number of similar rows that should be handled in one C/S call during batching. (Default:100)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="commandTimeout" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>Controls the global CommainTimeout value in seconds that is set to all DbCommands used in OpenAccess. (Default:30)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
       <xsd:element name="blockWhenFull" type="booleanCaseInsensitive" minOccurs="0">
         <xsd:annotation>
           <xsd:documentation>
@@ -524,6 +554,13 @@
           <xsd:documentation>
             The number of milliseconds before the relational server gives
             up trying to aquire a lock. Not supported for all database backends. (Default: no limit)
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:element>
+      <xsd:element name="defaultStreamBufferSize" type="xsd:unsignedInt" minOccurs="0">
+        <xsd:annotation>
+          <xsd:documentation>
+            The default buffer size used for stream fields. (Default: 4096)
           </xsd:documentation>
         </xsd:annotation>
       </xsd:element>
@@ -1048,6 +1085,11 @@
         <xsd:documentation>Controls the behavior of insert, update and delete operations for instances of this type. (Default:readwrite)</xsd:documentation>
       </xsd:annotation>
     </xsd:attribute>
+    <xsd:attribute name="use-cascade-delete" type="cascadingType" use="optional">
+      <xsd:annotation>
+        <xsd:documentation>Controls the cascading delete behavior for instances of this type. (Default:default)</xsd:documentation>
+      </xsd:annotation>
+    </xsd:attribute>
     <xsd:attribute name="identity-type" type="identityTypeEnum" use="optional">
       <xsd:annotation>
         <xsd:documentation>
@@ -1512,7 +1554,12 @@
         <xsd:annotation>
           <xsd:documentation>Declares a splitted table that can be referenced by fields. The columns of the referencing fields will be created in this table.</xsd:documentation>
         </xsd:annotation>        
-      </xsd:enumeration>      
+      </xsd:enumeration>
+      <xsd:enumeration value="drop">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the underlying table will be dropped during the schema migration. (Default:false)</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
     </xsd:restriction>
   </xsd:simpleType>
 
@@ -1590,6 +1637,11 @@
       <xsd:enumeration value="db-ref">
         <xsd:annotation>
           <xsd:documentation>Defines column properties for part of a reference to an application identity class using a composite primary key.</xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="drop">
+        <xsd:annotation>
+          <xsd:documentation>Controls whether the underlying relational item will be dropped during the schema migration (Default:false)</xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
     </xsd:restriction>    
@@ -1922,6 +1974,32 @@
         <xsd:annotation>
           <xsd:documentation>
             The class or field is read-only; insert, update and delete are not allowed.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="cascadingType">
+    <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="yes">
+        <xsd:annotation>
+          <xsd:documentation>
+            Use cascading delete for instances of this type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="no">
+        <xsd:annotation>
+          <xsd:documentation>
+            Do per-table deletes for instances of this type.
+          </xsd:documentation>
+        </xsd:annotation>
+      </xsd:enumeration>
+      <xsd:enumeration value="default">
+        <xsd:annotation>
+          <xsd:documentation>
+            Use the default setting to control how instances of this type are deleted.
           </xsd:documentation>
         </xsd:annotation>
       </xsd:enumeration>
