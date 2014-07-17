@@ -73,182 +73,182 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Xaml" />
     <Reference Include="Telerik.Pivot.Core, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Pivot.Core.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Pivot.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Chart, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Chart.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Chart.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Charting, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Charting.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Charting.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Data, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Data.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Data.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.DataServices, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.DataServices.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.DataServices.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.DataVisualization, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.DataVisualization.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Diagrams, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Diagrams.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Diagrams.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Diagrams.Extensions, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Diagrams.Extensions.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Diagrams.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Docking, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Docking.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Docking.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.EntityFramework, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.EntityFramework.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Expressions, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Expressions.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Expressions.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.FixedDocumentViewers, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.FixedDocumentViewers.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.FixedDocumentViewers.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.GanttView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.GanttView.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.GanttView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Gauge, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Gauge.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Gauge.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.GridView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.GridView.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.GridView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.ImageEditor, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.ImageEditor.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Input, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Input.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Input.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Navigation, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Navigation.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Navigation.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.Pivot, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Pivot.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Pivot.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.PivotFieldList, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.PivotFieldList.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.PivotFieldList.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.RibbonView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.RibbonView.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.RibbonView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.RichTextBoxUI, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.RichTextBoxUI.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.RichTextBoxUI.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Controls.ScheduleView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Data.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Data.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Diagrams.Core, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Diagrams.Core.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Diagrams.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Core, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Core.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Fixed, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Fixed.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Fixed.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.FormatProviders.Html, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Html.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Html.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.FormatProviders.MsRichTextBoxXaml, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.MsRichTextBoxXaml.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.MsRichTextBoxXaml.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.FormatProviders.OpenXml, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.OpenXml.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.OpenXml.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.FormatProviders.Pdf, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Pdf.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Pdf.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.FormatProviders.Rtf, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Rtf.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Rtf.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.FormatProviders.Xaml, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Xaml.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.FormatProviders.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Proofing, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Proofing.DataGrid, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.DataGrid.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.DataGrid.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Proofing.Dictionaries.En-US, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.Dictionaries.En-US.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.Dictionaries.En-US.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Documents.Proofing.RadGridView, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.RadGridView.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Documents.Proofing.RadGridView.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.PersistenceFramework, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.PersistenceFramework.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.PersistenceFramework.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Scheduling.Core, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Scheduling.Core.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Scheduling.Core.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Windows.Zip, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
-      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Zip.dll</HintPath>
       <Private>True</Private>
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Zip.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Telerik.OpenAccess, Version=2013.2.702.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
-      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.dll</HintPath>
+    <Reference Include="Telerik.OpenAccess, Version=2014.2.617.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\Data Access\bin\Telerik.OpenAccess.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
-    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2013.2.702.1, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
-      <HintPath>C:\Program Files (x86)\Telerik\OpenAccess ORM\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
+    <Reference Include="Telerik.OpenAccess.35.Extensions, Version=2014.2.617.2, Culture=neutral, PublicKeyToken=7ce17eeaf1d59342">
+      <HintPath>C:\Program Files (x86)\Telerik\Data Access\bin\Telerik.OpenAccess.35.Extensions.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
     </Reference>
   </ItemGroup>
