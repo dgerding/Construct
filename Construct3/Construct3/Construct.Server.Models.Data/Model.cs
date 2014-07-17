@@ -24,7 +24,6 @@ using System.Xml.Linq;
 using System.Threading;
 using Construct.MessageBrokering.TransponderService;
 
-
 namespace Construct.Server.Models.Data
 {
     /// <summary>
@@ -44,54 +43,132 @@ namespace Construct.Server.Models.Data
         private int thisPortBase = 0;
 
         private Dictionary<Guid, ReadOnlyCollection<Uri>> propertyValueServiceEndpoints;
+
         private event Action<Models.IModel, dynamic> OnPersist;
 
-		private DataStoreConnectionPool connectionPool;
-		private SwitchingItemPersistor itemPersistor;
+        private DataStoreConnectionPool connectionPool;
+        private SwitchingItemPersistor itemPersistor;
+
+        private bool isDatabaseReachable = false;
+
+        public bool IsDatabaseReachable
+        {
+            get
+            {
+                return isDatabaseReachable;
+            }
+        }
+
+        private bool isDatabaseSchemaCurrent = false;
+
+        public bool IsDatabaseSchemaCurrent
+        {
+            get 
+            { 
+                return isDatabaseSchemaCurrent; 
+            }
+        }
+
+        private bool isModelFaultedOnConstruction = false;
+
+        public bool IsModelFaultedOnConstruction
+        {
+            get
+            {
+                return isModelFaultedOnConstruction;
+            }
+        }
+
+        private void CheckDatabaseStatus()
+        {
+            return;
+        }
 
         public Model(Uri serverServiceUri, string connectionString, Models.IServer server)
         {
-            logger.Trace("instantiating Data model");
-            
-            this.serverServiceUri = serverServiceUri;
-            this.OnPersist += server.OnPersist;
-
-            thisPortBase = serverServiceUri.Port + (int)UriUtility.ServicePortOffsets.Data;
-            propertyValueServiceEndpoints = new System.Collections.Generic.Dictionary<Guid, ReadOnlyCollection<Uri>>();
-
             this.connectionString = connectionString;
-            broker = server.Broker;
-            broker.OnItemReceived += HandleItem;
-            Name = "Data";
+            
+            logger.Trace("instantiating Data model");
 
-            persistantTypes.CollectionChanged += PersistantTypesCollectionChanged;
+            try
+            {
+                
+                using (EntitiesModel entitiesModel = GetNewModel())
+                {
+                    logger.Trace("checking database connection and schema");
 
-			using (EntitiesModel entitiesModel = GetNewModel())
-			{
-				TypesAssemblyCreator assemblyCreator = new TypesAssemblyCreator(entitiesModel);
-				foreach (Entities.DataType dataType in entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false))
-				{
-					Assembly assembly = assemblyCreator.ReturnTypeAssembly(dataType);
-				}
-			}
+                    var connectionState = entitiesModel.Connection.State;
 
-			InitializeSerializationAssistant();
+                    isDatabaseReachable = true;
 
-			InitializePropertyValueServicesAndBuildEndpointDictionary();
+                    Telerik.OpenAccess.ISchemaHandler schemaHandler = entitiesModel.GetSchemaHandler();
+                    string script = null;
+                    if (schemaHandler.DatabaseExists())
+                    {
+                        script = schemaHandler.CreateUpdateDDLScript(null);
+                        isDatabaseSchemaCurrent = false;
+                    }
+                    else
+                    {
+                        schemaHandler.CreateDatabase();
+                        script = schemaHandler.CreateDDLScript();
+                    }
+                    if (!string.IsNullOrEmpty(script))
+                    {
+                        isDatabaseSchemaCurrent = false;
+                        entitiesModel.Connection.Close();
+                        schemaHandler.ExecuteDDLScript(script);
+                    }
+    
+                    if (isDatabaseReachable && isDatabaseSchemaCurrent)
+                    { 
+                        this.serverServiceUri = serverServiceUri;
+                        this.OnPersist += server.OnPersist;
 
-			InitializeModelCache();
+                        thisPortBase = serverServiceUri.Port + (int)UriUtility.ServicePortOffsets.Data;
+                        propertyValueServiceEndpoints = new System.Collections.Generic.Dictionary<Guid, ReadOnlyCollection<Uri>>();
+            
+                        broker = server.Broker;
+                        broker.OnItemReceived += HandleItem;
+                        Name = "Data";
 
-			connectionPool = new DataStoreConnectionPool(connectionString);
-			itemPersistor = new SwitchingItemPersistor(assistant, connectionString, "ItemsCache");
-			itemPersistor.OnSqlPersist += delegate(dynamic data)
-			{
-				if (this.OnPersist != null)
-					this.OnPersist(this, data);
-			};
+                        persistantTypes.CollectionChanged += PersistantTypesCollectionChanged;
+            
+                        TypesAssemblyCreator assemblyCreator = new TypesAssemblyCreator(entitiesModel);
+                        foreach (Entities.DataType dataType in entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false))
+                        {
+                            Assembly assembly = assemblyCreator.ReturnTypeAssembly(dataType);
+                        }
 
-			GenerateSourcesDataSummary(new Guid[] { Guid.Parse("BB97FBE8-BF86-4FD1-8A23-BE43AB07E8D3"),
-													Guid.Parse("C21891B6-DA37-4385-986F-668321651C1D"),
-													Guid.Parse("F05132EA-B2EE-4B12-8396-4483BE148796") });
+                        InitializeSerializationAssistant();
+
+                        InitializePropertyValueServicesAndBuildEndpointDictionary();
+
+                        InitializeModelCache();
+
+                        connectionPool = new DataStoreConnectionPool(connectionString);
+                        itemPersistor = new SwitchingItemPersistor(assistant, connectionString, "ItemsCache");
+                        itemPersistor.OnSqlPersist += delegate(dynamic data)
+                        {
+                            if (this.OnPersist != null)
+                                this.OnPersist(this, data);
+                        };
+
+                        GenerateSourcesDataSummary(new Guid[]
+                        {
+                            Guid.Parse("BB97FBE8-BF86-4FD1-8A23-BE43AB07E8D3"),
+                            Guid.Parse("C21891B6-DA37-4385-986F-668321651C1D"),
+                            Guid.Parse("F05132EA-B2EE-4B12-8396-4483BE148796")
+                        });
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                isModelFaultedOnConstruction = true;
+                
+                //logger.LogException(, "Constructor for Model.Data failed", e);
+            }
         }
 
         private void InitializeSerializationAssistant()
@@ -134,182 +211,210 @@ namespace Construct.Server.Models.Data
             }
         }
 
-		private SourcesDataSummary GenerateSourcesDataSummary(Guid[] sourceIds)
-		{
-			SourcesDataSummary result = new SourcesDataSummary();
+        private SourcesDataSummary GenerateSourcesDataSummary(Guid[] sourceIds)
+        {
+            SourcesDataSummary result = new SourcesDataSummary();
 
-			using (var model = GetNewModel())
-			{
-				var typesOfSources = model.SensorTypeSources.Where(sts => sts.Sensors.Any(s => sourceIds.Contains(s.ID)));
-				List<DataType> typesEmittedBySources = new List<DataType>();
+            using (var model = GetNewModel())
+            {
+                var typesOfSources = model.SensorTypeSources.Where(sts => sts.Sensors.Any(s => sourceIds.Contains(s.ID)));
+                List<DataType> typesEmittedBySources = new List<DataType>();
 
-				foreach (var sourceType in typesOfSources)
-					foreach (var emittedDataType in sourceType.DataTypes)
-						if (!typesEmittedBySources.Any(matchedType => matchedType.ID == emittedDataType.ID))
-							typesEmittedBySources.Add(emittedDataType);
+                foreach (var sourceType in typesOfSources)
+                    foreach (var emittedDataType in sourceType.DataTypes)
+                        if (!typesEmittedBySources.Any(matchedType => matchedType.ID == emittedDataType.ID))
+                            typesEmittedBySources.Add(emittedDataType);
 
+                List<PropertyParent> propertiesInTypes = typesEmittedBySources.SelectMany(dt => dt.PropertyParents).ToList();
 
-				List<PropertyParent> propertiesInTypes = typesEmittedBySources.SelectMany(dt => dt.PropertyParents).ToList();
+                result.DataPropertyNames = new String[propertiesInTypes.Count];
+                result.DataPropertyTypes = new Type[propertiesInTypes.Count];
+                result.DataPropertyFrequencies = new float[propertiesInTypes.Count];
 
-				result.DataPropertyNames = new String[propertiesInTypes.Count];
-				result.DataPropertyTypes = new Type[propertiesInTypes.Count];
-				result.DataPropertyFrequencies = new float[propertiesInTypes.Count];
+                int currentPropertyIndex = 0;
+                foreach (var property in propertiesInTypes)
+                {
+                    var propertyType = property as PropertyType;
 
-				int currentPropertyIndex = 0;
-				foreach (var property in propertiesInTypes)
-				{
-					var propertyType = property as PropertyType;
+                    String propertyName = property.DataType.Name + "_" + property.Name;
+                    Type propertyPrimitiveType;
+                    float propertyFrequency;
 
-					String propertyName = property.DataType.Name + "_" + property.Name;
-					Type propertyPrimitiveType;
-					float propertyFrequency;
+                    switch (propertyType.DataType.Name)
+                    {
+                        case ("bool"):
+                            propertyPrimitiveType = typeof(bool);
+                            break;
+                        case ("string"):
+                            propertyPrimitiveType = typeof(string);
+                            break;
+                        case ("Guid"):
+                            propertyPrimitiveType = typeof(Guid);
+                            break;
+                        case ("long"):
+                            propertyPrimitiveType = typeof(long);
+                            break;
+                        case ("double"):
+                            propertyPrimitiveType = typeof(double);
+                            break;
+                        case ("byte[]"):
+                            propertyPrimitiveType = typeof(byte[]);
+                            break;
+                        case ("float"):
+                            propertyPrimitiveType = typeof(float);
+                            break;
+                        case ("Object"):
+                            propertyPrimitiveType = typeof(object);
+                            break;
+                        case ("int"):
+                            propertyPrimitiveType = typeof(int);
+                            break;
+                        default:
+                            propertyPrimitiveType = null;
+                            break;
+                    }
 
-					switch (propertyType.DataType.Name)
-					{
-						case ("bool"):	propertyPrimitiveType = typeof(bool); break;
-						case ("string"):propertyPrimitiveType = typeof(string); break;
-						case ("Guid"):	propertyPrimitiveType = typeof(Guid); break;
-						case ("long"):	propertyPrimitiveType = typeof(long); break;
-						case ("double"):propertyPrimitiveType = typeof(double); break;
-						case ("byte[]"):propertyPrimitiveType = typeof(byte[]); break;
-						case ("float"): propertyPrimitiveType = typeof(float); break;
-						case ("Object"):propertyPrimitiveType = typeof(object); break;
-						case ("int"):	propertyPrimitiveType = typeof(int); break;
-						default:		propertyPrimitiveType = null; break;
-					}
+                    //	TODO: Take into account number of sensors outputting a property
 
-					//	TODO: Take into account number of sensors outputting a property
-
-					//	Hard-coded frequencies TODO: Add estimated frequency output to sensor DTD
-					switch (property.DataType.Name)
-					{
-						case ("Transcription"): propertyFrequency = 0.25f; break;
-						case ("HeadPose"): propertyFrequency = 60.0f; break;
-						case ("FaceData"): propertyFrequency = 60.0f; break;
-						case ("Utterance"): propertyFrequency = 0.25f; break;
-						default: propertyFrequency = 0.0f; break;
-					}
+                    //	Hard-coded frequencies TODO: Add estimated frequency output to sensor DTD
+                    switch (property.DataType.Name)
+                    {
+                        case ("Transcription"):
+                            propertyFrequency = 0.25f;
+                            break;
+                        case ("HeadPose"):
+                            propertyFrequency = 60.0f;
+                            break;
+                        case ("FaceData"):
+                            propertyFrequency = 60.0f;
+                            break;
+                        case ("Utterance"):
+                            propertyFrequency = 0.25f;
+                            break;
+                        default:
+                            propertyFrequency = 0.0f;
+                            break;
+                    }
 					
-					result.DataPropertyNames[currentPropertyIndex] = propertyName;
-					result.DataPropertyTypes[currentPropertyIndex] = propertyPrimitiveType;
-					result.DataPropertyFrequencies[currentPropertyIndex] = propertyFrequency;
+                    result.DataPropertyNames[currentPropertyIndex] = propertyName;
+                    result.DataPropertyTypes[currentPropertyIndex] = propertyPrimitiveType;
+                    result.DataPropertyFrequencies[currentPropertyIndex] = propertyFrequency;
 
-					currentPropertyIndex++;
-				}
-			}
+                    currentPropertyIndex++;
+                }
+            }
 
-			return result;
-		}
+            return result;
+        }
 
-		public uint GetNumberOfItemsInTimespan(DateTime startTime, DateTime endTime, Guid? itemTypeId, Guid? sourceId)
-		{
-			SqlConnection connection = connectionPool.GetUnusedConnection();
-			if (connection.State != System.Data.ConnectionState.Open)
-				connection.Open();
+        public uint GetNumberOfItemsInTimespan(DateTime startTime, DateTime endTime, Guid? itemTypeId, Guid? sourceId)
+        {
+            SqlConnection connection = connectionPool.GetUnusedConnection();
+            if (connection.State != System.Data.ConnectionState.Open)
+                connection.Open();
 
-			SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(connection);
-			uint result = telemetryFetcher.GetNumberOfItemsInTimeSpan(startTime, endTime, itemTypeId, sourceId);
-			return result;
-		}
+            SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(connection);
+            uint result = telemetryFetcher.GetNumberOfItemsInTimeSpan(startTime, endTime, itemTypeId, sourceId);
+            return result;
+        }
 
-		public Guid[] GenerateConstructHeaders(Guid[] itemTypeIds)
-		{
-			List<Guid> result = new List<Guid>();
+        public Guid[] GenerateConstructHeaders(Guid[] itemTypeIds)
+        {
+            List<Guid> result = new List<Guid>();
 			
-			using (EntitiesModel model = GetNewModel())
-			{
-				foreach (Guid itemTypeId in itemTypeIds)
-				{
-					var properties = model.PropertyTypes.Where((type) => type.ParentDataTypeID == itemTypeId);
-					result.AddRange(properties.Select(property => property.ID));
-				}
-			}
+            using (EntitiesModel model = GetNewModel())
+            {
+                foreach (Guid itemTypeId in itemTypeIds)
+                {
+                    var properties = model.PropertyTypes.Where((type) => type.ParentDataTypeID == itemTypeId);
+                    result.AddRange(properties.Select(property => property.ID));
+                }
+            }
 
-			return result.ToArray();
-		}
+            return result.ToArray();
+        }
 
-		public String[] GenerateConstructHeaderNames(Guid[] constructHeader)
-		{
-			using (EntitiesModel model = GetNewModel())
-			{
-				return model.PropertyTypes.Where(type => constructHeader.Contains(type.ID)).Select(type => type.Name).ToArray();
-			}
-		}
+        public String[] GenerateConstructHeaderNames(Guid[] constructHeader)
+        {
+            using (EntitiesModel model = GetNewModel())
+            {
+                return model.PropertyTypes.Where(type => constructHeader.Contains(type.ID)).Select(type => type.Name).ToArray();
+            }
+        }
 
-		public List<object[]> GenerateConstruct(DateTime startTime, DateTime endTime, TimeSpan interval, Guid[] constructHeaders, Guid[] sourceIds)
-		{
-			List<object[]> result = new List<object[]>();
+        public List<object[]> GenerateConstruct(DateTime startTime, DateTime endTime, TimeSpan interval, Guid[] constructHeaders, Guid[] sourceIds)
+        {
+            List<object[]> result = new List<object[]>();
 
-			Dictionary<Guid, List<dynamic>> propertyValues = new Dictionary<Guid,List<dynamic>>();
-			EntitiesModel model;
-			try
-			{
-				model = GetCachedModel();
-			}
-			catch (Exception e)
-			{
-				return result;
-			}
+            Dictionary<Guid, List<dynamic>> propertyValues = new Dictionary<Guid, List<dynamic>>();
+            EntitiesModel model;
+            try
+            {
+                model = GetCachedModel();
+            }
+            catch (Exception e)
+            {
+                return result;
+            }
 
-			//	Gather property values
-			foreach (Guid header in constructHeaders)
-			{
-				try
-				{
-					//	Connect to the property service
-					var property = model.PropertyTypes.First(pt => pt.ID == header);
-					var dataType = model.DataTypes.First(dt => dt.ID == property.ParentDataTypeID);
-					var service = PropertyServiceManager.StartService(serverServiceUri, dataType, property, connectionString);
-					String serviceConnectionString = UriUtility.CreatePropertyValueServiceEndpointFromServerEndpoint(serverServiceUri, dataType.Name, property.Name).ToString();
-					//var client = new TransponderClient(serviceConnectionString);
-					dynamic propertyService = service.SingletonInstance;
-					List<dynamic> currentProperties = new List<dynamic>();
-					currentProperties.AddRange(propertyService.GetBetween(startTime, endTime));
+            //	Gather property values
+            foreach (Guid header in constructHeaders)
+            {
+                try
+                {
+                    //	Connect to the property service
+                    var property = model.PropertyTypes.First(pt => pt.ID == header);
+                    var dataType = model.DataTypes.First(dt => dt.ID == property.ParentDataTypeID);
+                    var service = PropertyServiceManager.StartService(serverServiceUri, dataType, property, connectionString);
+                    String serviceConnectionString = UriUtility.CreatePropertyValueServiceEndpointFromServerEndpoint(serverServiceUri, dataType.Name, property.Name).ToString();
+                    //var client = new TransponderClient(serviceConnectionString);
+                    dynamic propertyService = service.SingletonInstance;
+                    List<dynamic> currentProperties = new List<dynamic>();
+                    currentProperties.AddRange(propertyService.GetBetween(startTime, endTime));
 
-					//	Only reference the sources specified
-					currentProperties.RemoveAll(value => !sourceIds.ToList().Contains(value.SourceID));
-				}
-				catch (Exception e)
-				{
-					continue;
-				}
-			}
+                    //	Only reference the sources specified
+                    currentProperties.RemoveAll(value => !sourceIds.ToList().Contains(value.SourceID));
+                }
+                catch (Exception e)
+                {
+                    continue;
+                }
+            }
 
+            //	Generate interval data
+            for (DateTime currentTime = startTime; (endTime - currentTime).Ticks > 0; currentTime += interval)
+            {
+                object[] currentResultRow = new object[constructHeaders.Length];
 
-			//	Generate interval data
-			for (DateTime currentTime = startTime; (endTime - currentTime).Ticks > 0; currentTime += interval)
-			{
-				object[] currentResultRow = new object[constructHeaders.Length];
+                //	End-time of the current interval
+                DateTime intervalEndTime = currentTime + interval;
 
-				//	End-time of the current interval
-				DateTime intervalEndTime = currentTime + interval;
+                //	Go through each property type
+                for (int i = 0; i < constructHeaders.Length; i++)
+                {
+                    //	Get the values within our current interval
+                    IEnumerable<dynamic> currentPropertyValues;
+                    try
+                    {
+                        currentPropertyValues = propertyValues[constructHeaders[i]].Where(value => (intervalEndTime - value.StartTime).TotalSeconds > 0);
+                        currentPropertyValues = currentPropertyValues.Where(value => (value.StartTime - currentTime).TotalSeconds > 0);
+                    }
+                    catch (Exception e)
+                    {
+                        currentResultRow[i] = null;
+                        continue;
+                    }
 
-				//	Go through each property type
-				for (int i = 0; i < constructHeaders.Length; i++)
-				{
-					//	Get the values within our current interval
-					IEnumerable<dynamic> currentPropertyValues;
-					try
-					{
-						currentPropertyValues = propertyValues[constructHeaders[i]].Where(value => (intervalEndTime - value.StartTime).TotalSeconds > 0);
-						currentPropertyValues = currentPropertyValues.Where(value => (value.StartTime - currentTime).TotalSeconds > 0);
-					}
-					catch (Exception e)
-					{
-						currentResultRow[i] = null;
-						continue;
-					}
+                    //	Take the first value we find as the value for this interval (don't bother with aggregation yet)
+                    var intervalValue = currentPropertyValues.First();
+                    currentResultRow[i] = intervalValue.Value;
+                }
 
-					//	Take the first value we find as the value for this interval (don't bother with aggregation yet)
-					var intervalValue = currentPropertyValues.First();
-					currentResultRow[i] = intervalValue.Value;
-				}
+                result.Add(currentResultRow);
+            }
 
-				result.Add(currentResultRow);
-			}
-
-			return result;
-		}
+            return result;
+        }
 
         public Uri GetPropertyValueEndpoint(Guid propertyID)
         {
@@ -324,7 +429,7 @@ namespace Construct.Server.Models.Data
             {
                 foreach (Entities.PropertyType propertyType in dataType.PropertyParents)
                 {
-					//	TODO: Should this be commented out?
+                    //	TODO: Should this be commented out?
                     //ServiceHost tempServiceHostforPropertyService = PropertyServiceManager.StartService(serverServiceUri, dataType, propertyType);
                     //propertyValueServiceEndpoints.Add(propertyType.ID, tempServiceHostforPropertyService.BaseAddresses);
                 }
@@ -364,65 +469,64 @@ namespace Construct.Server.Models.Data
             }
         }
 
-		private int m_CacheSize = 8;
-		private List<Entities.EntitiesModel> m_ModelsCache = new List<EntitiesModel>();
-		private int m_CurrentModelIndex = 0;
+        private int m_CacheSize = 8;
+        private List<Entities.EntitiesModel> m_ModelsCache = new List<EntitiesModel>();
+        private int m_CurrentModelIndex = 0;
 
-		private Entities.EntitiesModel GetNewModel()
-		{
-			return new EntitiesModel(connectionString);
-		}
+        private Entities.EntitiesModel GetNewModel()
+        {
+            return new EntitiesModel(connectionString);
+        }
 
-		private void InitializeModelCache()
-		{
-			m_ModelsCache = new List<EntitiesModel>(m_CacheSize);
-			for (int i = 0; i < m_CacheSize; i++)
-			{
-				m_ModelsCache.Add(new Entities.EntitiesModel(connectionString));
-			}
-		}
+        private void InitializeModelCache()
+        {
+            m_ModelsCache = new List<EntitiesModel>(m_CacheSize);
+            for (int i = 0; i < m_CacheSize; i++)
+            {
+                m_ModelsCache.Add(new Entities.EntitiesModel(connectionString));
+            }
+        }
 
-		public DateTime? GetEarliestItemForTypeAndSource(Guid dataTypeId, Guid sourceId)
-		{
-			SqlConnection sqlConnection = connectionPool.GetUnusedConnection();
-			if (sqlConnection.State != System.Data.ConnectionState.Open)
-				sqlConnection.Open();
+        public DateTime? GetEarliestItemForTypeAndSource(Guid dataTypeId, Guid sourceId)
+        {
+            SqlConnection sqlConnection = connectionPool.GetUnusedConnection();
+            if (sqlConnection.State != System.Data.ConnectionState.Open)
+                sqlConnection.Open();
 
-			SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(sqlConnection);
-			return telemetryFetcher.GetEarliestTimeForTypeAndSource(dataTypeId, sourceId);
-		}
+            SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(sqlConnection);
+            return telemetryFetcher.GetEarliestTimeForTypeAndSource(dataTypeId, sourceId);
+        }
 
-		public DateTime? GetLatestItemForTypeAndSource(Guid dataTypeId, Guid sourceId)
-		{
-			SqlConnection sqlConnection = connectionPool.GetUnusedConnection();
-			if (sqlConnection.State != System.Data.ConnectionState.Open)
-				sqlConnection.Open();
+        public DateTime? GetLatestItemForTypeAndSource(Guid dataTypeId, Guid sourceId)
+        {
+            SqlConnection sqlConnection = connectionPool.GetUnusedConnection();
+            if (sqlConnection.State != System.Data.ConnectionState.Open)
+                sqlConnection.Open();
 
-			SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(sqlConnection);
-			return telemetryFetcher.GetLatestTimeForTypeAndSource(dataTypeId, sourceId);
-		}
+            SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(sqlConnection);
+            return telemetryFetcher.GetLatestTimeForTypeAndSource(dataTypeId, sourceId);
+        }
 
         public Entities.EntitiesModel GetCachedModel()
         {
-			return GetNewModel();
+            return GetNewModel();
 
-			int referencedIndex;
+            int referencedIndex;
 
-			lock (m_ModelsCache)
-			{
-				//DateTime begin = DateTime.Now;
-				//Entities.EntitiesModel result = new Entities.EntitiesModel(connectionString);
-				//DateTime end = DateTime.Now;
+            lock (m_ModelsCache)
+            {
+                //DateTime begin = DateTime.Now;
+                //Entities.EntitiesModel result = new Entities.EntitiesModel(connectionString);
+                //DateTime end = DateTime.Now;
+                //double timeMS = (end - begin).TotalMilliseconds;
+                //Debugger.Log(0, "", timeMS.ToString() + "\n");
+                if (++m_CurrentModelIndex >= m_CacheSize)
+                    m_CurrentModelIndex = 0;
 
-				//double timeMS = (end - begin).TotalMilliseconds;
-				//Debugger.Log(0, "", timeMS.ToString() + "\n");
-				if (++m_CurrentModelIndex >= m_CacheSize)
-					m_CurrentModelIndex = 0;
+                referencedIndex = m_CurrentModelIndex;
+            }
 
-				referencedIndex = m_CurrentModelIndex;
-			}
-
-			return m_ModelsCache[referencedIndex];
+            return m_ModelsCache[referencedIndex];
         }
 
         private void SchemaUpdateCallbackImplementation(object sender, SchemaUpdateArgs args)
@@ -436,7 +540,7 @@ namespace Construct.Server.Models.Data
                     schemaHandler.ExecuteDDLScript(schemaUpdateInfo.Script);
                 }
                 else
-               { 
+                { 
                     string ddlScript = args.SchemaHandler.CreateUpdateDDLScript(new SchemaUpdateProperties());
                     args.SchemaHandler.ForceExecuteDDLScript(ddlScript);
                 }
@@ -445,10 +549,8 @@ namespace Construct.Server.Models.Data
 
         private void HandleItem(object sender, string itemJson)
         {
-
-
-			itemPersistor.HandleItem(itemJson);
-			//	TODO: Lookup Newtonsoft's decimal value type bug
+            itemPersistor.HandleItem(itemJson);
+            //	TODO: Lookup Newtonsoft's decimal value type bug
         }
 
         public bool SetContext(string connectionString)
@@ -565,7 +667,6 @@ namespace Construct.Server.Models.Data
                             // This call potentially catches (internally) a silent exception if the service tries to open on a used uri. It's a hack, stay in school kids.
                             ServiceHost tempServiceHostforPropertyService = PropertyServiceManager.StartService(serverServiceUri, dataType, property, connectionString);
                             propertyValueServiceEndpoints.Add(property.ID, tempServiceHostforPropertyService.BaseAddresses);
-
                         }
                     }
 
@@ -596,13 +697,11 @@ namespace Construct.Server.Models.Data
                 {
                     AddIntAggrTypes(property);
                 }
-
                 //if (property.ParentDataTypeID == Guid.Parse())
                 //{
                 //    other types go here
                 //}
             }
-
         }
 
         private void AddIntAggrTypes(Entities.Adapters.PropertyType property)
@@ -826,89 +925,89 @@ namespace Construct.Server.Models.Data
         public void AddBooleanPropertyValue(Guid sourceID, string dataTypeName, string propertyName, BooleanPropertyValue booleanPropertyValue)
         {
             bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
                 SqlServerPropertyValuePersistor.AddBooleanPropertyValue(connection, dataTypeName, propertyName, booleanPropertyValue, sourceID);
             }
-			connectionPool.FinishConnection(connection);
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddByteArrayPropertyValue(Guid sourceID, string dataTypeName, string propertyName, ByteArrayPropertyValue byteArrayPropertyValue)
         {
-			bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            bool isSqlServerPersistence = true;
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddByteArrayPropertyValue(connection, dataTypeName, propertyName, byteArrayPropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddByteArrayPropertyValue(connection, dataTypeName, propertyName, byteArrayPropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddDateTimePropertyValue(Guid sourceID, string dataTypeName, string propertyName, DateTimePropertyValue dateTimePropertyValue)
         {
             bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddDateTimePropertyValue(connection, dataTypeName, propertyName, dateTimePropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddDateTimePropertyValue(connection, dataTypeName, propertyName, dateTimePropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddDoublePropertyValue(Guid sourceID, string dataTypeName, string propertyName, DoublePropertyValue doublePropertyValue)
         {
-			bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            bool isSqlServerPersistence = true;
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddDoublePropertyValue(connection, dataTypeName, propertyName, doublePropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddDoublePropertyValue(connection, dataTypeName, propertyName, doublePropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddGuidPropertyValue(Guid sourceID, string dataTypeName, string propertyName, GuidPropertyValue guidPropertyValue)
         {
-			bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            bool isSqlServerPersistence = true;
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddGuidPropertyValue(connection, dataTypeName, propertyName, guidPropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddGuidPropertyValue(connection, dataTypeName, propertyName, guidPropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddIntPropertyValue(Guid sourceID, string dataTypeName, string propertyName, IntPropertyValue intPropertyValue)
         {
-			bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            bool isSqlServerPersistence = true;
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddIntPropertyValue(connection, dataTypeName, propertyName, intPropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddIntPropertyValue(connection, dataTypeName, propertyName, intPropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddSinglePropertyValue(Guid sourceID, string dataTypeName, string propertyName, SinglePropertyValue singlePropertyValue)
         {
-			bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            bool isSqlServerPersistence = true;
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddSinglePropertyValue(connection, dataTypeName, propertyName, singlePropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddSinglePropertyValue(connection, dataTypeName, propertyName, singlePropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         public void AddStringPropertyValue(Guid sourceID, string dataTypeName, string propertyName, StringPropertyValue stringPropertyValue)
         {
-			bool isSqlServerPersistence = true;
-			SqlConnection connection = connectionPool.GetUnusedConnection();
+            bool isSqlServerPersistence = true;
+            SqlConnection connection = connectionPool.GetUnusedConnection();
             if (isSqlServerPersistence)
             {
-				SqlServerPropertyValuePersistor.AddStringPropertyValue(connection, dataTypeName, propertyName, stringPropertyValue, sourceID);
-			}
-			connectionPool.FinishConnection(connection);
+                SqlServerPropertyValuePersistor.AddStringPropertyValue(connection, dataTypeName, propertyName, stringPropertyValue, sourceID);
+            }
+            connectionPool.FinishConnection(connection);
         }
 
         #region Database Maintenance and Debugging related members
@@ -983,6 +1082,5 @@ namespace Construct.Server.Models.Data
         }
         
         #endregion
-
     }
 }

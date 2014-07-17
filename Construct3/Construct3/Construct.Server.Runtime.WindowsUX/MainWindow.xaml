@@ -1,20 +1,26 @@
 ﻿<Window x:Class="ConstructServer.Runtime.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ConstructServer" Height="350" Width="525" Closed="Window_Closed">
-    <Grid>
+        Title="ConstructServer" Height="480" Width="640" Closed="Window_Closed">
+    <Grid Margin="10,0,0.4,-0.2">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button Grid.Column="0" Name="StartServerButton" Content="Start Server" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="75" Click="StartServerButton_Click"/>
-        <Button Grid.Column="0" Name="StopServerButton" Content="Stop Server" HorizontalAlignment="Left" Margin="10,290,0,0" IsEnabled="False" VerticalAlignment="Top" Width="75" Click="StopServerButton_Click"/>
 
-        <TextBox Name="ServerProcessIDTextBox" Text="00000000-0000-0000-0000-000000000000" HorizontalAlignment="Left" Height="23" Margin="12,97,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234"/>
-        <TextBox Name="PublicHostNameTextBox" Text="localhost" HorizontalAlignment="Left" Height="23" Margin="10,125,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="236"/>
-        <TextBox Name="PublicHostPortBaseTextBox" Text="8000" HorizontalAlignment="Left" Height="23" Margin="10,153,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
-        <TextBox Name="ConnectionStringLookupKey" Text="Construct3Connection" HorizontalAlignment="Left" Height="23" Margin="10,181,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
-        
+        <Button Grid.Column="0" Name="StartServerButton" Content="Start Server" HorizontalAlignment="Left" Margin="13,84,0,0" VerticalAlignment="Top" Width="75" Click="StartServerButton_Click"/>
+        <Label Content="DB Connection Name" HorizontalAlignment="Left" Margin="15,25,0,0" VerticalAlignment="Top"/>
+
+        <Label Content="Database conneciton status:" HorizontalAlignment="Left" Margin="13,141,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.036,-0.312"/>
+
+
+        <Button Grid.Column="0" Name="StopServerButton" Content="Stop Server" HorizontalAlignment="Left" Margin="171,381,0,0" IsEnabled="False" VerticalAlignment="Top" Width="75" Click="StopServerButton_Click"/>
+
+        <TextBox Name="ServerProcessIDTextBox" Text="00000000-0000-0000-0000-000000000000" HorizontalAlignment="Left" Height="23" Margin="17,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234"/>
+        <TextBox Name="PublicHostNameTextBox" Text="localhost" HorizontalAlignment="Left" Height="23" Margin="17,298,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="236"/>
+        <TextBox Name="PublicHostPortBaseTextBox" Text="8000" HorizontalAlignment="Left" Height="23" Margin="17,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
+        <TextBox Name="ConnectionStringLookupKey" Text="Construct3Connection" HorizontalAlignment="Left" Height="23" Margin="14,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216"/>
+
         <ListBox Grid.Column="1" ItemsSource="{Binding Services}" Name="servicesList">
             <ListBox.ItemTemplate>
                 <DataTemplate>
@@ -30,5 +36,10 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
+        <Label Content="Unknown" Name="dbConnectionStatusLabel" HorizontalAlignment="Left" Margin="28,162,0,0" VerticalAlignment="Top" Width="202"/>
+        <Label Content="Database schema status:" HorizontalAlignment="Left" Margin="13,193,0,0" VerticalAlignment="Top" Width="153"/>
+        <Label Content="Unknown" Name="dbSchemaStatusLabel" HorizontalAlignment="Left" Margin="28,224,0,0" VerticalAlignment="Top"/>
+        <Button Name="ReinitializeDatabaseButton" Content="Wipe and reinitialize database?" Visibility="Visible" HorizontalAlignment="Left" Margin="119,227,0,0" VerticalAlignment="Top" Width="174" Click="ReinitializeDatabaseButton_Click"/>
+
     </Grid>
 </Window>

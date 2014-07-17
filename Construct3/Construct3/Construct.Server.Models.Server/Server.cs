@@ -20,15 +20,34 @@ namespace Construct.Server.Models
 
         private Uri serverServiceUri = null;
         private Dictionary<Models.IModel, ServiceHost> serviceHostDictionary = new Dictionary<Models.IModel, ServiceHost>();
-        public IEnumerable<ServiceHost> Hosts { get { return serviceHostDictionary.Values; } }
+
+        public IEnumerable<ServiceHost> Hosts
+        {
+            get
+            {
+                return serviceHostDictionary.Values;
+            }
+        }
+
         private string connectionString = null;
 
         public MessageBrokering.Broker Broker { get; private set; }
+
         public bool IsRunning { get; private set; }
+
         public Action<Models.IModel, dynamic> OnPersist { get; private set; }
 
-
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
+        private bool isDataServiceReady = false;
+
+        public bool IsDataServiceReady
+        {
+            get
+            {
+                return isDataServiceReady;
+            }
+        }
 
         public Server(Uri serverServiceUri, int hostPortBase, string connStringLookupKey)
         {
@@ -39,16 +58,48 @@ namespace Construct.Server.Models
             this.Broker = new MessageBrokering.Broker();
         }
 
+        private bool isDatabaseReachable = false;
+
+        public bool IsDatabaseReachable
+        {
+            get
+            {
+                return isDatabaseReachable;
+            }
+        }
+
+        private bool isDatabaseSchemaCurrent = false;
+
+        public bool IsDatabaseSchemaCurrent
+        {
+            get
+            {
+                return isDatabaseSchemaCurrent;
+            }
+        }
+
+        
+
+
+
         public void Start()
         {
             Services.Data.Service dataService = new Services.Data.Service(serverServiceUri, connectionString, this);
-            Start(dataService, typeof(Models.Data.IModel), true);
-            Start(new Services.Learning.Service(serverServiceUri, connectionString, this, dataService), typeof(Models.Learning.IModel));
-            Start(new Services.Meaning.Service(serverServiceUri, connectionString, this), typeof(Models.Meaning.IModel), true);
-            Start(new Services.Questions.Service(serverServiceUri, connectionString, this), typeof(Models.Questions.IModel), true);
-            Start(new Services.Sessions.Service(serverServiceUri, connectionString, this), typeof(Models.Sessions.IModel), true);
-            Start(new Services.Sources.Service(serverServiceUri, connectionString, this, dataService), typeof(Models.Sources.IModel), true);
-            Start(new Services.Visualizations.Service(serverServiceUri, connectionString, this), typeof(Models.Visualizations.IModel), true);
+
+            isDatabaseReachable = dataService.IsDatabaseReachable;
+            isDatabaseSchemaCurrent = dataService.IsDatabaseSchemaCurrent;
+
+            if (!dataService.IsModelFaultedOnConstruction)
+            {
+                isDataServiceReady = true;
+                Start(dataService, typeof(Models.Data.IModel), true);
+                Start(new Services.Learning.Service(serverServiceUri, connectionString, this, dataService), typeof(Models.Learning.IModel));
+                Start(new Services.Meaning.Service(serverServiceUri, connectionString, this), typeof(Models.Meaning.IModel), true);
+                Start(new Services.Questions.Service(serverServiceUri, connectionString, this), typeof(Models.Questions.IModel), true);
+                Start(new Services.Sessions.Service(serverServiceUri, connectionString, this), typeof(Models.Sessions.IModel), true);
+                Start(new Services.Sources.Service(serverServiceUri, connectionString, this, dataService), typeof(Models.Sources.IModel), true);
+                Start(new Services.Visualizations.Service(serverServiceUri, connectionString, this), typeof(Models.Visualizations.IModel), true);
+            }
         }
 
         public void Start(Models.IModel model, Type contractType, bool isWSDualHTTPRequired = false)
@@ -183,7 +234,7 @@ namespace Construct.Server.Models
             theList[0] = UriUtility.CreateStandardConstructServiceEndpointUri("net.pipe", domainModelTier, GetValidLocalHostNames()[0], serverProcessID, hostPortBase);
             theList[1] = UriUtility.CreateStandardConstructServiceEndpointUri("http", domainModelTier, GetValidLocalHostNames()[0], serverProcessID, hostPortBase);
 
-           return theList;
+            return theList;
         }
     }
 }

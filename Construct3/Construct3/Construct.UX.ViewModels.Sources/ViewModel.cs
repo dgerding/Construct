@@ -224,6 +224,7 @@ namespace Construct.UX.ViewModels.Sources
             {
                 instanceContext = new InstanceContext(callback);
                 client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
+                client.
                 client.Open();
             }
             return client;
