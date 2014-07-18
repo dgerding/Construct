@@ -86,6 +86,8 @@ namespace Construct.Server.Models
         {
             Services.Data.Service dataService = new Services.Data.Service(serverServiceUri, connectionString, this);
 
+            //dateService
+
             isDatabaseReachable = dataService.IsDatabaseReachable;
             isDatabaseSchemaCurrent = dataService.IsDatabaseSchemaCurrent;
 

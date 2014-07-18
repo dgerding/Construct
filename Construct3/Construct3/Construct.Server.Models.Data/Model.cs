@@ -86,6 +86,9 @@ namespace Construct.Server.Models.Data
 
         public Model(Uri serverServiceUri, string connectionString, Models.IServer server)
         {
+
+            Name = "Data";
+
             this.connectionString = connectionString;
             
             logger.Trace("instantiating Data model");
@@ -118,6 +121,10 @@ namespace Construct.Server.Models.Data
                         isDatabaseSchemaCurrent = false;
                         entitiesModel.Connection.Close();
                         schemaHandler.ExecuteDDLScript(script);
+                    }
+                    else
+                    {
+                        isDatabaseSchemaCurrent = true;
                     }
     
                     if (isDatabaseReachable && isDatabaseSchemaCurrent)

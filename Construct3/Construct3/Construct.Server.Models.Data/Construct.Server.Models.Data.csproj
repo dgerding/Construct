@@ -225,7 +225,7 @@
     <Content Include="MsSql\CreateGuidPropertyValueTable.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MsSql\CreateInsertProcedureFromBytezArrayTable.sql">
+    <Content Include="MsSql\CreateInsertProcedureFromByteArrayTable.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MsSql\CreateInt32PropertyValueTable.sql">
@@ -258,7 +258,7 @@
     <Content Include="MsSql\GetTypes.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MsSql\Inert_Test_Item.sql">
+    <Content Include="MsSql\Insert_Test_Item.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MsSql\JoinDataPropertyToDataType.sql">
