@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using NLog;
 
 namespace Construct.Server.Models.Data.MsSql
 {
 	public class SqlServerTelemetryFetcher
 	{
+
+        protected static Logger logger = LogManager.GetCurrentClassLogger();
 		public SqlConnection Connection { get; private set; }
 
 		public SqlServerTelemetryFetcher(SqlConnection connection)
@@ -41,7 +44,7 @@ namespace Construct.Server.Models.Data.MsSql
 			}
 			catch (Exception e)
 			{
-				return null;
+                return null;
 			}
 		}
 

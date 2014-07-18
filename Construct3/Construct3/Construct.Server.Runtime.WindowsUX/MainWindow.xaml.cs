@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Construct.Server.Entities;
+using Construct.Server.Models;
+using Construct.Server.Models.Data.MsSql;
+using Construct.Server.Models.Data.PropertyValue;
+using Construct.Utilities.Shared;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.ServiceModel;
 using System.Windows;
-using Construct.Utilities.Shared;
-using System.Collections.ObjectModel;
-using Construct.Server.Models;
-using Construct.Server.Entities;
-using System.Configuration;
-using Construct.Server.Models.Data.PropertyValue;
+
 
 namespace ConstructServer.Runtime.Windows
 {
@@ -218,5 +219,13 @@ namespace ConstructServer.Runtime.Windows
 
             //get contenxt and do that thing
         }
+
+
+        private void DropAndAddStoredProceduresToDB()
+        {
+            //Construct.Server.Models.Data.MsSql.ExecuteMsSqlScript();
+
+        }
     }
+
 }

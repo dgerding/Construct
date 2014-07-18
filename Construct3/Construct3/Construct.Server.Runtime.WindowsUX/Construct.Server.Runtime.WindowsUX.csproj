@@ -80,6 +80,9 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
@@ -161,6 +164,13 @@
     <None Include="InstallConstruct.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Properties\app.manifest">
       <SubType>Designer</SubType>
     </None>
@@ -182,6 +192,10 @@
     <ProjectReference Include="..\Construct.Server.Models.Data.PropertyValues\Construct.Server.Models.Data.PropertyValues.csproj">
       <Project>{228B31D3-FFBD-4AE2-AFEC-EB9E3EE43DED}</Project>
       <Name>Construct.Server.Models.Data.PropertyValues</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.Server.Models.Data\Construct.Server.Models.Data.csproj">
+      <Project>{14bc45fe-9473-4fdd-b311-27ff70623c8b}</Project>
+      <Name>Construct.Server.Models.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\Construct.Server.Models.Server\Construct.Server.Models.Server.csproj">
       <Project>{40ECD97B-8780-4BD4-A251-8428C97982B7}</Project>

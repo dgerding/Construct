@@ -110,31 +110,31 @@ namespace Construct.Utilities.Shared
             {
                 case ("server"):
                     return ":" + portbase.ToString();
-                    break;
+                    //break;
                 case("sources"):
                     return ":" + (portbase + (int)ServicePortOffsets.Sources).ToString();
-                    break;
+                    //break;
                 case("meaning"):
                     return ":" + (portbase + (int)ServicePortOffsets.Meaning).ToString();
-                    break;
+                    //break;
                 case("questions"):
                     return ":" + (portbase + (int)ServicePortOffsets.Questions).ToString();
-                    break;
+                    //break;
                 case("visualizations"):
                     return ":" + (portbase + (int)ServicePortOffsets.Visualizations).ToString();
-                    break;
+                    //break;
                 case("sessions"):
                     return ":" + (portbase + (int)ServicePortOffsets.Sessions).ToString();
-                    break;
+                    //break;
                 case ("learning"):
                     return ":" + (portbase + (int)ServicePortOffsets.Learning).ToString();
-                    break;
+                    //break;
                 case ("data"):
                     return ":" + (portbase + (int)ServicePortOffsets.Data).ToString();
-                    break;
+                    //break;
                 default:
                     return string.Empty;
-                    break;
+                    //break;
             }
         }
 

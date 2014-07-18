@@ -511,6 +511,7 @@ namespace Construct.Server.Models.Data
         {
             return GetNewModel();
 
+            /*
             int referencedIndex;
 
             lock (m_ModelsCache)
@@ -527,6 +528,7 @@ namespace Construct.Server.Models.Data
             }
 
             return m_ModelsCache[referencedIndex];
+             */
         }
 
         private void SchemaUpdateCallbackImplementation(object sender, SchemaUpdateArgs args)

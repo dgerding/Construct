@@ -46,12 +46,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <HintPath>..\Library\Nlog\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="NLog.Extended">
-      <HintPath>..\Library\Nlog\NLog.Extended.dll</HintPath>
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -123,7 +120,7 @@
     <Compile Include="ItemPersistor.cs" />
     <Compile Include="LiveCollection.cs" />
     <Compile Include="Model.cs" />
-    <Compile Include="MsSql\ExecuteScript.cs" />
+    <Compile Include="MsSql\ExecuteMsSqlScript.cs" />
     <Compile Include="MsSql\SqlClrTriggerDllGenerator.cs" />
     <Compile Include="MsSql\SqlServerPersistenceEventSupport.cs" />
     <Compile Include="MsSql\SqlServerTelemetryFetcher.cs" />
@@ -183,47 +180,102 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MsSql\AddBooleanPropertyValue.sql" />
-    <Content Include="MsSql\AddByteArrayPropertyValue.sql" />
-    <Content Include="MsSql\AddDateTimePropertyValue.sql" />
-    <Content Include="MsSql\AddDoublePropertyValue.sql" />
-    <Content Include="MsSql\AddGuidPropertyValue.sql" />
-    <Content Include="MsSql\AddIntPropertyValue.sql" />
-    <Content Include="MsSql\AddItemHeader.sql" />
-    <Content Include="MsSql\AddSinglePropertyValue.sql" />
-    <Content Include="MsSql\AddStringPropertyValue.sql" />
-    <Content Include="MsSql\CreateBooleanPropertyValueTable.sql" />
-    <Content Include="MsSql\CreateByteArrayPropertyValue.sql" />
-    <Content Include="MsSql\CreateDateTimePropertyValue.sql" />
-    <Content Include="MsSql\CreateDoublePropertyValueTable.sql" />
-    <Content Include="MsSql\CreateGuidPropertyValueTable.sql" />
-    <Content Include="MsSql\CreateInsertProcedureFromBytezArrayTable.sql" />
-    <Content Include="MsSql\CreateInt32PropertyValueTable.sql" />
-    <Content Include="MsSql\CreateSinglePropertyValueTable.sql" />
-    <Content Include="MsSql\CreateStringPropertyValueTable.sql" />
-    <Content Include="MsSql\CreateTestItem_zTableData.sql" />
-    <Content Include="MsSql\Create_Login.sql" />
+    <Content Include="MsSql\AddBooleanPropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddByteArrayPropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddDateTimePropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddDoublePropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddGuidPropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddIntPropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddItemHeader.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddSinglePropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\AddStringPropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateBooleanPropertyValueTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateByteArrayPropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateDateTimePropertyValue.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateDoublePropertyValueTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateGuidPropertyValueTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateInsertProcedureFromBytezArrayTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateInt32PropertyValueTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateSinglePropertyValueTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateStringPropertyValueTable.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\CreateTestItem_zTableData.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\Create_Login.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MsSql\DeleteAllRows.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="MsSql\DeleteItemZTables.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MsSql\GetAllPropertyValues.sql" />
-    <Content Include="MsSql\GetAllPropertyValuesAfter.sql" />
-    <Content Include="MsSql\GetTypes.sql" />
-    <Content Include="MsSql\Inert_Test_Item.sql" />
-    <Content Include="MsSql\JoinDataPropertyToDataType.sql" />
+    <Content Include="MsSql\GetAllPropertyValues.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\GetAllPropertyValuesAfter.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\GetTypes.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\Inert_Test_Item.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MsSql\JoinDataPropertyToDataType.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MsSql\LoadTestItems.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MsSql\test.sql" />
+    <Content Include="MsSql\test.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MsSql\ValidateCoreEntities.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="MsSql\WipeDatabaseAndResetToDefaults.sql" />
+    <Content Include="MsSql\WipeDatabaseAndResetToDefaults.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

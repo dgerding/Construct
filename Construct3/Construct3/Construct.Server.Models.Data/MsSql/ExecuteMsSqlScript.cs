@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Construct.Server.Models.Data.MsSql
 {
-    static public class ExecuteScript
+    static public class ExecuteMsSqlScript
     {
         static public bool Go(string connectionString, string sqlFile)
         {

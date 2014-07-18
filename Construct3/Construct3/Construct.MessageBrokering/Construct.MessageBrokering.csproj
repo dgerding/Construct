@@ -49,6 +49,9 @@
     <OutputPath>bin\Deploy to Daisy\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -95,6 +98,11 @@
       <Link>key.snk</Link>
     </None>
     <None Include="app.config" />
+    <None Include="NLog.config" />
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
     <None Include="Service References\TransponderService\Transponder.wsdl" />
     <None Include="Service References\TransponderService\Transponder.xsd">
       <SubType>Designer</SubType>
