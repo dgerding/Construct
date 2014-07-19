@@ -1,15 +1,16 @@
-﻿using System;
+﻿using Construct.Server.Entities;
+using Construct.Server.Models;
+using Construct.Server.Models.Data.MsSql;
+using Construct.Server.Models.Data.PropertyValue;
+using Construct.Utilities.Shared;
+using System;
+using System.IO;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
 using System.ServiceModel;
 using System.Windows;
-using Construct.Utilities.Shared;
-using System.Collections.ObjectModel;
-using Construct.Server.Models;
-using Construct.Server.Entities;
-using System.Configuration;
-using Construct.Server.Models.Data.PropertyValue;
 
 namespace ConstructServer.Runtime.Windows
 {
@@ -36,7 +37,6 @@ namespace ConstructServer.Runtime.Windows
             string connStringLookupKey = ConnectionStringLookupKey.Text;
             string connectionString = ConfigurationManager.ConnectionStrings[connStringLookupKey].ConnectionString;
             EntitiesModel context = new EntitiesModel(connectionString);
-
                 
             if (modelsHost == null)
             {
@@ -97,11 +97,10 @@ namespace ConstructServer.Runtime.Windows
                     dbSchemaStatusLabel.Content = modelsHost.IsDatabaseSchemaCurrent.ToString();
                     dbConnectionStatusLabel.Content = modelsHost.IsDatabaseReachable.ToString();
 
-                    if(!modelsHost.IsDatabaseSchemaCurrent) 
+                    if (!modelsHost.IsDatabaseSchemaCurrent) 
                     {
                         ReinitializeDatabaseButton.Visibility = Visibility.Visible;
                     }
-
                 }
             }
             else
@@ -120,17 +119,12 @@ namespace ConstructServer.Runtime.Windows
 
             if (modelsHost.IsDatabaseSchemaCurrent)
             {
-               // ADjust label color to call out exceptions
-
+                // ADjust label color to call out exceptions
                 ReinitializeDatabaseButton.Visibility = Visibility.Hidden;
-                
             }
             else
             {
-
             }
-
-            
         }
 
         private void StopServerButton_Click(object sender, RoutedEventArgs e)
@@ -178,7 +172,6 @@ namespace ConstructServer.Runtime.Windows
 
         private void ReinitializeDatabaseButton_Click(object sender, RoutedEventArgs e)
         {
-
             Uri serverServiceUri = UriUtility.CreateStandardConstructServiceEndpointUri("http", "Server", "localhost", serverProcessID, publicHostPortBase);
             int hostPortBase = 8000;
             string connStringLookupKey = ConnectionStringLookupKey.Text;
@@ -193,7 +186,6 @@ namespace ConstructServer.Runtime.Windows
                 if (schemaHandler.DatabaseExists())
                 {
                     script = schemaHandler.CreateUpdateDDLScript(null);
-                    
                 }
                 else
                 {
@@ -208,15 +200,71 @@ namespace ConstructServer.Runtime.Windows
 
                 MessageBox.Show("Update schema succeded.");
 
+                DropAndAddStoredProceduresToDB(connectionString);
+
+                WipeDatabaseAndAddCoreData(connectionString);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                MessageBox.Show("Update schema failed.");
+                MessageBox.Show("Update schema failed.  " + ex.Message);
                 throw;
             }
+            //get contenxt and do that thing
+        }
+
+        private void WipeDatabaseAndAddCoreData(string connectionString)
+        {
+            var path = new Uri(
+            System.IO.Path.GetDirectoryName(
+                System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
+
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "DeleteItemZTables.sql"));
+
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "WipeDatabaseAndResetToDefaults.sql"));
+
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "ValidateCoreEntities.sql"));
+        }
+
+        private void DropAndAddStoredProceduresToDB(string connectionString)
+        {
+            //Construct.Server.Models.Data.MsSql.ExecuteMsSqlScript();
+            var path = new Uri(
+                System.IO.Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().CodeBase)).LocalPath;
+
+            //TODO: All SQL scripts should be stored as application resources rather than external files
+            //Path.Combine(HostingEnvironment.ApplicationPhysicalPath,"bin","ValidateCoreEntities.sql")
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddBooleanPropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddByteArrayPropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddDateTimePropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddDoublePropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddGuidPropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddIntPropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddItemHeader.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddSinglePropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "AddStringPropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "Create_Login.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateBooleanPropertyValueTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateByteArrayPropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateDateTimePropertyValue.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateDoublePropertyValueTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateGuidPropertyValueTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateInsertProcedureFromByteArrayTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateInt32PropertyValueTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateSinglePropertyValueTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateStringPropertyValueTable.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateTestItem_zTableData.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "DeleteAllRows.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "GetAllPropertyValues.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "GetTypes.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "Insert_Test_Item.sql"));
+            ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "JoinDataPropertyToDataType.sql"));
+            
+            
+            
             
 
-            //get contenxt and do that thing
+            
         }
     }
 }

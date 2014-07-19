@@ -168,7 +168,7 @@ namespace Construct.Server.Models.Data.CodeGeneration
                 default:
                     Exception e = new Exception("DataTypeCreator AddProperyValuePersistenceSupport could not find matching type.");
                     throw e;
-                    break;
+                    //break;
             }
 
             Dictionary<string, object> parameters = new Dictionary<string, object>();

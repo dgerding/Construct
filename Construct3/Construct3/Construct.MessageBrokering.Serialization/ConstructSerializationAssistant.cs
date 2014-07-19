@@ -645,43 +645,43 @@ namespace Construct.MessageBrokering.Serialization
             {
                 case "Byte[]":
                     return Convert.FromBase64String(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Byte":
                     return Byte.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Guid":
                     return Guid.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Int32":
                     return Int32.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Int64":
                     return Int64.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Double":
                     return Double.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Single":
                     return Single.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "DateTime":
                     return DateTime.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Boolean":
                     return Boolean.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "Char":
                     return Char.Parse(tokenParent.First.Value<string>());
-                    break;
+                    //break;
                 case "String":
                     return tokenParent.First.Value<string>();
-                    break;
+                    //break;
                 case "DBNull":
                     return "DBNull";
-                    break;
+                    //break;
                 default:
                     return "BAD_TOKEN_TYPE_VALUE";
-                    break;
+                    //break;
             }
         }
         private void AddPayloadTypesFromJson(JEnumerable<JToken> tokens, string itemName)

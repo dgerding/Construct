@@ -15,7 +15,7 @@ namespace Construct.Server.Models.Data.MsSql
     {
         public static void Compile(string dllUncPath, string tableName)
         {
-            System.Reflection.Assembly result;
+            //System.Reflection.Assembly result;
 
             CSharpCodeProvider provider = new CSharpCodeProvider(new Dictionary<string, string>() { { "CompilerVersion", "v3.5" } });
             CompilerInfo compilerInformation = CodeDomProvider.GetCompilerInfo("cs");

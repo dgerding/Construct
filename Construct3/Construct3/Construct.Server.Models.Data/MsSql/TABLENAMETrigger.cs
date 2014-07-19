@@ -37,8 +37,8 @@ public partial class TABLENAMETrigger
 
                 break;
                 
-                return;
-                break;
+                //return;
+                //break;
 
         }
     }

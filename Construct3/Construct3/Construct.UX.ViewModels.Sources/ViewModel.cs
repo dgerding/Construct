@@ -224,7 +224,9 @@ namespace Construct.UX.ViewModels.Sources
             {
                 instanceContext = new InstanceContext(callback);
                 client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
-                client.
+				var readerQuotas = (client.Endpoint.Binding as WSDualHttpBinding).ReaderQuotas;
+				//	Force the reader quotas to handle large construct.xml sensor definitions (changes in app.config don't seem to do anything ?)
+				readerQuotas.MaxStringContentLength = Math.Max(readerQuotas.MaxStringContentLength, 65535);
                 client.Open();
             }
             return client;
