@@ -35,17 +35,9 @@ namespace ConstructMetadataGenerator
 	class SensorPropertiesAdapter
 	{
 		[Category("Versioning"), Description(
-			"Major version for this sensor."
+			"Version for this sensor."
 			)]
-		public int MajorVersion { get; set; }
-		[Category("Versioning"), Description(
-			"Minor version for this sensor."
-			)]
-		public int MinorVersion { get; set; }
-		[Category("Versioning"), Description(
-			"Revision of this sensor for the current version."
-			)]
-		public int RevisionVersion { get; set; }
+		public int Version { get; set; }
 
 		[Description("The GUID of the sensor type that is the parent to the current sensor. The base sensor type has a GUID of 5C11FBBD-9E36-4BEA-A8BE-06E225250EF8.")]
 		public Guid ParentSensorTypeID { get; set; }
@@ -58,9 +50,7 @@ namespace ConstructMetadataGenerator
 
 		public void SyncFromDeclaration(SensorDeclaration sensor)
 		{
-			MajorVersion = sensor.MajorVersion;
-			MinorVersion = sensor.MinorVersion;
-			RevisionVersion = sensor.RevisionVersion;
+			this.Version = sensor.Version;
 
 			ParentSensorTypeID = sensor.ParentSensorID;
 			SensorTypeID = sensor.SensorID;
@@ -69,9 +59,7 @@ namespace ConstructMetadataGenerator
 
 		public void SyncToDeclaration(SensorDeclaration target)
 		{
-			target.MajorVersion = MajorVersion;
-			target.MinorVersion = MinorVersion;
-			target.RevisionVersion = RevisionVersion;
+			target.Version = this.Version;
 
 			target.ParentSensorID = ParentSensorTypeID;
 			target.SensorID = SensorTypeID;

@@ -7,12 +7,7 @@ namespace ConstructMetadataGenerator
 {
 	public class SensorDeclaration
 	{
-		public int MajorVersion, MinorVersion, RevisionVersion;
-
-		public String Version
-		{
-			get { return MajorVersion + "." + MinorVersion + "." + RevisionVersion; }
-		}
+		public int Version = 1000;
 
 		public String SensorName;
 		public Guid ParentSensorID = new Guid("5C11FBBD-9E36-4BEA-A8BE-06E225250EF8");
@@ -43,8 +38,7 @@ namespace ConstructMetadataGenerator
 			sensorNameAttribute.Value = sensor.SensorName;
 			sensorIdAttribute.Value = sensor.SensorID.ToString();
 
-			//versionAttribute.Value = sensor.Version;
-			versionAttribute.Value = "1000"; // Fix for Construct's current version format requirements
+			versionAttribute.Value = sensor.Version.ToString();
 			parentIdAttribute.Value = sensor.ParentSensorID.ToString();
 			sensorHostTypeIdAttribute.Value = sensor.SensorHostTypeID.ToString();
 
