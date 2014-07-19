@@ -33,7 +33,7 @@ namespace Construct.UX.ViewModels.Credentials
         public void Login(string constructServerName, string userName, string password)
         {
             if (LoginSuccess != null)
-                LoginSuccess("data source=daisy.colum.edu;initial catalog=Construct3;persist security info=True;user id=Construct;password=ConstructifyConstructifyConstructify");
+				LoginSuccess("data source=(local);initial catalog=Construct3;persist security info=True;Integrated Security=true;");
             return;
             try
             {
