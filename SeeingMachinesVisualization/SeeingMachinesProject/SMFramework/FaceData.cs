@@ -77,7 +77,6 @@ namespace SMFramework
 			throw new Exception("Invalid coordinate system string.");
 		}
 
-		// SeeingMachines passes us local data by default
 		public CoordinateSystemType CoordinateSystem = CoordinateSystemType.Global;
 
 		public override bool Equals(object obj)

@@ -24,10 +24,10 @@ namespace faceAPISensorCommercialCS
 			: base(
 				Protocol.HTTP,
 				args, // args sent by Construct Studio to initialize sensor
-				Guid.Parse("2caa5763-3e25-49a9-ac57-7cae5d02ae09"), // ID of this sensor type
+				Guid.Parse("d8de3a5b-0d73-4f34-9bbf-655f7753d99ad8de3a5b-0d73-4f34-9bbf-655f7753d99a"), // ID of this sensor type
 				new Dictionary<string, Guid>() {
 					//	Mapping of payload types and their IDs (matches the sensor XML)
-					{ "FaceData", Guid.Parse("3022d9d5-add6-4eef-9f54-ea0d39e8b3ff") }
+					{ "FaceApiData", Guid.Parse("b83c64e4-14e4-4920-ac07-becc87ef458c") }
 				})
 		{
 			//Gathers and sends telemetry for available Sensor Commands

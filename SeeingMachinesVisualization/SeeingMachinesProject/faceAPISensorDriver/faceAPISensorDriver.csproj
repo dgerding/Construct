@@ -74,20 +74,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\Construct\Construct3\Construct3\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
-      <Project>{f47859ff-b24a-492a-995a-f7f124a14099}</Project>
-      <Name>Construct.MessageBrokering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Construct\Construct3\Construct3\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
-      <Project>{a9ae40ff-1a21-414a-9fe7-3be13644cc6d}</Project>
-      <Name>Newtonsoft.Json.Net40</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Construct\ConstructSensors\WindowsSensors\Construct.Sensors\Construct.Sensors.csproj">
-      <Project>{5ddb820f-16bf-48e6-857e-ac60066844bb}</Project>
-      <Name>Construct.Sensors</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

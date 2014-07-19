@@ -180,7 +180,7 @@ namespace SMFramework
 						{
 							var newData = new FaceData();
 							newData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
-							newData.SignalLabel = newData.SignalLabel;
+							newData.SignalLabel = CurrentData.SignalLabel;
 
 							EngineOutputData outputData = eod;
 
@@ -400,7 +400,7 @@ namespace SMFramework
 			newData.CoordinateSystem = FaceData.CoordinateSystemType.Local;
 			newData.HeadPosition = new Vector3(0.1f, 0.1f, 0.1f);
 
-			const float featuresPlaneZ = -Units.Meter * 0.075f;
+			const float featuresPlaneZ = 0.0f;
 
 			newData.LeftEyebrowVertices = new List<Vector3>();
 			newData.LeftEyebrowVertices.Add(new Vector3(-Units.Centimeter * 6, Units.Centimeter * 2, featuresPlaneZ));

@@ -6,6 +6,14 @@
 #include <sstream>
 #include "FaceRecognizer.h"
 
+#pragma comment (lib, "faceAPI4/sm_fa_api4.0.lib")
+
+#ifdef _DEBUG
+#pragma comment (lib, "SFML/sfml-network-s-d.lib")
+#else
+#pragma comment (lib, "SFML/sfml-network-s.lib")
+#endif
+
 //	Note that this application is 64-bit ONLY.
 
 /* http://support.microsoft.com/kb/99261 */
@@ -197,8 +205,11 @@ int DebugMain( int argc, char * argv[] )
 	HWND consoleWindow = GetConsoleWindow( );
 
 	auto fr = FaceRecognizer::Instance( );
-	fr->SetDataQueueing( true );
+	//fr->SetDataQueueing( true );
+	fr->SetDataQueueing( false );
 	fr->Start( );
+	fr->StartLogging( 13001, "127.0.0.1" );
+	std::cout << "IsCommercial: " << fr->IsCommercial() << std::endl;
 	std::cout << "\n\n\n\n\n";
 
 	HANDLE stdOut = GetStdHandle( STD_OUTPUT_HANDLE );
@@ -212,14 +223,14 @@ int DebugMain( int argc, char * argv[] )
 		if( fr->HasError( ) )
 			std::cout << fr->GetErrorString( ) << std::endl;
 
-		while( fr->HeadPoseDataAvailable( ) )
-		{
-			cls( stdOut, start, 100 );
-			smEngineData newHeadPose = fr->GetNextHeadPose( );
-			std::cout << newHeadPose << std::endl;
-			smEngineDataDestroy( &newHeadPose );
-			continue;
-		}
+// 		while( fr->HeadPoseDataAvailable( ) )
+// 		{
+// 			cls( stdOut, start, 100 );
+// 			smEngineData newHeadPose = fr->GetNextHeadPose( );
+// 			std::cout << newHeadPose << std::endl;
+// 			smEngineDataDestroy( &newHeadPose );
+// 			continue;
+// 		}
 
 		bool currentRState = GetAsyncKeyState( 'R' ) != 0;
 		if( currentRState && !prevRState )

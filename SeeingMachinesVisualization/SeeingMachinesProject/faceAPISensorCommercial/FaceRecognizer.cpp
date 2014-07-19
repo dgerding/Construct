@@ -129,21 +129,32 @@ void FaceRecognizer::Start( )
 		);
 
 	smCameraInfoList cameraList;
-	smCameraSettings settings;
-	settings.approx_fov_deg = nullptr;
-	settings.lens_params = nullptr;
-	//settings.format_index = new int( 12 ); // Hard-coded index, gotten from my own Microsoft LifeCam after outputting the available settings
-	settings.format_index = nullptr;
 	smCameraCreateInfoList( &cameraList );
 	std::cout << cameraList;
-	smCameraHandle cameraHandle;
-	smCameraCreate( cameraList.info + 0, &settings, &cameraHandle );
 
 	if( cameraList.num_cameras == 0 )
 	{
 		SetErrorString( "No compatible cameras detected (is it in use?)" );
 		return;
 	}
+
+	smCameraSettings settings;
+	settings.approx_fov_deg = nullptr;
+	settings.lens_params = nullptr;
+	settings.format_index = nullptr;
+
+	for (int i = 0; i < cameraList.info[0].num_formats; i++)
+	{
+		smCameraVideoFormat currentFormat = cameraList.info[0].formats[i];
+		if (currentFormat.res.w == 1280 && currentFormat.res.h == 720)
+		{
+			settings.format_index = new int( i );
+			break;
+		}
+	}
+
+	smCameraHandle cameraHandle;
+	smCameraCreate( cameraList.info + 0, &settings, &cameraHandle );
 
 	SafeAPICall(
 		smEngineCreateWithCamera( SM_API_ENGINE_LATEST_HEAD_TRACKER, cameraHandle, &m_EngineHandle ),
@@ -155,11 +166,18 @@ void FaceRecognizer::Start( )
 
 
 	//	Disable since we want ALL data we can get
-	smEngineSetRealtimeTracking( m_EngineHandle, false );
+	//smEngineSetRealtimeTracking( m_EngineHandle, false );
+
+	smHTSetMaxFaces( m_EngineHandle, 1 );
 
 	smHTSetLipTrackingEnabled( m_EngineHandle, SM_API_TRUE );
 	smHTSetEyebrowTrackingEnabled( m_EngineHandle, SM_API_TRUE );
-	smHTSetEyeClosureTrackingEnabled( m_EngineHandle, SM_API_TRUE );
+
+	smHTSetFaceTexturePerFrame( m_EngineHandle, SM_API_TRUE );
+
+	if (smHTSetGPUAccel( m_EngineHandle, SM_API_TRUE ) < 0)
+		std::cout << "Could not enable CUDA acceleration :( [Do you have the CUDA SDK installed?]\n";
+	//smHTSetEyeClosureTrackingEnabled( m_EngineHandle, SM_API_TRUE );
 
 	SafeAPICall(
 		smEngineStart( m_EngineHandle ),

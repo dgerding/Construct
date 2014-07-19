@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>faceAPISensorCommercialCS</RootNamespace>
-    <AssemblyName>faceAPICommercial.2caa5763-3e25-49a9-ac57-7cae5d02ae09.1000</AssemblyName>
+    <AssemblyName>faceAPI4Sensor.d8de3a5b-0d73-4f34-9bbf-655f7753d99a.1000</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -68,15 +68,15 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Construct\Construct3\Construct3\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
+    <ProjectReference Include="..\..\..\Construct3\Construct3\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
       <Project>{f47859ff-b24a-492a-995a-f7f124a14099}</Project>
       <Name>Construct.MessageBrokering</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Construct\Construct3\Construct3\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
+    <ProjectReference Include="..\..\..\Construct3\Construct3\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
       <Project>{a9ae40ff-1a21-414a-9fe7-3be13644cc6d}</Project>
       <Name>Newtonsoft.Json.Net40</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Construct\ConstructSensors\WindowsSensors\Construct.Sensors\Construct.Sensors.csproj">
+    <ProjectReference Include="..\..\..\ConstructSensors\WindowsSensors\Construct.Sensors\Construct.Sensors.csproj">
       <Project>{5ddb820f-16bf-48e6-857e-ac60066844bb}</Project>
       <Name>Construct.Sensors</Name>
     </ProjectReference>
