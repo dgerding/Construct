@@ -20,8 +20,8 @@ namespace TranscriptionViewer
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		String constructDatabaseConnectionString = "data source=(local);initial catalog=Construct3;persist security info=True;Integrated Security=true;";
-		//String constructDatabaseConnectionString = "data source=daisy.colum.edu;initial catalog=Construct3;persist security info=True;user id=Construct;password=ConstructifyConstructifyConstructify";
+		//String constructDatabaseConnectionString = "data source=(local);initial catalog=Construct3;persist security info=True;Integrated Security=true;";
+		String constructDatabaseConnectionString = "data source=daisy.colum.edu;initial catalog=Construct3;persist security info=True;user id=Construct;password=ConstructifyConstructifyConstructify";
 		DatabaseTranscriptionSource transcriptionSource;
 
 		private TextBlock GetTextBlockForStationName(String stationName)

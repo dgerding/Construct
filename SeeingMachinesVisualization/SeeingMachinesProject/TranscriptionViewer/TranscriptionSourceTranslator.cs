@@ -19,7 +19,7 @@ namespace TranscriptionViewer
 
 		public String TranslateSourceToName(Guid sourceId)
 		{
-			return "Station 1";
+			//return "Station 1";
 
 			if (!TranslationTable.ContainsKey(sourceId))
 				return null;
