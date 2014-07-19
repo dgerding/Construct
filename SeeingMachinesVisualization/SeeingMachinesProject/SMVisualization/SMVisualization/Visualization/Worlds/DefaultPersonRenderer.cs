@@ -64,6 +64,12 @@ namespace SMVisualization.Visualization.Worlds
 					Matrix.CreateTranslation(person.WorldSpacePosition) *
 					Camera.ViewspaceMatrix;
 
+			Matrix personForeheadMatrix = Matrix.CreateRotationZ(person.RotationEuler.Z) *
+					Matrix.CreateRotationX(person.RotationEuler.X) *
+					Matrix.CreateRotationY(person.RotationEuler.Y) *
+					Matrix.CreateTranslation(person.WorldSpaceForeheadPosition) *
+					Camera.ViewspaceMatrix;
+
 			if (renderOptions.DrawHeadModel)
 			{
 				m_PrimitiveBatch.ActiveColor = Color.Tan;
@@ -166,14 +172,14 @@ namespace SMVisualization.Visualization.Worlds
 				{
 					foreach (Vector3 vertex in person.DataSource.LeftEyebrowVertices)
 						m_PrimitiveBatch.AddVertex(vertex);
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 				}
 
 				if (person.DataSource.RightEyebrowVertices != null)
 				{
 					foreach (Vector3 vertex in person.DataSource.RightEyebrowVertices)
 						m_PrimitiveBatch.AddVertex(vertex);
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 				}
 			}
 
@@ -186,24 +192,24 @@ namespace SMVisualization.Visualization.Worlds
 					//	If one set is available they're all available
 					foreach (Vector3 vertex in person.DataSource.MouthOuterUpperLipVertices)
 						m_PrimitiveBatch.AddVertex(vertex);
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 
 					foreach (Vector3 vertex in person.DataSource.MouthInnerUpperLipVertices)
 						m_PrimitiveBatch.AddVertex(vertex);
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 
 					foreach (Vector3 vertex in person.DataSource.MouthInnerLowerLipVertices)
 						m_PrimitiveBatch.AddVertex(vertex);
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 
 					foreach (Vector3 vertex in person.DataSource.MouthOuterLowerLipVertices)
 						m_PrimitiveBatch.AddVertex(vertex);
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 
 					m_PrimitiveBatch.ActiveType = PrimitiveBatch.ListType.Single;
 					m_PrimitiveBatch.AddLine(person.DataSource.MouthOuterUpperLipVertices[0], person.DataSource.MouthInnerUpperLipVertices[0]);
 					m_PrimitiveBatch.AddLine(person.DataSource.MouthOuterUpperLipVertices.Last(), person.DataSource.MouthInnerUpperLipVertices.Last());
-					m_PrimitiveBatch.DrawPolygons(personHeadMatrix);
+					m_PrimitiveBatch.DrawPolygons(personForeheadMatrix);
 				}
 			}
 

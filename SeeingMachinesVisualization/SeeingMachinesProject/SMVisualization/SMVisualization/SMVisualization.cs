@@ -229,13 +229,15 @@ namespace SMVisualization
 
 			World = new Visualization.WorldStage(Sensors, m_RenderOptions);
 
-			Color[] fakeVideoFrame = new Color[1280 * 720];
+			int w = 256, h = 256;
+
+			Color[] fakeVideoFrame = new Color[w * h];
 			for (int i = 0; i < fakeVideoFrame.Length; i++)
 				fakeVideoFrame[i] = new Color(i % 255, i % 255, i % 255);
 
 			for (int i = 0; i < SubjectVideoStreamFrames.Length; i++)
 			{
-				SubjectVideoStreamFrames[i] = new Texture2D(GraphicsDevice, 1280, 720);
+				SubjectVideoStreamFrames[i] = new Texture2D(GraphicsDevice, w, h);
 				SubjectVideoStreamFrames[i].SetData(fakeVideoFrame);
 			}
 		}
