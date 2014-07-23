@@ -95,19 +95,25 @@ namespace SMFramework
 
 		private void AutoFillFlattenedVectorList(String listBaseName, int maxMembers, IEnumerable<Vector3> source)
 		{
-			int vectorIndex = 0;
-			foreach (Vector3 vector in source)
-				AutoFillFlattenedVector(listBaseName + vectorIndex++, vector);
+			int vectorIndex = 1;
+			if (source != null)
+			{
+				foreach (Vector3 vector in source)
+					AutoFillFlattenedVector(listBaseName + vectorIndex++, vector);
+			}
 
-			while (vectorIndex < maxMembers)
+			while (vectorIndex <= maxMembers)
 				AutoFillFlattenedVector(listBaseName + vectorIndex++, Vector3.Zero);
 		}
 
 		private void AutoFillFlattenedVectorList(String listBaseName, int maxMembers, IEnumerable<Vector2> source)
 		{
-			int vectorIndex = 0;
-			foreach (Vector2 vector in source)
-				AutoFillFlattenedVector(listBaseName + vectorIndex++, vector);
+			int vectorIndex = 1;
+			if (source != null)
+			{
+				foreach (Vector2 vector in source)
+					AutoFillFlattenedVector(listBaseName + vectorIndex++, vector);
+			}
 
 			while (vectorIndex < maxMembers)
 				AutoFillFlattenedVector(listBaseName + vectorIndex++, Vector2.Zero);
