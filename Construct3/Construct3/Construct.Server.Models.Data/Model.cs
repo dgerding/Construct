@@ -160,13 +160,6 @@ namespace Construct.Server.Models.Data
                             if (this.OnPersist != null)
                                 this.OnPersist(this, data);
                         };
-
-                        GenerateSourcesDataSummary(new Guid[]
-                        {
-                            Guid.Parse("BB97FBE8-BF86-4FD1-8A23-BE43AB07E8D3"),
-                            Guid.Parse("C21891B6-DA37-4385-986F-668321651C1D"),
-                            Guid.Parse("F05132EA-B2EE-4B12-8396-4483BE148796")
-                        });
                     }
                 }
             }
