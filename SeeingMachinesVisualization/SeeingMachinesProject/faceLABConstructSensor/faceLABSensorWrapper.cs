@@ -73,23 +73,8 @@ namespace faceLABConstructSensor
 			}
 		}
 
-		int totalItems = 0;
-		DateTime lastOutputTime = DateTime.Now;
-
-		public void SendFaceData(FaceData faceData)
+		void SendFaceData(FaceData faceData)
 		{
-			if ((DateTime.Now - lastOutputTime).TotalSeconds >= 1.0)
-			{
-				if (!EventLog.SourceExists("FaceLAB Sensor"))
-					EventLog.CreateEventSource("FaceLAB Sensor", "Application");
-
-				EventLog.WriteEntry("FaceLAB Sensor", totalItems + " items per second");
-				//System.Diagnostics.Debug.WriteLine(totalItems + " items per second");
-				totalItems = 0;
-				lastOutputTime = DateTime.Now;
-			}
-
-			++totalItems;
 			SendItem(new FaceDataConstructAdapter(faceData), DateTime.UtcNow, "FaceData");
 		}
 
@@ -102,7 +87,14 @@ namespace faceLABConstructSensor
 
 		protected override string Stop()
 		{
-			CollectionThread.Stop();
+			try
+			{
+				CollectionThread.Stop();
+			}
+			catch (Exception e)
+			{
+				
+			}
 
 			Debugger.Log(0, "", "Stopping...\n");
 
