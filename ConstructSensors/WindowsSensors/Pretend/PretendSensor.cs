@@ -101,7 +101,7 @@ namespace Pretend
 			//	Name of item sent must match the mapping done in the constructor (and, by proxy,
 			//		must match the XML definition.)
 			Benchmark.Begin("SendItem");
-			SendItem(new PretendPayload(20), DateTime.Now, "PretendPayload");
+			SendItem(new PretendPayload(20), DateTime.UtcNow, "PretendPayload");
 			Benchmark.End();
 			++totalItems;
 		}
