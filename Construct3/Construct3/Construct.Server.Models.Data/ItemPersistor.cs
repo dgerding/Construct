@@ -10,6 +10,7 @@ using System.Threading;
 using Construct.MessageBrokering.Serialization;
 using System.Collections.Concurrent;
 using System.Data.SqlClient;
+using NLog;
 
 
 
@@ -204,10 +205,26 @@ namespace Construct.Server.Models.Data
 			int batchCount = 0;
 
 			using (var model = new Entities.EntitiesModel(m_ConnectionString))
-			using (var connection = new SqlConnection(m_ConnectionString))
+			using (var connection = new SqlConnection())
 			{
-				if (connection.State != System.Data.ConnectionState.Open)
-					connection.Open();
+				if (!m_ConnectionString.ToLower().Contains("Max Pool Size"))
+					connection.ConnectionString = m_ConnectionString + "; Max Pool Size=500";
+				else
+					connection.ConnectionString = m_ConnectionString;
+
+				while (connection.State != System.Data.ConnectionState.Open)
+				{
+					try
+					{
+						connection.Open();
+					}
+					catch (Exception e)
+					{
+						NLog.Logger logger = LogManager.GetCurrentClassLogger();
+						logger.Warn("Unable to establish SQL database connection while persisting item batch. Possibly too many batches running simultaneously. Will retry connection immediately.", e);
+						Thread.Sleep(500);
+					}
+				}
 
 				foreach (String data in itemBatch)
 				{
@@ -241,7 +258,7 @@ namespace Construct.Server.Models.Data
 			}
 			catch (Exception ex)
 			{
-				throw ex;
+				//throw ex;
 			}
 		}
 	}
