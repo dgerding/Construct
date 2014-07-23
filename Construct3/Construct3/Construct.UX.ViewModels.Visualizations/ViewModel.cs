@@ -12,6 +12,24 @@ namespace Construct.UX.ViewModels.Visualizations
     {
         private readonly Guid sourceID = Guid.NewGuid();
 
+		private ModelClient client = null;
+		private CallbackInstance callback = new CallbackInstance();
+		private InstanceContext instanceContext = null;
+
+		private ModelClient GetModel()
+		{
+			if (client == null || client.State == CommunicationState.Closed || client.State == CommunicationState.Faulted)
+			{
+				instanceContext = new InstanceContext(callback);
+				client = new ModelClient(instanceContext);
+				ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(client);
+				client.Open();
+			}
+
+			return client;
+		}
+
+
         [ImportingConstructor]
         public ViewModel(ApplicationSessionInfo sessionInfo)
             : base("Visualizations")
@@ -24,68 +42,54 @@ namespace Construct.UX.ViewModels.Visualizations
 
         public void AddLabeledItem(LabeledItemAdapter definition)
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+            ModelClient client = GetModel();
             //TODO: Get an appropriate Source ID.
             client.PersistLabeledItem(definition, sourceID);
         }
 
         public IEnumerable<Label> GetAllLabels()
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             IEnumerable<Label> labels = client.GetAllLabels();
             return labels;
         }
 
         public IEnumerable<Taxonomy> GetAllTaxonomies()
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             IEnumerable<Taxonomy> taxonomies = client.GetAllTaxonomies();
             return taxonomies;
         }
 
         public IEnumerable<TaxonomyLabel> GetAllTaxonomyLables()
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             IEnumerable<TaxonomyLabel> taxonomies = client.GetAllTaxonomyLables();
             return taxonomies;
         }
 
         public IEnumerable<DataType> GetAllDataTypes()
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             IEnumerable<DataType> dataTypes = client.GetAllDataTypes();
             return dataTypes;
         }
         public IEnumerable<PropertyType> GetAllProperties(string dataType)
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
-            return client.GetAllProperties(dataType);
+			ModelClient client = GetModel();
+			PropertyType[] result = client.GetAllProperties(dataType);
+			return result;
+
         }
         public IEnumerable<Visualizer> GetAssociatedVisualizers(PropertyType propertyType)
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             return client.GetAssociatedVisualizers(propertyType);
         }
 
         public IEnumerable<Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization> GetVisualizations()
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             IEnumerable<Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization> visualizations;
             visualizations = client.GetAllVisualizations();
             return visualizations;
@@ -93,25 +97,19 @@ namespace Construct.UX.ViewModels.Visualizations
 
         public void AddVisualization(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization)
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             client.AddVisualization(visualization);
         }
 
         public Visualizer GetAssociatedVisualizer(Visualization adapter)
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             return client.GetAssociatedVisualizer(adapter);
         }
 
         public IEnumerable<Source> GetAssociatedSources(DataType adapter)
         {
-            CallbackInstance callback = new CallbackInstance();
-            InstanceContext context = new InstanceContext(callback);
-            ModelClient client = new ModelClient(context);
+			ModelClient client = GetModel();
             return client.GetAssociatedSources(adapter);
         }
     }

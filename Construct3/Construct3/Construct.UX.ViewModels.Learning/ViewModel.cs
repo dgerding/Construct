@@ -32,6 +32,7 @@ namespace Construct.UX.ViewModels.Learning
             if (client == null || client.State == CommunicationState.Closed || client.State == CommunicationState.Closing || client.State == CommunicationState.Faulted)
             {
                 client = new ModelClient();
+				ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(client);
                 client.Open();
             }
             return client;

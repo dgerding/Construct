@@ -32,6 +32,22 @@ namespace Construct.UX.ViewModels.Sources
         private ObservableCollection<SensorTypeSource> observableSensorTypeSources;
         private ObservableCollection<SensorRuntime> observableSensorRuntimes;
 
+		private CallbackImplementation callback = new CallbackImplementation();
+		private InstanceContext instanceContext = null;
+		private ModelClient client = null;
+
+		private ModelClient GetModel()
+		{
+			if (client == null || client.State == CommunicationState.Closed || client.State == CommunicationState.Closing || client.State == CommunicationState.Faulted)
+			{
+				instanceContext = new InstanceContext(callback);
+				client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
+				ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(client);
+				client.Open();
+			}
+			return client;
+		}
+
         public ObservableCollection<DataType> ObservableDataTypes
         {
             set
@@ -212,24 +228,6 @@ namespace Construct.UX.ViewModels.Sources
             LoadSensorTypeSources();
             LoadRootTypeSources();
             LoadSensorRuntimes();
-        }
-
-        private CallbackImplementation callback = new CallbackImplementation();
-        private InstanceContext instanceContext = null;
-        private ModelClient client = null;
-
-        private ModelClient GetModel()
-        {
-            if (client == null || client.State == CommunicationState.Closed || client.State == CommunicationState.Closing || client.State == CommunicationState.Faulted)
-            {
-                instanceContext = new InstanceContext(callback);
-                client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
-				var readerQuotas = (client.Endpoint.Binding as WSDualHttpBinding).ReaderQuotas;
-				//	Force the reader quotas to handle large construct.xml sensor definitions (changes in app.config don't seem to do anything ?)
-				readerQuotas.MaxStringContentLength = Math.Max(readerQuotas.MaxStringContentLength, 65535);
-                client.Open();
-            }
-            return client;
         }
 
         public string AddSensorDefinition(object parameter)

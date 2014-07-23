@@ -21,6 +21,7 @@ namespace Construct.UX.ViewModels.Meaning
             {
                 instanceContext = new InstanceContext(callback);
                 client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
+				ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(client);
                 client.Open();
             }
             return client;

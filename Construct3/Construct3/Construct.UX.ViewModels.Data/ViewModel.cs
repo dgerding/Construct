@@ -26,10 +26,16 @@ namespace Construct.UX.ViewModels.Data
 
         private ModelClient GetModel()
         {
-            instanceContext = new InstanceContext(callback);
-            ModelClient client = new ModelClient(instanceContext, "duplexendpoint", RemoteAddress);
-            client.Open();
-            return client;
+			if (model == null)
+			{
+				instanceContext = new InstanceContext(callback);
+				model = new ModelClient(instanceContext, "duplexendpoint", RemoteAddress);
+				ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(model);
+			}
+
+			if (model.State != CommunicationState.Opened)
+				model.Open();
+			return model;
         }
 
 		public SpecificTimeSpan? GetTimeSpanForTypeAndSource(Guid dataTypeId, Guid sourceId)
