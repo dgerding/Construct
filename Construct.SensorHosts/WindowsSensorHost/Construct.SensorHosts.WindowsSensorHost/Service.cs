@@ -12,6 +12,7 @@ using System.Threading;
 
 using Newtonsoft.Json;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace Construct.SensorManagers.WindowsSensorManager
 {   
@@ -217,8 +218,8 @@ namespace Construct.SensorManagers.WindowsSensorManager
         {
             if (broker != null)
             {
-                // TODO: can't currently close host while in Faulted state
-                //broker.CloseInboxes();
+				broker = null;
+				GC.Collect();
             }
         }
 
@@ -282,10 +283,12 @@ namespace Construct.SensorManagers.WindowsSensorManager
 
         private void BuildSensorList()
         {
-            EventLog.WriteEntry("GetSensor Called");
+            EventLog.WriteEntry("Building sensor list");
             Directory.SetCurrentDirectory(@"C:\Program Files (x86)\Construct\SensorHost\Sensors");
 
             string[] sensorDirs = Directory.GetDirectories(Directory.GetCurrentDirectory());
+
+			String sensorNameMatcher = @"^\w*\.\w{8}-\w{4}-\w{4}-\w{4}-\w{12}\.\d*.exe$";
             
             foreach (string sensorDir in sensorDirs)
             {
@@ -294,32 +297,33 @@ namespace Construct.SensorManagers.WindowsSensorManager
                 {
                     //TODO: Currently assuming no folder structure past version level!!
                     string[] filePaths = Directory.GetFileSystemEntries(versionDir);
-                    foreach (string currentFile in filePaths)
+                    foreach (string currentFilePath in filePaths)
                     {
-                        string[] splitFilePath = currentFile.Split('\\');
+						string[] splitFilePath = currentFilePath.Split('\\');
+						String fileName = splitFilePath.Last();
+
+						if (!Regex.IsMatch(fileName, sensorNameMatcher, RegexOptions.IgnoreCase))
+							continue;
+
+						EventLog.WriteEntry("Successfully detected sensor " + fileName);
+
                         string[] splitExeFile = splitFilePath.Last().Split('.');
 
-                        try
-                        {
-                            Guid typeSourceID = Guid.Parse(splitExeFile[1]);
-                            string version = splitExeFile[2];
+						try
+						{
+							Guid typeSourceID = Guid.Parse(splitExeFile[1]);
+							string version = splitExeFile[2];
 
-                            SensorAppRuntime runtime = new SensorAppRuntime(currentFile, splitExeFile[0], typeSourceID, Guid.Empty, version);
-                            runtime.DownloadCompletedEvent += new Action<Guid>(sensorRuntime_DownloadCompletedEvent);
-                            KeyValuePair<Guid, string> sensorVersionIdentifier = new KeyValuePair<Guid, string>(typeSourceID, version);
+							SensorAppRuntime runtime = new SensorAppRuntime(currentFilePath, splitExeFile[0], typeSourceID, Guid.Empty, version);
+							runtime.DownloadCompletedEvent += new Action<Guid>(sensorRuntime_DownloadCompletedEvent);
+							KeyValuePair<Guid, string> sensorVersionIdentifier = new KeyValuePair<Guid, string>(typeSourceID, version);
 
-                            sensors.Add(sensorVersionIdentifier, runtime);
-                        }
-                        catch (Exception ex)
-                        {
-                            /* skip and ignore the parsed file - it is not a sensor executable
-                            * Needs improvement, catch is being used as logical equivilent of
-                            * "string was not parsed according to expected format". Try block could 
-                            * throw exception for reason other than bad string parsing, which would
-                            * be treated incorrectly currently.
-                            */
-							EventLog.WriteEntry("While enumerating sensor listing, unable to process sensor " + currentFile + "\n" + ex);
-                        }
+							sensors.Add(sensorVersionIdentifier, runtime);
+						}
+						catch (Exception ex)
+						{
+							EventLog.WriteEntry("While enumerating sensor listing, unable to process sensor " + currentFilePath + "\n" + ex);
+						}
                     }
                 }
             }
