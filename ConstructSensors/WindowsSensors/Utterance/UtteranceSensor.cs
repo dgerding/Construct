@@ -21,6 +21,14 @@ namespace Utterance
         private readonly Dictionary<string, string>
             availableCommands;
 
+		private DateTime
+			sensorStartTime;
+
+		/*
+		 * NOTE: A formal "Utterance" type exists but is unused due to lack of formal support for item deserialization in sensors. This is relevant
+		 *		for the SAPI sensor which ingests utterances
+		 */
+
         public UtteranceSensor(string[] args)
             : base(Protocol.HTTP, args, Guid.Parse("3fe979d6-6d8c-4954-97cd-d49b43323ae6"), new Dictionary<string, Guid>() { { "Utterance", Guid.Parse("59D0F230-164C-4033-B48A-220FC36C5FBD") } })
         {
@@ -37,7 +45,8 @@ namespace Utterance
 
             broker.OnCommandReceived += broker_OnCommandReceived;
 
-			//	Temporary, used for hooking other Sensors to Utterance's output
+			//	Temporary, used for hooking other Sensors to Utterance's output (TODO: Should be able to link sensors to each other without the annoying
+			//		process of keeping track of/looking up their GUIDs)
 			String source = "Construct Utterance Sensor";
 			String entry = "Utterance sensor started with SourceID " + this.SourceID;
 			if (!EventLog.SourceExists(source))
@@ -102,17 +111,20 @@ namespace Utterance
 
         private void utteranceGenerator_OnFileCompleted(object sender, EventArgs e)
         {
-            object outputObject  = ConvertFileToByteArray(utteranceGenerator.currentFileName);
-            SendItem((byte[])outputObject, utteranceGenerator.startRecordingTime, "Utterance");
+            byte[] outputObject = ConvertFileToByteArray(utteranceGenerator.currentFileName);
+			var utterance = new Utterance(outputObject);
+            //SendItem(utterance, utteranceGenerator.startRecordingTime, "Utterance");
+			SendItem(outputObject, utteranceGenerator.startRecordingTime, "Utterance");
         }
 
-        private object ConvertFileToByteArray(string FilePath)
+        private byte[] ConvertFileToByteArray(string FilePath)
         {
 			return File.ReadAllBytes(FilePath);
         }
 
         protected override string Start()
         {
+			sensorStartTime = DateTime.UtcNow;
             BeginRecording();
             return base.Start();
         }
@@ -131,8 +143,11 @@ namespace Utterance
         private void StopRecording()
         {
             utteranceGenerator.Recorder.StopRecord();
-			byte[] audioWaveData = (byte[])ConvertFileToByteArray(utteranceGenerator.conversionFile + ".wav");
-			SendItem(audioWaveData, "UtteranceItem", DateTime.UtcNow);
+
+			byte[] output = ConvertFileToByteArray(utteranceGenerator.conversionFile + ".wav");
+			var utterance = new Utterance(output);
+			SendItem(output, "Utterance", sensorStartTime);
+			//SendItem(utterance, "Utterance", sensorStartTime);
         }
     }
 }

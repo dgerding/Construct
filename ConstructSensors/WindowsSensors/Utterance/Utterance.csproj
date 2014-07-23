@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioBufferConverter.cs" />
+    <Compile Include="Utterance.cs" />
     <Compile Include="UtteranceGenerator.cs" />
     <Compile Include="UtteranceSensor.cs" />
     <Compile Include="UtteranceSensorDriver.cs" />
