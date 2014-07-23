@@ -54,7 +54,7 @@ namespace SapiSensor
 						if (base.IsStarted)
 						{
 							Debug.WriteLine("Utterance received");
-							m_Recognition.ProcessUtterance(data.Payload as byte[]);
+							m_Recognition.ProcessUtterance(data.Payload as byte[], data.TimeStamp);
 						}
 						break;
 					}
@@ -65,9 +65,10 @@ namespace SapiSensor
 			}
 		}
 
-        void m_Recognition_OnTranscribed(Transcription details)
+        void m_Recognition_OnTranscribed(Transcription details, DateTime transcriptionStartTime)
         {
-            SendItem(details, DateTime.UtcNow, "Transcription");
+			details.TranscriptionEndTime = details.TranscriptionEndTime.ToUniversalTime();
+            SendItem(details, transcriptionStartTime.ToUniversalTime(), "Transcription");
         }
 
         private void broker_OnCommandReceived(object sender, string commandString)
@@ -113,11 +114,6 @@ namespace SapiSensor
         }
 
         //Additional Sensor Command functions go below here.
-        #endregion
-
-        #region Send Item
-        //Place function here to call SendItem with your sensor payload
-        //ex. SendItem(payload object to match serializer selected in your ItemOutbox, SourceTypeID);
         #endregion
 
         #region Start / Stop Sensor Functions

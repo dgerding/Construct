@@ -1,6 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<SensorTypeSource Name="SapiSensor" ID="07FA86D6-9181-4EBD-84C2-BB3CDF021BBB" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
+<SensorTypeSource Name="MicrosoftSpeechAPI" ID="07FA86D6-9181-4EBD-84C2-BB3CDF021BBB" Version="1000" ParentID="5c11fbbd-9e36-4bea-a8be-06e225250ef8" SensorHostTypeID="eda0ff3e-108b-45d5-bf58-f362fabf2efe">
 	<DataType Name="Transcription" ID="26265F71-DB2A-4194-ADE3-DE983600D28D">
 		<DataTypeProperty Name="TranscribedText" ID="659C11DC-D8C4-4D1D-8ECC-379004191758" Type="string" />
+		<DataTypeProperty Name="TranscriptionEndTime" ID="96A631F9-6711-4260-8180-3262349DC692" Type="DateTime" />
+		<DataTypeProperty Name="AlternativeText1" ID="1608CC2A-4253-4976-B48B-FA8929D03BCB" Type="string" />
+		<DataTypeProperty Name="AlternativeText2" ID="9BF9A262-0FBE-44FA-91B4-7A704BCBFC9A" Type="string" />
+		<DataTypeProperty Name="AlternativeText3" ID="C8AA1F09-80D8-4D74-8FC1-6FB53969FAE1" Type="string" />
+		<DataTypeProperty Name="Confidence" ID="84852A1B-2179-4267-AAF0-F096BF5A07A3" Type="double" />
+		<DataTypeProperty Name="AlternativeConfidence1" ID="14A0F1A9-7288-476A-BF89-F125FEF59C9F" Type="double" />
+		<DataTypeProperty Name="AlternativeConfidence2" ID="53060316-47F4-4D05-82C2-2E0E13E96B7F" Type="double" />
+		<DataTypeProperty Name="AlternativeConfidence3" ID="CDC2BED4-07E4-4012-B511-04DAD563517A" Type="double" />
 	</DataType>
 </SensorTypeSource>

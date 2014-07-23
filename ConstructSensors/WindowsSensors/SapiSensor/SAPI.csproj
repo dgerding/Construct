@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SapiSensor</RootNamespace>
-    <AssemblyName>SapiSensor.07FA86D6-9181-4EBD-84C2-BB3CDF021BBB.1000</AssemblyName>
+    <AssemblyName>MicrosoftSpeechAPI.07FA86D6-9181-4EBD-84C2-BB3CDF021BBB.1000</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

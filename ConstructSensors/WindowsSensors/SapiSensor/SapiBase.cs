@@ -9,13 +9,13 @@ namespace SapiSensor
 {
     class SapiBase
     {
-        public delegate void OnTranscribedHandler(Transcription details);
+        public delegate void OnTranscribedHandler(Transcription details, DateTime transcriptionStartTime);
 
         public event OnTranscribedHandler OnTranscribed;
 
         private SpeechRecognitionEngine m_RecognitionEngine = null;
 
-		public void ProcessUtterance(byte[] waveAudio)
+		public void ProcessUtterance(byte[] waveAudio, DateTime audioStartTime)
 		{
 			//	Not sure if this thing is thread-safe
 			lock (m_RecognitionEngine)
@@ -29,14 +29,17 @@ namespace SapiSensor
 					{
 						var result = m_RecognitionEngine.Recognize();
 
+
 						if (result == null)
 						{
 							isCompleted = true;
 							continue;
 						}
 
+						DateTime transcriptionStartTime = audioStartTime + result.Audio.AudioPosition;
+
 						if (OnTranscribed != null)
-							OnTranscribed(new Transcription(result.Text));
+							OnTranscribed(new Transcription(result, audioStartTime), transcriptionStartTime);
 					}
 					catch (Exception e)
 					{
