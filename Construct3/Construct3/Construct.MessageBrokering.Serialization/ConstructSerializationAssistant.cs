@@ -51,72 +51,32 @@ namespace Construct.MessageBrokering.Serialization
             this.stringPropertyValuePersistanceDelegate = stringPersistanceDelegate;
         } 
 
-        private Dictionary<string, dynamic> itemInstances;
-        public Dictionary<string, dynamic> ItemInstances 
+        private Dictionary<string, Type> itemDataTypes = new Dictionary<string,Type>();
+        public Dictionary<string, Type> ItemDataTypes 
         {
-            get
-            {
-                if (itemInstances == null)
-                {
-                    itemInstances = new Dictionary<string,dynamic>();
-                }
-                return itemInstances;
-            }
-            private set 
-            {
-                itemInstances = value;
-            }
+            get { return itemDataTypes; }
+            private set  { itemDataTypes = value; }
         }
 
-        private Dictionary<string, Dictionary<string, PropertyInfo>> propertyTables;
+        private Dictionary<string, Dictionary<string, PropertyInfo>> propertyTables = new Dictionary<string,Dictionary<string,PropertyInfo>>();
         public Dictionary<string, Dictionary<string, PropertyInfo>> PropertyTables
         {
-            get
-            {
-                if (propertyTables == null)
-                {
-                    propertyTables = new Dictionary<string,Dictionary<string,PropertyInfo>>();
-                }
-                return propertyTables;
-            }
-            private set 
-            {
-                propertyTables = value;
-            }
+            get { return propertyTables; }
+            private set { propertyTables = value; }
         }
 
-        private Dictionary<string, Dictionary<string, FieldInfo>> fieldTables;
+        private Dictionary<string, Dictionary<string, FieldInfo>> fieldTables = new Dictionary<string,Dictionary<string,FieldInfo>>();
         public Dictionary<string, Dictionary<string, FieldInfo>> FieldTables
         {
-            get
-            {
-                if (fieldTables == null)
-                {
-                    fieldTables = new Dictionary<string, Dictionary<string, FieldInfo>>();
-                }
-                return fieldTables;
-            }
-            private set
-            {
-                fieldTables = value;
-            }
+            get { return fieldTables; }
+            private set { fieldTables = value; }
         }
 
-        private Dictionary<string, Dictionary<string, Guid>> propertyIDTables;
+        private Dictionary<string, Dictionary<string, Guid>> propertyIDTables = new Dictionary<string,Dictionary<string,Guid>>();
         public Dictionary<string, Dictionary<string, Guid>> PropertyIDTables
         {
-            get
-            {
-                if (propertyIDTables == null)
-                {
-                    propertyIDTables = new Dictionary<string, Dictionary<string, Guid>>();
-                }
-                return propertyIDTables;
-            }
-            private set
-            {
-                propertyIDTables = value;
-            }
+            get { return propertyIDTables; }
+            private set { propertyIDTables = value; }
         }
 
         private void LoadTypes()
@@ -139,10 +99,9 @@ namespace Construct.MessageBrokering.Serialization
                 foreach (Type type in dynamicTypes.Where(type => type.BaseType.Name.Contains("FluentMetadataSource") == false))
                 {
                     string itemName = type.Name;
-                    if (ItemInstances.Keys.Contains(itemName) == false)
+                    if (ItemDataTypes.Keys.Contains(itemName) == false)
                     {
-                        dynamic instance = typeAssembly.CreateInstance(type.FullName);
-                        ItemInstances.Add(itemName, instance);
+						ItemDataTypes.Add(itemName, type);
                     }
 
                     if (PropertyTables.Keys.Contains(itemName) == false)
@@ -203,7 +162,7 @@ namespace Construct.MessageBrokering.Serialization
             var itemPayloadTokens = jObject["Instance"]["Payload"];
             RecurseItemStructure(itemPayloadTokens, itemName, propertyKeyValuePairs);
 
-            if (ItemInstances.ContainsKey(itemName) == false ||
+            if (ItemDataTypes.ContainsKey(itemName) == false ||
                 PropertyTables.ContainsKey(itemName) == false ||
                 FieldTables.ContainsKey(itemName) == false)
             {
@@ -503,27 +462,27 @@ namespace Construct.MessageBrokering.Serialization
             JToken itemPayloadTokens = jObject["Instance"]["Payload"];
             RecurseItemStructure(itemPayloadTokens, itemName, propertyKeyValuePairs);
 
-            if (ItemInstances.Keys.Contains(itemName) == false)
+            if (ItemDataTypes.Keys.Contains(itemName) == false)
             {
                 LoadTypes();
             }
-            dynamic item = ItemInstances[itemName];
-            item.ItemID = itemID;
+            dynamic newItem = Activator.CreateInstance(ItemDataTypes[itemName]);
+            newItem.ItemID = itemID;
 
             foreach (string key in propertyKeyValuePairs.Keys)
             {
-                if (propertyKeyValuePairs[key] == "DBNull")
+                if (propertyKeyValuePairs[key] as String == "DBNull")
                 {
                     try
                     {
-                        propertyTables[itemName][key].SetValue(item, Activator.CreateInstance(propertyTables[itemName][key].PropertyType), null);
+                        propertyTables[itemName][key].SetValue(newItem, Activator.CreateInstance(propertyTables[itemName][key].PropertyType), null);
                     }
                     catch (KeyNotFoundException propNotFound)
                     {
                         //TODO: we should fucking do something here
                         try
                         {
-                            fieldTables[itemName][key].SetValue(item, Activator.CreateInstance(fieldTables[itemName][key].FieldType));
+                            fieldTables[itemName][key].SetValue(newItem, Activator.CreateInstance(fieldTables[itemName][key].FieldType));
                         }
                         catch (KeyNotFoundException fieldNotFound)
                         {
@@ -534,21 +493,21 @@ namespace Construct.MessageBrokering.Serialization
                 }
                 else if (propertyTables[itemName].Keys.Contains(key))
                 {
-                    propertyTables[itemName][key].SetValue(item, propertyKeyValuePairs[key], null);
+                    propertyTables[itemName][key].SetValue(newItem, propertyKeyValuePairs[key], null);
                 }
                 else if (fieldTables[itemName].Keys.Contains(key))
                 {
-                    fieldTables[itemName][key].SetValue(item, propertyKeyValuePairs[key]);
+                    fieldTables[itemName][key].SetValue(newItem, propertyKeyValuePairs[key]);
                 }
                 else if (propertyTables[itemName].Keys.Count == 3 && key == "Payload")
                 {
                     PropertyInfo prop = propertyTables[itemName].Where(p => p.Key != "ItemID").Where(p => p.Key != "RecordCreationDate").Single().Value;
-                    prop.SetValue(item, propertyKeyValuePairs[key], null);
+                    prop.SetValue(newItem, propertyKeyValuePairs[key], null);
                 }
                 else if (fieldTables[itemName].Keys.Count == 3 && key == "Payload")
                 {
                     FieldInfo field = fieldTables[itemName].Where(p => p.Key != "ItemID").Where(p => p.Key != "RecordCreationDate").Single().Value;
-                    field.SetValue(item, propertyKeyValuePairs[key]);
+                    field.SetValue(newItem, propertyKeyValuePairs[key]);
                 }
                 else
                 {
@@ -556,8 +515,8 @@ namespace Construct.MessageBrokering.Serialization
                 }
             }
 
-            item.RecordCreationDate = DateTime.Now;
-            return item;
+            newItem.RecordCreationDate = DateTime.Now;
+            return newItem;
         }
 
         private void RecurseItemStructure(JToken tokens, string itemName, Dictionary<string, object> propertyKeyValuePairs)
