@@ -1,7 +1,7 @@
 ﻿<Window x:Class="ConstructServer.Runtime.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="ConstructServer" Height="480" Width="640" Closed="Window_Closed">
+        Title="ConstructServer" Height="480" Width="901" Closed="Window_Closed">
 	<Grid Margin="10,0,0.4,-0.2">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="309"/>
