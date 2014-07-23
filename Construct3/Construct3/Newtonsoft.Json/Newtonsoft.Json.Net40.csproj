@@ -68,7 +68,8 @@
     <DocumentationFile>bin\Release\Net40\Newtonsoft.Json.xml</DocumentationFile>
     <CodeAnalysisRuleSet>Newtonsoft.Json.ruleset</CodeAnalysisRuleSet>
     <UseVSHostingProcess>true</UseVSHostingProcess>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
+    <CodeAnalysisIgnoreGeneratedCode>false</CodeAnalysisIgnoreGeneratedCode>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog">
