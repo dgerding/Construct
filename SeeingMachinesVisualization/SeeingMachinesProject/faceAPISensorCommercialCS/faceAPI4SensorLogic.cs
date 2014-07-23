@@ -49,6 +49,9 @@ namespace faceAPISensorCommercialCS
 
 		public void Close()
 		{
+			if (m_ProcessObject.HasExited)
+				return;
+
 			SendMessage(msgClose);
 			m_ProcessObject.WaitForExit(3000);
 			if (!m_ProcessObject.HasExited)
@@ -90,8 +93,15 @@ namespace faceAPISensorCommercialCS
 
 		public void Stop()
 		{
-			m_ContinueQuery = false;
-			m_QueryTask.Wait();
+			try
+			{
+				m_ContinueQuery = false;
+				m_QueryTask.Wait();
+			}
+			catch (Exception e)
+			{
+				Debugger.Log(0, "", e.Message);
+			}
 
 			m_CoreProcess.Close();
 			m_CoreProcess = null;

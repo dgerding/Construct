@@ -24,7 +24,7 @@ namespace faceAPISensorCommercialCS
 			: base(
 				Protocol.HTTP,
 				args, // args sent by Construct Studio to initialize sensor
-				Guid.Parse("d8de3a5b-0d73-4f34-9bbf-655f7753d99ad8de3a5b-0d73-4f34-9bbf-655f7753d99a"), // ID of this sensor type
+				Guid.Parse("d8de3a5b-0d73-4f34-9bbf-655f7753d99a"), // ID of this sensor type
 				new Dictionary<string, Guid>() {
 					//	Mapping of payload types and their IDs (matches the sensor XML)
 					{ "FaceApiData", Guid.Parse("b83c64e4-14e4-4920-ac07-becc87ef458c") }
@@ -42,7 +42,7 @@ namespace faceAPISensorCommercialCS
 
 		void sensorLogic_OnNewData(SMFramework.FaceData faceData)
 		{
-			SendItem(new FaceDataConstructAdapter(faceData), faceData.SnapshotTimestamp, "FaceData");
+			SendItem(new FaceDataConstructAdapter(faceData), DateTime.UtcNow, "FaceApiData");
 		}
 
 		private void broker_OnCommandReceived(object sender, string commandString)
