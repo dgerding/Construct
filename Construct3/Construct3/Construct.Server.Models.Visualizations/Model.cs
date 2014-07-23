@@ -223,7 +223,17 @@ namespace Construct.Server.Models.Visualizations
 
         public System.Collections.Generic.IEnumerable<Entities.Adapters.PropertyType> GetAllProperties(string dataTypeName)
         {
-            DataType dataType = context.DataTypes.AsEnumerable().Single(target => target.Name == dataTypeName);
+			DataType dataType = null;
+			try
+			{
+				dataType = context.DataTypes.AsEnumerable().Single(target => target.Name == dataTypeName);
+			}
+			catch (InvalidOperationException e)
+			{
+				logger.Warn("Query 'Single' for datatype " + dataTypeName + " failed. Either nonexistant datatype or numerous entries for that datatype.");
+				return new Entities.Adapters.PropertyType[0];
+			}
+
             IList<Entities.Adapters.PropertyType> propertyTypes = new List<Entities.Adapters.PropertyType>();
 
             foreach (var propertyType in context.PropertyTypes)
@@ -234,6 +244,7 @@ namespace Construct.Server.Models.Visualizations
                     propertyTypes.Add(adapter);
                 }
             }
+
             return propertyTypes;
         }
 
