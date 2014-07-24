@@ -86,8 +86,14 @@ namespace ConstructServer.Runtime.Windows
 					Dictionary<PropertyType, DataType> allPropertyTypes = new Dictionary<PropertyType, DataType>();
 
 					foreach (DataType dataType in context.DataTypes)
+					{
 						foreach (PropertyType propertyType in dataType.PropertyParents)
+						{
 							allPropertyTypes.Add(propertyType, dataType);
+							//	For some reason, some data retrieval results in null values if we do continuous queries
+							System.Threading.Thread.Sleep(0);
+						}
+					}
 
 					Parallel.ForEach(allPropertyTypes, (propertyDataTypePair) =>
 					{
