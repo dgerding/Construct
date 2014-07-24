@@ -5,12 +5,15 @@ using Construct.Server.Models.Data.PropertyValue;
 using Construct.Utilities.Shared;
 using System;
 using System.IO;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Diagnostics;
 using System.ServiceModel;
 using System.Windows;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace ConstructServer.Runtime.Windows
 {
@@ -78,14 +81,23 @@ namespace ConstructServer.Runtime.Windows
                     //{
                     //    //logger.
                     //}
-                    foreach (DataType dataType in context.DataTypes)
-                    {
-                        foreach (PropertyType propertyType in dataType.PropertyParents)
-                        {
-                            ServiceHost host = PropertyServiceManager.StartService(serverServiceUri, dataType, propertyType, connectionString);
-                            Services.Add(host);
-                        }
-                    }
+
+					ConcurrentQueue<ServiceHost> propertyValueServices = new ConcurrentQueue<ServiceHost>();
+					Dictionary<PropertyType, DataType> allPropertyTypes = new Dictionary<PropertyType, DataType>();
+
+					foreach (DataType dataType in context.DataTypes)
+						foreach (PropertyType propertyType in dataType.PropertyParents)
+							allPropertyTypes.Add(propertyType, dataType);
+
+					Parallel.ForEach(allPropertyTypes, (propertyDataTypePair) =>
+					{
+						DataType dataType = propertyDataTypePair.Value;
+						PropertyType propertyType = propertyDataTypePair.Key;
+						ServiceHost host = PropertyServiceManager.StartService(serverServiceUri, dataType, propertyType, connectionString);
+						propertyValueServices.Enqueue(host);
+					});
+
+					propertyValueServices.ToList().ForEach((serviceHost) => Services.Add(serviceHost));
 
                     dbSchemaStatusLabel.Content = modelsHost.IsDatabaseSchemaCurrent.ToString();
                     dbConnectionStatusLabel.Content = modelsHost.IsDatabaseReachable.ToString();
