@@ -176,46 +176,52 @@ namespace Construct.UX.Views.Sources
 
         private void LoadSensorCompleted(Guid sensorID)
         {
-            IEnumerable<GridViewRow> sensorRows = SensorHostsGridView.ChildrenOfType<GridViewRow>()
-                                                                     .Where(s => s.Item is HumanReadableSensor);
+			if (!this.Dispatcher.CheckAccess())
+			{
+				this.Dispatcher.BeginInvoke(new Action(() => LoadSensorCompleted(sensorID)));
+				return;
+			}
+
+			IEnumerable<GridViewRow> sensorRows = SensorHostsGridView.ChildrenOfType<GridViewRow>()
+																		.Where(s => s.Item is HumanReadableSensor);
 
 
-            Button loadButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
-                                          .First()
-                                          .ChildrenOfType<Button>()
-                                          .Where(s => s.Name == "LoadButton")
-                                          .SingleOrDefault();
-            loadButton.Content = "Load";
-            loadButton.IsEnabled = false;
+			Button loadButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
+											.First()
+											.ChildrenOfType<Button>()
+											.Where(s => s.Name == "LoadButton")
+											.SingleOrDefault();
+			loadButton.Content = "Load";
+			loadButton.IsEnabled = false;
 
-            Button unloadButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
-                                            .First()
-                                            .ChildrenOfType<Button>()
-                                            .Where(s => s.Name == "UnloadButton")
-                                            .SingleOrDefault();
-            unloadButton.IsEnabled = true;
+			Button unloadButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
+											.First()
+											.ChildrenOfType<Button>()
+											.Where(s => s.Name == "UnloadButton")
+											.SingleOrDefault();
+			unloadButton.IsEnabled = true;
 
-            Button startButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
-                                           .First()
-                                           .ChildrenOfType<Button>()
-                                           .Where(s => s.Name == "StartButton")
-                                           .SingleOrDefault();
-            startButton.IsEnabled = true;
+			Button startButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
+											.First()
+											.ChildrenOfType<Button>()
+											.Where(s => s.Name == "StartButton")
+											.SingleOrDefault();
+			startButton.IsEnabled = true;
 
-            Button stopButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
-                               .First()
-                               .ChildrenOfType<Button>()
-                               .Where(s => s.Name == "StopButton")
-                               .SingleOrDefault();
-            stopButton.IsEnabled = false;
+			Button stopButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
+								.First()
+								.ChildrenOfType<Button>()
+								.Where(s => s.Name == "StopButton")
+								.SingleOrDefault();
+			stopButton.IsEnabled = false;
 
-            pendingActionList[sensorID].timeoutTimer.Stop();
-            pendingActionList.Remove(sensorID);
+			pendingActionList[sensorID].timeoutTimer.Stop();
+			pendingActionList.Remove(sensorID);
         }
 
         private void HandleLoadSensorTimeout(Guid sensorID)
         {
-            SensorHostsGridView.Dispatcher.Invoke(new Action(() =>
+            SensorHostsGridView.Dispatcher.BeginInvoke(new Action(() =>
                 {
                     IEnumerable<GridViewRow> sensorRows = SensorHostsGridView.ChildrenOfType<GridViewRow>()
                                                                  .Where(s => s.Item is HumanReadableSensor);
@@ -258,6 +264,12 @@ namespace Construct.UX.Views.Sources
 
         private void UnloadSensor_Click(object sender, RoutedEventArgs e)
         {
+			if (!this.Dispatcher.CheckAccess())
+			{
+				this.Dispatcher.BeginInvoke(new Action(() => UnloadSensor_Click(sender, e)));
+				return;
+			}
+
             RadButton button = (RadButton)sender;
             HumanReadableSensor rowSensor = (HumanReadableSensor)button.GetVisualParent<RadRowItem>().Item;
 
@@ -288,6 +300,12 @@ namespace Construct.UX.Views.Sources
 
         private void StartSensor_Click(object sender, RoutedEventArgs e)
         {
+			if (!this.Dispatcher.CheckAccess())
+			{
+				this.Dispatcher.BeginInvoke(new Action(() => StartSensor_Click(sender, e)));
+				return;
+			}
+
             RadButton button = (RadButton)sender;
             HumanReadableSensor rowSensor = (HumanReadableSensor)button.GetVisualParent<RadRowItem>().Item;
 
@@ -308,6 +326,12 @@ namespace Construct.UX.Views.Sources
 
         private void StopSensor_Click(object sender, RoutedEventArgs e)
         {
+			if (!this.Dispatcher.CheckAccess())
+			{
+				this.Dispatcher.BeginInvoke(new Action(() => StopSensor_Click(sender, e)));
+				return;
+			}
+
             RadButton button = (RadButton)sender;
             HumanReadableSensor rowSensor = (HumanReadableSensor)button.GetVisualParent<RadRowItem>().Item;
 

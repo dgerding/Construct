@@ -14,6 +14,7 @@ using ICSharpCode.SharpZipLib.Zip;
 using Construct.MessageBrokering;
 using System.ServiceModel.Description;
 using Construct.Utilities.Shared;
+using System.Threading;
 
 namespace Construct.UX.ViewModels.Sources
 {
@@ -40,10 +41,21 @@ namespace Construct.UX.ViewModels.Sources
 		{
 			if (client == null || client.State == CommunicationState.Closed || client.State == CommunicationState.Closing || client.State == CommunicationState.Faulted)
 			{
-				instanceContext = new InstanceContext(callback);
-				client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
-				ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(client);
-				client.Open();
+				bool isDone = false;
+
+				//	http://tech.pro/tutorial/914/wcf-callbacks-hanging-wpf-applications
+				ThreadPool.QueueUserWorkItem((data) =>
+					{
+						instanceContext = new InstanceContext(callback);
+						client = new ModelClient(instanceContext, "WsDualHttpBinding", RemoteAddress);
+						ModelClientHelper.EnhanceModelClientBandwidth<ModelClient>(client);
+						client.Open();
+
+						isDone = true;
+					});
+
+				while (!isDone)
+					System.Threading.Thread.Sleep(10);
 			}
 			return client;
 		}
