@@ -431,6 +431,11 @@ namespace Construct.MessageBrokering.Serialization
             }
 
             obj.Value = (string)propertyKeyValuePairs[key];
+
+			//	TODO: Support null strings
+			if (obj.Value == null)
+				obj.Value = String.Empty;
+
 			//	Escape strings
 			obj.Value = obj.Value.Replace("'", "''");
 
