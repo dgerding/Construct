@@ -23,6 +23,7 @@ using System.ServiceModel;
 using System.Xml.Linq;
 using System.Threading;
 using Construct.MessageBrokering.TransponderService;
+using System.Threading.Tasks;
 
 namespace Construct.Server.Models.Data
 {
@@ -142,10 +143,8 @@ namespace Construct.Server.Models.Data
                         persistantTypes.CollectionChanged += PersistantTypesCollectionChanged;
             
                         TypesAssemblyCreator assemblyCreator = new TypesAssemblyCreator(entitiesModel);
-                        foreach (Entities.DataType dataType in entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false))
-                        {
-                            Assembly assembly = assemblyCreator.ReturnTypeAssembly(dataType);
-                        }
+						var dataTypeList = entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false).ToList();
+						Parallel.ForEach(dataTypeList, (dataType) => assemblyCreator.ReturnTypeAssembly(dataType));
 
                         InitializeSerializationAssistant();
 
@@ -307,115 +306,6 @@ namespace Construct.Server.Models.Data
             return result;
         }
 
-        public uint GetNumberOfItemsInTimespan(DateTime startTime, DateTime endTime, Guid? itemTypeId, Guid? sourceId)
-        {
-            SqlConnection connection = connectionPool.GetUnusedConnection();
-            if (connection.State != System.Data.ConnectionState.Open)
-                connection.Open();
-
-            SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(connection);
-            uint result = telemetryFetcher.GetNumberOfItemsInTimeSpan(startTime, endTime, itemTypeId, sourceId);
-            return result;
-        }
-
-        public Guid[] GenerateConstructHeaders(Guid[] itemTypeIds)
-        {
-            List<Guid> result = new List<Guid>();
-			
-            using (EntitiesModel model = GetNewModel())
-            {
-                foreach (Guid itemTypeId in itemTypeIds)
-                {
-                    var properties = model.PropertyTypes.Where((type) => type.ParentDataTypeID == itemTypeId);
-                    result.AddRange(properties.Select(property => property.ID));
-                }
-            }
-
-            return result.ToArray();
-        }
-
-        public String[] GenerateConstructHeaderNames(Guid[] constructHeader)
-        {
-            using (EntitiesModel model = GetNewModel())
-            {
-                return model.PropertyTypes.Where(type => constructHeader.Contains(type.ID)).Select(type => type.Name).ToArray();
-            }
-        }
-
-        public List<object[]> GenerateConstruct(DateTime startTime, DateTime endTime, TimeSpan interval, Guid[] constructHeaders, Guid[] sourceIds)
-        {
-            List<object[]> result = new List<object[]>();
-
-            Dictionary<Guid, List<dynamic>> propertyValues = new Dictionary<Guid, List<dynamic>>();
-            EntitiesModel model;
-            try
-            {
-                model = GetCachedModel();
-            }
-            catch (Exception e)
-            {
-                return result;
-            }
-
-            //	Gather property values
-            foreach (Guid header in constructHeaders)
-            {
-                try
-                {
-                    //	Connect to the property service
-                    var property = model.PropertyTypes.First(pt => pt.ID == header);
-                    var dataType = model.DataTypes.First(dt => dt.ID == property.ParentDataTypeID);
-                    var service = PropertyServiceManager.StartService(serverServiceUri, dataType, property, connectionString);
-                    String serviceConnectionString = UriUtility.CreatePropertyValueServiceEndpointFromServerEndpoint(serverServiceUri, dataType.Name, property.Name).ToString();
-                    //var client = new TransponderClient(serviceConnectionString);
-                    dynamic propertyService = service.SingletonInstance;
-                    List<dynamic> currentProperties = new List<dynamic>();
-                    currentProperties.AddRange(propertyService.GetBetween(startTime, endTime));
-
-                    //	Only reference the sources specified
-                    currentProperties.RemoveAll(value => !sourceIds.ToList().Contains(value.SourceID));
-                }
-                catch (Exception e)
-                {
-                    continue;
-                }
-            }
-
-            //	Generate interval data
-            for (DateTime currentTime = startTime; (endTime - currentTime).Ticks > 0; currentTime += interval)
-            {
-                object[] currentResultRow = new object[constructHeaders.Length];
-
-                //	End-time of the current interval
-                DateTime intervalEndTime = currentTime + interval;
-
-                //	Go through each property type
-                for (int i = 0; i < constructHeaders.Length; i++)
-                {
-                    //	Get the values within our current interval
-                    IEnumerable<dynamic> currentPropertyValues;
-                    try
-                    {
-                        currentPropertyValues = propertyValues[constructHeaders[i]].Where(value => (intervalEndTime - value.StartTime).TotalSeconds > 0);
-                        currentPropertyValues = currentPropertyValues.Where(value => (value.StartTime - currentTime).TotalSeconds > 0);
-                    }
-                    catch (Exception e)
-                    {
-                        currentResultRow[i] = null;
-                        continue;
-                    }
-
-                    //	Take the first value we find as the value for this interval (don't bother with aggregation yet)
-                    var intervalValue = currentPropertyValues.First();
-                    currentResultRow[i] = intervalValue.Value;
-                }
-
-                result.Add(currentResultRow);
-            }
-
-            return result;
-        }
-
         public Uri GetPropertyValueEndpoint(Guid propertyID)
         {
             throw new NotImplementedException();
@@ -485,26 +375,6 @@ namespace Construct.Server.Models.Data
             {
                 m_ModelsCache.Add(new Entities.EntitiesModel(connectionString));
             }
-        }
-
-        public DateTime? GetEarliestItemForTypeAndSource(Guid dataTypeId, Guid sourceId)
-        {
-            SqlConnection sqlConnection = connectionPool.GetUnusedConnection();
-            if (sqlConnection.State != System.Data.ConnectionState.Open)
-                sqlConnection.Open();
-
-            SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(sqlConnection);
-            return telemetryFetcher.GetEarliestTimeForTypeAndSource(dataTypeId, sourceId);
-        }
-
-        public DateTime? GetLatestItemForTypeAndSource(Guid dataTypeId, Guid sourceId)
-        {
-            SqlConnection sqlConnection = connectionPool.GetUnusedConnection();
-            if (sqlConnection.State != System.Data.ConnectionState.Open)
-                sqlConnection.Open();
-
-            SqlServerTelemetryFetcher telemetryFetcher = new SqlServerTelemetryFetcher(sqlConnection);
-            return telemetryFetcher.GetLatestTimeForTypeAndSource(dataTypeId, sourceId);
         }
 
         public Entities.EntitiesModel GetCachedModel()
