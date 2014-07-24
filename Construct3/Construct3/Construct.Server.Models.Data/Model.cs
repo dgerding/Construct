@@ -144,7 +144,10 @@ namespace Construct.Server.Models.Data
             
                         TypesAssemblyCreator assemblyCreator = new TypesAssemblyCreator(entitiesModel);
 						var dataTypeList = entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false).ToList();
-						Parallel.ForEach(dataTypeList, (dataType) => assemblyCreator.ReturnTypeAssembly(dataType));
+						foreach (var dataType in dataTypeList)
+							assemblyCreator.ReturnTypeAssembly(dataType);
+
+						//Parallel.ForEach(dataTypeList, (dataType) => assemblyCreator.ReturnTypeAssembly(dataType));
 
                         InitializeSerializationAssistant();
 
