@@ -78,11 +78,5 @@ namespace Construct.UX.Views.Data
         {
            //TODO: Anything need anything like... SourcesWorkflowPanelsContainer.Width = LayoutRoot.ActualWidth - SourcesGraphContainer.ActualWidth;
         }
-
-		private void ExportDataButton_Click(object sender, RoutedEventArgs e)
-		{
-			ExportDataWindow exportDataWindow = new ExportDataWindow(this.DataViewModel, this.SourcesViewModel);
-			exportDataWindow.ShowDialog();
-		}
     }
 }

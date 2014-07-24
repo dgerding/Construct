@@ -49,13 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CallbackImplementation.cs" />
-    <Compile Include="ItemFrequencyData.cs" />
     <Compile Include="Service References\DataServiceReference\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="SpecificTimeSpan.cs" />
     <Compile Include="ViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

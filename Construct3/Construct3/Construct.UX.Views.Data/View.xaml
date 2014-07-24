@@ -47,8 +47,6 @@
             <telerikDocking:RadSplitContainer InitialPosition="DockedRight">
                 <telerikDocking:RadPaneGroup>
 					<telerikDocking:RadPane Header="Solution Explorer">
-						<controls:RadButton
-	Content="Export Data" VerticalAlignment="Top" RenderTransformOrigin="-0.476,1.182" HorizontalAlignment="Left" Click="ExportDataButton_Click"/>
 					</telerikDocking:RadPane>
 					<telerikDocking:RadPane Header="Properties"/>
 				</telerikDocking:RadPaneGroup>
