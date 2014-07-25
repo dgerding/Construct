@@ -70,6 +70,7 @@
 			this.barPlaybackLocation.TabIndex = 0;
 			this.barPlaybackLocation.TabStop = false;
 			this.barPlaybackLocation.TickFrequency = 10000;
+			this.barPlaybackLocation.TickStyle = System.Windows.Forms.TickStyle.None;
 			// 
 			// btnPlayPause
 			// 

@@ -131,6 +131,7 @@
     <Compile Include="AsyncPairedDatabase.cs" />
     <Compile Include="FacialAttendanceDetector.cs" />
     <Compile Include="ImageOutputDataConverter.cs" />
+    <Compile Include="StreamingPlaybackDataStream.cs" />
     <Compile Include="SystemWrapperExtension.cs" />
     <Compile Include="Testing\DataCollectionSource.cs" />
     <Compile Include="Testing\HitTestProcedure.cs" />

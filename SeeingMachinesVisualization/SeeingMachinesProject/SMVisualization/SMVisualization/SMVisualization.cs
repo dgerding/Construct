@@ -50,7 +50,7 @@ namespace SMVisualization
 
 		public Texture2D[] SubjectVideoStreamFrames;
 
-		public PlaybackDataStream PlaybackStream;
+		public StreamingPlaybackDataStream PlaybackStream;
 		public AsyncPairedDatabase SensorStream = new AsyncPairedDatabase(DatabaseFormatMapping.GenerateRecordingFilename());
 		public bool IsUsingPlayback = false;
 
@@ -325,10 +325,6 @@ namespace SMVisualization
 
 			Visualization.DebugView.AddText("Memory usage: " + Process.GetCurrentProcess().PrivateMemorySize64 / (1024 * 1024) + "MB");
             Visualization.DebugView.AddText("Snapshots #: " + SensorStream.NumberOfSnapshots);
-			if (PlaybackStream != null)
-			{
-				Visualization.DebugView.AddText("Playback Frame: " + PlaybackStream.CurrentFrame);
-			}
 
 			FPS.MarkNewFrame();
 

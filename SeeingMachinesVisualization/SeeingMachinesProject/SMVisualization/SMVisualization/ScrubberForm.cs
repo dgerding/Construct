@@ -41,7 +41,8 @@ namespace SMVisualization
 
 		void m_RemoteConnection_OnTimeChange(DateTime newTime)
 		{
-			PlaybackDataStream stream = SMVisualization.Instance.PlaybackStream;
+			//PlaybackDataStream stream = SMVisualization.Instance.PlaybackStream;
+			StreamingPlaybackDataStream stream = SMVisualization.Instance.PlaybackStream;
 			if (stream.TargetRecordingTime != newTime)
 				stream.TargetRecordingTime = newTime;
 		}
@@ -77,7 +78,8 @@ namespace SMVisualization
 
 			if (chbxUseRecording.Checked && SourceIsSet())
 			{
-				PlaybackDataStream stream = SMVisualization.Instance.PlaybackStream;
+				StreamingPlaybackDataStream stream = SMVisualization.Instance.PlaybackStream;
+				//PlaybackDataStream stream = SMVisualization.Instance.PlaybackStream;
 
 				if (m_BarLocationChangeWasUser)
 				{
@@ -92,7 +94,7 @@ namespace SMVisualization
 			}
 		}
 
-		void newStream_FrameChanged(PlaybackDataStream stream, DataSnapshot newFrame)
+		void newStream_FrameChanged(StreamingPlaybackDataStream stream, DataSnapshot newFrame)
 		{
 			if (m_BypassOnStreamChangeEvent || !chbxUseRecording.Checked)
 				return;
@@ -242,12 +244,12 @@ namespace SMVisualization
 
 			if (of.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
-				PlaybackDataStream newStream;
+				StreamingPlaybackDataStream newStream;
 
 #if !DEBUG
 				try
 				{
-					newStream = new PlaybackDataStream(of.FileName, SMVisualization.Instance.Sensors, FaceData.CoordinateSystemType.Local);
+					newStream = new StreamingPlaybackDataStream(of.FileName, SMVisualization.Instance.Sensors, FaceData.CoordinateSystemType.Local);
 				}
 				catch (Exception exception)
 				{
@@ -255,7 +257,7 @@ namespace SMVisualization
 					return;
 				}
 #else
-				newStream = new PlaybackDataStream(of.FileName, SMVisualization.Instance.Sensors, FaceData.CoordinateSystemType.Local);
+				newStream = new StreamingPlaybackDataStream(of.FileName, SMVisualization.Instance.Sensors, FaceData.CoordinateSystemType.Local);
 #endif
 
                 int maxLength = 25;
@@ -311,7 +313,8 @@ namespace SMVisualization
 				PausePlayback();
 			}
 
-			SMVisualization.Instance.PlaybackStream = stream as PlaybackDataStream;
+			//SMVisualization.Instance.PlaybackStream = stream as PlaybackDataStream;
+			SMVisualization.Instance.PlaybackStream = stream as StreamingPlaybackDataStream;
 		}
 
 		private void ResumePlayback()
