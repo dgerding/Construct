@@ -37,6 +37,16 @@ namespace SMFramework
 			result.HeadPositionConfidence		= source.ComposeFloat(sensorLabel + " HeadPositionConfidence");
 			result.HeadRotation					= source.ComposeVector3(sensorLabel + " HeadRotation");
 
+			result.FaceBoundsUVs				= source.ComposeVector2List(sensorLabel + " FaceBoundsUVs");
+			result.FaceBoundsVertices			= source.ComposeVector3List(sensorLabel + " FaceBoundsVertex");
+			result.LeftEyebrowVertices			= source.ComposeVector3List(sensorLabel + " LeftEyebrowVertex");
+			result.RightEyebrowVertices			= source.ComposeVector3List(sensorLabel + " RightEyebrowVertex");
+
+			result.MouthInnerLowerLipVertices	= source.ComposeVector3List(sensorLabel + " MouthInnerLowerLipVertex");
+			result.MouthOuterLowerLipVertices	= source.ComposeVector3List(sensorLabel + " MouthOuterLowerLipVertices");
+			result.MouthInnerUpperLipVertices	= source.ComposeVector3List(sensorLabel + " MouthInnerUpperLipVertices");
+			result.MouthOuterUpperLipVertices	= source.ComposeVector3List(sensorLabel + " MouthOuterUpperLipVertices");
+
 			return result;
 		}
 
