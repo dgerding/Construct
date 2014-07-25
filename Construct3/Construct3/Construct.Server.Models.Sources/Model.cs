@@ -8,6 +8,8 @@ using Construct.MessageBrokering;
 using Construct.MessageBrokering.Serialization;
 using Construct.Server.Entities;
 using Construct.Utilities.Shared;
+using System.Data.SqlClient;
+using System.Data;
 
 
 namespace Construct.Server.Models.Sources
@@ -93,10 +95,42 @@ namespace Construct.Server.Models.Sources
                                                                                 Guid.Parse("AE9E3C31-09C8-4835-8E2D-286922ADB3F6"),
                                                                                 sensor.SensorHostID);
 
+				Entities.HumanReadableSensor humanReadableSensor = new HumanReadableSensor();
+				humanReadableSensor.CurrentRendezvous = sensor.CurrentRendezvous;
+				humanReadableSensor.ID = sensor.ID;
+				humanReadableSensor.InstalledFromServerDate = sensor.InstalledFromServerDate;
+				humanReadableSensor.IsHealthy = sensor.IsHealthy;
+				humanReadableSensor.SensorHostID = sensor.SensorHostID;
+				humanReadableSensor.SensorTypeSourceID = sensor.SensorTypeSourceID;
+				humanReadableSensor.Name = addArgs.HumanName;
+
+				
+
                 try
                 {
-                    model.Add(sensor);
-                    model.SaveChanges();
+					model.Add(sensor);
+					model.SaveChanges();
+
+					//	HACK: HumanReadableSensor needs to be kept in sync with Sensor table, can only
+					//		really be done with a SQL table entry
+					using (SqlConnection tempConnection = new SqlConnection(entitiesConnectionString))
+					{
+						tempConnection.Open();
+
+						var command = tempConnection.CreateCommand();
+						command.CommandText = "INSERT INTO Sources_HumanReadableSensor (ID, SensorTypeSourceID, SensorHostID, Name, IsHealthy, InstalledFromServerDate, CurrentRendezvous)";
+						command.CommandText += " VALUES(@id, @sensorTypeSourceId, @sensorHostId, @name, @isHealthy, @installedDate, @rendezvous)";
+
+						command.Parameters.Add(new SqlParameter("@id", SqlDbType.UniqueIdentifier)).Value = humanReadableSensor.ID;
+						command.Parameters.Add(new SqlParameter("@sensorTypeSourceId", SqlDbType.UniqueIdentifier)).Value = humanReadableSensor.SensorTypeSourceID;
+						command.Parameters.Add(new SqlParameter("@sensorHostId", SqlDbType.UniqueIdentifier)).Value = humanReadableSensor.SensorHostID;
+						command.Parameters.Add(new SqlParameter("@name", SqlDbType.NVarChar)).Value = humanReadableSensor.Name;
+						command.Parameters.Add(new SqlParameter("@isHealthy", SqlDbType.Bit)).Value = humanReadableSensor.IsHealthy;
+						command.Parameters.Add(new SqlParameter("@installedDate", SqlDbType.DateTime2)).Value = humanReadableSensor.InstalledFromServerDate;
+						command.Parameters.Add(new SqlParameter("@rendezvous", SqlDbType.NVarChar)).Value = humanReadableSensor.CurrentRendezvous;
+
+						command.ExecuteNonQuery();
+					}
                 }
                 catch (Exception e)
                 {

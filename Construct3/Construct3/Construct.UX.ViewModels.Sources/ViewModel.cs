@@ -15,6 +15,7 @@ using Construct.MessageBrokering;
 using System.ServiceModel.Description;
 using Construct.Utilities.Shared;
 using System.Threading;
+using System.Windows;
 
 namespace Construct.UX.ViewModels.Sources
 {
@@ -497,6 +498,13 @@ namespace Construct.UX.ViewModels.Sources
 
         public void HandleAvailableSensorCommands(List<SensorCommand> commands)
         {
+			var dispatcher = Application.Current.Dispatcher;
+			if (!dispatcher.CheckAccess())
+			{
+				dispatcher.BeginInvoke(new Action(() => HandleAvailableSensorCommands(commands)));
+				return;
+			}
+
             IEnumerable<SensorCommand> commandsOfSensorTypeSource = null;
 
             foreach (SensorCommand command in commands)

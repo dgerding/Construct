@@ -360,9 +360,6 @@ namespace Construct.UX.WindowsClient
             CreateAndAddVisualizationsTabPanel();
             CreateAndAddSessionsTabPanel();
             CreateAndAddLearningTabPanel();
-
-			//	Hacky assembly for the data exporter
-			(dataView as Construct.UX.Views.Data.View).SourcesViewModel = (sourcesView as Construct.UX.Views.Sources.View).SourcesViewModel;
         }
 
         private UserControl dataView;
