@@ -44,3 +44,21 @@ ipch/
 # Visual Studio profiler
 *.psess
 *.vsp
+/GephiPluginsVis/DataLaboratoryPluginExample/build/
+/GephiPluginsVis/ExecuteAtStartupExample/build/
+/GephiPluginsVis/ExportPluginExample/build/
+/GephiPluginsVis/FilterPluginExample/build/
+/GephiPluginsVis/GeneratorPluginExample/build/
+/GephiPluginsVis/ImportPluginExample/build/
+/GephiPluginsVis/LayoutPluginExample/build/
+/GephiPluginsVis/LayoutPluginExample/nbproject/private/
+/GephiPluginsVis/NewModulePanelPluginExample/build/
+/GephiPluginsVis/NewModulePanelPluginExample/nbproject/private/
+/GephiPluginsVis/PluginsSubMenuExample/build/
+/GephiPluginsVis/PreviewPluginExample/build/
+/GephiPluginsVis/ProcessorPluginExample/build/
+/GephiPluginsVis/ProcessorPluginExample/nbproject/private/
+/GephiPluginsVis/StatisticsPluginExample/build/
+/GephiPluginsVis/ToolPluginExample/build/
+/GephiPluginsVis/build/
+/GephiPluginsVis/nbproject/private/
