@@ -1,6 +1,0 @@
-open daisy.colum.edu 2020
-tyler.camp
-Fre3!Fre3!
-binary
-put faceLABConstructSensor.e683e0c5-85fb-4788-81a1-f39cb2054687.1000.zip
-quit
