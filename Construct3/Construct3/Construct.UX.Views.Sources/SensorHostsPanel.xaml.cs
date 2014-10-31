@@ -144,14 +144,17 @@ namespace Construct.UX.Views.Sources
         {
             IEnumerable<GridViewRow> sensorRows = SensorHostsGridView.ChildrenOfType<GridViewRow>()
                                                                      .Where(s => s.Item is HumanReadableSensor);
-            Button loadButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
+
+            SensorHostsGridView.Dispatcher.BeginInvoke(new Action(() => {
+                Button loadButton = sensorRows.Where(s => (s.Item as HumanReadableSensor).ID == sensorID)
                                           .First()
                                           .ChildrenOfType<Button>()
                                           .Where(s => s.Name == "LoadButton")
                                           .SingleOrDefault();
 
-            loadButton.IsEnabled = true;
-            loadButton.Content = "Load";
+                loadButton.IsEnabled = true;
+                loadButton.Content = "Load";
+            }));
         }
 
         private void LoadSensor_Click(object sender, RoutedEventArgs e)
