@@ -284,7 +284,10 @@ namespace Construct.SensorManagers.WindowsSensorManager
         private void BuildSensorList()
         {
             EventLog.WriteEntry("Building sensor list");
-            Directory.SetCurrentDirectory(@"C:\Program Files (x86)\Construct\SensorHost\Sensors");
+	        String sensorsInstallLocation = @"C:\Program Files (x86)\Construct\SensorHost\Sensors";
+	        if (!Directory.Exists(sensorsInstallLocation))
+		        Directory.CreateDirectory(sensorsInstallLocation);
+			Directory.SetCurrentDirectory(sensorsInstallLocation);
 
             string[] sensorDirs = Directory.GetDirectories(Directory.GetCurrentDirectory());
 
