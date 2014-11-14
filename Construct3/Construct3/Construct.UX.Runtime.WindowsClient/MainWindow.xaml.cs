@@ -292,11 +292,20 @@ namespace Construct.UX.WindowsClient
         {
             credentialsViewModel.LoginSuccess += (connectionString) =>
             {
-                WorkingDirectoryPathTextBox.IsEnabled = false;
-                isConstructServerAttached = true;
-                SetSessionInfoForAuthenticatedUser(constructServerName, userName, password, connectionString, WorkingDirectoryPathTextBox.Text);
-                BuildUiForAuthenticatedUser();
-                LogToList("User " + userName + " logged in.");
+	            try
+	            {
+		            SetSessionInfoForAuthenticatedUser(constructServerName, userName, password, connectionString,
+			            WorkingDirectoryPathTextBox.Text);
+		            BuildUiForAuthenticatedUser();
+		            LogToList("User " + userName + " logged in.");
+					WorkingDirectoryPathTextBox.IsEnabled = false;
+					isConstructServerAttached = true;
+	            }
+	            catch (Exception e)
+	            {
+		            MessageBox.Show("An error occurred while logging in.\n\n" + e.Message);
+					InvalidateUserIdentityAndSessionInfo();
+	            }
             };
             credentialsViewModel.LoginError += AlertUserThatValidationServerIsUnavailable;
         }
@@ -307,7 +316,7 @@ namespace Construct.UX.WindowsClient
             {
                 if (MessageBox.Show("Are you sure you want to change your connected Construct Server? Doing so will close all existing work.", "ConstructServer Context Change Confirmation", MessageBoxButton.YesNo) == MessageBoxResult.No)
                 {
-                    return true;
+                    return false;
                 }
                 return true;
             }
@@ -336,19 +345,20 @@ namespace Construct.UX.WindowsClient
 
         private void BuildUiForAuthenticatedUser()
         {
-            LoginToServerButton.Visibility = Visibility.Hidden;
-            DisconnectFromServerButton.Visibility = Visibility.Visible;
-            WipeDatabaseAndRestoreDefaultsButton.Visibility = Visibility.Visible;
-            LoadTestItemDataSet.Visibility = Visibility.Visible;
-
-            WorkingDirectoryPathTextBox.IsEnabled = false;
-            WorkingDirectoryPathTextBox.IsReadOnly = true;
             //TODO Need these?
             //BuildRegionPanelsCollectionFromDiscoveredAndUserRequestedDisplayRegions();
             //AddNativeRegionPanelsToCollection();
             CreateTabPanels();
             BuildTabsFromTabPanels();
             ShowAllUiTabs();
+
+			LoginToServerButton.Visibility = Visibility.Hidden;
+			DisconnectFromServerButton.Visibility = Visibility.Visible;
+			WipeDatabaseAndRestoreDefaultsButton.Visibility = Visibility.Visible;
+			LoadTestItemDataSet.Visibility = Visibility.Visible;
+
+			WorkingDirectoryPathTextBox.IsEnabled = false;
+			WorkingDirectoryPathTextBox.IsReadOnly = true;
         }
 
         private void CreateTabPanels()
