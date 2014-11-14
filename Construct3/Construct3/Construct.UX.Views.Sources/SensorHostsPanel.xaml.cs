@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Dynamic;
 using System.Linq;
 using System.Windows;
@@ -169,7 +170,19 @@ namespace Construct.UX.Views.Sources
             parameter.CommandLineArgs = CommandLineArgs.Text;
             parameter.HostID = TheViewModel.CurrentSensorHost.ID;
 
-            TheViewModel.LoadSensor(parameter);
+	        try
+	        {
+				TheViewModel.LoadSensor(parameter);
+	        }
+	        catch (Exception exception)
+	        {
+		        MessageBox.Show("Unable to load the sensor " + rowSensor.Name + "\n\n" + exception.Message);
+		        if (Debugger.IsAttached)
+			        throw;
+
+		        return;
+	        }
+
             button.IsEnabled = false;
             button.Content = "Loading...";
 
