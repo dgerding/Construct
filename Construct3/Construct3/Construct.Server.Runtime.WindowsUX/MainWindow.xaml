@@ -19,7 +19,7 @@
 		<TextBox Name="ServerProcessIDTextBox" Text="00000000-0000-0000-0000-000000000000" HorizontalAlignment="Left" Height="23" Margin="17,353,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="234"/>
 		<TextBox Name="PublicHostNameTextBox" Text="localhost" HorizontalAlignment="Left" Height="23" Margin="17,298,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="236"/>
 		<TextBox Name="PublicHostPortBaseTextBox" Text="8000" HorizontalAlignment="Left" Height="23" Margin="17,325,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="236"/>
-		<TextBox Name="ConnectionStringLookupKey" Text="Construct3Connection" HorizontalAlignment="Left" Height="23" Margin="14,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216"/>
+		<TextBox Name="ConnectionStringLookupKey" Text="Construct3TC" HorizontalAlignment="Left" Height="23" Margin="14,56,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="216"/>
 
 		<ListBox Grid.Column="1" ItemsSource="{Binding Services}" Name="servicesList" Margin="0,0,0,0.2">
 			<ListBox.ItemTemplate>

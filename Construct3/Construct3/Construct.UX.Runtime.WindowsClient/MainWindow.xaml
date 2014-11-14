@@ -77,7 +77,7 @@
                                 <Grid>
                                     <StackPanel >
 
-                                        <Image Height="50" Name="image1" Stretch="Fill" Width="50" Source="/Construct.UX.WindowsClient;component/Construct.ico" />
+                                        <Image Height="50" Name="image1" Stretch="Fill" Width="50" Source="/Construct.ico" />
                                         <Label Content="Construct 2.0"  HorizontalAlignment="Center" Name="labelProject" VerticalAlignment="Top" />
                                         <Label Content="Proprietary and Confidential "  HorizontalAlignment="Center"  Name="labelProprietary" VerticalAlignment="Top" />
                                         <ListBox Name="LogListBox" ></ListBox>

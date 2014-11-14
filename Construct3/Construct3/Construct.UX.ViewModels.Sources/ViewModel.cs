@@ -261,7 +261,7 @@ namespace Construct.UX.ViewModels.Sources
                 string sensorTypeSourceID = splitDownloadFilename[1];
                 string sensorVersion = splitDownloadFilename[2];
 
-                string unzipFolderPath = Path.Combine(global::Construct.UX.ViewModels.Properties.Settings.Default.SensorInstallerFilesDirectoryPath, sensorName + "." + sensorTypeSourceID, sensorVersion);
+                string unzipFolderPath = Path.Combine(global::Construct.UX.ViewModels.Sources.Properties.Settings.Default.SensorInstallerFilesDirectoryPath, sensorName + "." + sensorTypeSourceID, sensorVersion);
                 Unzip(theUri.AbsolutePath, unzipFolderPath);
 
                 string xmlText = new StreamReader(File.OpenRead(Path.Combine(unzipFolderPath, "construct.xml"))).ReadToEnd();

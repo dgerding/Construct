@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -304,6 +305,9 @@ namespace Construct.UX.WindowsClient
 	            catch (Exception e)
 	            {
 		            MessageBox.Show("An error occurred while logging in.\n\n" + e.Message);
+		            if (Debugger.IsAttached)
+			            throw;
+
 					InvalidateUserIdentityAndSessionInfo();
 	            }
             };

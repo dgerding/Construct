@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" />
+  <xs:import schemaLocation="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Construct.Server.Models.Visualizations" />
+  <xs:element name="AddVisualization">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="visualization" nillable="true" type="q1:Visualization" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddVisualizationResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDataTypes">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllDataTypesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllDataTypesResult" nillable="true" type="q2:ArrayOfDataType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllProperties">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="dataType" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllPropertiesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllPropertiesResult" nillable="true" type="q3:ArrayOfPropertyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataType">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q4:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetDataTypeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetDataTypeResult" nillable="true" type="q5:DataType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedVisualizers">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q6:PropertyType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedVisualizersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedVisualizersResult" nillable="true" type="q7:ArrayOfVisualizer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedSources">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q8:DataType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedSourcesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedSourcesResult" nillable="true" type="q9:ArrayOfSource" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllVisualizations">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllVisualizationsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllVisualizationsResult" nillable="true" type="q10:ArrayOfVisualization" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedVisualizer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q11:Visualization" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedVisualizerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedVisualizerResult" nillable="true" type="q12:Visualizer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllLabels">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllLabelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllLabelsResult" nillable="true" type="q13:ArrayOfLabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedLabels">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="itemID" type="q14:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAssociatedLabelsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedLabelsResult" nillable="true" type="q15:ArrayOfLabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTaxonomies">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTaxonomiesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllTaxonomiesResult" nillable="true" type="q16:ArrayOfTaxonomy" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTaxonomyLables">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllTaxonomyLablesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllTaxonomyLablesResult" nillable="true" type="q17:ArrayOfTaxonomyLabel" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PersistLabeledItem">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Construct.Server.Models.Visualizations" minOccurs="0" name="adapter" nillable="true" type="q18:LabeledItemAdapter" />
+        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="sourceID" type="q19:guid" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="PersistLabeledItemResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddVisualizationsCallbackReceived">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddVisualizationsCallbackReceivedResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

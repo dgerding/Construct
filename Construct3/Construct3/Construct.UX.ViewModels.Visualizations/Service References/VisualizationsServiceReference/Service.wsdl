@@ -1220,7 +1220,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.pipe://localhost/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>tyler.kendrick@iam.local</Upn>
+          <Upn>TYLER-DESKTOP\Tyler</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1229,7 +1229,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>tyler.kendrick@iam.local</Upn>
+          <Upn>TYLER-DESKTOP\Tyler</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

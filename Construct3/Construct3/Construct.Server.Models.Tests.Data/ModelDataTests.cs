@@ -161,18 +161,6 @@ namespace Construct.Server.Models.Tests.Data
         }
 
         [TestMethod]
-        public void DeserializeItem()
-        {
-            AddTypeLogic(testItemDefinitionXml);
-            dynamic item = DeserializeItemLogic();
-
-            Assert.IsNotNull(item);
-            //Assert member wise stuff matches up
-
-            Clean();
-        }
-
-        [TestMethod]
         public void PersistJsonItem()
         {   
             AddTypeLogic(testItemDefinitionXml);
@@ -210,14 +198,7 @@ namespace Construct.Server.Models.Tests.Data
             Clean();
         }
 
-       
-
-        private dynamic DeserializeItemLogic()
-        {
-            Guid itemID = Guid.NewGuid();
-            dynamic item = assistant.GetItem(testItemXml, itemID);
-            return item;
-        }
+      
 
         private void PersistItemLogic(ConstructSerializationAssistant assistant)
         {
