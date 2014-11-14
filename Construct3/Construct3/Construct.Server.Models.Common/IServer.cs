@@ -7,7 +7,6 @@ namespace Construct.Server.Models
     {
         bool IsRunning { get; }
         MessageBrokering.Broker Broker { get; }
-        Action<Models.IModel, dynamic> OnPersist { get; }
 
         void Start();
         void Stop();

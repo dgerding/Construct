@@ -35,8 +35,6 @@ namespace Construct.Server.Models
 
         public bool IsRunning { get; private set; }
 
-        public Action<Models.IModel, dynamic> OnPersist { get; private set; }
-
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private bool isDataServiceReady = false;

@@ -117,8 +117,6 @@ namespace Construct.Server.Models.Data
 		public delegate void SqlTrafficChangeHandler(int itemsInQueue);
 		public SqlTrafficChangeHandler OnSqlTrafficChange;
 
-		public event Action<dynamic> OnPersist;
-
 		public SqlItemPersistor(ConstructSerializationAssistant assistant, String connectionString, uint batchSize)
 		{
 			m_ConnectionString = connectionString;
@@ -244,17 +242,11 @@ namespace Construct.Server.Models.Data
 			Guid itemID = Guid.NewGuid();
 
 			Entities.Item header = m_Assistant.GetItemHeader(itemJson, itemID);
-			dynamic item = m_Assistant.GetItem(itemJson, itemID);
-
 			try
 			{
 				model.Add(header);
 
 				m_Assistant.Persist(itemJson, itemID);
-				if (OnPersist != null)
-				{
-					OnPersist(item);
-				}
 			}
 			catch (Exception ex)
 			{
@@ -389,17 +381,11 @@ namespace Construct.Server.Models.Data
 		bool m_IsWaitingForTrafficDrop = false;
 		object m_StateMutex = new Object();
 
-		public Action<dynamic> OnSqlPersist;
-
 		//	Note: The hooking between SwitchingItemPersistor and Construct.Server.Models.Data.Model is hacky.
 		public SwitchingItemPersistor(ConstructSerializationAssistant assistant, String sqlConnectionString, String diskBufferFolder)
 		{
 			m_SqlItemPersistor = new SqlItemPersistor(assistant, sqlConnectionString, ItemBatchSize);
 			m_SqlItemPersistor.OnSqlTrafficChange += OnTrafficVolumeChange;
-			m_SqlItemPersistor.OnPersist += delegate(dynamic data) {
-				if (this.OnSqlPersist != null)
-					this.OnSqlPersist(data);
-			};
 
 			m_DiskItemPersistor = new DiskItemPersistor(diskBufferFolder, ItemBatchSize);
 

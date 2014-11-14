@@ -39,28 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>..\key.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.SqlServer.Types, Version=10.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.4\lib\net40\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
-    </Reference>
-    <Reference Include="SignalR">
-      <HintPath>..\packages\SignalR.Server.0.5.2\lib\net40\SignalR.dll</HintPath>
-    </Reference>
-    <Reference Include="SignalR.Hosting.Common">
-      <HintPath>..\packages\SignalR.Hosting.Common.0.5.2\lib\net40\SignalR.Hosting.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="SignalR.Hosting.Self">
-      <HintPath>..\packages\SignalR.Hosting.Self.0.5.2\lib\net40\SignalR.Hosting.Self.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -95,42 +83,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGeneration\Assembly.cs" />
-    <Compile Include="CodeGeneration\AssemblyEnhancer.cs" />
-    <Compile Include="CodeGeneration\ChildNode.cs" />
-    <Compile Include="CodeGeneration\Class.cs" />
     <Compile Include="CodeGeneration\CommonExtensions.cs" />
     <Compile Include="CodeGeneration\DataTypeCreationInfo.cs" />
     <Compile Include="CodeGeneration\DataTypeCreator.cs" />
     <Compile Include="CodeGeneration\DataTypePropertyConfigurationInfo.cs" />
     <Compile Include="CodeGeneration\DirectoryService.cs" />
-    <Compile Include="CodeGeneration\Field.cs" />
     <Compile Include="CodeGeneration\GenerateStrongNameKeyFile.cs" />
-    <Compile Include="CodeGeneration\IChildNode.cs" />
-    <Compile Include="CodeGeneration\IFluentDefinition.cs" />
-    <Compile Include="CodeGeneration\ILDefinition.cs" />
-    <Compile Include="CodeGeneration\INode.cs" />
-    <Compile Include="CodeGeneration\IScopedNode.cs" />
-    <Compile Include="CodeGeneration\ITypedNamedNode.cs" />
-    <Compile Include="CodeGeneration\ITypedNode.cs" />
-    <Compile Include="CodeGeneration\Method.cs" />
-    <Compile Include="CodeGeneration\Namespace.cs" />
-    <Compile Include="CodeGeneration\Node.cs" />
-    <Compile Include="CodeGeneration\Property.cs" />
-    <Compile Include="CodeGeneration\Reference.cs" />
-    <Compile Include="CodeGeneration\Scope.cs" />
-    <Compile Include="CodeGeneration\ScopedChildNode.cs" />
-    <Compile Include="CodeGeneration\ScopedTypedChildNode.cs" />
-    <Compile Include="CodeGeneration\TypedChildNode.cs" />
-    <Compile Include="CodeGeneration\TypedNode.cs" />
-    <Compile Include="CodeGeneration\TypesAssemblyCreator.cs" />
     <Compile Include="DataStoreConnectionPool.cs" />
     <Compile Include="Datum.cs" />
     <Compile Include="ICallback.cs" />
     <Compile Include="IModel.cs" />
     <Compile Include="ItemAdapter.cs" />
     <Compile Include="ItemPersistor.cs" />
-    <Compile Include="ItemRealtimeStreamer.cs" />
+    <None Include="ItemRealtimeStreamer.cs">
+      <SubType>Code</SubType>
+    </None>
     <Compile Include="LiveCollection.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MsSql\ExecuteMsSqlScript.cs" />

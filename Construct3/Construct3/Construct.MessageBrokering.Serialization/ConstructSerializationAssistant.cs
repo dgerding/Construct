@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,6 @@ namespace Construct.MessageBrokering.Serialization
 			Action<Guid, string, string, StringPropertyValue> stringPersistanceDelegate = null
         )
         {
-            LoadTypes();
             this.boolPropertyValuePersistanceDelegate = boolPersistanceDelegate;
             this.byteArrayPropertyValuePersistanceDelegate = byteArrayPersistanceDelegate;
             this.dateTimePropertyValuePersistanceDelegate = dateTimePersistanceDelegate;
@@ -49,85 +49,13 @@ namespace Construct.MessageBrokering.Serialization
             this.intPropertyValuePersistanceDelegate = intPersistanceDelegate;
             this.singlePropertyValuePersistanceDelegate = singlePersistanceDelegate;
             this.stringPropertyValuePersistanceDelegate = stringPersistanceDelegate;
+
+			PropertyIDTables = new Dictionary<string, Dictionary<string, Guid>>();
+			PropertyTypeTables = new Dictionary<string, Dictionary<string, String>>();
         } 
 
-        private Dictionary<string, Type> itemDataTypes = new Dictionary<string,Type>();
-        public Dictionary<string, Type> ItemDataTypes 
-        {
-            get { return itemDataTypes; }
-            private set  { itemDataTypes = value; }
-        }
-
-        private Dictionary<string, Dictionary<string, PropertyInfo>> propertyTables = new Dictionary<string,Dictionary<string,PropertyInfo>>();
-        public Dictionary<string, Dictionary<string, PropertyInfo>> PropertyTables
-        {
-            get { return propertyTables; }
-            private set { propertyTables = value; }
-        }
-
-        private Dictionary<string, Dictionary<string, FieldInfo>> fieldTables = new Dictionary<string,Dictionary<string,FieldInfo>>();
-        public Dictionary<string, Dictionary<string, FieldInfo>> FieldTables
-        {
-            get { return fieldTables; }
-            private set { fieldTables = value; }
-        }
-
-        private Dictionary<string, Dictionary<string, Guid>> propertyIDTables = new Dictionary<string,Dictionary<string,Guid>>();
-        public Dictionary<string, Dictionary<string, Guid>> PropertyIDTables
-        {
-            get { return propertyIDTables; }
-            private set { propertyIDTables = value; }
-        }
-
-        private void LoadTypes()
-        {
-            DirectoryInfo assemblyDirInfo = Directory.GetParent(Assembly.GetExecutingAssembly().Location);
-            FileInfo[] generatedTypeFiles = assemblyDirInfo.GetFiles("Construct.Types.*.dll");
-            foreach (FileInfo file in generatedTypeFiles)
-            {
-                Assembly typeAssembly = null;
-                Type[] dynamicTypes = null;
-                try
-                {
-                    typeAssembly = Assembly.LoadFile(file.FullName);
-                    dynamicTypes = typeAssembly.GetExportedTypes();
-                }
-                catch (Exception e)
-                {
-                    throw e;
-                }
-                foreach (Type type in dynamicTypes.Where(type => type.BaseType.Name.Contains("FluentMetadataSource") == false))
-                {
-                    string itemName = type.Name;
-                    if (ItemDataTypes.Keys.Contains(itemName) == false)
-                    {
-						ItemDataTypes.Add(itemName, type);
-                    }
-
-                    if (PropertyTables.Keys.Contains(itemName) == false)
-                    {
-                        PropertyTables.Add(itemName, new Dictionary<string, PropertyInfo>());
-
-                        PropertyInfo[] props = type.GetProperties();
-                        foreach (PropertyInfo propInfo in props)
-                        {
-                            PropertyTables[itemName].Add(propInfo.Name, propInfo);
-                        }
-                    }
-
-                    if (FieldTables.Keys.Contains(itemName) == false)
-                    {
-                        FieldTables.Add(itemName, new Dictionary<string, FieldInfo>());
-
-                        FieldInfo[] fields = type.GetFields();
-                        foreach (FieldInfo fieldInfo in fields)
-                        {
-                            FieldTables[itemName].Add(fieldInfo.Name, fieldInfo);
-                        }
-                    }
-                }
-            }
-        }
+		public Dictionary<string, Dictionary<string, Guid>> PropertyIDTables { get; private set; }
+		public Dictionary<String, Dictionary<String, String>> PropertyTypeTables { get; private set; }
 
         public void AddPropertyIDTable(string newDataType, Dictionary<string, Guid> newPropertyIDTable)
         {
@@ -136,6 +64,12 @@ namespace Construct.MessageBrokering.Serialization
                 PropertyIDTables.Add(newDataType, newPropertyIDTable);
             }
         }
+
+	    public void AddPropertyTypeTable(String newDataType, Dictionary<String, String> newPropertyTypeTable)
+	    {
+		    if (!PropertyTypeTables.ContainsKey(newDataType))
+				PropertyTypeTables.Add(newDataType, newPropertyTypeTable);
+	    }
 
         public void Persist(string json, Guid itemID)
         {
@@ -162,55 +96,46 @@ namespace Construct.MessageBrokering.Serialization
             var itemPayloadTokens = jObject["Instance"]["Payload"];
             RecurseItemStructure(itemPayloadTokens, itemName, propertyKeyValuePairs);
 
-            if (ItemDataTypes.ContainsKey(itemName) == false ||
-                PropertyTables.ContainsKey(itemName) == false ||
-                FieldTables.ContainsKey(itemName) == false)
-            {
-                LoadTypes();
-            }
-
             Guid itemID = theItemID;
             foreach (string key in propertyKeyValuePairs.Keys)
             {
                 string typeName = null;
 
-                if (PropertyTables[itemName].ContainsKey(key))
-                {
-                    typeName = PropertyTables[itemName][key].PropertyType.Name;
-                }
-                else if (FieldTables[itemName].ContainsKey(key))
-                {
-                    typeName = FieldTables[itemName][key].FieldType.Name;
-                }
-                else
-                {
-                    typeName = String.Empty;
-                }
+	            if (PropertyTypeTables[itemName].ContainsKey(key))
+		            typeName = PropertyTypeTables[itemName][key];
+	            else
+		            typeName = String.Empty;
 
                 switch (typeName)
                 {
                     // mirror this for other types below
+					case "bool":
                     case "Boolean":
                         PersistBooleanPropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
+					case "byte[]":
                     case "Byte[]":
                         PersistByteArrayPropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
                     case "DateTime":
                         PersistDateTimePropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
+					case "double":
                     case "Double":
                         PersistDoublePropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
                     case "Guid":
                         PersistGuidPropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
+					case "int":
                     case "Int32":
                         PersistIntPropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
+					case "float":
                     case "Single":
                         PersistSinglePropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
+					case "string":
                     case "String":
                         PersistStringPropertyValue(itemName, propertyKeyValuePairs, itemInstanceTokens, sourceID, PropertyIDTables[itemName][key], itemID, key);
                         break;
@@ -445,85 +370,6 @@ namespace Construct.MessageBrokering.Serialization
             }
         }
 
-        public dynamic GetItem(string json, Guid itemID)
-        {
-            object jsonContainer = JsonConvert.DeserializeObject(json);
-            string itemName = (jsonContainer as JObject)["Instance"]["DataName"].Value<string>();
-            return GetItem(jsonContainer as JObject, itemName, itemID);
-        }
-
-        private dynamic GetItem(JObject jObject, string itemName, Guid itemID)
-        {
-            Dictionary<string, object> propertyKeyValuePairs = new Dictionary<string, object>();
-
-            JEnumerable<JToken> payloadTypeTokens = jObject["PayloadTypes"].Children();
-			
-            if (payloadTypesDictionaries.Keys.Contains(itemName) == false)
-            {
-                payloadTypesDictionaries.Add(itemName, new Dictionary<string, string>());
-                AddPayloadTypesFromJson(payloadTypeTokens, itemName);
-            }
-
-            JToken itemPayloadTokens = jObject["Instance"]["Payload"];
-            RecurseItemStructure(itemPayloadTokens, itemName, propertyKeyValuePairs);
-
-            if (ItemDataTypes.Keys.Contains(itemName) == false)
-            {
-                LoadTypes();
-            }
-            dynamic newItem = Activator.CreateInstance(ItemDataTypes[itemName]);
-            newItem.ItemID = itemID;
-
-            foreach (string key in propertyKeyValuePairs.Keys)
-            {
-                if (propertyKeyValuePairs[key] as String == "DBNull")
-                {
-                    try
-                    {
-                        propertyTables[itemName][key].SetValue(newItem, Activator.CreateInstance(propertyTables[itemName][key].PropertyType), null);
-                    }
-                    catch (KeyNotFoundException propNotFound)
-                    {
-                        //TODO: we should fucking do something here
-                        try
-                        {
-                            fieldTables[itemName][key].SetValue(newItem, Activator.CreateInstance(fieldTables[itemName][key].FieldType));
-                        }
-                        catch (KeyNotFoundException fieldNotFound)
-                        {
-                            //TODO: we should fucking do something here
-                        }
-                    }
-
-                }
-                else if (propertyTables[itemName].Keys.Contains(key))
-                {
-                    propertyTables[itemName][key].SetValue(newItem, propertyKeyValuePairs[key], null);
-                }
-                else if (fieldTables[itemName].Keys.Contains(key))
-                {
-                    fieldTables[itemName][key].SetValue(newItem, propertyKeyValuePairs[key]);
-                }
-                else if (propertyTables[itemName].Keys.Count == 3 && key == "Payload")
-                {
-                    PropertyInfo prop = propertyTables[itemName].Where(p => p.Key != "ItemID").Where(p => p.Key != "RecordCreationDate").Single().Value;
-                    prop.SetValue(newItem, propertyKeyValuePairs[key], null);
-                }
-                else if (fieldTables[itemName].Keys.Count == 3 && key == "Payload")
-                {
-                    FieldInfo field = fieldTables[itemName].Where(p => p.Key != "ItemID").Where(p => p.Key != "RecordCreationDate").Single().Value;
-                    field.SetValue(newItem, propertyKeyValuePairs[key]);
-                }
-                else
-                {
-                    throw new ApplicationException(String.Format("Could not find {0} as a field or property in tables of known members", key));
-                }
-            }
-
-            newItem.RecordCreationDate = DateTime.Now;
-            return newItem;
-        }
-
         private void RecurseItemStructure(JToken tokens, string itemName, Dictionary<string, object> propertyKeyValuePairs)
         {
             if (tokens is JValue)
@@ -532,16 +378,10 @@ namespace Construct.MessageBrokering.Serialization
                 string name = ((JProperty)tokens.Parent).Name;
                 if (name == "Payload")
                 {
-                    string pairKey = null;
-                    if (propertyTables[itemName].Count == 3)
-                    {
-                        pairKey = propertyTables[itemName].Where(p => p.Key != "ItemID").Where(p => p.Key != "RecordCreationDate").Single().Value.Name;
-                    }
-                    else if(fieldTables[itemName].Count == 3)
-                    {
-                        pairKey = fieldTables[itemName].Where(p => p.Key != "ItemID").Where(p => p.Key != "RecordCreationDate").Single().Value.Name;
-                    }
-                    propertyKeyValuePairs.Add(pairKey.Substring(0, 1).ToUpper() + pairKey.Substring(1, pairKey.Length - 1), valueToSet);
+					//	Not sure why this logic is like this?
+
+					string pairKey = PropertyIDTables[itemName].Single().Key;
+					propertyKeyValuePairs.Add(pairKey.Substring(0, 1).ToUpper() + pairKey.Substring(1, pairKey.Length - 1), valueToSet);
                 }
                 else
                 {
@@ -605,7 +445,7 @@ namespace Construct.MessageBrokering.Serialization
         private object GetTypedObjectFromToken(JToken token, string itemName)
         {
             JToken tokenParent = token.Parent;
-            switch (payloadTypesDictionaries[itemName][((JProperty)tokenParent).Name])
+			switch (payloadTypesDictionaries[itemName][((JProperty)tokenParent).Name])
             {
                 case "Byte[]":
                     return Convert.FromBase64String(tokenParent.First.Value<string>());

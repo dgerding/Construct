@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
 using Construct.Server.Entities;
+using NLog;
 
 namespace Construct.Server.Models.Data.CodeGeneration
 {
@@ -66,7 +67,7 @@ namespace Construct.Server.Models.Data.CodeGeneration
         }
 
         //TODO: Rename to CreateDataType
-        public Assembly CreateConstructType(DataTypeCreationInfo dataTypeInfo)
+        public bool CreateConstructType(DataTypeCreationInfo dataTypeInfo)
         {
             if (this.IsValidDataType(dataTypeInfo))
             {
@@ -125,12 +126,10 @@ namespace Construct.Server.Models.Data.CodeGeneration
 
                 //AddItemHeaderProperties(dataType);
 
-                //TODO: Do we want to enforce assembly generation concurrent 
-                TypesAssemblyCreator factory = new TypesAssemblyCreator(context);
-
-                return factory.ReturnTypeAssembly(dataType, queuedPropertyTypes);
+	            return true;
             }
-            return null;
+
+	        return false;
         }
 
         public void AddPropertyValuePersistenceSupport(string dataTypeName, PropertyType propertyType)
@@ -247,7 +246,7 @@ namespace Construct.Server.Models.Data.CodeGeneration
             }
         }
 
-        public IEnumerable<Assembly> ImportSensorDataTypeSource(string theXml)
+        public void ImportSensorDataTypeSource(string theXml)
         {
             XDocument document = XDocument.Parse(theXml);
             string executingDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -265,21 +264,19 @@ namespace Construct.Server.Models.Data.CodeGeneration
                     foreach (XElement dataTypeNode in document.Root.Nodes())
                     {
                         DataTypeCreationInfo dataTypeCreationInfo = GetDataTypeInfoFromXElement(queuedSensorTypeSource, dataTypeNode);
-                        Assembly dataTypeAssembly = CreateConstructType(dataTypeCreationInfo);
-                        addedAssemblies.Add(dataTypeAssembly);
+	                    if (!CreateConstructType(dataTypeCreationInfo))
+	                    {
+		                    // ...
+	                    }
                     }
 
                     CommitQueuedDataType();
-
-                    return addedAssemblies;
                 }
                 else
                 {
                     queuedSensorTypeSource = null;
-                    return new List<Assembly>();
                 }
             }
-            return new List<Assembly>();
         }
 
         public void CommitQueuedDataType()

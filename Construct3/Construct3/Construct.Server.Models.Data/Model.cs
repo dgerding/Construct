@@ -36,7 +36,6 @@ namespace Construct.Server.Models.Data
         private string connectionString = null;
         private Uri serverServiceUri = null;
         private MetadataSource source = null;
-        private ObservableCollection<Assembly> persistantTypes = new ObservableCollection<Assembly>();
         private ConstructSerializationAssistant assistant;
 
         private List<int> assignedPorts = new List<int>();
@@ -44,8 +43,6 @@ namespace Construct.Server.Models.Data
         private int thisPortBase = 0;
 
         private Dictionary<Guid, ReadOnlyCollection<Uri>> propertyValueServiceEndpoints;
-
-        private event Action<Models.IModel, dynamic> OnPersist;
 
         private DataStoreConnectionPool connectionPool;
         private SwitchingItemPersistor itemPersistor;
@@ -131,7 +128,6 @@ namespace Construct.Server.Models.Data
                     if (isDatabaseReachable && isDatabaseSchemaCurrent)
                     { 
                         this.serverServiceUri = serverServiceUri;
-                        this.OnPersist += server.OnPersist;
 
                         thisPortBase = serverServiceUri.Port + (int)UriUtility.ServicePortOffsets.Data;
                         propertyValueServiceEndpoints = new System.Collections.Generic.Dictionary<Guid, ReadOnlyCollection<Uri>>();
@@ -139,13 +135,11 @@ namespace Construct.Server.Models.Data
                         broker = server.Broker;
                         broker.OnItemReceived += HandleItem;
                         Name = "Data";
-
-                        persistantTypes.CollectionChanged += PersistantTypesCollectionChanged;
             
-                        TypesAssemblyCreator assemblyCreator = new TypesAssemblyCreator(entitiesModel);
-						var dataTypeList = entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false).ToList();
-						foreach (var dataType in dataTypeList)
-							assemblyCreator.ReturnTypeAssembly(dataType);
+                        //TypesAssemblyCreator assemblyCreator = new TypesAssemblyCreator(entitiesModel);
+						//var dataTypeList = entitiesModel.DataTypes.Where(dt => dt.IsCoreType == false).ToList();
+						//foreach (var dataType in dataTypeList)
+						//	assemblyCreator.ReturnTypeAssembly(dataType);
 
 						//Parallel.ForEach(dataTypeList, (dataType) => assemblyCreator.ReturnTypeAssembly(dataType));
 
@@ -157,11 +151,6 @@ namespace Construct.Server.Models.Data
 
                         connectionPool = new DataStoreConnectionPool(connectionString);
                         itemPersistor = new SwitchingItemPersistor(assistant, connectionString, "ItemsCache");
-                        itemPersistor.OnSqlPersist += delegate(dynamic data)
-                        {
-                            if (this.OnPersist != null)
-                                this.OnPersist(this, data);
-                        };
                     }
                 }
             }
@@ -201,16 +190,19 @@ namespace Construct.Server.Models.Data
 
         private void AddPropertyIDHelper(DataType dataType)
         {
-            var tempDict = new Dictionary<string, Guid>();
+            var propertyIds = new Dictionary<string, Guid>();
+	        var propertyTypes = new Dictionary<String, String>();
             foreach (PropertyParent prop in dataType.PropertyParents)
             {
                 string capitalizedPropName = String.Format("{0}{1}", prop.Name.Substring(0, 1).ToUpper(), prop.Name.Substring(1, prop.Name.Length - 1));
-                tempDict.Add(capitalizedPropName, prop.ID);
+                propertyIds.Add(capitalizedPropName, prop.ID);
+				propertyTypes.Add(capitalizedPropName, (prop as PropertyType).DataType.Name);
             }
-            if (tempDict.Count != 0)
-            {
-                assistant.AddPropertyIDTable(dataType.Name, tempDict);
-            }
+
+            if (propertyIds.Count > 0)
+                assistant.AddPropertyIDTable(dataType.Name, propertyIds);
+			if (propertyTypes.Count > 0)
+				assistant.AddPropertyTypeTable(dataType.Name, propertyTypes);
         }
 
         private SourcesDataSummary GenerateSourcesDataSummary(Guid[] sourceIds)
@@ -337,31 +329,6 @@ namespace Construct.Server.Models.Data
             return PropertyServiceManager.GetUris(serverServiceUri, dataType, propertyType, connectionString);
         }
 
-        private void PersistantTypesCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                foreach (Assembly assembly in e.NewItems)
-                {
-                    IEnumerable<MetadataSource> sources = FluentMetadataSource.FromAssembly(assembly);
-                    foreach (MetadataSource target in sources)
-                    {
-                        if (source == null)
-                        {
-                            source = target;
-                        }
-                        else
-                        {
-                            string temp = Assembly.GetExecutingAssembly().Location;
-                            MetadataContainer temp1 = source.GetModel();
-                            MetadataContainer temp2 = target.GetModel();
-                            source = new AggregateMetadataSource(source.GetModel(), target.GetModel());
-                        }
-                    }
-                }
-            }
-        }
-
         private int m_CacheSize = 8;
         private List<Entities.EntitiesModel> m_ModelsCache = new List<EntitiesModel>();
         private int m_CurrentModelIndex = 0;
@@ -434,34 +401,12 @@ namespace Construct.Server.Models.Data
             return true;
         }
 
-        private Type GetType(Entities.DataType dataType)
-        {
-            Assembly assembly = null;
-            Entities.DataType theDataType = null;
-            object result = null;
-
-            using (Entities.EntitiesModel model = GetNewModel())
-            {
-                TypesAssemblyCreator creator = new TypesAssemblyCreator(model);
-                theDataType = dataType;
-                assembly = creator.ReturnTypeAssembly(theDataType);
-                if (persistantTypes.Contains(assembly) == false)
-                {
-                    persistantTypes.Add(assembly);
-                }
-            }
-
-            result = assembly.CreateInstance(String.Format("Construct.Types.{0}", theDataType.Name.Replace(' ', '_')));
-
-            return result.GetType();
-        }
-
         public bool AddType(string xml)
         {
             using (Entities.EntitiesModel model = GetNewModel())
             {
-                DataTypeCreator creator = new DataTypeCreator(model, connectionString);
-                List<Assembly> assemblies = (List<Assembly>)creator.ImportSensorDataTypeSource(xml);
+				DataTypeCreator creator = new DataTypeCreator(model, connectionString);
+				creator.ImportSensorDataTypeSource(xml);
 
                 XDocument document = XDocument.Parse(xml);
                 foreach (XElement node in document.Root.Nodes())
@@ -475,15 +420,6 @@ namespace Construct.Server.Models.Data
                         propertyTypes.Add(propType);
                     }
                     AddAggregationTypes(propertyTypes);
-                }
-                
-                foreach (Assembly assembly in assemblies)
-                {
-                    persistantTypes.Add(assembly);
-                }
-                if (assemblies.Count == 0)
-                {
-                    return false;
                 }
             }
             return true;
@@ -557,9 +493,6 @@ namespace Construct.Server.Models.Data
                     return false;
                 }
 
-                Type newType = GetType(dataType);
-                Assembly assembly = newType.Assembly;
-                persistantTypes.Add(assembly);
                 return true;
             }
         }
@@ -688,108 +621,6 @@ namespace Construct.Server.Models.Data
                 }
             }
             return result;
-        }
-
-        private readonly Dictionary<Entities.DataType, Assembly> collectionTypeAssemblies = new Dictionary<Entities.DataType, Assembly>();
-        private readonly string assembliesDirectory = "C:\\Construct\\Assemblies";
-
-        private IEnumerable GetLiveCollection(Entities.DataType dataType)
-        {
-            Assembly assembly = null;
-            string dataTypeName = dataType.Name;
-            string nameSpace = "Construct.Collections";
-            string className = dataTypeName + "ObservableCollection";
-            string fullName = String.Format("{0}.{1}", nameSpace, className);
-
-            if (collectionTypeAssemblies.Keys.Contains(dataType) == false)
-            {
-                CodeDefinition.AssemblyDefinition assemblyDefinition = CodeDefinition.Create;
-                assemblyDefinition
-                                  .SetName(fullName)
-                                  .SetDirectory(assembliesDirectory)
-                                  .ReferencedAssembly
-                                  .SetPath(assembliesDirectory)
-                                  .SetName("Construct.Types." + dataTypeName)
-                                  .SetNamespace("Construct.Types")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetPath(assembliesDirectory)
-                                  .SetName("Construct.Server.Models.Data")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetPath(assembliesDirectory)
-                                  .SetName("Telerik.OpenAccess")
-                                  .SetNamespace("Telerik.OpenAccess")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetPath(assembliesDirectory)
-                                  .SetName("Telerik.OpenAccess.35.Extensions")
-                                  .SetNamespace(null)
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetName("System.Xaml")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetName("System.Data")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetName("System.Core")
-                                  .SetNamespace(null)
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetNamespace("System.Linq")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetNamespace("System.Collections")
-                                  .Parent
-                                  .ReferencedAssembly
-                                  .SetNamespace("System.Collections.Generic")
-                                  .Parent
-                                  .Namespace
-                                  .SetName(nameSpace)
-                                  .Class
-                                  .SetName(className)
-                                  .SetScope(CodeDefinition.Scope.Public)
-                                  .Field
-                                  .SetType(String.Format("LiveCollection<{0}>", dataTypeName))
-                                  .SetName("liveCollection")
-                                  .SetInitialValue(String.Format("new LiveCollection<{0}>()", dataTypeName))
-                                  .Parent
-                                  .Property
-                                  .SetScope(CodeDefinition.Scope.Public)
-                                  .SetType(String.Format("LiveCollection<{0}>", dataTypeName))
-                                  .SetName("LiveCollection")
-                                  .SetGetter("return liveCollection;")
-                ;
-
-                assembly = assemblyDefinition.Compile();
-                collectionTypeAssemblies.Add(dataType, assembly);
-            }
-            else
-            {
-                assembly = collectionTypeAssemblies[dataType];
-            }
-            dynamic result = null;
-            try
-            {
-                result = assembly.CreateInstance(fullName);
-            }
-            catch (FileNotFoundException exception)
-            {
-                Debug.WriteLine(exception.Message);
-                throw exception;
-            }
-            catch (TargetInvocationException exception)
-            {
-                Debug.WriteLine(exception.Message);
-                throw exception;
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            dynamic resultRepository = result.Repository;
-            return resultRepository;
         }
 
         public void Add(Datum datum)
