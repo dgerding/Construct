@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference;
+using Microsoft.AspNet.SignalR.Client;
+
+namespace Construct.UX.Views.Visualizations
+{
+	//	Intended to connect only to Construct-hosted SigR hub
+	class SignalRStreamDataSource : IStreamDataSource
+	{
+		public event Action<String, String, object> OnData;
+
+		public String SourceHostName { get; private set; }
+		public String DataUri { get; private set; }
+
+		private HubConnection hubConnection;
+
+		public SignalRStreamDataSource(String dataHostname)
+		{
+			SourceHostName = dataHostname;
+			DataUri = "http://" + SourceHostName + ":15999/00000000-0000-0000-0000-000000000000/Data";
+
+			hubConnection = new HubConnection(DataUri);
+			IHubProxy dataProxy = hubConnection.CreateHubProxy("ItemStreamHub");
+			dataProxy.On<string, string, double>("newData", DispatchData);
+		}
+
+		public void Start()
+		{
+			hubConnection.Start();
+		}
+
+		public void Stop()
+		{
+			hubConnection.Stop();
+		}
+
+		private void DispatchData(String propertyName, String sourceName, double data)
+		{
+			
+		}
+	}
+}

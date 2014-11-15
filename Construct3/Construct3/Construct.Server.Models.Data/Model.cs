@@ -46,6 +46,7 @@ namespace Construct.Server.Models.Data
 
         private DataStoreConnectionPool connectionPool;
         private SwitchingItemPersistor itemPersistor;
+	    private ItemRealtimeStreamer itemStreamer;
 
         private bool isDatabaseReachable = false;
 
@@ -146,11 +147,13 @@ namespace Construct.Server.Models.Data
                         InitializeSerializationAssistant();
 
                         InitializePropertyValueServicesAndBuildEndpointDictionary();
-
+						
                         InitializeModelCache();
 
                         connectionPool = new DataStoreConnectionPool(connectionString);
                         itemPersistor = new SwitchingItemPersistor(assistant, connectionString, "ItemsCache");
+						//	SigR port on 15999
+						itemStreamer = new ItemRealtimeStreamer("http://*:15999/00000000-0000-0000-0000-000000000000/Data/");
                     }
                 }
             }

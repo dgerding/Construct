@@ -4,38 +4,37 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using SignalR.Hubs;
+using System.Threading.Tasks;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+using Microsoft.Owin.Hosting;
+using Owin;
 
 namespace Construct.Server.Models.Data
 {
 	[HubName("ItemStreamHub")]
-	public class ItemRealtimeStreamer : IDisposable
+	public class ItemRealtimeStreamer : Hub, IDisposable
 	{
 		private Thread dataStreamThread;
-		private SignalR.Hosting.Self.Server signalrServer;
 		private bool isRunning = false;
 
 		public ItemRealtimeStreamer(String streamUri)
 		{
-			signalrServer = new SignalR.Hosting.Self.Server(streamUri);
-			signalrServer.MapHubs();
-			signalrServer.Start();
+			WebApp.Start(streamUri);
 
+			isRunning = true;
 			dataStreamThread = new Thread(() => DataStreamThread(this));
 			dataStreamThread.Start();
+		}
+
+		public override Task OnConnected()
+		{
+			return base.OnConnected();
 		}
 
 		public void Dispose()
 		{
 
-
-			try
-			{
-				signalrServer.Stop();
-			}
-			catch (Exception e) { }
-
-			signalrServer = null;
 		}
 
 		public void ProcessItemPayload(String jsonPayload)
@@ -50,9 +49,12 @@ namespace Construct.Server.Models.Data
 
 		private static void DataStreamThread(ItemRealtimeStreamer streamer)
 		{
+			Random random = new Random();
+			var hubContext = GlobalHost.ConnectionManager.GetHubContext<ItemRealtimeStreamer>();
 			while (streamer.isRunning)
 			{
-				Thread.Sleep(1);
+				hubContext.Clients.All.newData("Property Type", "Source ID", random.NextDouble());
+				Thread.Sleep(200);
 			}
 		}
 	}

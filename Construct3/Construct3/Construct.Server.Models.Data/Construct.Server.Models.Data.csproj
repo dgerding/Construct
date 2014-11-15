@@ -59,8 +59,9 @@
     <Reference Include="Microsoft.Owin.Diagnostics">
       <HintPath>..\packages\Microsoft.Owin.Diagnostics.2.0.1\lib\net40\Microsoft.Owin.Diagnostics.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.HttpListener">
-      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.2.0.1\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
+    <Reference Include="Microsoft.Owin.Host.HttpListener, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Host.HttpListener.3.0.0\lib\net45\Microsoft.Owin.Host.HttpListener.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin.Hosting">
       <HintPath>..\packages\Microsoft.Owin.Hosting.2.0.1\lib\net45\Microsoft.Owin.Hosting.dll</HintPath>
@@ -125,9 +126,9 @@
     <Compile Include="IModel.cs" />
     <Compile Include="ItemAdapter.cs" />
     <Compile Include="ItemPersistor.cs" />
-    <None Include="ItemRealtimeStreamer.cs">
+    <Compile Include="ItemRealtimeStreamer.cs">
       <SubType>Code</SubType>
-    </None>
+    </Compile>
     <Compile Include="LiveCollection.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MsSql\ExecuteMsSqlScript.cs" />
@@ -140,6 +141,7 @@
       <DependentUpon>TemplateCodeResources.resx</DependentUpon>
     </Compile>
     <Compile Include="MsSql\TABLENAMETrigger.cs" />
+    <Compile Include="OwinSignalRConfigurator.cs" />
     <Compile Include="PersistenceEventManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MsSql\SqlServerPropertyValuePersistor.cs" />

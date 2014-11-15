@@ -4,12 +4,6 @@
         <name>Microsoft.Owin.Host.HttpListener</name>
     </assembly>
     <members>
-        <member name="T:System.Reflection.AssemblyMetadataAttribute">
-            <summary>
-            Provided as a down-level stub for the 4.5 AssemblyMetaDataAttribute class.
-            All released assemblies should define [AssemblyMetadata("Serviceable", "True")].
-            </summary>
-        </member>
         <member name="T:Microsoft.Owin.Host.HttpListener.RequestProcessing.ExceptionFilterStream">
             <summary>
             This class is used to wrap other streams and convert some exception types.
@@ -46,6 +40,12 @@
             </summary>
             <param name="maxAccepts"></param>
             <param name="maxRequests"></param>
+        </member>
+        <member name="M:Microsoft.Owin.Host.HttpListener.OwinHttpListener.SetRequestQueueLimit(System.Int64)">
+            <summary>
+            Sets the maximum number of requests that will be queued up in Http.Sys.
+            </summary>
+            <param name="limit"></param>
         </member>
         <member name="M:Microsoft.Owin.Host.HttpListener.OwinHttpListener.Start(System.Net.HttpListener,System.Func{System.Collections.Generic.IDictionary{System.String,System.Object},System.Threading.Tasks.Task},System.Collections.Generic.IList{System.Collections.Generic.IDictionary{System.String,System.Object}},System.Collections.Generic.IDictionary{System.String,System.Object},System.Func{System.String,System.Func{System.Diagnostics.TraceEventType,System.Int32,System.Object,System.Exception,System.Func{System.Object,System.Exception,System.String},System.Boolean}})">
             <summary>
@@ -107,24 +107,9 @@
               Looks up a localized string similar to The key &apos;{0}&apos; is already present in the dictionary..
             </summary>
         </member>
-        <member name="P:Microsoft.Owin.Host.HttpListener.Resources.Log_AppDisonnectErrors">
+        <member name="P:Microsoft.Owin.Host.HttpListener.Resources.Exception_ResponseAlreadySent">
             <summary>
-              Looks up a localized string similar to App errors on disconnect notification..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Owin.Host.HttpListener.Resources.Log_RequestProcessingException">
-            <summary>
-              Looks up a localized string similar to Exception during request processing..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Owin.Host.HttpListener.Resources.Log_UnableToSetup">
-            <summary>
-              Looks up a localized string similar to Unable to resolve handles. Disconnect notifications will be ignored..
-            </summary>
-        </member>
-        <member name="P:Microsoft.Owin.Host.HttpListener.Resources.Log_UnexpectedException">
-            <summary>
-              Looks up a localized string similar to Unexpected exception..
+              Looks up a localized string similar to The response headers have already been sent..
             </summary>
         </member>
         <member name="T:Microsoft.Owin.Host.HttpListener.OwinServerFactory">
@@ -145,6 +130,11 @@
             <param name="app">The application entry point.</param>
             <param name="properties">The addresses to listen on.</param>
             <returns>The OwinHttpListener.  Invoke Dispose to shut down.</returns>
+        </member>
+        <member name="T:Microsoft.Owin.Host.HttpListener.WebSockets.Constants">
+            <summary>
+            Standard keys and values for use within the OWIN interfaces
+            </summary>
         </member>
     </members>
 </doc>

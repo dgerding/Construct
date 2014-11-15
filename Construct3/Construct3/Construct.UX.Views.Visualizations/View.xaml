@@ -22,6 +22,8 @@
         <TabControl Grid.Row="0" Grid.Column="0">
             <TabItem Header="Create">
                 <StackPanel>
+					<Button Content="Begin Streaming" Name="StreamButton" Click="StreamButton_Click"></Button>
+					
                     <Label>Name</Label>
                     <TextBox Name="nameTextBox" TextChanged="NameChanged"></TextBox>
                     

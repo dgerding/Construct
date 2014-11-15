@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -121,6 +122,7 @@ namespace Construct.UX.Views.Visualizations
         }
 
         private Uri serverServiceUri = null;
+	    private IStreamDataSource streamDataSource;
 
 
         public View(ApplicationSessionInfo sessionInfo)
@@ -128,6 +130,8 @@ namespace Construct.UX.Views.Visualizations
         {
             InitializeComponent();
             InitializeViewModel(sessionInfo);
+
+			streamDataSource = new SignalRStreamDataSource(sessionInfo.HostName);
 
             this.DataContext = this;
             InitializeMembers();
@@ -343,6 +347,11 @@ namespace Construct.UX.Views.Visualizations
         {
             InitializeMembers();
         }
+
+		private void StreamButton_Click(object sender, RoutedEventArgs e)
+		{
+			streamDataSource.Start();
+		}
 
     }
 }
