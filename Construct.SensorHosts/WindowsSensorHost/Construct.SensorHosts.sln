@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.SensorManagers.WindowsSensorManager", "Construct.SensorHosts.WindowsSensorHost\Construct.SensorManagers.WindowsSensorManager.csproj", "{213DFDBB-84AE-49E0-8016-8E8C89F4D66B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.SensorManagers.SensorManagerBase", "Construct.SensorHosts.SensorHostBase\Construct.SensorManagers.SensorManagerBase.csproj", "{07890C56-23F5-4A72-A37E-830267FECDD6}"
@@ -24,42 +26,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.MessageBrokering"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.MessageBrokering.Tests", "..\..\Construct3\Construct3\Construct.MessageBrokering.Tests\Construct.MessageBrokering.Tests.csproj", "{D04EA2CD-C152-4DFF-BB8D-2F45149AFC72}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D3001C1E-9A5C-4F7C-A1B4-CFD751BD66B9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 9
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://construct1.colum.edu:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Construct.SensorHosts.WindowsSensorHost\\Construct.SensorManagers.WindowsSensorManager.csproj
-		SccProjectName1 = Construct.SensorHosts.WindowsSensorHost
-		SccLocalPath1 = Construct.SensorHosts.WindowsSensorHost
-		SccProjectUniqueName2 = Construct.SensorHosts.WindowsSensorHost.Tests\\Construct.SensorManagers.WindowsSensorManager.Tests.csproj
-		SccProjectName2 = Construct.SensorHosts.WindowsSensorHost.Tests
-		SccLocalPath2 = Construct.SensorHosts.WindowsSensorHost.Tests
-		SccProjectUniqueName3 = Construct.SensorHosts.SensorHostBase\\Construct.SensorManagers.SensorManagerBase.csproj
-		SccProjectName3 = Construct.SensorHosts.SensorHostBase
-		SccLocalPath3 = Construct.SensorHosts.SensorHostBase
-		SccProjectUniqueName4 = ..\\..\\Construct3\\Construct3\\Construct.MessageBrokering\\Construct.MessageBrokering.csproj
-		SccProjectName4 = ../../Construct3/Construct3/Construct.MessageBrokering
-		SccLocalPath4 = ..\\..\\Construct3\\Construct3\\Construct.MessageBrokering
-		SccProjectUniqueName5 = ..\\..\\Construct3\\Construct3\\Construct.MessageBrokering.Tests\\Construct.MessageBrokering.Tests.csproj
-		SccProjectName5 = ../../Construct3/Construct3/Construct.MessageBrokering.Tests
-		SccLocalPath5 = ..\\..\\Construct3\\Construct3\\Construct.MessageBrokering.Tests
-		SccProjectUniqueName6 = Construct.SensorManager.WindowsSensorManager.Install\\Construct.SensorManager.WindowsSensorManager.Install.csproj
-		SccProjectTopLevelParentUniqueName6 = Construct.SensorHosts.sln
-		SccProjectName6 = Construct.SensorManager.WindowsSensorManager.Install
-		SccLocalPath6 = Construct.SensorManager.WindowsSensorManager.Install
-		SccProjectUniqueName7 = Construct.SensorManager.WindowsSensorManager.Uninstall\\Construct.SensorManager.WindowsSensorManager.Uninstall.csproj
-		SccProjectTopLevelParentUniqueName7 = Construct.SensorHosts.sln
-		SccProjectName7 = Construct.SensorManager.WindowsSensorManager.Uninstall
-		SccLocalPath7 = Construct.SensorManager.WindowsSensorManager.Uninstall
-		SccProjectUniqueName8 = WindowsSensorManagerInstaller\\WindowsSensorManagerInstaller.vdproj
-		SccProjectName8 = WindowsSensorManagerInstaller
-		SccLocalPath8 = WindowsSensorManagerInstaller
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Construct.SensorHosts.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -286,6 +260,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{E40A57EB-9C90-4845-9B2A-92D47603E91C} = {77B4C90B-37DD-438F-BB4F-1E27AD675D92}
 		{EDAEC8A7-A621-4ADB-BC37-9AA95CF9517E} = {77B4C90B-37DD-438F-BB4F-1E27AD675D92}
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Construct.SensorHosts.vsmdi
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

@@ -63,8 +63,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Server.Models.Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Server.Entities", "Construct.Server.Entities\Construct.Server.Entities.csproj", "{7F520999-8299-452F-BEBC-78FB6B0C60B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newtonsoft.Json.Net40", "Newtonsoft.Json\Newtonsoft.Json.Net40.csproj", "{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.UX.Views.Helper", "Construct.UX.Views.Helper\Construct.UX.Views.Helper.csproj", "{EA589310-7F76-49D2-89B0-07F93FE1D815}"
 EndProject
 Global
@@ -663,30 +661,6 @@ Global
 		{7F520999-8299-452F-BEBC-78FB6B0C60B3}.ReleaseX64|Mixed Platforms.Build.0 = Release|Any CPU
 		{7F520999-8299-452F-BEBC-78FB6B0C60B3}.ReleaseX64|x64.ActiveCfg = Release|Any CPU
 		{7F520999-8299-452F-BEBC-78FB6B0C60B3}.ReleaseX64|x86.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|x64.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|x86.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x64.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x86.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Any CPU.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Any CPU.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Mixed Platforms.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|x64.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|x86.ActiveCfg = Release|Any CPU
 		{EA589310-7F76-49D2-89B0-07F93FE1D815}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA589310-7F76-49D2-89B0-07F93FE1D815}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA589310-7F76-49D2-89B0-07F93FE1D815}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

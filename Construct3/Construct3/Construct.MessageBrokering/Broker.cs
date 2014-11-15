@@ -244,7 +244,13 @@ namespace Construct.MessageBrokering
         {
             //hack in brokerID string
             theData.BrokerID = this.BrokerID;
+			//	Extra }} (escaped brace) to close the open brace in dataHeader
             string theDataString = String.Format("{0}{1}", dataHeader, PackageObjectAsJson(theData));
+
+			//	Complex (non-primitive) types will be a JSON object rather than a value, which require an extra closing brace
+			//		to be correct JSON. (Otherwise there will be a missing close brace)
+	        if (!theData.Payload.GetType().IsPrimitive)
+		        theDataString += "}";
 
             List<Outbox<Data>> tempPeers = peers.OfType<Outbox<Data>>().ToList();
             foreach (Outbox<Data> outbox in tempPeers)

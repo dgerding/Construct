@@ -22,6 +22,8 @@
     </SccAuxPath>
     <SccProvider>
     </SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -45,6 +47,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="construct.xml">
@@ -71,10 +78,6 @@
     <ProjectReference Include="..\..\..\Construct3\Construct3\Construct.MessageBrokering\Construct.MessageBrokering.csproj">
       <Project>{f47859ff-b24a-492a-995a-f7f124a14099}</Project>
       <Name>Construct.MessageBrokering</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Construct3\Construct3\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
-      <Project>{a9ae40ff-1a21-414a-9fe7-3be13644cc6d}</Project>
-      <Name>Newtonsoft.Json.Net40</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ConstructSensors\WindowsSensors\Construct.Sensors\Construct.Sensors.csproj">
       <Project>{5ddb820f-16bf-48e6-857e-ac60066844bb}</Project>
@@ -90,6 +93,13 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

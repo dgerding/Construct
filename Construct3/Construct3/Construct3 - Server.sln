@@ -120,8 +120,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Server.Models.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Utilities.Tests.Shared", "Construct.Utilities.Tests.Shared\Construct.Utilities.Tests.Shared.csproj", "{50CCE9C5-978C-4E87-ABAB-89D374176746}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newtonsoft.Json.Net40", "Newtonsoft.Json\Newtonsoft.Json.Net40.csproj", "{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Utilities.PortCheck", "PortCheck\Construct.Utilities.PortCheck.csproj", "{16E8CC22-B23D-49CA-8B46-4EE434C596B6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Utilities.PortCheck.Tests", "PortCheck.Tests\Construct.Utilities.PortCheck.Tests.csproj", "{209A0410-F9CB-4E4A-B78D-10350052C1F9}"
@@ -568,16 +566,6 @@ Global
 		{50CCE9C5-978C-4E87-ABAB-89D374176746}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{50CCE9C5-978C-4E87-ABAB-89D374176746}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{50CCE9C5-978C-4E87-ABAB-89D374176746}.Release|x86.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x86.ActiveCfg = Release|Any CPU
 		{16E8CC22-B23D-49CA-8B46-4EE434C596B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{16E8CC22-B23D-49CA-8B46-4EE434C596B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16E8CC22-B23D-49CA-8B46-4EE434C596B6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU

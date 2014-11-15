@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30723.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Sensors.FaceLabSensor", "Construct.Sensors.FaceLabSensor\Construct.Sensors.FaceLabSensor.csproj", "{F8ED59A0-E362-4E73-8446-60F73EE16DAB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Sensors", "Construct.Sensors\Construct.Sensors.csproj", "{5DDB820F-16BF-48E6-857E-AC60066844BB}"
@@ -59,90 +61,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailReader", "EmailReader\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SAPI", "SapiSensor\SAPI.csproj", "{3E151306-4141-4864-BF2D-EA6E3C2F85CF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Newtonsoft.Json.Net40", "..\..\Construct3\Construct3\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj", "{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{CE3E06CA-0D41-448C-A8E8-65121553FFCA}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
 EndProject
 Global
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 25
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://construct1.colum.edu:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = Construct.Sensors.FaceLabSensor\\Construct.Sensors.FaceLabSensor.csproj
-		SccProjectName1 = Construct.Sensors.FaceLabSensor
-		SccLocalPath1 = Construct.Sensors.FaceLabSensor
-		SccProjectUniqueName2 = Construct.Sensors\\Construct.Sensors.csproj
-		SccProjectName2 = Construct.Sensors
-		SccLocalPath2 = Construct.Sensors
-		SccProjectUniqueName3 = UtteranceValenceSensor\\Construct.Sensors.UtteranceValenceSensor.csproj
-		SccProjectName3 = UtteranceValenceSensor
-		SccLocalPath3 = UtteranceValenceSensor
-		SccProjectUniqueName4 = Construct.Sensors.Windows.Speech\\Construct.Sensors.WindowsTranscriptionSensor.csproj
-		SccProjectName4 = Construct.Sensors.Windows.Speech
-		SccLocalPath4 = Construct.Sensors.Windows.Speech
-		SccProjectUniqueName5 = Construct.Sensors.MosbeLoggerSensor\\Construct.Sensors.MosbeLoggerSensor.csproj
-		SccProjectName5 = Construct.Sensors.MosbeLoggerSensor
-		SccLocalPath5 = Construct.Sensors.MosbeLoggerSensor
-		SccProjectUniqueName6 = Construct.Sensors.TestSensor\\Construct.Sensors.TestSensor.csproj
-		SccProjectName6 = Construct.Sensors.TestSensor
-		SccLocalPath6 = Construct.Sensors.TestSensor
-		SccProjectUniqueName7 = Construct.Sensors.TestSensor_Payload\\Construct.Sensors.TestSensorPayload.csproj
-		SccProjectName7 = Construct.Sensors.TestSensor_Payload
-		SccLocalPath7 = Construct.Sensors.TestSensor_Payload
-		SccProjectUniqueName8 = SensorTemplate\\SensorTemplate.csproj
-		SccProjectName8 = SensorTemplate
-		SccLocalPath8 = SensorTemplate
-		SccProjectUniqueName9 = Construct.Sensors.FaceDetectorSensor\\Construct.Sensors.FaceDetectorSensor.csproj
-		SccProjectName9 = Construct.Sensors.FaceDetectorSensor
-		SccLocalPath9 = Construct.Sensors.FaceDetectorSensor
-		SccProjectUniqueName10 = Construct.Sensors._TEMP_UDPWebcamStreamer\\Construct.Sensors._TEMP_UDPWebcamStreamer.csproj
-		SccProjectName10 = Construct.Sensors._TEMP_UDPWebcamStreamer
-		SccLocalPath10 = Construct.Sensors._TEMP_UDPWebcamStreamer
-		SccProjectUniqueName11 = Construct.Sensors.AVStreamSensor\\Construct.Sensors.AVStreamSensor.csproj
-		SccProjectName11 = Construct.Sensors.AVStreamSensor
-		SccLocalPath11 = Construct.Sensors.AVStreamSensor
-		SccProjectUniqueName12 = Utterance\\Utterance.csproj
-		SccProjectName12 = Utterance
-		SccLocalPath12 = Utterance
-		SccProjectUniqueName13 = DragonEnrollment\\DragonEnrollment.csproj
-		SccProjectName13 = DragonEnrollment
-		SccLocalPath13 = DragonEnrollment
-		SccProjectUniqueName14 = DragonTranscription\\DragonTranscription.csproj
-		SccProjectName14 = DragonTranscription
-		SccLocalPath14 = DragonTranscription
-		SccProjectUniqueName15 = FaceLab\\FaceLab.csproj
-		SccProjectName15 = FaceLab
-		SccLocalPath15 = FaceLab
-		SccProjectUniqueName16 = Construct.SensorUtilities\\Construct.SensorUtilities\\Construct.SensorUtilities.csproj
-		SccProjectName16 = Construct.SensorUtilities/Construct.SensorUtilities
-		SccLocalPath16 = Construct.SensorUtilities\\Construct.SensorUtilities
-		SccProjectUniqueName17 = ..\\..\\Construct3\\Construct3\\Construct.MessageBrokering\\Construct.MessageBrokering.csproj
-		SccProjectName17 = ../../Construct3/Construct3/Construct.MessageBrokering
-		SccLocalPath17 = ..\\..\\Construct3\\Construct3\\Construct.MessageBrokering
-		SccProjectUniqueName18 = MSSqlSensor\\MSSqlSensor.csproj
-		SccProjectName18 = MSSqlSensor
-		SccLocalPath18 = MSSqlSensor
-		SccProjectUniqueName19 = MSSqlSensorGENERATOR\\MSSqlSensorGENERATOR.csproj
-		SccProjectName19 = MSSqlSensorGENERATOR
-		SccLocalPath19 = MSSqlSensorGENERATOR
-		SccProjectUniqueName20 = Pretend\\Pretend.csproj
-		SccProjectName20 = Pretend
-		SccLocalPath20 = Pretend
-		SccProjectUniqueName21 = Email\\OldEmail.csproj
-		SccProjectName21 = Email
-		SccLocalPath21 = Email
-		SccProjectUniqueName22 = EmailReader\\EmailReader.csproj
-		SccProjectName22 = EmailReader
-		SccLocalPath22 = EmailReader
-		SccProjectUniqueName23 = SapiSensor\\SAPI.csproj
-		SccProjectName23 = SapiSensor
-		SccLocalPath23 = SapiSensor
-		SccProjectUniqueName24 = ..\\..\\Construct3\\Construct3\\Newtonsoft.Json\\Newtonsoft.Json.Net40.csproj
-		SccProjectName24 = ../../Construct3/Construct3/Newtonsoft.Json
-		SccLocalPath24 = ..\\..\\Construct3\\Construct3\\Newtonsoft.Json
-	EndGlobalSection
-	GlobalSection(TestCaseManagementSettings) = postSolution
-		CategoryFile = Construct.Sensors1.vsmdi
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -766,33 +692,12 @@ Global
 		{3E151306-4141-4864-BF2D-EA6E3C2F85CF}.ReleaseX64|x64.ActiveCfg = Release|x86
 		{3E151306-4141-4864-BF2D-EA6E3C2F85CF}.ReleaseX64|x86.ActiveCfg = Release|x86
 		{3E151306-4141-4864-BF2D-EA6E3C2F85CF}.ReleaseX64|x86.Build.0 = Release|x86
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Any CPU.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|Mixed Platforms.Build.0 = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|x64.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Debug64|x86.ActiveCfg = Debug|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x64.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.Release|x86.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Any CPU.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Any CPU.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|Mixed Platforms.Build.0 = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|x64.ActiveCfg = Release|Any CPU
-		{A9AE40FF-1A21-414A-9FE7-3BE13644CC6D}.ReleaseX64|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = Construct.Sensors1.vsmdi
 	EndGlobalSection
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
 		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}

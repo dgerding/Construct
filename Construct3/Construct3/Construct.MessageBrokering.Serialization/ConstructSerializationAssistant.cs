@@ -378,8 +378,8 @@ namespace Construct.MessageBrokering.Serialization
                 string name = ((JProperty)tokens.Parent).Name;
                 if (name == "Payload")
                 {
-					//	Not sure why this logic is like this?
-
+					//	For when an item consists only of a single property; in which case there isn't a formal structure mapping the
+					//		data onto a property. The assumption will be that the value will map to the data's only property.
 					string pairKey = PropertyIDTables[itemName].Single().Key;
 					propertyKeyValuePairs.Add(pairKey.Substring(0, 1).ToUpper() + pairKey.Substring(1, pairKey.Length - 1), valueToSet);
                 }

@@ -44,6 +44,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NLog, Version=3.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -107,10 +111,6 @@
     <ProjectReference Include="..\Construct.Utilities.Shared\Construct.Utilities.Shared.csproj">
       <Project>{cfa681ff-1e84-45fc-9d1f-c14fda66983b}</Project>
       <Name>Construct.Utilities.Shared</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Newtonsoft.Json\Newtonsoft.Json.Net40.csproj">
-      <Project>{a9ae40ff-1a21-414a-9fe7-3be13644cc6d}</Project>
-      <Name>Newtonsoft.Json.Net40</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
