@@ -153,7 +153,7 @@ namespace Construct.Server.Models.Data
                         connectionPool = new DataStoreConnectionPool(connectionString);
                         itemPersistor = new SwitchingItemPersistor(assistant, connectionString, "ItemsCache");
 						//	SigR port on 15999
-						itemStreamer = new ItemRealtimeStreamer("http://*:15999/00000000-0000-0000-0000-000000000000/Data/");
+						itemStreamer = new ItemRealtimeStreamer("http://*:15999/00000000-0000-0000-0000-000000000000/Data/", assistant);
                     }
                 }
             }
@@ -395,7 +395,7 @@ namespace Construct.Server.Models.Data
         private void HandleItem(object sender, string itemJson)
         {
             itemPersistor.HandleItem(itemJson);
-            //	TODO: Lookup Newtonsoft's decimal value type bug
+            itemStreamer.ProcessItemPayload(itemJson);
         }
 
         public bool SetContext(string connectionString)
