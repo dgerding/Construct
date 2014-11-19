@@ -129,6 +129,7 @@
     <Compile Include="ItemRealtimeStreamer.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ItemRealtimeStreamHub.cs" />
     <Compile Include="LiveCollection.cs" />
     <Compile Include="Model.cs" />
     <Compile Include="MsSql\ExecuteMsSqlScript.cs" />

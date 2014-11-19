@@ -167,6 +167,10 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Construct.MessageBrokering.Serialization\Construct.MessageBrokering.Serialization.csproj">
+      <Project>{c590be2c-e012-42d5-b3fc-a896d7162952}</Project>
+      <Name>Construct.MessageBrokering.Serialization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Construct.Server.Models.Data.PropertyValues\Construct.Server.Models.Data.PropertyValues.csproj">
       <Project>{228B31D3-FFBD-4AE2-AFEC-EB9E3EE43DED}</Project>
       <Name>Construct.Server.Models.Data.PropertyValues</Name>

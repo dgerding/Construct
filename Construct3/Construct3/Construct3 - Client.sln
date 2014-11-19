@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.MessageBrokering", "Construct.MessageBrokering\Construct.MessageBrokering.csproj", "{F47859FF-B24A-492A-995A-F7F124A14099}"
 EndProject
@@ -64,6 +64,13 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.Server.Entities", "Construct.Server.Entities\Construct.Server.Entities.csproj", "{7F520999-8299-452F-BEBC-78FB6B0C60B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.UX.Views.Helper", "Construct.UX.Views.Helper\Construct.UX.Views.Helper.csproj", "{EA589310-7F76-49D2-89B0-07F93FE1D815}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.MessageBrokering.Serialization", "Construct.MessageBrokering.Serialization\Construct.MessageBrokering.Serialization.csproj", "{C590BE2C-E012-42D5-B3FC-A896D7162952}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AA6DFEC-6D77-4309-9554-0D890F432B8C}"
+	ProjectSection(SolutionItems) = preProject
+		Performance1.psess = Performance1.psess
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -685,6 +692,30 @@ Global
 		{EA589310-7F76-49D2-89B0-07F93FE1D815}.ReleaseX64|Mixed Platforms.Build.0 = Release|Any CPU
 		{EA589310-7F76-49D2-89B0-07F93FE1D815}.ReleaseX64|x64.ActiveCfg = Release|Any CPU
 		{EA589310-7F76-49D2-89B0-07F93FE1D815}.ReleaseX64|x86.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug64|Any CPU.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug64|Any CPU.Build.0 = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug64|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug64|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug64|x64.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Debug64|x86.ActiveCfg = Debug|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Release|x64.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.Release|x86.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.ReleaseX64|Any CPU.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.ReleaseX64|Any CPU.Build.0 = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.ReleaseX64|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.ReleaseX64|Mixed Platforms.Build.0 = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.ReleaseX64|x64.ActiveCfg = Release|Any CPU
+		{C590BE2C-E012-42D5-B3FC-A896D7162952}.ReleaseX64|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -715,5 +746,6 @@ Global
 		{C8A93669-A7CE-478A-9BF1-6195A4818F6A} = {076879F2-FD3F-4E8B-99B5-C9F7EAE0105C}
 		{43A5B28D-1522-4D15-9F1A-EC03D0796A45} = {C8A93669-A7CE-478A-9BF1-6195A4818F6A}
 		{EA589310-7F76-49D2-89B0-07F93FE1D815} = {63B91FCC-469E-44BB-9B5F-62F0AB2819BE}
+		{C590BE2C-E012-42D5-B3FC-A896D7162952} = {4F31D43C-32B5-42E7-A792-A38922790062}
 	EndGlobalSection
 EndGlobal

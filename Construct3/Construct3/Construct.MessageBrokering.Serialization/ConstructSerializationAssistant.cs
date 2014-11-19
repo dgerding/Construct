@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SqlTypes;
+using System.Diagnostics;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +72,31 @@ namespace Construct.MessageBrokering.Serialization
 				PropertyTypeTables.Add(newDataType, newPropertyTypeTable);
 	    }
 
+	    public DataItem DeserializeDataItemFromString(String json)
+	    {
+		    var jsonContainer = JsonConvert.DeserializeObject(json) as JObject;
+
+		    DataItem newDataItem = new DataItem();
+		    newDataItem.Name = jsonContainer["Instance"]["DataName"].Value<String>();
+
+			JToken itemInstanceTokens = jsonContainer["Instance"];
+			newDataItem.SourceId = Guid.Parse(itemInstanceTokens["SourceID"].Value<string>());
+			newDataItem.Timestamp = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+
+			if (payloadTypesDictionaries.Keys.Contains(newDataItem.Name) == false)
+			{
+				JEnumerable<JToken> payloadTypeTokens = jsonContainer["PayloadTypes"].Children();
+				payloadTypesDictionaries.Add(newDataItem.Name, new Dictionary<string, string>());
+				AddPayloadTypesFromJson(payloadTypeTokens, newDataItem.Name);
+			}
+
+			var itemPayloadTokens = jsonContainer["Instance"]["Payload"];
+			newDataItem.PropertyValues = new Dictionary<string, object>();
+			RecurseItemStructure(itemPayloadTokens, newDataItem.Name, newDataItem.PropertyValues);
+
+		    return newDataItem;
+	    }
+
         public void Persist(string json, Guid itemID)
         {
             object jsonContainer = JsonConvert.DeserializeObject(json);
@@ -84,7 +110,6 @@ namespace Construct.MessageBrokering.Serialization
 
             JEnumerable<JToken> payloadTypeTokens = jObject["PayloadTypes"].Children();
             JToken itemInstanceTokens = jObject["Instance"];
-            Guid dataTypeSourceID = Guid.Parse(itemInstanceTokens["DataTypeSourceID"].Value<string>());
             Guid sourceID = Guid.Parse(itemInstanceTokens["SourceID"].Value<string>());
 
             if (payloadTypesDictionaries.Keys.Contains(itemName) == false)
