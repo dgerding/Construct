@@ -121,21 +121,21 @@ namespace Construct.Server.Models.Data
 		{
 			pushDataQueue.Enqueue(jsonPayload);
 		}
-		public void AddDataSubscription(object client, Guid sensorId, Guid propertyId)
+		public void AddDataSubscription(object client, Guid sourceId, Guid propertyId)
 		{
 			lock (subscriptionsMutex)
 			{
 				var newSubscriptionsList = new PropertySubscriptionsSet(this.subscriptions);
-				newSubscriptionsList.AddSubscription(sensorId, propertyId, client);
+				newSubscriptionsList.AddSubscription(sourceId, propertyId, client);
 				this.subscriptions = newSubscriptionsList;
 			}
 		}
-		public void RemoveDataSubscription(object client, Guid sensorId, Guid propertyId)
+		public void RemoveDataSubscription(object client, Guid sourceId, Guid propertyId)
 		{
 			lock (subscriptionsMutex)
 			{
 				var newSubscriptionsList = new PropertySubscriptionsSet(this.subscriptions);
-				newSubscriptionsList.RemoveSubscription(sensorId, propertyId, client);
+				newSubscriptionsList.RemoveSubscription(sourceId, propertyId, client);
 				this.subscriptions = newSubscriptionsList;
 			}
 		}

@@ -12,8 +12,7 @@ namespace Construct.UX.Views.Visualizations
 	//	Intended to connect only to Construct-hosted SigR hub
 	class SignalRStreamDataSource : IStreamDataSource, IDisposable
 	{
-		public event Action<String, String, object> OnData;
-
+		public event Action<SimplifiedPropertyValue> OnData;
 		public String SourceHostName { get; private set; }
 		public String DataUri { get; private set; }
 
@@ -30,6 +29,16 @@ namespace Construct.UX.Views.Visualizations
 			dataProxy.On<SimplifiedPropertyValue>("newData", DispatchData);
 		}
 
+		public void AddSubscription(Guid sourceId, Guid propertyId)
+		{
+			dataProxy.Invoke("RequestSubscription", sourceId, propertyId);
+		}
+
+		public void RemoveSubscription(Guid sourceId, Guid propertyId)
+		{
+			dataProxy.Invoke("RemoveSubscription", sourceId, propertyId);
+		}
+
 		public void Dispose()
 		{
 			this.Stop();
@@ -37,9 +46,7 @@ namespace Construct.UX.Views.Visualizations
 		public void Start()
 		{
 			hubConnection.Start().Wait();
-			dataProxy.Invoke("RequestSubscription", Guid.NewGuid(), Guid.NewGuid());
 		}
-
 		public void Stop()
 		{
 			hubConnection.Stop();
@@ -47,7 +54,8 @@ namespace Construct.UX.Views.Visualizations
 
 		private void DispatchData(SimplifiedPropertyValue propertyValue)
 		{
-			
+			if (OnData != null)
+				OnData(propertyValue);
 		}
 	}
 }

@@ -11,14 +11,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="800">
     <Grid>
-        <telerik:RadDocking BorderThickness="0" Padding="0">
-            
-            <telerik:RadDocking.DocumentHost>
-                    <this:TimebarVisualization x:Name="timeBar" InitialPosition="DockedTop" MinHeight="360"/>
-            </telerik:RadDocking.DocumentHost>
-            
-            <this:RadChartVisualization x:Name="detailsView" Orientation="Vertical" InitialPosition="DockedBottom" MinHeight="360"
-                                            DataContext="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=this:VisualizationWindow, AncestorLevel=1}}"/>
+		<telerik:RadDocking BorderThickness="0" Padding="0">
 
         </telerik:RadDocking>
     </Grid>

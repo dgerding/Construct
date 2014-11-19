@@ -83,6 +83,9 @@
       <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.Navigation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Telerik.Windows.Controls.RibbonView">
+      <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Controls.RibbonView.dll</HintPath>
+    </Reference>
     <Reference Include="Telerik.Windows.Data, Version=2013.2.724.40, Culture=neutral, PublicKeyToken=5803cfa389c90ce7, processorArchitecture=MSIL">
       <HintPath>..\lib\RCWPF\2013.2.724.40\Telerik.Windows.Data.dll</HintPath>
       <Private>True</Private>
@@ -92,37 +95,17 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BooleanVisualizer.cs" />
-    <Compile Include="IntVisualizer.cs" />
+    <Compile Include="DataSubscription.cs" />
     <Compile Include="IStreamDataSource.cs" />
-    <Compile Include="Labeler.xaml.cs">
-      <DependentUpon>Labeler.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="LabelerViewModel.cs" />
-    <Compile Include="RadGridVisualizer.cs" />
+    <Compile Include="SubscriptionLabel.cs" />
+    <Compile Include="SubscriptionTranslator.cs" />
+    <Compile Include="Visualization.cs" />
     <Compile Include="SignalRStreamDataSource.cs" />
     <Compile Include="StreamDataRouter.cs" />
-    <Compile Include="TimebarBooleanVisualizer.cs" />
-    <Compile Include="TimebarIntVisualizer.cs" />
-    <Compile Include="RadChartVisualization.xaml.cs">
-      <DependentUpon>RadChartVisualization.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TimebarVisualization.xaml.cs">
-      <DependentUpon>TimebarVisualization.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TimebarVisualizer.cs" />
+    <Compile Include="DataRoute.cs" />
     <Compile Include="VisualizationWindow.xaml.cs">
       <DependentUpon>VisualizationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Visualizer.cs" />
-    <Page Include="Labeler.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RadChartVisualization.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,10 +114,6 @@
       <DependentUpon>View.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="TimebarVisualization.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="VisualizationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -182,6 +161,10 @@
     <ProjectReference Include="..\Construct.UX.ViewModels\Construct.UX.ViewModels.csproj">
       <Project>{D0BB050A-0F4C-40F9-843C-8AD9BCEE850D}</Project>
       <Name>Construct.UX.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Construct.UX.Views.Helper\Construct.UX.Views.Helper.csproj">
+      <Project>{ea589310-7f76-49d2-89b0-07f93fe1d815}</Project>
+      <Name>Construct.UX.Views.Helper</Name>
     </ProjectReference>
     <ProjectReference Include="..\Construct.UX.Views\Construct.UX.Views.csproj">
       <Project>{331F19C0-0E03-4460-9D8E-32813789B3ED}</Project>

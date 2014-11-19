@@ -32,13 +32,13 @@ namespace Construct.Server.Models.Data
 			return base.OnDisconnected(stopCalled);
 		}
 
-		public void RequestSubscription(Guid propertyId, Guid sourceId)
+		public void RequestSubscription(Guid sourceId, Guid propertyId)
 		{
 			if (OnNewSubscriptionRequest != null)
 				OnNewSubscriptionRequest(Context.ConnectionId, propertyId, sourceId);
 		}
 
-		public void RemoveSubscription(Guid propertyId, Guid sourceId)
+		public void RemoveSubscription(Guid sourceId, Guid propertyId)
 		{
 			if (OnRemoveSubscriptionRequest != null)
 				OnRemoveSubscriptionRequest(Context.ConnectionId, propertyId, sourceId);

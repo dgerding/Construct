@@ -112,5 +112,10 @@ namespace Construct.UX.ViewModels.Visualizations
 			ModelClient client = GetModel();
             return client.GetAssociatedSources(adapter);
         }
+
+	    public IEnumerable<HumanReadableSensor> GetHumanReadableSensors()
+	    {
+		    
+	    }
     }
 }

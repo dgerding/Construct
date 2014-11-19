@@ -561,6 +561,163 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="HumanReadableSensor", Namespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters")]
+    [System.SerializableAttribute()]
+    public partial class HumanReadableSensor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string CurrentRendezvousField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid DataTypeSourceIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Nullable<System.DateTime> InstalledFromServerDateField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool IsHealthyField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid SensorHostIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid SensorTypeSourceIDField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string CurrentRendezvous {
+            get {
+                return this.CurrentRendezvousField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.CurrentRendezvousField, value) != true)) {
+                    this.CurrentRendezvousField = value;
+                    this.RaisePropertyChanged("CurrentRendezvous");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid DataTypeSourceID {
+            get {
+                return this.DataTypeSourceIDField;
+            }
+            set {
+                if ((this.DataTypeSourceIDField.Equals(value) != true)) {
+                    this.DataTypeSourceIDField = value;
+                    this.RaisePropertyChanged("DataTypeSourceID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid ID {
+            get {
+                return this.IDField;
+            }
+            set {
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Nullable<System.DateTime> InstalledFromServerDate {
+            get {
+                return this.InstalledFromServerDateField;
+            }
+            set {
+                if ((this.InstalledFromServerDateField.Equals(value) != true)) {
+                    this.InstalledFromServerDateField = value;
+                    this.RaisePropertyChanged("InstalledFromServerDate");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool IsHealthy {
+            get {
+                return this.IsHealthyField;
+            }
+            set {
+                if ((this.IsHealthyField.Equals(value) != true)) {
+                    this.IsHealthyField = value;
+                    this.RaisePropertyChanged("IsHealthy");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Name {
+            get {
+                return this.NameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid SensorHostID {
+            get {
+                return this.SensorHostIDField;
+            }
+            set {
+                if ((this.SensorHostIDField.Equals(value) != true)) {
+                    this.SensorHostIDField = value;
+                    this.RaisePropertyChanged("SensorHostID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid SensorTypeSourceID {
+            get {
+                return this.SensorTypeSourceIDField;
+            }
+            set {
+                if ((this.SensorTypeSourceIDField.Equals(value) != true)) {
+                    this.SensorTypeSourceIDField = value;
+                    this.RaisePropertyChanged("SensorTypeSourceID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Label", Namespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters")]
     [System.SerializableAttribute()]
     public partial class Label : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -951,6 +1108,14 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Source[] EndGetAssociatedSources(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetHumanReadableSensors", ReplyAction="http://tempuri.org/IModel/GetHumanReadableSensorsResponse")]
+        Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[] GetHumanReadableSensors();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IModel/GetHumanReadableSensors", ReplyAction="http://tempuri.org/IModel/GetHumanReadableSensorsResponse")]
+        System.IAsyncResult BeginGetHumanReadableSensors(System.AsyncCallback callback, object asyncState);
+        
+        Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[] EndGetHumanReadableSensors(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetAllVisualizations", ReplyAction="http://tempuri.org/IModel/GetAllVisualizationsResponse")]
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization[] GetAllVisualizations();
         
@@ -1121,6 +1286,25 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetHumanReadableSensorsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetHumanReadableSensorsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetAllVisualizationsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -1273,6 +1457,12 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         private System.Threading.SendOrPostCallback onGetAssociatedSourcesCompletedDelegate;
         
+        private BeginOperationDelegate onBeginGetHumanReadableSensorsDelegate;
+        
+        private EndOperationDelegate onEndGetHumanReadableSensorsDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetHumanReadableSensorsCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetAllVisualizationsDelegate;
         
         private EndOperationDelegate onEndGetAllVisualizationsDelegate;
@@ -1346,6 +1536,8 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         public event System.EventHandler<GetAssociatedVisualizersCompletedEventArgs> GetAssociatedVisualizersCompleted;
         
         public event System.EventHandler<GetAssociatedSourcesCompletedEventArgs> GetAssociatedSourcesCompleted;
+        
+        public event System.EventHandler<GetHumanReadableSensorsCompletedEventArgs> GetHumanReadableSensorsCompleted;
         
         public event System.EventHandler<GetAllVisualizationsCompletedEventArgs> GetAllVisualizationsCompleted;
         
@@ -1656,6 +1848,54 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
             }
             base.InvokeAsync(this.onBeginGetAssociatedSourcesDelegate, new object[] {
                         adapter}, this.onEndGetAssociatedSourcesDelegate, this.onGetAssociatedSourcesCompletedDelegate, userState);
+        }
+        
+        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[] GetHumanReadableSensors() {
+            return base.Channel.GetHumanReadableSensors();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetHumanReadableSensors(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetHumanReadableSensors(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[] EndGetHumanReadableSensors(System.IAsyncResult result) {
+            return base.Channel.EndGetHumanReadableSensors(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetHumanReadableSensors(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetHumanReadableSensors(callback, asyncState);
+        }
+        
+        private object[] OnEndGetHumanReadableSensors(System.IAsyncResult result) {
+            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor[] retVal = this.EndGetHumanReadableSensors(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetHumanReadableSensorsCompleted(object state) {
+            if ((this.GetHumanReadableSensorsCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetHumanReadableSensorsCompleted(this, new GetHumanReadableSensorsCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetHumanReadableSensorsAsync() {
+            this.GetHumanReadableSensorsAsync(null);
+        }
+        
+        public void GetHumanReadableSensorsAsync(object userState) {
+            if ((this.onBeginGetHumanReadableSensorsDelegate == null)) {
+                this.onBeginGetHumanReadableSensorsDelegate = new BeginOperationDelegate(this.OnBeginGetHumanReadableSensors);
+            }
+            if ((this.onEndGetHumanReadableSensorsDelegate == null)) {
+                this.onEndGetHumanReadableSensorsDelegate = new EndOperationDelegate(this.OnEndGetHumanReadableSensors);
+            }
+            if ((this.onGetHumanReadableSensorsCompletedDelegate == null)) {
+                this.onGetHumanReadableSensorsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetHumanReadableSensorsCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetHumanReadableSensorsDelegate, null, this.onEndGetHumanReadableSensorsDelegate, this.onGetHumanReadableSensorsCompletedDelegate, userState);
         }
         
         public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization[] GetAllVisualizations() {

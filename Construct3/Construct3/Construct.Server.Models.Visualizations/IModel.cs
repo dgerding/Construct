@@ -9,6 +9,7 @@ namespace Construct.Server.Models.Visualizations
     [ServiceKnownType(typeof(Entities.Adapters.DataType))]
     [ServiceKnownType(typeof(Entities.Adapters.PropertyType))]
     [ServiceKnownType(typeof(Entities.Adapters.Visualization))]
+	[ServiceKnownType(typeof(Entities.Adapters.HumanReadableSensor))]
 
     public interface IModel : Models.IModel
     {
@@ -24,6 +25,8 @@ namespace Construct.Server.Models.Visualizations
         IEnumerable<Entities.Adapters.Visualizer> GetAssociatedVisualizers(Entities.Adapters.PropertyType adapter);
         [OperationContract]
         IEnumerable<Entities.Adapters.Source> GetAssociatedSources(Entities.Adapters.DataType adapter);
+		[OperationContract]
+	    IEnumerable<Entities.Adapters.HumanReadableSensor> GetHumanReadableSensors();
         [OperationContract]
         IEnumerable<Entities.Adapters.Visualization> GetAllVisualizations();
         [OperationContract]

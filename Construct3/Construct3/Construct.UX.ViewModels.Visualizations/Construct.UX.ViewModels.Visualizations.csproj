@@ -71,6 +71,9 @@
     <None Include="Service References\VisualizationsServiceReference\Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.DataType.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\VisualizationsServiceReference\Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.HumanReadableSensor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\VisualizationsServiceReference\Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Label.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

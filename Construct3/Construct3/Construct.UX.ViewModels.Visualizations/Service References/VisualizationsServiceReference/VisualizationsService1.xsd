@@ -1,6 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://localhost:12000/00000000-0000-0000-0000-000000000000/Visualizations/VisualizationsService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="HumanReadableSensor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CurrentRendezvous" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DataTypeSourceID" type="ser:guid" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="InstalledFromServerDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IsHealthy" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SensorHostID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SensorTypeSourceID" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="HumanReadableSensor" nillable="true" type="tns:HumanReadableSensor" />
+  <xs:complexType name="DataType">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataTypeParentID" type="ser:guid" />
+      <xs:element minOccurs="0" name="DataTypeSourceID" type="ser:guid" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="IsCoreType" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsReadOnly" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="DataType" nillable="true" type="tns:DataType" />
   <xs:complexType name="Visualization">
     <xs:sequence>
       <xs:element minOccurs="0" name="DataTypeID" type="ser:guid" />
@@ -40,18 +65,6 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Property" nillable="true" type="tns:Property" />
-  <xs:complexType name="DataType">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="DataTypeParentID" type="ser:guid" />
-      <xs:element minOccurs="0" name="DataTypeSourceID" type="ser:guid" />
-      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="ID" type="ser:guid" />
-      <xs:element minOccurs="0" name="IsCoreType" type="xs:boolean" />
-      <xs:element minOccurs="0" name="IsReadOnly" type="xs:boolean" />
-      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="DataType" nillable="true" type="tns:DataType" />
   <xs:complexType name="ArrayOfDataType">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="DataType" nillable="true" type="tns:DataType" />
@@ -92,6 +105,12 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Source" nillable="true" type="tns:Source" />
+  <xs:complexType name="ArrayOfHumanReadableSensor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="HumanReadableSensor" nillable="true" type="tns:HumanReadableSensor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfHumanReadableSensor" nillable="true" type="tns:ArrayOfHumanReadableSensor" />
   <xs:complexType name="ArrayOfVisualization">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="Visualization" nillable="true" type="tns:Visualization" />

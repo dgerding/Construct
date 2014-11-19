@@ -22,28 +22,7 @@
         <TabControl Grid.Row="0" Grid.Column="0">
             <TabItem Header="Create">
                 <StackPanel>
-					<Button Content="Begin Streaming" Name="StreamButton" Click="StreamButton_Click"></Button>
 					
-                    <Label>Name</Label>
-                    <TextBox Name="nameTextBox" TextChanged="NameChanged"></TextBox>
-                    
-                    <Label>DataType</Label>
-                    <ComboBox Name="dataTypeComboBox" IsEnabled="False" ItemsSource="{Binding DataTypes}" SelectionChanged="DataTypeSelectionChanged" DisplayMemberPath="Name" DropDownOpened="DataTypeComboBoxDropDownOpened"/>
-                    
-                    <Label>Property</Label>
-                    <ComboBox Name="propertiesComboBox" IsEnabled="False" ItemsSource="{Binding Properties}" SelectionChanged="PropertySelectionChanged" DisplayMemberPath="Name"/>
-                    
-                    <Label>SourceID</Label>
-                    <ComboBox Name="sourcesComboBox" IsEnabled="False" ItemsSource="{Binding Sources}" SelectionChanged="SourceSelectionChanged" DisplayMemberPath="ID"/>
-
-                    <Label>Visualizer</Label>
-                    <ComboBox Name="visualizerComboBox" IsEnabled="False" ItemsSource="{Binding Visualizers}" SelectionChanged="VisualizerSelectionChanged" DisplayMemberPath="Name"/>
-
-                    <Button Name="createButton" IsEnabled="False" Content="Create" Width="100" Height="30" HorizontalAlignment="Right" Click="CreateClicked"/>
-                    
-                    <ListBox Name="listBox" ItemsSource="{Binding Visualizations}" DisplayMemberPath="Name" Height="200"/>
-                    
-                    <Button Content="Display" Click="Button_Click" />
                 </StackPanel>
             </TabItem>
         </TabControl>
