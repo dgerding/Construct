@@ -43,6 +43,19 @@ namespace Construct.UX.Views.Helper
 			this.Closed += PropertySelectionDialog_Closed;
 		}
 
+		protected override void OnKeyDown(KeyEventArgs e)
+		{
+			if (e.Key == Key.Space)
+			{
+				var selectedItems = PropertiesView.SelectedItems.Cast<DataPropertyViewModel>().ToList();
+				bool currentIsEnabled = selectedItems.All((model) => model.IsSelected);
+				for (int i = 0; i < selectedItems.Count; i++)
+					selectedItems[i].IsSelected = !currentIsEnabled; // Toggle the values
+			}
+
+			base.OnKeyDown(e);
+		}
+
 		void PropertySelectionDialog_Closed(object sender, EventArgs e)
 		{
 			if (!DialogResult.GetValueOrDefault(false))
