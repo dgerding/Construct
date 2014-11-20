@@ -23,7 +23,7 @@ namespace Construct.UX.WindowsClient
 
         public MainWindow()
         {
-            logger.Trace("in Construct.UX.ConstructWindows ctor...");
+            //logger.Trace("in Construct.UX.ConstructWindows ctor...");
             CheckRuntimePrerequisites();
 
             InitializeComponent();

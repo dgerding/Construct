@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using Construct.UX.ViewModels;
 using System.ComponentModel;
+using Construct.UX.Views.Helper;
 using viewModel = Construct.UX.ViewModels.Visualizations.ViewModel;
 using Construct.Utilities.Shared;
 using System.ServiceModel;
@@ -145,6 +147,9 @@ namespace Construct.UX.Views.Visualizations
 	    {
 		    subscriptionTranslator = new SubscriptionTranslator();
 
+			//	Matches *://(HostName)
+		    var rendezvousHostnameExtractor = new Regex(@"\S*:\/\/([^\/]*)");
+
 		    var model = (viewModel) ViewModel;
 
 		    var humanReadableSensors = model.GetHumanReadableSensors().ToList();
@@ -152,9 +157,9 @@ namespace Construct.UX.Views.Visualizations
 		    {
 			    var dataTypeName = dataType.Name;
 			    var dataProperties = Properties.Cast<PropertyParent>().Where((p) => p.ParentDataTypeID == dataType.ID).ToList();
-				var sources = Sources.Where((s) => s.DataTypeSourceID == dataType.ID);
+			    var relevantSources = model.GetAssociatedSources(dataType);
 				
-			    foreach (var emittingSource in sources)
+			    foreach (var emittingSource in relevantSources)
 			    {
 					var sensor = humanReadableSensors.Single(s => s.ID == emittingSource.ID);
 				    foreach (var property in dataProperties)
@@ -164,7 +169,7 @@ namespace Construct.UX.Views.Visualizations
 
 					    newTranslation.DataTypeName = dataTypeName;
 					    newTranslation.PropertyName = property.Name;
-					    newTranslation.SourceName = sensor.CurrentRendezvous;
+					    newTranslation.SourceName = rendezvousHostnameExtractor.Match(sensor.CurrentRendezvous).Groups[1].Captures[0].Value;
 					    newTranslation.SourceTypeName = sensor.Name;
 
 					    newSubscriptionType.PropertyId = property.ID;

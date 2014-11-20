@@ -202,6 +202,12 @@ namespace Construct.Server.Models.Visualizations
 			IEnumerable<Entities.Source> sources = context.Sources.AsEnumerable();
 			foreach (Source source in sources)
 			{
+				if (source is HumanReadableSensor)
+				{
+					if ((source as HumanReadableSensor).SensorTypeSourceID == adapter.DataTypeSourceID)
+						yield return source;
+				}
+
 				if (source.DataTypeSource.DataTypes.FirstOrDefault(target => target.ID == adapter.ID) != null)
 				{
 					yield return (Entities.Adapters.Source) source;

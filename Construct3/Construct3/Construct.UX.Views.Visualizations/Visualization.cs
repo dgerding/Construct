@@ -16,16 +16,23 @@ namespace Construct.UX.Views.Visualizations
 		private List<DataPropertyModel> selectedProperties = new List<DataPropertyModel>();
 		private StreamDataRouter sourceDataRouter;
 		private SubscriptionTranslator subscriptionTranslator;
+
+		public bool EnablePropertySelectionDialog { get; protected set; }
 		public Visualization(StreamDataRouter dataRouter, SubscriptionTranslator subscriptionTranslator)
 		{
 			this.MouseRightButtonUp += MouseRightButtonUp_OpenPropertySelectionDialog;
 
 			this.subscriptionTranslator = subscriptionTranslator;
 			this.sourceDataRouter = dataRouter;
+
+			this.EnablePropertySelectionDialog = true;
 		}
 
 		void MouseRightButtonUp_OpenPropertySelectionDialog(object sender, System.Windows.Input.MouseButtonEventArgs e)
 		{
+			if (!EnablePropertySelectionDialog)
+				return;
+
 			var propertyDialog = new PropertySelectionDialog(null, selectedProperties);
 
 			var allProperties = new List<DataPropertyModel>();
