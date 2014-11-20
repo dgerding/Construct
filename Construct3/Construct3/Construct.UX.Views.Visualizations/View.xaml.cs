@@ -100,8 +100,8 @@ namespace Construct.UX.Views.Visualizations
 
             Visualizations = ((viewModel)ViewModel).GetVisualizations();
 
-            this.Sources = InitializeSources().Distinct();
-            this.Properties = InitializeProperties().Distinct();
+            this.Sources = InitializeSources().Distinct().ToList();
+            this.Properties = InitializeProperties().Distinct().ToList();
 
 			//((viewModel)ViewModel)
 
@@ -144,7 +144,36 @@ namespace Construct.UX.Views.Visualizations
 	    private void InitializeSubscriptionTranslator()
 	    {
 		    subscriptionTranslator = new SubscriptionTranslator();
-		    //	TODO: Fill in
+
+		    var model = (viewModel) ViewModel;
+
+		    var humanReadableSensors = model.GetHumanReadableSensors().ToList();
+		    foreach (var dataType in DataTypes)
+		    {
+			    var dataTypeName = dataType.Name;
+			    var dataProperties = Properties.Cast<PropertyParent>().Where((p) => p.ParentDataTypeID == dataType.ID).ToList();
+				var sources = Sources.Where((s) => s.DataTypeSourceID == dataType.ID);
+				
+			    foreach (var emittingSource in sources)
+			    {
+					var sensor = humanReadableSensors.Single(s => s.ID == emittingSource.ID);
+				    foreach (var property in dataProperties)
+				    {
+					    var newTranslation = new SubscriptionLabel();
+					    var newSubscriptionType = new DataSubscription();
+
+					    newTranslation.DataTypeName = dataTypeName;
+					    newTranslation.PropertyName = property.Name;
+					    newTranslation.SourceName = sensor.CurrentRendezvous;
+					    newTranslation.SourceTypeName = sensor.Name;
+
+					    newSubscriptionType.PropertyId = property.ID;
+					    newSubscriptionType.SourceId = emittingSource.ID;
+
+					    subscriptionTranslator.AddTranslation(newSubscriptionType, newTranslation);
+				    }
+			    }
+		    }
 	    }
 
         public void InitializeViewModel(ApplicationSessionInfo theApplicationSessionInfo)
