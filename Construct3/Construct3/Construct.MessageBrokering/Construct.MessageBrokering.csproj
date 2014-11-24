@@ -100,6 +100,7 @@
     <Compile Include="Broker.cs" />
     <Compile Include="GlobalRuntimeSettings.cs" />
     <Compile Include="Inbox.cs" />
+    <Compile Include="JsonConfigurator.cs" />
     <Compile Include="StringCompressor.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Outbox.cs" />

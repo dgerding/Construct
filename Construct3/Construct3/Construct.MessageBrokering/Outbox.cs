@@ -51,6 +51,8 @@ namespace Construct.MessageBrokering
 
         private Outbox()
         {
+			JsonConfigurator.Run();
+
             clientsRendezvous = new List<Rendezvous<T>>();
 
 			m_MessageSendThread = new Thread(MessageSendThread);

@@ -80,8 +80,8 @@ namespace Construct.MessageBrokering.Serialization
 		    newDataItem.Name = jsonContainer["Instance"]["DataName"].Value<String>();
 
 			JToken itemInstanceTokens = jsonContainer["Instance"];
-			newDataItem.SourceId = Guid.Parse(itemInstanceTokens["SourceID"].Value<string>());
-			newDataItem.Timestamp = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+		    newDataItem.SourceId = Guid.Parse(itemInstanceTokens["SourceID"].Value<string>());
+			newDataItem.Timestamp = itemInstanceTokens["TimeStamp"].Value<DateTime>();
 
 			if (payloadTypesDictionaries.Keys.Contains(newDataItem.Name) == false)
 			{
@@ -176,7 +176,7 @@ namespace Construct.MessageBrokering.Serialization
             BooleanPropertyValue obj = new BooleanPropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+            obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -203,7 +203,7 @@ namespace Construct.MessageBrokering.Serialization
             ByteArrayPropertyValue obj = new ByteArrayPropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -230,7 +230,7 @@ namespace Construct.MessageBrokering.Serialization
             DateTimePropertyValue obj = new DateTimePropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -257,7 +257,7 @@ namespace Construct.MessageBrokering.Serialization
             DoublePropertyValue obj = new DoublePropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -284,7 +284,7 @@ namespace Construct.MessageBrokering.Serialization
             GuidPropertyValue obj = new GuidPropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -311,7 +311,7 @@ namespace Construct.MessageBrokering.Serialization
             IntPropertyValue obj = new IntPropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -340,7 +340,7 @@ namespace Construct.MessageBrokering.Serialization
             SinglePropertyValue obj = new SinglePropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -367,7 +367,7 @@ namespace Construct.MessageBrokering.Serialization
             StringPropertyValue obj = new StringPropertyValue();
             obj.ItemID = itemID;
             obj.PropertyID = propertyID;
-            obj.StartTime = DateTime.Parse(itemInstanceTokens["TimeStamp"].Value<string>());
+			obj.StartTime = itemInstanceTokens["TimeStamp"].Value<DateTime>();
             obj.Latitude = itemInstanceTokens["Latitude"].Value<double>().ToString();
             obj.Longitude = itemInstanceTokens["Longitude"].Value<double>().ToString();
             try
@@ -428,7 +428,7 @@ namespace Construct.MessageBrokering.Serialization
             JToken itemHeaderTokens = (jsonContainer as JObject)["Instance"];
 
             Item ret = new Item();
-            ret.SourceTime = DateTime.Parse(itemHeaderTokens["TimeStamp"].Value<string>());
+			ret.SourceTime = itemHeaderTokens["TimeStamp"].Value<DateTime>();
             ret.Latitude = itemHeaderTokens["Latitude"].Value<double>().ToString();
             ret.Longitude = itemHeaderTokens["Longitude"].Value<double>().ToString();
             ret.RecordCreationTime = DateTime.Now;
