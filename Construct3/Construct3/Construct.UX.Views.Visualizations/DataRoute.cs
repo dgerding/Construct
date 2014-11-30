@@ -7,7 +7,7 @@ using Construct.MessageBrokering.Serialization;
 
 namespace Construct.UX.Views.Visualizations
 {
-	class DataRoute
+	public class DataRoute
 	{
 		public DataRoute(DataSubscription subscription)
 		{
@@ -16,6 +16,7 @@ namespace Construct.UX.Views.Visualizations
 
 		public DataSubscription RouteSubscription { get; private set; }
 
+		private object onDataLock = new object();
 		private event Action<SimplifiedPropertyValue> onData;
 
 		//	Invoked when an OnData listener was added, causing at least 1 listener to exist for the route
@@ -33,7 +34,7 @@ namespace Construct.UX.Views.Visualizations
 		{
 			add
 			{
-				lock (onData)
+				lock (onDataLock)
 				{
 					onData += value;
 					if (onData.GetInvocationList().Length == 1 && OnRouteOpened != null)
@@ -42,10 +43,10 @@ namespace Construct.UX.Views.Visualizations
 			}
 			remove
 			{
-				lock (onData)
+				lock (onDataLock)
 				{
 					onData -= value;
-					if (onData.GetInvocationList().Length == 0 && OnRouteClosed != null)
+					if (onData == null && OnRouteClosed != null)
 						OnRouteClosed(this);
 				}
 			}

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Construct.MessageBrokering.Serialization
 {
 	//	Used for real-time data streaming of unique property values
-	public class SimplifiedPropertyValue
+	public struct SimplifiedPropertyValue
 	{
 		public object Value { get; set; }
 

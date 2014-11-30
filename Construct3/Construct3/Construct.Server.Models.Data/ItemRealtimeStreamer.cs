@@ -22,7 +22,10 @@ namespace Construct.Server.Models.Data
 		private readonly Dictionary<long, List<object>> subscriptionsMap = new Dictionary<long, List<object>>();
 		private static long GetPropertySourceHash(Guid sensorId, Guid propertyId)
 		{
-			return ((long)sensorId.GetHashCode() << 32) | propertyId.GetHashCode();
+			int sensorHashCode = sensorId.GetHashCode();
+			int propertyHashCode = propertyId.GetHashCode();
+
+			return sensorHashCode ^ propertyHashCode;
 		}
 
 		public PropertySubscriptionsSet()
@@ -67,6 +70,12 @@ namespace Construct.Server.Models.Data
 
 			subscriptionsMap[hash].Remove(subscriber);
 		}
+
+		public void RemoveSubscriptionsForSubscriber(object subscriber)
+		{
+			foreach (var mapping in subscriptionsMap)
+				mapping.Value.Remove(subscriber);
+		}
 	}
 	
 	public class ItemRealtimeStreamer : IDisposable
@@ -85,16 +94,18 @@ namespace Construct.Server.Models.Data
 		{
 			//	Whenever a hub is instantiated, start listening to it for subscription events
 
-			ItemRealtimeStreamerHub.OnConnectionStarted += delegate(ItemRealtimeStreamerHub sender)
+			ItemRealtimeStreamerHub.OnConnectionStarted += delegate(ItemRealtimeStreamerHub sender, object connectionContext)
 			{
 				sender.OnNewSubscriptionRequest += AddDataSubscription;
 				sender.OnRemoveSubscriptionRequest += AddDataSubscription;
 			};
 
-			ItemRealtimeStreamerHub.OnConnectionEnded += delegate(ItemRealtimeStreamerHub sender)
+			ItemRealtimeStreamerHub.OnConnectionEnded += delegate(ItemRealtimeStreamerHub sender, object connectionContext)
 			{
 				sender.OnNewSubscriptionRequest -= AddDataSubscription;
 				sender.OnRemoveSubscriptionRequest -= AddDataSubscription;
+
+				ResetSubscriber(connectionContext);
 			};
 
 
@@ -120,6 +131,19 @@ namespace Construct.Server.Models.Data
 		public void ProcessItemPayload(String jsonPayload)
 		{
 			pushDataQueue.Enqueue(jsonPayload);
+		}
+
+		/// <summary>
+		/// Removes all subscriptions for the given client (does not disconnect)
+		/// </summary>
+		public void ResetSubscriber(object client)
+		{
+			lock (subscriptionsMutex)
+			{
+				var newSubscriptionsList = new PropertySubscriptionsSet(this.subscriptions);
+				newSubscriptionsList.RemoveSubscriptionsForSubscriber(client);
+				this.subscriptions = newSubscriptionsList;
+			}
 		}
 		public void AddDataSubscription(object client, Guid sourceId, Guid propertyId)
 		{

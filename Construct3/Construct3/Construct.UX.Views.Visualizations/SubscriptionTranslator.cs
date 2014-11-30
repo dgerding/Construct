@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Construct.UX.Views.Visualizations
 {
 	//	Translates Subscription Guids to names (i.e. source name, property name, data type name)
-	class SubscriptionTranslator
+	public class SubscriptionTranslator
 	{
 		private Dictionary<DataSubscription, SubscriptionLabel> subscriptionTranslations = new Dictionary<DataSubscription, SubscriptionLabel>();
 
@@ -25,9 +25,17 @@ namespace Construct.UX.Views.Visualizations
 				return null;
 		}
 
-		public Dictionary<DataSubscription, SubscriptionLabel> AllTranslations()
+		public Dictionary<DataSubscription, SubscriptionLabel> AllTranslations(IEnumerable<Type> allowedSubscriptionPropertyTypes)
 		{
-			return subscriptionTranslations;
+			return (
+				from trans in subscriptionTranslations
+				where allowedSubscriptionPropertyTypes.Contains(trans.Key.PropertyType)
+				select trans
+				).ToDictionary(p => p.Key, p => p.Value);
+		}
+		public Dictionary<DataSubscription, SubscriptionLabel> AllTranslations(params Type[] allowedSubscriptionPropertyTypes)
+		{
+			return AllTranslations(allowedSubscriptionPropertyTypes.AsEnumerable());
 		}
 	}
 }

@@ -8,15 +8,15 @@ using Construct.MessageBrokering.Serialization;
 
 namespace Construct.UX.Views.Visualizations
 {
-	class StreamDataRouter
+	public class StreamDataRouter
 	{
-		private IStreamDataSource dataSource;
+		public IStreamDataSource DataSource { get; private set; }
 		private ConcurrentDictionary<DataSubscription, DataRoute> subscriptionRouteMap = new ConcurrentDictionary<DataSubscription, DataRoute>();
 		public StreamDataRouter(IStreamDataSource dataSource)
 		{
-			this.dataSource = dataSource;
+			this.DataSource = dataSource;
 
-			this.dataSource.OnData += dataSource_OnData;
+			this.DataSource.OnData += dataSource_OnData;
 		}
 
 		void dataSource_OnData(SimplifiedPropertyValue propertyValue)
@@ -56,12 +56,12 @@ namespace Construct.UX.Views.Visualizations
 
 		private void newRoute_OnRouteClosed(DataRoute dataRoute)
 		{
-			dataSource.RemoveSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
+			DataSource.RemoveSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
 		}
 
 		private void newRoute_OnRouteOpened(DataRoute dataRoute)
 		{
-			dataSource.AddSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
+			DataSource.AddSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
 		}
 	}
 }

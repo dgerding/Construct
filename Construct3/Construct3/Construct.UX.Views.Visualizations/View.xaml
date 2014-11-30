@@ -11,24 +11,25 @@
             xmlns:my="clr-namespace:System;assembly=mscorlib"
             mc:Ignorable="d" 
             d:DesignHeight="800" d:DesignWidth="1200">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" Grid.Column="0">
-            <TabItem Header="Create">
-                <StackPanel>
-					
-                </StackPanel>
-            </TabItem>
-        </TabControl>
-        
-        <this:VisualizationWindow x:Name="VisualizationWindow" Grid.Column="1" Grid.Row="0">
-            
-        </this:VisualizationWindow>
-    </Grid>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="300" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<TabControl Grid.Row="0" Grid.Column="0">
+			<TabItem Header="Create">
+				<Grid>
+					<ComboBox Name="PropertyVisualizationsOptions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="157"/>
+					<Button Content="Add Property Visualization" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Margin="10,37,0,0" Click="AddPropertyVisualizationButton_Click"/>
+				</Grid>
+			</TabItem>
+		</TabControl>
+
+		<this:VisualizationWindow x:Name="VisualizationWindow" Grid.Column="1" Grid.Row="0">
+
+		</this:VisualizationWindow>
+	</Grid>
 </views:View>

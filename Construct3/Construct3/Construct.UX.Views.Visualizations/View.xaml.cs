@@ -113,6 +113,15 @@ namespace Construct.UX.Views.Visualizations
 			streamDataSource.Start();
 
 	        streamDataRouter = new StreamDataRouter(streamDataSource);
+
+	        VisualizationWindow.DataRouter = streamDataRouter;
+	        VisualizationWindow.SubscriptionTranslator = subscriptionTranslator;
+
+	        PropertyVisualizationsOptions.ItemsSource = new List<String>()
+	        {
+				"Numeric"
+	        };
+	        PropertyVisualizationsOptions.SelectedIndex = 0;
         }
 
         private IEnumerable<PropertyType> InitializeProperties()
@@ -140,9 +149,10 @@ namespace Construct.UX.Views.Visualizations
         private void InitializeMembers()
         {
             viewModel viewmodel = ((viewModel)ViewModel);
-            DataTypes = viewmodel.GetAllDataTypes().Where(target => target.IsCoreType == false);
+            DataTypes = viewmodel.GetAllDataTypes().ToList();
         }
 
+		//	Generates human-readable translations for sources, their emitted datatypes, and properties of those datatypes
 	    private void InitializeSubscriptionTranslator()
 	    {
 		    subscriptionTranslator = new SubscriptionTranslator();
@@ -155,6 +165,9 @@ namespace Construct.UX.Views.Visualizations
 		    var humanReadableSensors = model.GetHumanReadableSensors().ToList();
 		    foreach (var dataType in DataTypes)
 		    {
+			    if (dataType.IsCoreType)
+				    continue;
+
 			    var dataTypeName = dataType.Name;
 			    var dataProperties = Properties.Cast<PropertyParent>().Where((p) => p.ParentDataTypeID == dataType.ID).ToList();
 			    var relevantSources = model.GetAssociatedSources(dataType);
@@ -172,12 +185,59 @@ namespace Construct.UX.Views.Visualizations
 					    newTranslation.SourceName = rendezvousHostnameExtractor.Match(sensor.CurrentRendezvous).Groups[1].Captures[0].Value;
 					    newTranslation.SourceTypeName = sensor.Name;
 
+					    var propertyDataTypeName = DataTypes.Single(dt => dt.ID == (property as PropertyType).PropertyDataTypeID).Name;
 					    newSubscriptionType.PropertyId = property.ID;
 					    newSubscriptionType.SourceId = emittingSource.ID;
+					    newSubscriptionType.PropertyType = GetTypeFromName(propertyDataTypeName);
 
 					    subscriptionTranslator.AddTranslation(newSubscriptionType, newTranslation);
 				    }
 			    }
+		    }
+	    }
+
+	    private Type GetTypeFromName(String typeName)
+	    {
+		    switch (typeName)
+		    {
+				case "bool":
+				case "System.Boolean":
+				    return typeof (bool);
+
+				case "string":
+				case "System.String":
+				    return typeof (string);
+
+				case "long":
+				case "System.Int64":
+				    return typeof (long);
+
+				case "byte[]":
+				case "System.Byte[]":
+				    return typeof (byte[]);
+
+				case "float":
+				case "System.Single":
+				    return typeof (float);
+
+				case "double":
+				case "System.Double":
+				    return typeof (double);
+
+				case "DateTime":
+				case "System.DateTime":
+				    return typeof (DateTime);
+
+				case "Guid":
+				case "System.Guid":
+				    return typeof (Guid);
+
+				case "System.Int32":
+				case "int":
+				    return typeof (int);
+
+				default:
+				    return null;
 		    }
 	    }
 
@@ -193,5 +253,10 @@ namespace Construct.UX.Views.Visualizations
                 this.Visibility = System.Windows.Visibility.Hidden;
             }
         }
+
+		private void AddPropertyVisualizationButton_Click(object sender, RoutedEventArgs e)
+		{
+			VisualizationWindow.AddVisualization(PropertyVisualizationsOptions.Text);
+		}
     }
 }

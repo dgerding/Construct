@@ -8,9 +8,12 @@
 			<telerik:RadGridView.GroupDescriptors>
 				<telerik:ColumnGroupDescriptor Column="{Binding Columns[\DataType\], ElementName=PropertiesView}" />
 			</telerik:RadGridView.GroupDescriptors>
+			<telerik:RadGridView.SortDescriptors>
+				<telerik:ColumnSortDescriptor Column="{Binding Columns[\PropertyType\], ElementName=PropertiesView}" SortDirection="Ascending" />
+			</telerik:RadGridView.SortDescriptors>
 			<telerik:RadGridView.Columns>
 				<telerik:GridViewDataColumn Header="Data Type" UniqueName="DataType" DataMemberBinding="{Binding DataTypeName}" />
-				<telerik:GridViewDataColumn Header="Data Property (Numeric-Only)" DataMemberBinding="{Binding PropertyName}" />
+				<telerik:GridViewDataColumn Header="Data Property" UniqueName="PropertyType" DataMemberBinding="{Binding PropertyName}" />
 				<telerik:GridViewDataColumn Header="Sources" DataMemberBinding="{Binding SensorName}" />
 				<telerik:GridViewColumn Header="Selected">
 					<telerik:GridViewColumn.CellTemplate>

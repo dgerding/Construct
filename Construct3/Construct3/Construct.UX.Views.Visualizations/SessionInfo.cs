@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Construct.UX.Views.Visualizations
 {
-	public class SubscriptionLabel
+	//	Info for the data recording session
+	public class SessionInfo
 	{
-		public String DataTypeName;
-		public String PropertyName;
-		public String SourceName;
-		public String SourceTypeName;
+		public DateTime? StartTime { get; set; }
+		public DateTime? EndTime { get; set; }
 	}
 }

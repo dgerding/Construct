@@ -7,7 +7,7 @@ using Construct.MessageBrokering.Serialization;
 
 namespace Construct.UX.Views.Visualizations
 {
-	interface IStreamDataSource
+	public interface IStreamDataSource
 	{
 		event Action<SimplifiedPropertyValue> OnData;
 		void AddSubscription(Guid sourceId, Guid propertyId);
