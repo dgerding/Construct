@@ -76,8 +76,6 @@ namespace Construct.UX.Views.Visualizations
 	    {
 		    if (!routerIsInitialized)
 		    {
-				DataSession.StartTime = DateTime.Now;
-				DataSession.EndTime = DateTime.Now;
 				DataRouter.DataSource.OnData += DataSource_OnData;
 			    routerIsInitialized = true;
 		    }

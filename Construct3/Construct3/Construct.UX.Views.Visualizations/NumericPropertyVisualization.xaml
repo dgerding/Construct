@@ -25,11 +25,12 @@
 				</telerik:RadComboBox>
 				<telerik:RadMaskedNumericInput x:Name="AggregationTimeSpan" ToolTip="Period of time for each aggregation segment" Value="500" IsClearButtonVisible="False" Mask="#9\ \m\s" TextMode="PlainText" />
 				<telerik:RadButton Content="Apply" Margin="5,1,1,1" Click="ChangeAggregationButton_Click" />
+				<telerik:RadButton Content="Disable" Margin="5,1,1,1" Click="OnToggleAggregation" />
 			</telerik:RadToolBar>
 		</Grid>
 
 		<!-- Contains all of the sparklines for the visualization (separate sparkline for each data stream) -->
-		<telerik:RadTimeBar Name="NumericTimeBar" Grid.Row="1" IsManipulationEnabled="True">
+		<telerik:RadTimeBar Name="NumericTimeBar" Grid.Row="1" IsManipulationEnabled="True" SelectionTitleFormatString="{}{0:h:mm:ss:fff tt} - {1:h:mm:ss:fff tt}">
 			<Grid Name="SparklinesContainer">
 
 			</Grid>

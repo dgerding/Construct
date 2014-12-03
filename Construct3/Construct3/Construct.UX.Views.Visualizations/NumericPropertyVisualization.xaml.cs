@@ -35,17 +35,26 @@ namespace Construct.UX.Views.Visualizations
 
 		private double DefaultAggregationSpanMS = 500.0;
 
+		public bool IsAggregationEnabled { get; private set; }
+
 		class VisualizedDataSet
 		{
 			public RadLinearSparkline Visualizer;
 			public ConcurrentQueue<SimplifiedPropertyValue> RealData = new ConcurrentQueue<SimplifiedPropertyValue>();
-			public List<SimplifiedPropertyValue> QueuedAggregateData = new List<SimplifiedPropertyValue>(100);
+			private List<SimplifiedPropertyValue> QueuedAggregateData = new List<SimplifiedPropertyValue>(100);
 			public ObservableCollection<SimplifiedPropertyValue> VisualizedData = new ObservableCollection<SimplifiedPropertyValue>(); 
 
 			public DateTime? CurrentAggregationStartTime;
 
 			public TimeSpan AggregationTimeSpan { get; set; }
 			public Func<IEnumerable<decimal>, decimal> Aggregator { get; set; }
+
+			public bool IsAggregationEnabled { get; set; }
+
+			public VisualizedDataSet()
+			{
+				IsAggregationEnabled = true;
+			}
 
 			public void AddValue(SimplifiedPropertyValue value)
 			{
@@ -55,6 +64,10 @@ namespace Construct.UX.Views.Visualizations
 			}
 			public void AddToAggregation(SimplifiedPropertyValue value)
 			{
+				//	Doesn't happen often, but happens occasionally at first run
+				if (!CurrentAggregationStartTime.HasValue)
+					return;
+
 				if (value.TimeStamp - CurrentAggregationStartTime.Value >= AggregationTimeSpan)
 				{
 					decimal aggregatedValue = Aggregator(QueuedAggregateData.Select((d) => Convert.ToDecimal(d.Value)));
@@ -110,16 +123,30 @@ namespace Construct.UX.Views.Visualizations
 			get { return new List<Type>() {typeof (double), typeof (float), typeof (int)}; }
 		}
 
-		public NumericPropertyVisualization(StreamDataRouter dataRouter, SubscriptionTranslator translator, SessionInfo sesssionInfo)
+		public NumericPropertyVisualization(StreamDataRouter dataRouter, SubscriptionTranslator translator, SessionInfo sessionInfo)
 			: base(dataRouter, translator)
 		{
 			InitializeComponent();
+
+			IsAggregationEnabled = true;
 
 			VisualizationName = "Numeric Visualization";
 			TimeBar = NumericTimeBar;
 			Translator = translator;
 
-			DataSession = sesssionInfo;
+			DataSession = sessionInfo;
+			DataSession.PropertyChanged += (o, args) =>
+			{
+				switch (args.PropertyName)
+				{
+					case "StartTime":
+						//	Should do more when a data playback StreamDataSource has been written (reload/re-aggregate all data,
+						//		for now just assume this is the first time StartTime has been assigned)
+						foreach (var visData in SubscriptionVisualizations)
+							visData.Value.CurrentAggregationStartTime = (o as SessionInfo).StartTime;
+						break;
+				}
+			};
 
 			MinAggregator = (ds) => ds.DefaultIfEmpty().Min();
 			MaxAggregator = (ds) => ds.DefaultIfEmpty().Max();
@@ -252,6 +279,33 @@ namespace Construct.UX.Views.Visualizations
 				AggregationTimeSpan.Value = 50;
 
 			ChangeDataVisualizationsAggregation(AggregationType.Text, TimeSpan.FromMilliseconds(AggregationTimeSpan.Value.Value));
+		}
+
+		private void OnToggleAggregation(object sender, RoutedEventArgs e)
+		{
+			var button = sender as RadButton;
+			IsAggregationEnabled = !IsAggregationEnabled;
+
+			button.Content = IsAggregationEnabled ? "Disable" : "Enable";
+
+			foreach (var subscriptionVis in SubscriptionVisualizations)
+			{
+				subscriptionVis.Value.IsAggregationEnabled = IsAggregationEnabled;
+				var currentDataVis = subscriptionVis.Value;
+				if (IsAggregationEnabled)
+				{
+					currentDataVis.VisualizedData = new ObservableCollection<SimplifiedPropertyValue>();
+					currentDataVis.CurrentAggregationStartTime = DataSession.StartTime;
+					foreach (var data in currentDataVis.RealData)
+						currentDataVis.AddToAggregation(data);
+					currentDataVis.Visualizer.ItemsSource = currentDataVis.VisualizedData;
+				}
+				else
+				{
+					currentDataVis.VisualizedData = new ObservableCollection<SimplifiedPropertyValue>(currentDataVis.RealData);
+					currentDataVis.Visualizer.ItemsSource = currentDataVis.VisualizedData;
+				}
+			}
 		}
 	}
 }
