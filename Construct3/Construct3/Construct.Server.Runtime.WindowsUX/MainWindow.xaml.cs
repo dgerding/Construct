@@ -14,6 +14,7 @@ using System.ServiceModel;
 using System.Windows;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
+using System.Data.SqlClient;
 
 namespace ConstructServer.Runtime.Windows
 {
@@ -218,11 +219,12 @@ namespace ConstructServer.Runtime.Windows
                     schemaHandler.ExecuteDDLScript(script);
                 }
 
-                MessageBox.Show("Update schema succeded.");
-
                 DropAndAddStoredProceduresToDB(connectionString);
-
                 WipeDatabaseAndAddCoreData(connectionString);
+
+				ExecuteMsSqlScript.GoStoredProcedure(connectionString, "WipeDatabaseAndResetToDefaults");
+
+				MessageBox.Show("Update schema succeded. Restart Construct Server.");
             }
             catch (Exception ex)
             {
