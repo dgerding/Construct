@@ -33,6 +33,81 @@ namespace Construct.UX.Views.Visualizations
 			}
 		}
 
+		DateTime? viewStartTime;
+		public DateTime? ViewStartTime
+		{
+			get { return viewStartTime; }
+			set
+			{
+				viewStartTime = value;
+				OnPropertyChanged();
+			}
+		}
+
+		DateTime? viewEndTime;
+		public DateTime? ViewEndTime
+		{
+			get { return viewEndTime; }
+			set
+			{
+				viewEndTime = value;
+				OnPropertyChanged();
+			}
+		}
+
+		DateTime? selectedStartTime;
+		public DateTime? SelectedStartTime
+		{
+			get { return selectedStartTime; }
+			set
+			{
+				selectedStartTime = value;
+				OnPropertyChanged();
+			}
+		}
+
+		DateTime? selectedEndTime;
+		public DateTime? SelectedEndTime
+		{
+			get { return selectedEndTime; }
+			set
+			{
+				selectedEndTime = value;
+				OnPropertyChanged();
+			}
+		}
+
+		public void CopyFrom(SessionInfo source)
+		{
+			if (selectedStartTime != source.selectedStartTime)
+				SelectedStartTime = source.selectedStartTime;
+
+			if (selectedEndTime != source.selectedEndTime)
+				SelectedEndTime = source.selectedEndTime;
+
+			if (viewStartTime != source.viewStartTime)
+				ViewStartTime = source.viewStartTime;
+
+			if (viewEndTime != source.viewEndTime)
+				ViewEndTime = source.viewEndTime;
+
+			if (startTime != source.startTime)
+				StartTime = source.startTime;
+
+			if (endTime != source.endTime)
+				EndTime = source.endTime;
+		}
+
+		public bool IsFullyDefined
+		{
+			get
+			{
+				return StartTime.HasValue && EndTime.HasValue &&
+				       SelectedStartTime.HasValue && SelectedEndTime.HasValue &&
+				       ViewStartTime.HasValue && ViewEndTime.HasValue;
+			}
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

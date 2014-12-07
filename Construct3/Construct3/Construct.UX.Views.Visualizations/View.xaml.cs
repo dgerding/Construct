@@ -84,8 +84,7 @@ namespace Construct.UX.Views.Visualizations
         }
 
         private Uri serverServiceUri = null;
-	    private IStreamDataSource streamDataSource;
-	    private StreamDataRouter streamDataRouter;
+	    private IDataSource streamDataSource;
 	    private SubscriptionTranslator subscriptionTranslator;
 
 
@@ -105,16 +104,13 @@ namespace Construct.UX.Views.Visualizations
             this.Sources = InitializeSources().Distinct().ToList();
             this.Properties = InitializeProperties().Distinct().ToList();
 
-			//((viewModel)ViewModel)
-
+			
 			InitializeSubscriptionTranslator();
 
-			streamDataSource = new SignalRStreamDataSource(sessionInfo.HostName);
-			streamDataSource.Start();
+			streamDataSource = new SignalRDataSource(sessionInfo.HostName);
+			streamDataSource.Connect();
 
-	        streamDataRouter = new StreamDataRouter(streamDataSource);
-
-	        VisualizationWindow.DataRouter = streamDataRouter;
+			VisualizationWindow.DataStore = new ClientDataStore(streamDataSource);
 	        VisualizationWindow.SubscriptionTranslator = subscriptionTranslator;
 
 	        PropertyVisualizationsOptions.ItemsSource = new List<String>()

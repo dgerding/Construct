@@ -11,19 +11,31 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="800">
 	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition x:Name="DataPreviewColumn" x:FieldModifier="private" />
+			<ColumnDefinition x:Name="DataDetailsColumn" x:FieldModifier="private" />
+		</Grid.ColumnDefinitions>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="22"/>
-			<RowDefinition/>
+			<RowDefinition Height="250*"/>
+			<RowDefinition Height="200" />
 		</Grid.RowDefinitions>
 
-		<Grid Grid.Row="0">
+		<Grid Grid.Row="0" Grid.ColumnSpan="2">
 			<Label Name="TimespanDisplayLabel" Content="Recorded Timespan: None" HorizontalAlignment="Left" VerticalContentAlignment="Center" Padding="2,0,0,0" />
 		</Grid>
 
-		<ScrollViewer Grid.Row="1">
+		<ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
 			<Grid>
 				<telerik:RadDocking Name="VisualizationsDock" BorderThickness="0" Padding="0" AllowUnsafeMode="True" PreviewClose="VisualizationsDock_OnPreviewClose" />
 			</Grid>
 		</ScrollViewer>
+
+		<telerik:RadTimeBar Grid.Row="2" Grid.Column="0" x:Name="GlobalTimeBar"
+							PeriodStart="{Binding StartTime}" PeriodEnd="{Binding EndTime}"
+							SelectionStart="{Binding SelectedStartTime}" SelectionEnd="{Binding SelectedEndTime}"
+							VisiblePeriodStart="{Binding ViewStartTime}" VisiblePeriodEnd="{Binding ViewEndTime}">
+
+		</telerik:RadTimeBar>
 	</Grid>
 </UserControl>

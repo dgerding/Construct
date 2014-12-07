@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Construct.MessageBrokering.Serialization;
 using Construct.UX.Views.Helper;
 using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.ChartView;
 
 namespace Construct.UX.Views.Visualizations
 {
@@ -17,104 +18,52 @@ namespace Construct.UX.Views.Visualizations
 			return null; 
 		}
 
-		//	Needs to be subscribed to by the derived class
-		protected event Action<SimplifiedPropertyValue> OnRoutedData;
+		public event Action<object, ChartVisualizationInfo> OnVisualizationRangeChanged;
 
 		protected event Action<DataSubscription> OnSubscriptionAdded;
 		protected event Action<DataSubscription> OnSubscriptionRemoved;
 
-		protected event Action OnClosed;
+		public event Action OnClosed;
 
-		protected virtual IEnumerable<Type> VisualizableTypes { get { return null; } } 
+		protected ClientDataStore DataStore { get; private set; }
 
-		private List<DataPropertyModel> selectedProperties = new List<DataPropertyModel>();
-		private StreamDataRouter sourceDataRouter;
-		private SubscriptionTranslator subscriptionTranslator;
+		public virtual IEnumerable<Type> VisualizableTypes { get { return null; } } 
 
-		public bool EnablePropertySelectionDialog { get; protected set; }
-		public RadTimeBar TimeBar { get; protected set; }
 		public String VisualizationName { get; protected set; }
 		public virtual int MaxProperties { get { return int.MaxValue; } }
 
-		public PropertyVisualization(StreamDataRouter dataRouter, SubscriptionTranslator subscriptionTranslator)
+		public PropertyVisualization(ClientDataStore sourceDataStore)
 		{
-			this.subscriptionTranslator = subscriptionTranslator;
-			this.sourceDataRouter = dataRouter;
-
-			this.EnablePropertySelectionDialog = true;
-
-			this.ContextMenu = new ContextMenu();
-			var showPropertyMenuItem = new MenuItem();
-			showPropertyMenuItem.Header = "_Show Property Selection";
-			showPropertyMenuItem.Click += showPropertyMenuItem_Click;
-			ContextMenu.Items.Add(showPropertyMenuItem);
+			DataStore = sourceDataStore;
 		}
 
 		public void Close()
 		{
 			if (OnClosed != null)
 				OnClosed();
-
-			foreach (var propertyModel in selectedProperties)
-			{
-				var subscription = (DataSubscription)propertyModel.Reference;
-				sourceDataRouter.Route(subscription.SourceId, subscription.PropertyId).OnData -= OnRoutedData;
-			}
 		}
 
-		void showPropertyMenuItem_Click(object sender, System.Windows.RoutedEventArgs e)
+		public void RequestAddVisualization(DataSubscription subscription)
 		{
-			if (!EnablePropertySelectionDialog)
-				return;
+			if (OnSubscriptionAdded != null)
+				OnSubscriptionAdded(subscription);
+		}
 
-			var allProperties = new List<DataPropertyModel>();
-			foreach (var possibleSubscription in subscriptionTranslator.AllTranslations(VisualizableTypes))
-			{
-				allProperties.Add(new DataPropertyModel()
-				{
-					DataTypeName = possibleSubscription.Value.DataTypeName,
-					PropertyName = possibleSubscription.Value.PropertyName,
-					SensorHostName = possibleSubscription.Value.SourceName,
-					SensorTypeName = possibleSubscription.Value.SourceTypeName,
-					Reference = possibleSubscription.Key
-				});
-			}
+		public void RequestRemoveVisualization(DataSubscription subscription)
+		{
+			if (OnSubscriptionRemoved != null)
+				OnSubscriptionRemoved(subscription);
+		}
 
-			var propertyDialog = new PropertySelectionDialog(allProperties, selectedProperties);
+		public virtual void ChangeVisualizationArea(SessionInfo newInfo)
+		{
+			
+		}
 
-			if (propertyDialog.ShowDialog().GetValueOrDefault(false))
-			{
-				var newSelectedProperties = propertyDialog.SelectedProperties.ToList();
-				if (newSelectedProperties.Count >= MaxProperties)
-				{
-					MessageBox.Show("Cannot display more than " + MaxProperties + " properties (" + newSelectedProperties.Count + " selected)");
-					return;
-				}
-
-				//	Remove route listeners for removed properties
-				var removedProperties = selectedProperties.Where((model) => !newSelectedProperties.Contains(model));
-				foreach (var removedProperty in removedProperties)
-				{
-					var propertyDescriptor = (DataSubscription)removedProperty.Reference;
-					var dataRoute = sourceDataRouter.Route(propertyDescriptor.SourceId, propertyDescriptor.PropertyId);
-					dataRoute.OnData -= OnRoutedData;
-					if (OnSubscriptionRemoved != null)
-						OnSubscriptionRemoved(propertyDescriptor);
-				}
-
-				//	Add route listeners for new properties
-				var uniqueNewProperties = newSelectedProperties.Where((model) => !selectedProperties.Contains(model));
-				foreach (var newProperty in uniqueNewProperties)
-				{
-					var propertyDescriptor = (DataSubscription)newProperty.Reference;
-					var dataRoute = sourceDataRouter.Route(propertyDescriptor.SourceId, propertyDescriptor.PropertyId);
-					dataRoute.OnData += OnRoutedData;
-					if (OnSubscriptionAdded != null)
-						OnSubscriptionAdded(propertyDescriptor);
-				}
-
-				selectedProperties = newSelectedProperties;
-			}
+		protected void NotifyUserChangedVisualizationRange(ChartVisualizationInfo newChartInfo)
+		{
+			if (OnVisualizationRangeChanged != null)
+				OnVisualizationRangeChanged(this, newChartInfo);
 		}
 	}
 }

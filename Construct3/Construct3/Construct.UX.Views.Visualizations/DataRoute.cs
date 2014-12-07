@@ -24,7 +24,7 @@ namespace Construct.UX.Views.Visualizations
 		//	Invoked when all OnDate listeners have been removed
 		public event Action<DataRoute> OnRouteClosed;
 
-		public void SendData(SimplifiedPropertyValue propertyValue)
+		public void NotifyData(SimplifiedPropertyValue propertyValue)
 		{
 			if (onData != null)
 				onData(propertyValue);

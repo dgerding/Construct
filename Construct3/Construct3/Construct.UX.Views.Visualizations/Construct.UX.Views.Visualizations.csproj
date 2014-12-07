@@ -99,30 +99,41 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataLegend.xaml.cs">
-      <DependentUpon>DataLegend.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ChartVisualizationInfo.cs" />
+    <Compile Include="ClientDataStore.cs" />
+    <Compile Include="DataRouteCollection.cs" />
+    <Compile Include="DataStoreDescriptor.cs" />
     <Compile Include="DataSubscription.cs" />
-    <Compile Include="IStreamDataSource.cs" />
-    <Compile Include="LegendColors.cs" />
-    <Compile Include="NumericPropertyVisualization.xaml.cs">
-      <DependentUpon>NumericPropertyVisualization.xaml</DependentUpon>
+    <Compile Include="IDataSource.cs" />
+    <Compile Include="Visualizations\NumericPropertyDetails.xaml.cs">
+      <DependentUpon>NumericPropertyDetails.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Visualizations\NumericPropertyPreview.xaml.cs">
+      <DependentUpon>NumericPropertyPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PropertyDataStore.cs" />
     <Compile Include="SessionInfo.cs" />
+    <Compile Include="SplitVisualizationContainer.xaml.cs">
+      <DependentUpon>SplitVisualizationContainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SubscriptionLabel.cs" />
     <Compile Include="SubscriptionTranslator.cs" />
     <Compile Include="PropertyVisualization.cs" />
-    <Compile Include="SignalRStreamDataSource.cs" />
-    <Compile Include="StreamDataRouter.cs" />
+    <Compile Include="SignalRDataSource.cs" />
     <Compile Include="DataRoute.cs" />
     <Compile Include="VisualizationWindow.xaml.cs">
       <DependentUpon>VisualizationWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="DataLegend.xaml">
+    <Compile Include="ChartToSessionConverter.cs" />
+    <Page Include="Visualizations\NumericPropertyDetails.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="NumericPropertyVisualization.xaml">
+    <Page Include="Visualizations\NumericPropertyPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SplitVisualizationContainer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
