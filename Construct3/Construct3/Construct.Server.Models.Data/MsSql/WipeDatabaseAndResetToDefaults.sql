@@ -805,42 +805,6 @@ AS
                         )
                 
             END
-            
-        IF NOT EXISTS ( SELECT  *
-                        FROM    [dbo].[Visualizations_Visualizer]
-                        WHERE   [ID] = N'937EC2ED-DD17-492C-87D3-650B01F14519' ) 
-            BEGIN
-                INSERT  INTO [dbo].[Visualizations_Visualizer]
-                        ( [ID] ,
-                          [PrimitiveDataTypeID] ,
-                          [Name] ,
-                          [Description]
-                        )
-                VALUES  ( N'937EC2ED-DD17-492C-87D3-650B01F14519' ,
-                          N'A6FFA473-3483-43B5-A2A8-B606C565C883' ,
-                          N'IntVisualizer' ,
-                          N'Int Visualizer'
-                        )
-                
-            END
-            
-        IF NOT EXISTS ( SELECT  *
-                        FROM    [dbo].[Visualizations_Visualizer]
-                        WHERE   [ID] = N'7FBD410A-CC7A-47B2-895D-48520909548A' ) 
-            BEGIN
-                INSERT  INTO [dbo].[Visualizations_Visualizer]
-                        ( [ID] ,
-                          [PrimitiveDataTypeID] ,
-                          [Name] ,
-                          [Description]
-                        )
-                VALUES  ( N'7FBD410A-CC7A-47B2-895D-48520909548A' ,
-                          N'2B0BECBF-D814-4BB2-8FAB-56C0723B4E94' ,
-                          N'BooleanVisualizer' ,
-                          N'Bool Visualizer'
-                        )
-                
-            END
     END
 GO
 
