@@ -37,19 +37,6 @@ namespace Construct.Server.Entities
 			}
 		}
 		
-		private string names;
-		public virtual string Name
-		{
-			get
-			{
-				return this.names;
-			}
-			set
-			{
-				this.names = value;
-			}
-		}
-		
 		private Guid iDs;
 		public virtual Guid ID
 		{
@@ -60,32 +47,6 @@ namespace Construct.Server.Entities
 			set
 			{
 				this.iDs = value;
-			}
-		}
-		
-		private string descriptions;
-		public virtual string Description
-		{
-			get
-			{
-				return this.descriptions;
-			}
-			set
-			{
-				this.descriptions = value;
-			}
-		}
-		
-		private Guid dataTypeIDs;
-		public virtual Guid DataTypeID
-		{
-			get
-			{
-				return this.dataTypeIDs;
-			}
-			set
-			{
-				this.dataTypeIDs = value;
 			}
 		}
 		

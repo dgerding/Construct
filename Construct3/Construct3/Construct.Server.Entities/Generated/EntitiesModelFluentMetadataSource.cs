@@ -151,12 +151,10 @@ namespace Construct.Server.Entities
 			configuration.HasProperty(x => x.Name).HasFieldName("names").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("nvarchar").HasLength(50);
 			configuration.HasProperty(x => x.ID).IsIdentity(KeyGenerator.Guid).HasFieldName("iDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 			configuration.HasProperty(x => x.Description).HasFieldName("descriptions").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Description").IsNotNullable().HasColumnType("nvarchar(max)").HasLength(0);
-			configuration.HasProperty(x => x.PrimitiveDataTypeID).HasFieldName("primitiveDataTypeIDs");
 		}
 	
 		public void PrepareVisualizerAssociationConfigurations(MappingConfiguration<Visualizer> configuration)
 		{
-			configuration.HasAssociation(x => x.DataType).HasFieldName("dataTypes").WithOpposite(x => x.Visualizers).ToColumn("PrimitiveDataTypeID").IsManaged().IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.Visualizations).HasFieldName("visualizations").WithOpposite(x => x.Visualizer).ToColumn("VisualizerID").IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 		}
 		
@@ -180,10 +178,7 @@ namespace Construct.Server.Entities
 		public void PrepareVisualizationPropertyConfigurations(MappingConfiguration<Visualization> configuration)
 		{
 			configuration.HasProperty(x => x.VisualizerID).HasFieldName("visualizerIDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("VisualizerID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
-			configuration.HasProperty(x => x.Name).HasFieldName("names").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("nvarchar").HasLength(50);
 			configuration.HasProperty(x => x.ID).IsIdentity(KeyGenerator.Guid).HasFieldName("iDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
-			configuration.HasProperty(x => x.Description).HasFieldName("descriptions").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Description").IsNullable().HasColumnType("nvarchar(max)").HasLength(0);
-			configuration.HasProperty(x => x.DataTypeID).HasFieldName("dataTypeIDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("DataTypeID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 			configuration.HasProperty(x => x.PropertyID).HasFieldName("propertyIDs");
 		}
 	
@@ -571,7 +566,6 @@ namespace Construct.Server.Entities
 			configuration.HasAssociation(x => x.DataTypeSource).HasFieldName("dataTypeSources").WithOpposite(x => x.DataTypes).ToColumn("DataTypeSourceID").IsRequired().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.Items).HasFieldName("items").WithOpposite(x => x.DataType).ToColumn("DataTypeID").IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.DataTypeChildren).HasFieldName("dataTypes").WithOpposite(x => x.DataTypeParent).ToColumn("DataTypeParentID").IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
-			configuration.HasAssociation(x => x.Visualizers).HasFieldName("visualizers").WithOpposite(x => x.DataType).ToColumn("PrimitiveDataTypeID").IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.SessionDesignNodes).HasFieldName("sessionDesignNodes").WithOpposite(x => x.DataType).HasConstraint().IsManaged().WithDataAccessKind(DataAccessKind.ReadWrite);
 			configuration.HasAssociation(x => x.PropertyParents).HasFieldName("propertyParents").WithOpposite(x => x.DataType).ToColumn("ParentDataTypeID").WithDataAccessKind(DataAccessKind.ReadWrite);
 		}

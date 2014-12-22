@@ -63,32 +63,6 @@ namespace Construct.Server.Entities
 			}
 		}
 		
-		private Guid primitiveDataTypeIDs;
-		public virtual Guid PrimitiveDataTypeID
-		{
-			get
-			{
-				return this.primitiveDataTypeIDs;
-			}
-			set
-			{
-				this.primitiveDataTypeIDs = value;
-			}
-		}
-		
-		private DataType dataTypes;
-		public virtual DataType DataType
-		{
-			get
-			{
-				return this.dataTypes;
-			}
-			set
-			{
-				this.dataTypes = value;
-			}
-		}
-		
 		private IList<Visualization> visualizations = new List<Visualization>();
 		public virtual IList<Visualization> Visualizations
 		{

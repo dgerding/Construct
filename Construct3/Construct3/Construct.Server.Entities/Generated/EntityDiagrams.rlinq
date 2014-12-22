@@ -5,7 +5,9 @@
       <orm:class name="Visualizer" uniqueId="ed05bbff-598b-4a8a-80be-f155c2de371b">
         <orm:table name="Visualizations_Visualizer" />
         <orm:identity>
-          <orm:key-generator name="guid" />
+          <orm:key-generator name="guid">
+            <orm:key-generator-member property-name="ID" />
+          </orm:key-generator>
           <orm:single-field field-name="iDs" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
@@ -17,12 +19,6 @@
         </orm:field>
         <orm:field name="descriptions" property="Description" behavior="readwrite" uniqueId="b56fd52e-d07d-40ba-b614-8e1700d72034" type="System.String">
           <orm:column name="Description" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
-        </orm:field>
-        <orm:field name="primitiveDataTypeIDs" property="PrimitiveDataTypeID" uniqueId="13769f55-7b66-4a4d-b454-659b60b8470b" type="System.Guid" />
-        <orm:field name="dataTypes" property="DataType" behavior="readwrite" uniqueId="85b1f2c2-5664-4086-9412-87a00bcc64c5" type="Construct.Server.Entities.DataType">
-          <orm:reference uniqueId="3d1e8055-8566-41cf-a136-2dcc15966656">
-            <orm:column name="PrimitiveDataTypeID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" target-table="'Types_DataType'" target-column="ID" />
-          </orm:reference>
         </orm:field>
         <orm:field name="visualizations" property="Visualizations" behavior="readwrite" uniqueId="ea6360c3-6676-43d2-88f0-a1d490b2a5e5" type="Construct.Server.Entities.Visualization">
           <orm:collection element-class="Construct.Server.Entities.Visualization" inverse-field="visualizers" managed="true" order-by="" uniqueId="3cb8a87e-4622-4e55-b921-d00952cf0652" />
@@ -38,21 +34,12 @@
         <orm:field name="visualizerIDs" property="VisualizerID" behavior="readwrite" uniqueId="d576543b-e273-43dd-b090-b246a42cd0be" type="System.Guid">
           <orm:column name="VisualizerID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
         </orm:field>
-        <orm:field name="names" property="Name" behavior="readwrite" uniqueId="2057fa2c-3b61-4883-8e61-f8c07c8dc90b" type="System.String">
-          <orm:column name="Name" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="UnicodeStringVariableLength" />
-        </orm:field>
         <orm:field name="iDs" property="ID" behavior="readwrite" uniqueId="aa244f41-fa0d-45ee-ba78-de96c3f8751e" type="System.Guid">
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:field>
-        <orm:field name="descriptions" property="Description" behavior="readwrite" uniqueId="0e0e64cd-4687-412b-bb9f-ac59940b0c0f" type="System.String">
-          <orm:column name="Description" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
-        </orm:field>
-        <orm:field name="dataTypeIDs" property="DataTypeID" behavior="readwrite" uniqueId="692f089f-041f-46f2-b42f-b08841b02c9f" type="System.Guid">
-          <orm:column name="DataTypeID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
-        </orm:field>
         <orm:field name="propertyIDs" property="PropertyID" uniqueId="cd49e96f-bb5a-4cbf-97c7-52c028222c44" type="System.Guid" />
         <orm:field name="visualizers" property="Visualizer" behavior="readwrite" uniqueId="3df6be04-9fe5-4594-90a6-2142bfdc0461" type="Construct.Server.Entities.Visualizer">
-          <orm:reference uniqueId="3cb8a87e-4622-4e55-b921-d00952cf0652">
+          <orm:reference uniqueId="3cb8a87e-4622-4e55-b921-d00952cf0652" association-name="VisualizationHasVisualizer">
             <orm:sharedfield name="visualizerIDs" target-class="Construct.Server.Entities.Visualizer" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -71,7 +58,7 @@
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:field>
         <orm:field name="dataTypeSources" property="DataTypeSource" behavior="readwrite" uniqueId="d82f5438-355e-4dcf-8e22-43ac20d1cad2" type="Construct.Server.Entities.DataTypeSource">
-          <orm:reference uniqueId="662c2a53-c37b-4065-8275-27969d22bbf0">
+          <orm:reference uniqueId="662c2a53-c37b-4065-8275-27969d22bbf0" association-name="SourceHasDataTypeSource">
             <orm:sharedfield name="dataTypeSourceIDs" target-class="Construct.Server.Entities.DataTypeSource" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -116,7 +103,7 @@
           <orm:column name="SensorTypeSourceID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
         </orm:field>
         <orm:field name="sensorTypeSources" property="SensorTypeSource" behavior="readwrite" uniqueId="fadf8c70-b812-4e70-914b-8c7d413bbbcf" type="Construct.Server.Entities.SensorTypeSource">
-          <orm:reference uniqueId="8dbd6717-a35b-4e29-8cdc-004571a54dcd">
+          <orm:reference uniqueId="8dbd6717-a35b-4e29-8cdc-004571a54dcd" association-name="SensorRuntimeHasSensorTypeSource">
             <orm:sharedfield name="sensorTypeSourceIDs" />
           </orm:reference>
         </orm:field>
@@ -175,7 +162,7 @@
           <orm:column name="HostName" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
         </orm:field>
         <orm:field name="sensorHostTypes" property="SensorHostType" behavior="readwrite" uniqueId="e58f7f5f-d6a4-484e-8b19-8ca4cfa603de" type="Construct.Server.Entities.SensorHostType">
-          <orm:reference uniqueId="b53e37bb-eb48-4135-b8ca-996983e4f91e">
+          <orm:reference uniqueId="b53e37bb-eb48-4135-b8ca-996983e4f91e" association-name="SensorHostHasSensorHostType">
             <orm:sharedfield name="sensorHostTypeIDs" target-class="Construct.Server.Entities.SensorHostType" target-field="iDs" />
             <orm:constraint name="FK_Sources_SensorHost_Sources_SensorHostType" destination-table="Sources_SensorHostType" />
           </orm:reference>
@@ -206,7 +193,7 @@
           <orm:column name="CommandName" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="UnicodeStringVariableLength" />
         </orm:field>
         <orm:field name="sensorTypeSources" property="SensorTypeSource" behavior="readwrite" uniqueId="db9542bc-40bc-4be6-87bd-01f1013ba8e9" type="Construct.Server.Entities.SensorTypeSource">
-          <orm:reference uniqueId="bfa1c537-acdd-44ca-bd7c-89313e0ae85d">
+          <orm:reference uniqueId="bfa1c537-acdd-44ca-bd7c-89313e0ae85d" association-name="SensorCommandHasSensorTypeSource">
             <orm:sharedfield name="sensorTypeSourceIDs" />
           </orm:reference>
         </orm:field>
@@ -242,13 +229,13 @@
           <orm:column name="SensorTypeSourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
         </orm:field>
         <orm:field name="sensorHosts" property="SensorHost" behavior="readwrite" uniqueId="da4f62b8-34bb-4dca-ad0b-fbcfc6e7d4b8" type="Construct.Server.Entities.SensorHost">
-          <orm:reference uniqueId="e33d2a5d-7280-4a23-8b8a-423e3c643e0a">
+          <orm:reference uniqueId="e33d2a5d-7280-4a23-8b8a-423e3c643e0a" association-name="SensorHasSensorHost">
             <orm:sharedfield name="sensorHostIDs" target-class="Construct.Server.Entities.SensorHost" target-field="iDs" />
             <orm:constraint name="FK_Sources_Sensor_Sources_SensorHost" destination-table="Sources_SensorHost" />
           </orm:reference>
         </orm:field>
         <orm:field name="sensorTypeSources" property="SensorTypeSource" behavior="readwrite" uniqueId="e917b8ed-7c06-49d9-8a16-465904186172" type="Construct.Server.Entities.SensorTypeSource">
-          <orm:reference uniqueId="b87bc104-b1ec-46f4-bb73-f6b72ae1e141">
+          <orm:reference uniqueId="b87bc104-b1ec-46f4-bb73-f6b72ae1e141" association-name="SensorHasSensorTypeSource">
             <orm:sharedfield name="sensorTypeSourceIDs" />
           </orm:reference>
         </orm:field>
@@ -307,12 +294,12 @@
         </orm:field>
         <orm:field name="questionIDs" property="QuestionID" uniqueId="4f6d4226-76a0-4d97-bff4-4782cb2e0734" type="System.Guid" />
         <orm:field name="properties" property="Property" behavior="readwrite" uniqueId="716f0923-7310-42fd-ab79-c0bc223771e3" type="Construct.Server.Entities.Property">
-          <orm:reference uniqueId="affefd8b-4d35-4e93-a27e-003931e31bbb">
+          <orm:reference uniqueId="affefd8b-4d35-4e93-a27e-003931e31bbb" association-name="QuestionParameterHasProperty">
             <orm:column name="PropertyID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" target-table="'Types_Property'" target-column="ID" />
           </orm:reference>
         </orm:field>
         <orm:field name="questions" property="Question" behavior="readwrite" uniqueId="3d28317f-b6a5-4075-9b08-b371930bbb28" type="Construct.Server.Entities.Question">
-          <orm:reference uniqueId="1f40d8ec-b8e3-4270-a507-c771d95974d8">
+          <orm:reference uniqueId="1f40d8ec-b8e3-4270-a507-c771d95974d8" association-name="QuestionParameterHasQuestion">
             <orm:sharedfield name="questionIDs" target-class="Construct.Server.Entities.Question" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -327,7 +314,7 @@
         <orm:field name="propertyIDs" property="PropertyID" uniqueId="3eb9f538-e305-43c5-8ea5-de6a09ba0e03" type="System.Guid" />
         <orm:field name="dataTypeIDs" property="DataTypeID" uniqueId="c499ad09-9ed5-4862-9208-6cb3a1f65d94" type="System.Guid" />
         <orm:field name="questionTypeSources" property="QuestionTypeSource" behavior="readwrite" uniqueId="e7a40a5f-c509-41d1-85c1-29211b9d70f0" type="Construct.Server.Entities.QuestionTypeSource">
-          <orm:reference uniqueId="49f3a94f-6335-4233-adec-1c70b716a043">
+          <orm:reference uniqueId="49f3a94f-6335-4233-adec-1c70b716a043" association-name="QuestionHasQuestionTypeSource">
             <orm:sharedfield name="questionTypeSourceIDs" target-class="Construct.Server.Entities.QuestionTypeSource" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -367,13 +354,13 @@
           <orm:column name="DataTypeID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
         </orm:field>
         <orm:field name="sources" property="Source" behavior="readwrite" uniqueId="6d25a4b8-f5c0-49c4-9067-38c5b4811733" type="Construct.Server.Entities.Source">
-          <orm:reference uniqueId="1a9c181f-7d63-46b5-9d23-f24c54d1fa25">
+          <orm:reference uniqueId="1a9c181f-7d63-46b5-9d23-f24c54d1fa25" association-name="ItemHasSource">
             <orm:sharedfield name="sourceIds" target-class="Construct.Server.Entities.Source" target-field="iDs" />
             <orm:constraint name="FK_Items_Item_Sources_Source" destination-table="Sources_Source" />
           </orm:reference>
         </orm:field>
         <orm:field name="dataTypes" property="DataType" behavior="readwrite" uniqueId="8c195851-493e-408a-86fe-dd8f7afa602a" type="Construct.Server.Entities.DataType">
-          <orm:reference uniqueId="f583a51f-be8b-46ba-b6f7-c47799c04eaa">
+          <orm:reference uniqueId="f583a51f-be8b-46ba-b6f7-c47799c04eaa" association-name="ItemHasDataType">
             <orm:sharedfield name="dataTypeIDs" target-class="Construct.Server.Entities.DataType" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -404,7 +391,7 @@
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:field>
         <orm:field name="dataTypeSources" property="DataTypeSource" behavior="readwrite" uniqueId="7da5ecc4-34bb-4509-9d8e-1b767f94290f" type="Construct.Server.Entities.DataTypeSource">
-          <orm:reference uniqueId="b5713fd0-7939-40b8-b707-e191b8898753">
+          <orm:reference uniqueId="b5713fd0-7939-40b8-b707-e191b8898753" association-name="ConstantHasDataTypeSource">
             <orm:sharedfield name="dataTypeSourceIDs" target-class="Construct.Server.Entities.DataTypeSource" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -438,12 +425,12 @@
           <orm:column name="DataTypeParentID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="dataType1" property="DataTypeParent" behavior="readwrite" uniqueId="68438b38-fe9b-4b72-8c5a-f641a56bb1a1" type="Construct.Server.Entities.DataType">
-          <orm:reference uniqueId="afd708c6-0422-4276-b52d-06a651cf53b7">
+          <orm:reference uniqueId="afd708c6-0422-4276-b52d-06a651cf53b7" association-name="DataTypeHasDataType">
             <orm:sharedfield name="dataTypeParentIDs" target-class="Construct.Server.Entities.DataType" target-field="iDs" />
           </orm:reference>
         </orm:field>
         <orm:field name="dataTypeSources" property="DataTypeSource" behavior="readwrite" uniqueId="cb08caa3-ac21-4c92-9e36-fb7d3ea909ce" type="Construct.Server.Entities.DataTypeSource">
-          <orm:reference uniqueId="2b2a44f1-214c-4df8-bcbf-c885bb3dc51f">
+          <orm:reference uniqueId="2b2a44f1-214c-4df8-bcbf-c885bb3dc51f" association-name="DataTypeHasDataTypeSource">
             <orm:sharedfield name="dataTypeSourceIDs" target-class="Construct.Server.Entities.DataTypeSource" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -452,9 +439,6 @@
         </orm:field>
         <orm:field name="dataTypes" property="DataTypeChildren" behavior="readwrite" uniqueId="d243fd55-7aff-4611-bc2f-fead96f13968" type="Construct.Server.Entities.DataType">
           <orm:collection element-class="Construct.Server.Entities.DataType" inverse-field="dataType1" managed="true" order-by="" uniqueId="afd708c6-0422-4276-b52d-06a651cf53b7" />
-        </orm:field>
-        <orm:field name="visualizers" property="Visualizers" behavior="readwrite" uniqueId="ae7870d4-8628-42cf-90d8-853847195e47" type="Construct.Server.Entities.Visualizer">
-          <orm:collection element-class="Construct.Server.Entities.Visualizer" inverse-field="dataTypes" managed="true" order-by="" uniqueId="3d1e8055-8566-41cf-a136-2dcc15966656" />
         </orm:field>
         <orm:field name="sessionDesignNodes" property="SessionDesignNodes" behavior="readwrite" type="Construct.Server.Entities.SessionDesignNode">
           <orm:collection element-class="Construct.Server.Entities.SessionDesignNode" inverse-field="dataTypes" managed="true" order-by="" uniqueId="683f2ebb-fd30-428a-8c1e-59fd1d6876fb" />
@@ -487,7 +471,7 @@
           <orm:column name="ParentID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
         </orm:field>
         <orm:field name="dataTypeSource1" property="DataTypeSource1" behavior="readwrite" uniqueId="8fd1de3b-fb0b-482c-829f-a81d916eaca2" type="Construct.Server.Entities.DataTypeSource">
-          <orm:reference uniqueId="5ddd252f-c906-4fc2-bfea-e63a4efbd708">
+          <orm:reference uniqueId="5ddd252f-c906-4fc2-bfea-e63a4efbd708" association-name="DataTypeSourceHasDataTypeSource">
             <orm:sharedfield name="parentIDs" target-class="Construct.Server.Entities.DataTypeSource" target-field="iDs" />
             <orm:constraint name="FK_Sources_DataTypeSource_Sources_DataTypeSource" destination-table="Sources_DataTypeSource" />
           </orm:reference>
@@ -538,7 +522,7 @@
           <orm:column name="ParentDataTypeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
         </orm:field>
         <orm:field name="dataTypes" property="DataType" behavior="readwrite" uniqueId="a1db2946-39df-4e13-b4f0-61b50260c0a4" type="Construct.Server.Entities.DataType">
-          <orm:reference uniqueId="9b70df45-4deb-4906-b1e7-05aebd394283">
+          <orm:reference uniqueId="9b70df45-4deb-4906-b1e7-05aebd394283" association-name="PropertyParentHasDataType">
             <orm:sharedfield name="parentDataTypeIDs" target-class="Construct.Server.Entities.DataType" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -559,7 +543,7 @@
           <orm:column name="PropertyDataTypeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
         </orm:field>
         <orm:field name="dataTypes" property="DataType" behavior="readwrite" uniqueId="31eb05ba-8223-4dfc-9e5b-6e773d37c15c" type="Construct.Server.Entities.DataType">
-          <orm:reference uniqueId="a0c044de-9510-4347-8007-bd785e8b2a8e">
+          <orm:reference uniqueId="a0c044de-9510-4347-8007-bd785e8b2a8e" association-name="PropertyTypeHasDataType">
             <orm:sharedfield name="propertyDataTypeIDs" target-class="Construct.Server.Entities.DataType" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -583,7 +567,7 @@
           <orm:column name="Version" sql-type="varchar" nullable="true" length="255" scale="0" ado-type="StringVariableLength" />
         </orm:field>
         <orm:field name="sensorHostTypes" property="SensorHostType" behavior="readwrite" uniqueId="1bebee6c-50d8-4edd-ac0e-c70e70731089" type="Construct.Server.Entities.SensorHostType">
-          <orm:reference uniqueId="887ea8a3-57b3-404f-878b-cc5430afc93c">
+          <orm:reference uniqueId="887ea8a3-57b3-404f-878b-cc5430afc93c" association-name="SensorTypeSourceHasSensorHostType">
             <orm:sharedfield name="sensorHostTypeIDs" target-class="Construct.Server.Entities.SensorHostType" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -610,7 +594,7 @@
         <orm:field name="iDs" property="ID" uniqueId="db6965e7-79df-4080-bfde-37abcc64180d" type="System.Guid" />
         <orm:field name="sessionDesignNodeIDs" property="SessionDesignNodeID" uniqueId="5143ae1b-dad1-475d-b635-a117046b101c" type="System.Guid" />
         <orm:field name="sessionDesignNodes" property="SessionDesignNode" behavior="readwrite" uniqueId="e3ae9bc2-45e9-430b-b239-a9242d89c408" type="Construct.Server.Entities.SessionDesignNode">
-          <orm:reference uniqueId="da22074b-80c2-4724-a68f-ec51d3cf24a6" />
+          <orm:reference uniqueId="da22074b-80c2-4724-a68f-ec51d3cf24a6" association-name="SessionNodeHasSessionDesignNode" />
         </orm:field>
       </orm:class>
       <orm:class name="SessionDesignNode" uniqueId="26ef26b5-3537-41eb-a034-73428ec7dcda">
@@ -623,10 +607,10 @@
         <orm:field name="sessionDesignID" property="SessionDesignID" uniqueId="fa681668-6b7d-4e8a-a477-5eb1ae37e592" type="System.Guid" />
         <orm:field name="id" property="ID" uniqueId="29968d95-01c7-46c5-8eec-6e58ac9a674e" type="System.Guid" />
         <orm:field name="dataTypes" property="DataType" behavior="readwrite" type="Construct.Server.Entities.DataType">
-          <orm:reference uniqueId="683f2ebb-fd30-428a-8c1e-59fd1d6876fb" />
+          <orm:reference uniqueId="683f2ebb-fd30-428a-8c1e-59fd1d6876fb" association-name="SessionDesignNodeHasDataType" />
         </orm:field>
         <orm:field name="sessionDesigns" property="SessionDesign" behavior="readwrite" type="Construct.Server.Entities.SessionDesign">
-          <orm:reference uniqueId="42be0022-cab7-4fe4-a1b5-bc0fc997340f" />
+          <orm:reference uniqueId="42be0022-cab7-4fe4-a1b5-bc0fc997340f" association-name="SessionDesignNodeHasSessionDesign" />
         </orm:field>
         <orm:field name="sessionNodes" property="SessionNodes" behavior="readwrite" uniqueId="6ba4a81e-4e27-4577-aa53-242ed64b5bfe" type="Construct.Server.Entities.SessionNode">
           <orm:collection element-class="Construct.Server.Entities.SessionNode" inverse-field="sessionDesignNodes" managed="true" order-by="" uniqueId="da22074b-80c2-4724-a68f-ec51d3cf24a6" />
@@ -657,7 +641,7 @@
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="" />
         </orm:field>
         <orm:field name="sensorCommands" property="SensorCommand" behavior="readwrite" uniqueId="56927243-cece-45ce-92cc-fd063b8cd952" type="Construct.Server.Entities.SensorCommand">
-          <orm:reference uniqueId="ccfb1c3d-cafc-4c29-b962-6f62231fb4e2">
+          <orm:reference uniqueId="ccfb1c3d-cafc-4c29-b962-6f62231fb4e2" association-name="SensorCommandParameterHasSensorCommand">
             <orm:sharedfield name="sensorCommandIDs" target-class="Construct.Server.Entities.SensorCommand" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -707,12 +691,12 @@
           <orm:column name="LabelID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="taxonomies" property="Taxonomy" behavior="readwrite" uniqueId="f8356ddc-ab9c-4b90-92c6-7edae1b308c5" type="Construct.Server.Entities.Taxonomy">
-          <orm:reference uniqueId="c332bf8e-b2fe-4fa9-af39-f1b5d8b80784">
+          <orm:reference uniqueId="c332bf8e-b2fe-4fa9-af39-f1b5d8b80784" association-name="TaxonomyLabelHasTaxonomy">
             <orm:sharedfield name="taxonomyIDs" target-class="Construct.Server.Entities.Taxonomy" target-field="iDs" />
           </orm:reference>
         </orm:field>
         <orm:field name="labels" property="Label" behavior="readwrite" uniqueId="9ab18985-5f8c-4643-a2fa-61556019af96" type="Construct.Server.Entities.Label">
-          <orm:reference uniqueId="e5cdf3cb-0afb-4746-9316-094a2ec47ac4">
+          <orm:reference uniqueId="e5cdf3cb-0afb-4746-9316-094a2ec47ac4" association-name="TaxonomyLabelHasLabel">
             <orm:sharedfield name="labelIDs" target-class="Construct.Server.Entities.Label" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -758,12 +742,12 @@
           <orm:column name="SourceID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
         <orm:field name="sessions" property="Session" behavior="readwrite" uniqueId="afd048a3-601a-44e5-9f5e-c6f6142f590e" type="Construct.Server.Entities.Session">
-          <orm:reference uniqueId="09ff7550-6fe5-413a-970c-622773f67c42">
+          <orm:reference uniqueId="09ff7550-6fe5-413a-970c-622773f67c42" association-name="SessionSourceHasSession">
             <orm:sharedfield name="sessionIDs" target-class="Construct.Server.Entities.Session" target-field="iDs" />
           </orm:reference>
         </orm:field>
         <orm:field name="sources" property="Source" behavior="readwrite" uniqueId="a9619881-4f76-43d0-ae45-d33c70646998" type="Construct.Server.Entities.Source">
-          <orm:reference uniqueId="2a7d7aa4-e356-43ac-8835-0b98ff7c7e18">
+          <orm:reference uniqueId="2a7d7aa4-e356-43ac-8835-0b98ff7c7e18" association-name="SessionSourceHasSource">
             <orm:sharedfield name="sourceIDs" target-class="Construct.Server.Entities.Source" target-field="iDs" />
           </orm:reference>
         </orm:field>
@@ -803,7 +787,6 @@
         <orm:column name="DataTypeID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
       </orm:table>
       <orm:table name="Visualizations_Visualizer">
-        <orm:column name="PrimitiveDataTypeID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
         <orm:column name="Name" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         <orm:column name="Description" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
@@ -813,10 +796,7 @@
       </orm:table>
       <orm:table name="Visualizations_Visualization">
         <orm:column name="VisualizerID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
-        <orm:column name="Name" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
-        <orm:column name="Description" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
-        <orm:column name="DataTypeID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
         <orm:column name="PropertyID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Sources_Source">
@@ -915,7 +895,7 @@
         <orm:constraint name="ref_Srcs_Snsr_Srcs_SnsrTypSrce" destination-table="Sources_SensorTypeSource">
           <orm:column name="SensorTypeSourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
         </orm:constraint>
-        <orm:constraint name="ref_Srcs_Sensor_Sources_Source" destination-table="Sources_Source">
+        <orm:constraint name="ref_Srcs_Sensor_Sources_Source" delete-action="dbdefaultrule" destination-table="Sources_Source">
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:constraint>
       </orm:table>
@@ -1020,7 +1000,7 @@
         <orm:constraint name="ref_Srcs_SnsrTypSrc_Srcs_SnsrH" destination-table="Sources_SensorHostType">
           <orm:column name="SensorHostTypeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
         </orm:constraint>
-        <orm:constraint name="ref_Srcs_SnsrTypSrc_Srcs_DtTyp" destination-table="Sources_DataTypeSource">
+        <orm:constraint name="ref_Srcs_SnsrTypSrc_Srcs_DtTyp" delete-action="dbdefaultrule" destination-table="Sources_DataTypeSource">
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:constraint>
       </orm:table>
@@ -1036,7 +1016,7 @@
             <orm:column name="ParentDataTypeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
           </orm:columnMapping>
         </orm:index>
-        <orm:constraint name="ref_Typs_PrprtyPrnt_Typs_Prprt" destination-table="Types_Property">
+        <orm:constraint name="ref_Typs_PrprtyPrnt_Typs_Prprt" delete-action="dbdefaultrule" destination-table="Types_Property">
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:constraint>
         <orm:constraint name="ref_Typs_PrprtyPrnt_Typs_DtTyp" destination-table="Types_DataType">
@@ -1051,7 +1031,7 @@
             <orm:column name="PropertyDataTypeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" />
           </orm:columnMapping>
         </orm:index>
-        <orm:constraint name="ref_Typs_PrprtyTyp_Typs_Prprty" destination-table="Types_PropertyParent">
+        <orm:constraint name="ref_Typs_PrprtyTyp_Typs_Prprty" delete-action="dbdefaultrule" destination-table="Types_PropertyParent">
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:constraint>
         <orm:constraint name="ref_Typs_PrprtyTyp_Typs_DtType" destination-table="Types_DataType">
@@ -1174,8 +1154,8 @@
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="JoinDataPropertyToDataType">
-        <orm:procedure-parameter name="typeID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="propertyID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="typeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="propertyID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="GetTypes">
@@ -1185,164 +1165,164 @@
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateStringPropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateSinglePropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateInt32PropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateGuidPropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateDoublePropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateDateTimePropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateByteArrayPropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateBooleanPropertyValueTable">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="Create_Login">
-        <orm:procedure-parameter name="username" sql-type="nvarchar" length="128" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="username" sql-type="nvarchar" nullable="true" length="128" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddStringPropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddItemHeader">
-        <orm:procedure-parameter name="SourceTime" sql-type="datetime" length="0" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="DataTypeID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceTime" sql-type="datetime" nullable="true" length="0" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="DataTypeID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddSinglePropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="real" length="0" scale="0" nullable="true" ado-type="Real" mode="in" type="System.Nullable`1[[System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="real" nullable="true" length="0" scale="0" ado-type="Real" mode="in" type="System.Nullable`1[[System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddIntPropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddGuidPropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddDoublePropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="float" length="0" scale="0" nullable="true" ado-type="Double" mode="in" type="System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="float" nullable="true" length="0" scale="0" ado-type="Double" mode="in" type="System.Nullable`1[[System.Double, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddDateTimePropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddByteArrayPropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="varbinary(max)" length="0" scale="0" nullable="true" ado-type="LongVarBinary" mode="in" type="System.Byte[]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="varbinary(max)" nullable="true" length="0" scale="0" ado-type="LongVarBinary" mode="in" type="System.Byte[]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="AddBooleanPropertyValue">
-        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" length="0" scale="0" nullable="true" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="StartTime" sql-type="datetime2" length="7" scale="0" nullable="true" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Interval" sql-type="int" length="0" scale="0" nullable="true" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
-        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" length="50" scale="0" nullable="true" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="Value" sql-type="bit" length="0" scale="0" nullable="true" ado-type="Bit" mode="in" type="System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="TableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="ItemID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="SourceID" sql-type="uniqueidentifier" nullable="true" length="0" scale="0" ado-type="Guid" mode="in" type="System.Nullable`1[[System.Guid, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="StartTime" sql-type="datetime2" nullable="true" length="7" scale="0" ado-type="DateTime" mode="in" type="System.Nullable`1[[System.DateTime, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Interval" sql-type="int" nullable="true" length="0" scale="0" ado-type="Int32" mode="in" type="System.Nullable`1[[System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
+        <orm:procedure-parameter name="Latitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Longitude" sql-type="nvarchar" nullable="true" length="50" scale="0" ado-type="UnicodeStringVariableLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="Value" sql-type="bit" nullable="true" length="0" scale="0" ado-type="Bit" mode="in" type="System.Nullable`1[[System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="CreateInsertProcedureForByteArrayTable">
-        <orm:procedure-parameter name="tableName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="tableName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
       <orm:procedure name="GetAllPropertyValues">
-        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
-        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" length="0" scale="0" nullable="true" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="datatypeName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
+        <orm:procedure-parameter name="propertyName" sql-type="nvarchar(max)" nullable="true" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" mode="in" type="System.String" />
         <orm:result-sets />
       </orm:procedure>
     </orm:schema>
     <orm:relational-naming-settings>
-      <orm:remove-camel-case>False</orm:remove-camel-case>
-      <orm:source-strategy>Property</orm:source-strategy>
       <orm:remove-leading-underscore>False</orm:remove-leading-underscore>
+      <orm:source-strategy>Property</orm:source-strategy>
+      <orm:remove-camel-case>False</orm:remove-camel-case>
     </orm:relational-naming-settings>
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>Construct3Connection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>data source=daisy.colum.edu;initial catalog=Construct3;user id=Construct;password=ConstructifyConstructifyConstructify</AppConfigConnectionString>
+    <AppConfigConnectionString>data source=(local);initial catalog=Construct3;persist security info=True;integrated security=true</AppConfigConnectionString>
     <InitialCatalog>Construct3</InitialCatalog>
     <NamingSettings>
       <ClassRules>
@@ -1360,8 +1340,8 @@
         <RemovePrefix>Items_,Questions_,Sessions_,Types_,Visualizations_,Sources_,Questions_,Constants_</RemovePrefix>
         <CaseMode>PascalCase</CaseMode>
         <PluralizationMode>Singularize</PluralizationMode>
-        <PluralizationModeCollections>Pluralize</PluralizationModeCollections>
       </PropertyRules>
+      <NavigationPropertyRules />
     </NamingSettings>
     <CodeGenerationSettings>
       <OutputProjectName>Construct.Server.Entities</OutputProjectName>
@@ -1388,40 +1368,18 @@
     </BackendConfigurationSettings>
   </ModelSettings>
   <Types>
-    <DomainClass Id="ed05bbff-598b-4a8a-80be-f155c2de371b" name="Visualizer" namespace="Construct.Server.Entities" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+    <DomainClass Id="ed05bbff-598b-4a8a-80be-f155c2de371b" name="Visualizer" namespace="Construct.Server.Entities" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="ID">
       <Property Id="de3d98b7-49f7-4928-91b8-b3f48f0fee7f" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="iDs" />
       <Property Id="b56fd52e-d07d-40ba-b614-8e1700d72034" name="Description" label="Description : String" kind="Persistent" fieldName="descriptions" />
       <Property Id="664953d4-36fa-4305-9a30-a033cabd15b9" name="Name" label="Name : String" kind="Persistent" fieldName="names" />
-      <Property Id="13769f55-7b66-4a4d-b454-659b60b8470b" name="PrimitiveDataTypeID" type="Guid" label="PrimitiveDataTypeID : Guid" fieldName="primitiveDataTypeIDs" />
-      <AssociationTargets>
-        <Association Id="3d1e8055-8566-41cf-a136-2dcc15966656" SourceMultiplicity="ZeroOne" name="VisualizerHasDataType">
-          <DomainClassMoniker name="/EntitiesModel/DataType" />
-          <targetNavigationalProperty>
-            <associationDefinesTargetProperty Id="c6f5f886-490e-43b6-b149-3e45add38f39">
-              <NavigationalPropertyMoniker name="/EntitiesModel/DataType/Visualizers" />
-            </associationDefinesTargetProperty>
-          </targetNavigationalProperty>
-          <sourceNavigationalProperty>
-            <associationDefinesSourceProperty Id="61d8a4e5-48f0-4e9b-a4a2-9f3cd03aff41">
-              <NavigationalPropertyMoniker name="/EntitiesModel/Visualizer/DataType" />
-            </associationDefinesSourceProperty>
-          </sourceNavigationalProperty>
-        </Association>
-      </AssociationTargets>
       <navigationalProperties>
-        <classHasNavigationalProperties Id="9add4b05-026b-45a3-8074-22ac08883a93">
-          <NavigationalProperty Id="85b1f2c2-5664-4086-9412-87a00bcc64c5" name="DataType" type="DataType" label="DataType : DataType" nullable="true" kind="Persistent" fieldName="dataTypes" isDependent="false" isManaged="false" />
-        </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="d0694531-1f0c-4492-8978-7376f004c00b">
-          <NavigationalProperty Id="ea6360c3-6676-43d2-88f0-a1d490b2a5e5" name="Visualizations" type="IList&lt;Visualization&gt;" label="Visualizations : IList&lt;Visualization&gt;" nullable="true" kind="Persistent" fieldName="visualizations" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="ea6360c3-6676-43d2-88f0-a1d490b2a5e5" name="Visualizations" type="IList&lt;Visualization&gt;" label="Visualizations : IList&lt;Visualization&gt;" nullable="true" kind="Persistent" fieldName="visualizations" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
     <DomainClass Id="a6207d06-1fe3-48b5-b5fd-72ccb9022120" name="Visualization" namespace="Construct.Server.Entities" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
       <Property Id="aa244f41-fa0d-45ee-ba78-de96c3f8751e" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="iDs" />
-      <Property Id="692f089f-041f-46f2-b42f-b08841b02c9f" name="DataTypeID" type="Guid" label="DataTypeID : Guid" kind="Persistent" fieldName="dataTypeIDs" />
-      <Property Id="0e0e64cd-4687-412b-bb9f-ac59940b0c0f" name="Description" label="Description : String" kind="Persistent" fieldName="descriptions" />
-      <Property Id="2057fa2c-3b61-4883-8e61-f8c07c8dc90b" name="Name" label="Name : String" kind="Persistent" fieldName="names" />
       <Property Id="d576543b-e273-43dd-b090-b246a42cd0be" name="VisualizerID" type="Guid" label="VisualizerID : Guid" kind="Persistent" fieldName="visualizerIDs" />
       <Property Id="cd49e96f-bb5a-4cbf-97c7-52c028222c44" name="PropertyID" type="Guid" label="PropertyID : Guid" fieldName="propertyIDs" />
       <AssociationTargets>
@@ -1441,7 +1399,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="a422c98c-dc27-4b6b-8670-a20ef57a899c">
-          <NavigationalProperty Id="3df6be04-9fe5-4594-90a6-2142bfdc0461" name="Visualizer" type="Visualizer" label="Visualizer : Visualizer" nullable="true" kind="Persistent" fieldName="visualizers" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="3df6be04-9fe5-4594-90a6-2142bfdc0461" name="Visualizer" type="Visualizer" label="Visualizer : Visualizer" nullable="true" kind="Persistent" fieldName="visualizers" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1476,10 +1434,10 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="f38b4083-def2-437f-8ec0-079ad22fc13e">
-          <NavigationalProperty Id="7ed75e6e-1f7f-40aa-a75c-48027fdf1d93" name="Items" type="IList&lt;Item&gt;" label="Items : IList&lt;Item&gt;" nullable="true" kind="Persistent" fieldName="items" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="7ed75e6e-1f7f-40aa-a75c-48027fdf1d93" name="Items" type="IList&lt;Item&gt;" label="Items : IList&lt;Item&gt;" nullable="true" kind="Persistent" fieldName="items" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="4cf2fa2e-2a92-4729-a099-c45da797fc4c">
-          <NavigationalProperty Id="d82f5438-355e-4dcf-8e22-43ac20d1cad2" name="DataTypeSource" type="DataTypeSource" label="DataTypeSource : DataTypeSource" nullable="true" kind="Persistent" fieldName="dataTypeSources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="d82f5438-355e-4dcf-8e22-43ac20d1cad2" name="DataTypeSource" type="DataTypeSource" label="DataTypeSource : DataTypeSource" nullable="true" kind="Persistent" fieldName="dataTypeSources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="39683b01-2a3b-4b1b-b740-5f50798298b4">
           <NavigationalProperty Id="6cf53c30-a567-4a29-a5f2-c70e4f5229a4" name="SessionSources" type="IList&lt;SessionSource&gt;" label="SessionSources : IList&lt;SessionSource&gt;" nullable="true" kind="Persistent" fieldName="sessionSources" isDependent="false" isManaged="false" />
@@ -1511,7 +1469,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="e6415209-b315-4b58-bb73-5c1c6c259210">
-          <NavigationalProperty Id="fadf8c70-b812-4e70-914b-8c7d413bbbcf" name="SensorTypeSource" type="SensorTypeSource" label="SensorTypeSource : SensorTypeSource" nullable="true" kind="Persistent" fieldName="sensorTypeSources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="fadf8c70-b812-4e70-914b-8c7d413bbbcf" name="SensorTypeSource" type="SensorTypeSource" label="SensorTypeSource : SensorTypeSource" nullable="true" kind="Persistent" fieldName="sensorTypeSources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1522,10 +1480,10 @@
       <Property Id="2578f80b-68bf-4f07-994b-0015d72be8d5" name="SensorHostTypeName" label="SensorHostTypeName : String" kind="Persistent" fieldName="sensorHostTypeNames" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="e96cf40e-78ae-4464-9e57-22540513a01d">
-          <NavigationalProperty Id="86d40135-5bb3-4e24-b657-0863653cb6d0" name="SensorHosts" type="IList&lt;SensorHost&gt;" label="SensorHosts : IList&lt;SensorHost&gt;" nullable="true" kind="Persistent" fieldName="sensorHosts" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="86d40135-5bb3-4e24-b657-0863653cb6d0" name="SensorHosts" type="IList&lt;SensorHost&gt;" label="SensorHosts : IList&lt;SensorHost&gt;" nullable="true" kind="Persistent" fieldName="sensorHosts" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="9378dc0d-64b9-4125-bdf1-df399e056e7e">
-          <NavigationalProperty Id="de56bce0-90de-4090-9ec1-c0730661ad6f" name="SensorDataTypeSources" type="IList&lt;SensorDataTypeSource&gt;" label="SensorDataTypeSources : IList&lt;SensorDataTypeSource&gt;" nullable="true" kind="Persistent" fieldName="sensorDataTypeSources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="de56bce0-90de-4090-9ec1-c0730661ad6f" name="SensorDataTypeSources" type="IList&lt;SensorDataTypeSource&gt;" label="SensorDataTypeSources : IList&lt;SensorDataTypeSource&gt;" nullable="true" kind="Persistent" fieldName="sensorDataTypeSources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1552,10 +1510,10 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="e0f73863-0133-4057-8efd-c7c0af297297">
-          <NavigationalProperty Id="e58f7f5f-d6a4-484e-8b19-8ca4cfa603de" name="SensorHostType" type="SensorHostType" label="SensorHostType : SensorHostType" nullable="true" kind="Persistent" fieldName="sensorHostTypes" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="e58f7f5f-d6a4-484e-8b19-8ca4cfa603de" name="SensorHostType" type="SensorHostType" label="SensorHostType : SensorHostType" nullable="true" kind="Persistent" fieldName="sensorHostTypes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="8a26255d-3ac3-45d9-8411-34e845b27450">
-          <NavigationalProperty Id="9bc8f4dd-efb6-4fd4-bef5-93abbb507065" name="Sensors" type="IList&lt;Sensor&gt;" label="Sensors : IList&lt;Sensor&gt;" nullable="true" kind="Persistent" fieldName="sensors" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="9bc8f4dd-efb6-4fd4-bef5-93abbb507065" name="Sensors" type="IList&lt;Sensor&gt;" label="Sensors : IList&lt;Sensor&gt;" nullable="true" kind="Persistent" fieldName="sensors" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1580,10 +1538,10 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="c350f9ce-9d8a-43c8-8f55-6287d89813ee">
-          <NavigationalProperty Id="db9542bc-40bc-4be6-87bd-01f1013ba8e9" name="SensorTypeSource" type="SensorTypeSource" label="SensorTypeSource : SensorTypeSource" nullable="true" kind="Persistent" fieldName="sensorTypeSources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="db9542bc-40bc-4be6-87bd-01f1013ba8e9" name="SensorTypeSource" type="SensorTypeSource" label="SensorTypeSource : SensorTypeSource" nullable="true" kind="Persistent" fieldName="sensorTypeSources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="6f624d06-3c43-482c-a78f-99886daa778c">
-          <NavigationalProperty Id="9be5d686-18dc-4a49-9875-67ae815e71a3" name="SensorCommandParameters" type="IList&lt;SensorCommandParameter&gt;" label="SensorCommandParameters : IList&lt;SensorCommandParameter&gt;" nullable="true" kind="Persistent" fieldName="sensorCommandParameters" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="9be5d686-18dc-4a49-9875-67ae815e71a3" name="SensorCommandParameters" type="IList&lt;SensorCommandParameter&gt;" label="SensorCommandParameters : IList&lt;SensorCommandParameter&gt;" nullable="true" kind="Persistent" fieldName="sensorCommandParameters" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1623,10 +1581,10 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="b0c180be-56fc-4972-a303-11067a8317a5">
-          <NavigationalProperty Id="da4f62b8-34bb-4dca-ad0b-fbcfc6e7d4b8" name="SensorHost" type="SensorHost" label="SensorHost : SensorHost" nullable="true" kind="Persistent" fieldName="sensorHosts" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="da4f62b8-34bb-4dca-ad0b-fbcfc6e7d4b8" name="SensorHost" type="SensorHost" label="SensorHost : SensorHost" nullable="true" kind="Persistent" fieldName="sensorHosts" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="2fad7d4e-78ec-4577-8817-c033e57f96f4">
-          <NavigationalProperty Id="e917b8ed-7c06-49d9-8a16-465904186172" name="SensorTypeSource" type="SensorTypeSource" label="SensorTypeSource : SensorTypeSource" nullable="true" kind="Persistent" fieldName="sensorTypeSources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="e917b8ed-7c06-49d9-8a16-465904186172" name="SensorTypeSource" type="SensorTypeSource" label="SensorTypeSource : SensorTypeSource" nullable="true" kind="Persistent" fieldName="sensorTypeSources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1671,7 +1629,7 @@
           <NavigationalProperty Id="afcef418-b1b3-4c13-8ad9-3cc055ec86dc" name="DataType" type="DataType" label="DataType : DataType" nullable="true" kind="Persistent" fieldName="dataTypes" isDependent="false" isManaged="false" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="bab9cd9b-6471-4427-b777-cfeb71dc9061">
-          <NavigationalProperty Id="6ba4a81e-4e27-4577-aa53-242ed64b5bfe" name="SessionNodes" type="IList&lt;SessionNode&gt;" label="SessionNodes : IList&lt;SessionNode&gt;" nullable="true" kind="Persistent" fieldName="sessionNodes" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="6ba4a81e-4e27-4577-aa53-242ed64b5bfe" name="SessionNodes" type="IList&lt;SessionNode&gt;" label="SessionNodes : IList&lt;SessionNode&gt;" nullable="true" kind="Persistent" fieldName="sessionNodes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1709,7 +1667,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="27ed2be8-bfb3-46ec-9f6d-6186de42cab7">
-          <NavigationalProperty Id="56927243-cece-45ce-92cc-fd063b8cd952" name="SensorCommand" type="SensorCommand" label="SensorCommand : SensorCommand" nullable="true" kind="Persistent" fieldName="sensorCommands" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="56927243-cece-45ce-92cc-fd063b8cd952" name="SensorCommand" type="SensorCommand" label="SensorCommand : SensorCommand" nullable="true" kind="Persistent" fieldName="sensorCommands" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1748,7 +1706,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="0629e4a2-933f-4b3f-8c33-1d34eed80dc9">
-          <NavigationalProperty Id="716f0923-7310-42fd-ab79-c0bc223771e3" name="Property" type="Property" label="Property : Property" nullable="true" kind="Persistent" fieldName="properties" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="716f0923-7310-42fd-ab79-c0bc223771e3" name="Property" type="Property" label="Property : Property" nullable="true" kind="Persistent" fieldName="properties" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="402975c2-ce82-43d5-95ec-45a354c2e609">
           <NavigationalProperty Id="3d28317f-b6a5-4075-9b08-b371930bbb28" name="Question" type="Question" label="Question : Question" nullable="true" kind="Persistent" fieldName="questions" isDependent="false" isManaged="false" />
@@ -1823,10 +1781,10 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="984e1d68-db46-47da-830e-32050f7e93e2">
-          <NavigationalProperty Id="6d25a4b8-f5c0-49c4-9067-38c5b4811733" name="Source" type="Source" label="Source : Source" nullable="true" kind="Persistent" fieldName="sources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="6d25a4b8-f5c0-49c4-9067-38c5b4811733" name="Source" type="Source" label="Source : Source" nullable="true" kind="Persistent" fieldName="sources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="55616ee4-0d64-4c2a-8324-aec7288df2eb">
-          <NavigationalProperty Id="8c195851-493e-408a-86fe-dd8f7afa602a" name="DataType" type="DataType" label="DataType : DataType" nullable="true" kind="Persistent" fieldName="dataTypes" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="8c195851-493e-408a-86fe-dd8f7afa602a" name="DataType" type="DataType" label="DataType : DataType" nullable="true" kind="Persistent" fieldName="dataTypes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -1893,16 +1851,13 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="5ec69a4a-6b62-42b7-a4a6-1df0e2cd9120">
-          <NavigationalProperty Id="8456a638-8ad5-43df-9b51-ba4f7f27d23e" name="Items" type="IList&lt;Item&gt;" label="Items : IList&lt;Item&gt;" nullable="true" kind="Persistent" fieldName="items" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="8456a638-8ad5-43df-9b51-ba4f7f27d23e" name="Items" type="IList&lt;Item&gt;" label="Items : IList&lt;Item&gt;" nullable="true" kind="Persistent" fieldName="items" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="0971e403-e1e4-482d-a126-2eaf214b3147">
-          <NavigationalProperty Id="68438b38-fe9b-4b72-8c5a-f641a56bb1a1" name="DataTypeParent" type="DataType" label="DataTypeParent : DataType" nullable="true" kind="Persistent" fieldName="dataType1" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="68438b38-fe9b-4b72-8c5a-f641a56bb1a1" name="DataTypeParent" type="DataType" label="DataTypeParent : DataType" nullable="true" kind="Persistent" fieldName="dataType1" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="900780ad-cf0c-45fd-a84d-cd85a45e0d19">
-          <NavigationalProperty Id="d243fd55-7aff-4611-bc2f-fead96f13968" name="DataTypeChildren" type="IList&lt;DataType&gt;" label="DataTypeChildren : IList&lt;DataType&gt;" nullable="true" kind="Persistent" fieldName="dataTypes" isDependent="false" isManaged="false" />
-        </classHasNavigationalProperties>
-        <classHasNavigationalProperties Id="f3b308a1-5800-4faf-9037-b4cdc86fe02c">
-          <NavigationalProperty Id="ae7870d4-8628-42cf-90d8-853847195e47" name="Visualizers" type="IList&lt;Visualizer&gt;" label="Visualizers : IList&lt;Visualizer&gt;" nullable="true" kind="Persistent" fieldName="visualizers" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="d243fd55-7aff-4611-bc2f-fead96f13968" name="DataTypeChildren" type="IList&lt;DataType&gt;" label="DataTypeChildren : IList&lt;DataType&gt;" nullable="true" kind="Persistent" fieldName="dataTypes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="c4a4628f-6b59-41ee-99bb-07b6bd0760ff">
           <NavigationalProperty Id="827adf8b-18ef-47fd-8285-bd7b9b4ce260" name="SessionDesignNodes" type="IList&lt;SessionDesignNode&gt;" label="SessionDesignNodes : IList&lt;SessionDesignNode&gt;" nullable="true" kind="Persistent" fieldName="sessionDesignNodes" isDependent="false" isManaged="false" />
@@ -1949,7 +1904,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="d24bfc99-ae7f-491d-9f5c-48d0406eb2c5">
-          <NavigationalProperty Id="b514057d-d87a-425f-815c-715b3f81909f" name="Sources" type="IList&lt;Source&gt;" label="Sources : IList&lt;Source&gt;" nullable="true" kind="Persistent" fieldName="sources" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="b514057d-d87a-425f-815c-715b3f81909f" name="Sources" type="IList&lt;Source&gt;" label="Sources : IList&lt;Source&gt;" nullable="true" kind="Persistent" fieldName="sources" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="07b32d2b-b8ca-4ad0-8849-b2cbf8d3b4d1">
           <NavigationalProperty Id="8fd1de3b-fb0b-482c-829f-a81d916eaca2" name="DataTypeSource1" type="DataTypeSource" label="DataTypeSource1 : DataTypeSource" nullable="true" kind="Persistent" fieldName="dataTypeSource1" isDependent="false" isManaged="false" />
@@ -1975,7 +1930,7 @@
       </inheritors>
       <navigationalProperties>
         <classHasNavigationalProperties Id="06e3c81a-95a5-488e-bfca-f2a83401c83f">
-          <NavigationalProperty Id="564350a2-f38e-4703-a701-9157d4bfe8de" name="QuestionParameters" type="IList&lt;QuestionParameter&gt;" label="QuestionParameters : IList&lt;QuestionParameter&gt;" nullable="true" kind="Persistent" fieldName="questionParameters" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="564350a2-f38e-4703-a701-9157d4bfe8de" name="QuestionParameters" type="IList&lt;QuestionParameter&gt;" label="QuestionParameters : IList&lt;QuestionParameter&gt;" nullable="true" kind="Persistent" fieldName="questionParameters" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -2050,16 +2005,16 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="48472a53-084c-46b2-9011-882451c2cc2e">
-          <NavigationalProperty Id="1bebee6c-50d8-4edd-ac0e-c70e70731089" name="SensorHostType" type="SensorHostType" label="SensorHostType : SensorHostType" nullable="true" kind="Persistent" fieldName="sensorHostTypes" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="1bebee6c-50d8-4edd-ac0e-c70e70731089" name="SensorHostType" type="SensorHostType" label="SensorHostType : SensorHostType" nullable="true" kind="Persistent" fieldName="sensorHostTypes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="65bc1321-7583-4616-a90a-9c0102ac7a24">
-          <NavigationalProperty Id="335f2054-89ec-432b-9788-4de585bb3be8" name="SensorRuntimes" type="IList&lt;SensorRuntime&gt;" label="SensorRuntimes : IList&lt;SensorRuntime&gt;" nullable="true" kind="Persistent" fieldName="sensorRuntimes" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="335f2054-89ec-432b-9788-4de585bb3be8" name="SensorRuntimes" type="IList&lt;SensorRuntime&gt;" label="SensorRuntimes : IList&lt;SensorRuntime&gt;" nullable="true" kind="Persistent" fieldName="sensorRuntimes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="694dbb71-fdda-4019-b23b-869d3cadea83">
-          <NavigationalProperty Id="f6186b6a-9de4-4f63-89e6-98997ff8b0b5" name="SensorCommands" type="IList&lt;SensorCommand&gt;" label="SensorCommands : IList&lt;SensorCommand&gt;" nullable="true" kind="Persistent" fieldName="sensorCommands" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="f6186b6a-9de4-4f63-89e6-98997ff8b0b5" name="SensorCommands" type="IList&lt;SensorCommand&gt;" label="SensorCommands : IList&lt;SensorCommand&gt;" nullable="true" kind="Persistent" fieldName="sensorCommands" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="cb1ca4c8-55ee-4ea3-8add-92cc4b809bc9">
-          <NavigationalProperty Id="f39c23b1-762b-4cce-b6de-aebf09a917f0" name="Sensors" type="IList&lt;Sensor&gt;" label="Sensors : IList&lt;Sensor&gt;" nullable="true" kind="Persistent" fieldName="sensors" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="f39c23b1-762b-4cce-b6de-aebf09a917f0" name="Sensors" type="IList&lt;Sensor&gt;" label="Sensors : IList&lt;Sensor&gt;" nullable="true" kind="Persistent" fieldName="sensors" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -2083,7 +2038,7 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="8df76e20-3625-45dc-939c-50480caefedd">
-          <NavigationalProperty Id="e3ae9bc2-45e9-430b-b239-a9242d89c408" name="SessionDesignNode" type="SessionDesignNode" label="SessionDesignNode : SessionDesignNode" nullable="true" kind="Persistent" fieldName="sessionDesignNodes" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="e3ae9bc2-45e9-430b-b239-a9242d89c408" name="SessionDesignNode" type="SessionDesignNode" label="SessionDesignNode : SessionDesignNode" nullable="true" kind="Persistent" fieldName="sessionDesignNodes" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -2099,7 +2054,7 @@
       <Property Id="7e504643-ab57-4c66-9d54-104a185d86ee" name="Name" label="Name : String" fieldName="names" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="11e64f34-883a-4e8b-9c58-1d863a188f5c">
-          <NavigationalProperty Id="34f11283-a1f0-4684-90f5-8561d0543a36" name="TaxonomyLabels" type="IList&lt;TaxonomyLabel&gt;" label="TaxonomyLabels : IList&lt;TaxonomyLabel&gt;" nullable="true" kind="Persistent" fieldName="taxonomyLabels" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="34f11283-a1f0-4684-90f5-8561d0543a36" name="TaxonomyLabels" type="IList&lt;TaxonomyLabel&gt;" label="TaxonomyLabels : IList&lt;TaxonomyLabel&gt;" nullable="true" kind="Persistent" fieldName="taxonomyLabels" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -2108,7 +2063,7 @@
       <Property Id="4928950e-5dae-4396-b823-89c7e234bfe9" name="Name" label="Name : String" fieldName="names" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="8e269b95-3368-45b1-9134-479bc6da5cfd">
-          <NavigationalProperty Id="aa18a03c-1032-4a06-9fa4-652c37fbaac2" name="TaxonomyLabels" type="IList&lt;TaxonomyLabel&gt;" label="TaxonomyLabels : IList&lt;TaxonomyLabel&gt;" nullable="true" kind="Persistent" fieldName="taxonomyLabels" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="aa18a03c-1032-4a06-9fa4-652c37fbaac2" name="TaxonomyLabels" type="IList&lt;TaxonomyLabel&gt;" label="TaxonomyLabels : IList&lt;TaxonomyLabel&gt;" nullable="true" kind="Persistent" fieldName="taxonomyLabels" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
@@ -2146,10 +2101,10 @@
       </AssociationTargets>
       <navigationalProperties>
         <classHasNavigationalProperties Id="87762cc3-2b05-4b14-89b7-808276b76bcf">
-          <NavigationalProperty Id="9ab18985-5f8c-4643-a2fa-61556019af96" name="Label" type="Label" label="Label : Label" nullable="true" kind="Persistent" fieldName="labels" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="9ab18985-5f8c-4643-a2fa-61556019af96" name="Label" type="Label" label="Label : Label" nullable="true" kind="Persistent" fieldName="labels" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
         <classHasNavigationalProperties Id="29f46440-46d2-44d1-b472-688cf1aad445">
-          <NavigationalProperty Id="f8356ddc-ab9c-4b90-92c6-7edae1b308c5" name="Taxonomy" type="Taxonomy" label="Taxonomy : Taxonomy" nullable="true" kind="Persistent" fieldName="taxonomies" isDependent="false" isManaged="false" />
+          <NavigationalProperty Id="f8356ddc-ab9c-4b90-92c6-7edae1b308c5" name="Taxonomy" type="Taxonomy" label="Taxonomy : Taxonomy" nullable="true" kind="Persistent" fieldName="taxonomies" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>

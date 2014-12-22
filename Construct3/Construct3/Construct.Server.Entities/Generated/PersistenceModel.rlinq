@@ -10,7 +10,7 @@
   </orm:orm>
   <ModelSettings xmlns="">
     <AppConfigConnectionPropertyName>Construct3_PersistenceConnection</AppConfigConnectionPropertyName>
-    <AppConfigConnectionString>Data Source=daisy.colum.edu;Initial Catalog=Construct3_Persistence;User ID=Construct;Password=ConstructifyConstructifyConstructify</AppConfigConnectionString>
+    <AppConfigConnectionString>data source=(local);initial catalog=Construct3;persist security info=True;Integrated Security=true;</AppConfigConnectionString>
     <InitialCatalog>Construct3_Persistence</InitialCatalog>
     <NamingSettings>
       <ClassRules>

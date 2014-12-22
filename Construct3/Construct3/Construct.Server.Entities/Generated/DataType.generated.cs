@@ -159,15 +159,6 @@ namespace Construct.Server.Entities
 			}
 		}
 		
-		private IList<Visualizer> visualizers = new List<Visualizer>();
-		public virtual IList<Visualizer> Visualizers
-		{
-			get
-			{
-				return this.visualizers;
-			}
-		}
-		
 		private IList<SessionDesignNode> sessionDesignNodes = new List<SessionDesignNode>();
 		public virtual IList<SessionDesignNode> SessionDesignNodes
 		{
