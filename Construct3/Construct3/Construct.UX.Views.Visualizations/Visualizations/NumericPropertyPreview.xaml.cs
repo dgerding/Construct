@@ -18,8 +18,8 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 	{
 		private ConcurrentDictionary<DataSubscription, VisualizedDataSet> SubscriptionVisualizations = new ConcurrentDictionary<DataSubscription, VisualizedDataSet>();
 
-		private SubscriptionTranslator Translator;
-		private SessionInfo DataSession;
+		private SubscriptionTranslator translator;
+		private SessionInfo currentDataRange;
 
 
 		class VisualizedDataSet
@@ -32,35 +32,90 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 
 			public VisualizedDataSet(PropertyDataStore dataSource)
 			{
-				DataSource = dataSource;
-
-				var sortedData = DataSource.Data.OrderBy(spv => spv.TimeStamp).ToList();
-				foreach (var existingData in sortedData)
-					VisualizedData.Add(existingData);
-
-				DataSource.OnNewData += dataSource_OnNewData;
+				if (dataSource != null)
+					SetDataStore(dataSource);
 			}
 
-			public void Dispose()
+			public void SetDataStore(PropertyDataStore dataStore)
+			{
+				if (DataSource != null)
+					Unbind();
+
+				DataSource = dataStore;
+				DataSource.OnNewData += dataSource_OnNewData;
+
+				//	Clear ItemsSource while refilling data to avoid event overhead
+				if (Visualizer != null)
+					Visualizer.ItemsSource = null;
+
+				var sortedData = DataSource.Data.OrderBy(spv => spv.TimeStamp).ToList();
+				foreach (var data in sortedData)
+					VisualizedData.Add(new SimplifiedPropertyValue()
+					{
+						PropertyId = data.PropertyId,
+						SensorId = data.SensorId,
+						TimeStamp = data.TimeStamp,
+						Value = Convert.ToDouble(data.Value)
+					});
+
+				if (Visualizer != null)
+					Visualizer.ItemsSource = VisualizedData;
+			}
+
+			public void Unbind()
 			{
 				DataSource.OnNewData -= dataSource_OnNewData;
+
+				VisualizedData.Clear();
 			}
 
 			void dataSource_OnNewData(SimplifiedPropertyValue obj)
 			{
+				var doubleData = new SimplifiedPropertyValue()
+				{
+					PropertyId = obj.PropertyId,
+					SensorId = obj.SensorId,
+					TimeStamp = obj.TimeStamp,
+					Value = Convert.ToDouble(obj.Value)
+				};
+
 				if ((obj.TimeStamp - lastTime).TotalSeconds > 0.0)
-					Visualizer.Dispatcher.BeginInvoke(new Action(() => VisualizedData.Add(obj)));
+					Visualizer.Dispatcher.BeginInvoke(new Action(() => VisualizedData.Add(doubleData)));
 			}
 		}
 
-		public override int MaxProperties
-		{
-			get { return 10; }
-		}
+
+
+
+
+
 
 		public override IEnumerable<Type> VisualizableTypes
 		{
 			get { return new List<Type>() {typeof (double), typeof (float), typeof (int)}; }
+		}
+
+		
+
+		public NumericPropertyPreview(ClientDataStore dataSource, SubscriptionTranslator translator)
+			: base(dataSource)
+		{
+			InitializeComponent();
+
+			this.translator = translator;
+
+			this.OnSubscriptionAdded += AddNewVisualization;
+			this.OnSubscriptionRemoved += RemoveVisualization;
+		}
+
+		public override void ChangeRealTimeRangeEnd(DateTime endTime)
+		{
+			base.ChangeRealTimeRangeEnd(endTime);
+
+			Dispatcher.BeginInvoke(new Action(() =>
+			{
+				HorizontalAxis.Maximum = endTime;
+			}));
 		}
 
 		public override void ChangeVisualizationArea(SessionInfo newSessionRange)
@@ -82,58 +137,36 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 			}
 		}
 
-		public NumericPropertyPreview(ClientDataStore dataSource, SubscriptionTranslator translator, SessionInfo sessionInfo)
-			: base(dataSource)
+		public override void ChangeVisualizedDataRange(SessionInfo sessionInfo)
 		{
-			InitializeComponent();
+			base.ChangeVisualizedDataRange(sessionInfo);
 
-			VisualizationName = "Numeric Visualization";
-			Translator = translator;
+			var sessionStartTime = sessionInfo.StartTime.Value;
+			var sessionEndTime = sessionInfo.EndTime ?? DateTime.Now;
 
-			DataSession = sessionInfo;
-
-			ChartView.PanOffsetChanged += ChartView_PanOffsetChanged;
-			ChartView.ZoomChanged += ChartView_ZoomChanged;
-
-			this.OnSubscriptionAdded += NumericPropertyPreview_OnSubscriptionAdded;
-			this.OnSubscriptionRemoved += NumericPropertyPreview_OnSubscriptionRemoved;
-		}
-
-		void ChartView_ZoomChanged(object sender, ChartZoomChangedEventArgs e)
-		{
-			NotifyUserChangedVisualizationRange(new ChartVisualizationInfo()
+			currentDataRange = sessionInfo;
+			Dispatcher.BeginInvoke(new Action(() =>
 			{
-				PanOffset = ChartView.PanOffset,
-				Zoom = ChartView.Zoom,
-				VisSize = new Size(ChartView.PlotAreaClip.Width, ChartView.PlotAreaClip.Height)
-			});
-		}
+				HorizontalAxis.Minimum = sessionStartTime;
+				HorizontalAxis.Maximum = sessionEndTime;
+			}));
 
-		void ChartView_PanOffsetChanged(object sender, ChartPanOffsetChangedEventArgs e)
-		{
-			NotifyUserChangedVisualizationRange(new ChartVisualizationInfo()
+			foreach (var dataSet in SubscriptionVisualizations)
 			{
-				PanOffset = ChartView.PanOffset,
-				Zoom = ChartView.Zoom,
-				VisSize = new Size(ChartView.PlotAreaClip.Width, ChartView.PlotAreaClip.Height)
-			});
+				var dataVis = dataSet.Value;
+				if (dataVis.DataSource != null)
+				{
+					dataVis.Unbind();
+					DataStore.ReleaseDataStore(dataVis.DataSource);
+				}
+
+				dataSet.Value.SetDataStore(DataStore.GenerateDataStore(dataSet.Key, sessionInfo.StartTime.Value, sessionInfo.EndTime ?? DateTime.MaxValue));
+			}
 		}
 
-		void NumericPropertyPreview_OnSubscriptionRemoved(DataSubscription obj)
+		void AddNewVisualization(DataSubscription subscriptionToVisualize)
 		{
-			//Legend.RemoveLegendItem(obj);
-			RemoveVisualization(obj);
-		}
-
-		void NumericPropertyPreview_OnSubscriptionAdded(DataSubscription obj)
-		{
-			//Color sparklineColor = Legend.AddLegendItem(obj, Translator).Value;
-			AddNewVisualization(obj, Color.FromRgb(255, 0, 0));
-		}
-
-		void AddNewVisualization(DataSubscription subscriptionToVisualize, Color visualizationColor)
-		{
-			var subscriptionTranslation = Translator.GetTranslation(subscriptionToVisualize);
+			var subscriptionTranslation = translator.GetTranslation(subscriptionToVisualize);
 
 			ChartDataSource newDataSource = new ChartDataSource();
 			newDataSource.SamplingUnit = SamplingTimeUnit.Second;
@@ -148,7 +181,12 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 				Title = String.Format("{0} {1} - {2}", subscriptionTranslation.SourceName, subscriptionTranslation.SourceTypeName, subscriptionTranslation.PropertyName)
 			};
 
-			VisualizedDataSet newDataSet = new VisualizedDataSet(this.DataStore.GenerateDataStore(subscriptionToVisualize));
+			VisualizedDataSet newDataSet;
+			if (currentDataRange != null)
+				newDataSet = new VisualizedDataSet(this.DataStore.GenerateDataStore(subscriptionToVisualize, currentDataRange.StartTime.Value, currentDataRange.EndTime ?? DateTime.MaxValue));
+			else
+				newDataSet = new VisualizedDataSet(null);
+
 			newDataSet.Visualizer = newDataSource;
 			newDataSource.ItemsSource = newDataSet.VisualizedData;
 			SubscriptionVisualizations.TryAdd(subscriptionToVisualize, newDataSet);
@@ -160,7 +198,11 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 		{
 			VisualizedDataSet dataSet;
 			SubscriptionVisualizations.TryRemove(subscriptionToRemove, out dataSet);
-			dataSet.Dispose();
+			if (dataSet.DataSource != null)
+			{
+				dataSet.Unbind();
+				DataStore.ReleaseDataStore(dataSet.DataSource);
+			}
 
 			ChartView.Dispatcher.BeginInvoke(new Action(() => ChartView.Series.Remove(ChartView.Series.Single(s => s.ItemsSource == dataSet.Visualizer))));
 		}

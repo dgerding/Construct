@@ -23,16 +23,7 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid DataTypeIDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid IDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid PropertyIDField;
@@ -51,15 +42,82 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid DataTypeID {
+        public System.Guid ID {
             get {
-                return this.DataTypeIDField;
+                return this.IDField;
             }
             set {
-                if ((this.DataTypeIDField.Equals(value) != true)) {
-                    this.DataTypeIDField = value;
-                    this.RaisePropertyChanged("DataTypeID");
+                if ((this.IDField.Equals(value) != true)) {
+                    this.IDField = value;
+                    this.RaisePropertyChanged("ID");
                 }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid PropertyID {
+            get {
+                return this.PropertyIDField;
+            }
+            set {
+                if ((this.PropertyIDField.Equals(value) != true)) {
+                    this.PropertyIDField = value;
+                    this.RaisePropertyChanged("PropertyID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid VisualizerID {
+            get {
+                return this.VisualizerIDField;
+            }
+            set {
+                if ((this.VisualizerIDField.Equals(value) != true)) {
+                    this.VisualizerIDField = value;
+                    this.RaisePropertyChanged("VisualizerID");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Visualizer", Namespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters")]
+    [System.SerializableAttribute()]
+    public partial class Visualizer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid IDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string LayoutStringField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string NameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
             }
         }
         
@@ -90,6 +148,19 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public string LayoutString {
+            get {
+                return this.LayoutStringField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.LayoutStringField, value) != true)) {
+                    this.LayoutStringField = value;
+                    this.RaisePropertyChanged("LayoutString");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Name {
             get {
                 return this.NameField;
@@ -98,32 +169,6 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
                 if ((object.ReferenceEquals(this.NameField, value) != true)) {
                     this.NameField = value;
                     this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid PropertyID {
-            get {
-                return this.PropertyIDField;
-            }
-            set {
-                if ((this.PropertyIDField.Equals(value) != true)) {
-                    this.PropertyIDField = value;
-                    this.RaisePropertyChanged("PropertyID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid VisualizerID {
-            get {
-                return this.VisualizerIDField;
-            }
-            set {
-                if ((this.VisualizerIDField.Equals(value) != true)) {
-                    this.VisualizerIDField = value;
-                    this.RaisePropertyChanged("VisualizerID");
                 }
             }
         }
@@ -401,99 +446,6 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
                     this.ParentDataTypeIDField = value;
                     this.RaisePropertyChanged("ParentDataTypeID");
                 }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Visualizer", Namespace="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters")]
-    [System.SerializableAttribute()]
-    public partial class Visualizer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid IDField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string NameField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Guid PrimitiveDataTypeIDField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
-            get {
-                return this.DescriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
-                    this.DescriptionField = value;
-                    this.RaisePropertyChanged("Description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid ID {
-            get {
-                return this.IDField;
-            }
-            set {
-                if ((this.IDField.Equals(value) != true)) {
-                    this.IDField = value;
-                    this.RaisePropertyChanged("ID");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Name {
-            get {
-                return this.NameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.NameField, value) != true)) {
-                    this.NameField = value;
-                    this.RaisePropertyChanged("Name");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Guid PrimitiveDataTypeID {
-            get {
-                return this.PrimitiveDataTypeIDField;
-            }
-            set {
-                if ((this.PrimitiveDataTypeIDField.Equals(value) != true)) {
-                    this.PrimitiveDataTypeIDField = value;
-                    this.RaisePropertyChanged("PrimitiveDataTypeID");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -1068,6 +1020,30 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         void EndAddVisualization(System.IAsyncResult result);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/AddVisualizer", ReplyAction="http://tempuri.org/IModel/AddVisualizerResponse")]
+        void AddVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IModel/AddVisualizer", ReplyAction="http://tempuri.org/IModel/AddVisualizerResponse")]
+        System.IAsyncResult BeginAddVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer, System.AsyncCallback callback, object asyncState);
+        
+        void EndAddVisualizer(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/RemoveVisualization", ReplyAction="http://tempuri.org/IModel/RemoveVisualizationResponse")]
+        void RemoveVisualization(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IModel/RemoveVisualization", ReplyAction="http://tempuri.org/IModel/RemoveVisualizationResponse")]
+        System.IAsyncResult BeginRemoveVisualization(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization, System.AsyncCallback callback, object asyncState);
+        
+        void EndRemoveVisualization(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/RemoveVisualizer", ReplyAction="http://tempuri.org/IModel/RemoveVisualizerResponse")]
+        void RemoveVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer);
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IModel/RemoveVisualizer", ReplyAction="http://tempuri.org/IModel/RemoveVisualizerResponse")]
+        System.IAsyncResult BeginRemoveVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer, System.AsyncCallback callback, object asyncState);
+        
+        void EndRemoveVisualizer(System.IAsyncResult result);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetAllDataTypes", ReplyAction="http://tempuri.org/IModel/GetAllDataTypesResponse")]
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.DataType[] GetAllDataTypes();
         
@@ -1092,14 +1068,6 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.DataType EndGetDataType(System.IAsyncResult result);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetAssociatedVisualizers", ReplyAction="http://tempuri.org/IModel/GetAssociatedVisualizersResponse")]
-        Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] GetAssociatedVisualizers(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter);
-        
-        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IModel/GetAssociatedVisualizers", ReplyAction="http://tempuri.org/IModel/GetAssociatedVisualizersResponse")]
-        System.IAsyncResult BeginGetAssociatedVisualizers(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter, System.AsyncCallback callback, object asyncState);
-        
-        Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] EndGetAssociatedVisualizers(System.IAsyncResult result);
-        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetAssociatedSources", ReplyAction="http://tempuri.org/IModel/GetAssociatedSourcesResponse")]
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Source[] GetAssociatedSources(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.DataType adapter);
         
@@ -1123,6 +1091,14 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         System.IAsyncResult BeginGetAllVisualizations(System.AsyncCallback callback, object asyncState);
         
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization[] EndGetAllVisualizations(System.IAsyncResult result);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetAllVisualizers", ReplyAction="http://tempuri.org/IModel/GetAllVisualizersResponse")]
+        Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] GetAllVisualizers();
+        
+        [System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/IModel/GetAllVisualizers", ReplyAction="http://tempuri.org/IModel/GetAllVisualizersResponse")]
+        System.IAsyncResult BeginGetAllVisualizers(System.AsyncCallback callback, object asyncState);
+        
+        Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] EndGetAllVisualizers(System.IAsyncResult result);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IModel/GetAssociatedVisualizer", ReplyAction="http://tempuri.org/IModel/GetAssociatedVisualizerResponse")]
         Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer GetAssociatedVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization adapter);
@@ -1248,25 +1224,6 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class GetAssociatedVisualizersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        public GetAssociatedVisualizersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] Result {
-            get {
-                base.RaiseExceptionIfNecessary();
-                return ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[])(this.results[0]));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public partial class GetAssociatedSourcesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
@@ -1318,6 +1275,25 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
             get {
                 base.RaiseExceptionIfNecessary();
                 return ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization[])(this.results[0]));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GetAllVisualizersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        public GetAllVisualizersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] Result {
+            get {
+                base.RaiseExceptionIfNecessary();
+                return ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[])(this.results[0]));
             }
         }
     }
@@ -1427,6 +1403,24 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         private System.Threading.SendOrPostCallback onAddVisualizationCompletedDelegate;
         
+        private BeginOperationDelegate onBeginAddVisualizerDelegate;
+        
+        private EndOperationDelegate onEndAddVisualizerDelegate;
+        
+        private System.Threading.SendOrPostCallback onAddVisualizerCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginRemoveVisualizationDelegate;
+        
+        private EndOperationDelegate onEndRemoveVisualizationDelegate;
+        
+        private System.Threading.SendOrPostCallback onRemoveVisualizationCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginRemoveVisualizerDelegate;
+        
+        private EndOperationDelegate onEndRemoveVisualizerDelegate;
+        
+        private System.Threading.SendOrPostCallback onRemoveVisualizerCompletedDelegate;
+        
         private BeginOperationDelegate onBeginGetAllDataTypesDelegate;
         
         private EndOperationDelegate onEndGetAllDataTypesDelegate;
@@ -1445,12 +1439,6 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         private System.Threading.SendOrPostCallback onGetDataTypeCompletedDelegate;
         
-        private BeginOperationDelegate onBeginGetAssociatedVisualizersDelegate;
-        
-        private EndOperationDelegate onEndGetAssociatedVisualizersDelegate;
-        
-        private System.Threading.SendOrPostCallback onGetAssociatedVisualizersCompletedDelegate;
-        
         private BeginOperationDelegate onBeginGetAssociatedSourcesDelegate;
         
         private EndOperationDelegate onEndGetAssociatedSourcesDelegate;
@@ -1468,6 +1456,12 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         private EndOperationDelegate onEndGetAllVisualizationsDelegate;
         
         private System.Threading.SendOrPostCallback onGetAllVisualizationsCompletedDelegate;
+        
+        private BeginOperationDelegate onBeginGetAllVisualizersDelegate;
+        
+        private EndOperationDelegate onEndGetAllVisualizersDelegate;
+        
+        private System.Threading.SendOrPostCallback onGetAllVisualizersCompletedDelegate;
         
         private BeginOperationDelegate onBeginGetAssociatedVisualizerDelegate;
         
@@ -1527,19 +1521,25 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         
         public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> AddVisualizationCompleted;
         
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> AddVisualizerCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> RemoveVisualizationCompleted;
+        
+        public event System.EventHandler<System.ComponentModel.AsyncCompletedEventArgs> RemoveVisualizerCompleted;
+        
         public event System.EventHandler<GetAllDataTypesCompletedEventArgs> GetAllDataTypesCompleted;
         
         public event System.EventHandler<GetAllPropertiesCompletedEventArgs> GetAllPropertiesCompleted;
         
         public event System.EventHandler<GetDataTypeCompletedEventArgs> GetDataTypeCompleted;
         
-        public event System.EventHandler<GetAssociatedVisualizersCompletedEventArgs> GetAssociatedVisualizersCompleted;
-        
         public event System.EventHandler<GetAssociatedSourcesCompletedEventArgs> GetAssociatedSourcesCompleted;
         
         public event System.EventHandler<GetHumanReadableSensorsCompletedEventArgs> GetHumanReadableSensorsCompleted;
         
         public event System.EventHandler<GetAllVisualizationsCompletedEventArgs> GetAllVisualizationsCompleted;
+        
+        public event System.EventHandler<GetAllVisualizersCompletedEventArgs> GetAllVisualizersCompleted;
         
         public event System.EventHandler<GetAssociatedVisualizerCompletedEventArgs> GetAssociatedVisualizerCompleted;
         
@@ -1600,6 +1600,153 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
             }
             base.InvokeAsync(this.onBeginAddVisualizationDelegate, new object[] {
                         visualization}, this.onEndAddVisualizationDelegate, this.onAddVisualizationCompletedDelegate, userState);
+        }
+        
+        public void AddVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer) {
+            base.Channel.AddVisualizer(visualizer);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginAddVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginAddVisualizer(visualizer, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndAddVisualizer(System.IAsyncResult result) {
+            base.Channel.EndAddVisualizer(result);
+        }
+        
+        private System.IAsyncResult OnBeginAddVisualizer(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer = ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer)(inValues[0]));
+            return this.BeginAddVisualizer(visualizer, callback, asyncState);
+        }
+        
+        private object[] OnEndAddVisualizer(System.IAsyncResult result) {
+            this.EndAddVisualizer(result);
+            return null;
+        }
+        
+        private void OnAddVisualizerCompleted(object state) {
+            if ((this.AddVisualizerCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.AddVisualizerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void AddVisualizerAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer) {
+            this.AddVisualizerAsync(visualizer, null);
+        }
+        
+        public void AddVisualizerAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer, object userState) {
+            if ((this.onBeginAddVisualizerDelegate == null)) {
+                this.onBeginAddVisualizerDelegate = new BeginOperationDelegate(this.OnBeginAddVisualizer);
+            }
+            if ((this.onEndAddVisualizerDelegate == null)) {
+                this.onEndAddVisualizerDelegate = new EndOperationDelegate(this.OnEndAddVisualizer);
+            }
+            if ((this.onAddVisualizerCompletedDelegate == null)) {
+                this.onAddVisualizerCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnAddVisualizerCompleted);
+            }
+            base.InvokeAsync(this.onBeginAddVisualizerDelegate, new object[] {
+                        visualizer}, this.onEndAddVisualizerDelegate, this.onAddVisualizerCompletedDelegate, userState);
+        }
+        
+        public void RemoveVisualization(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization) {
+            base.Channel.RemoveVisualization(visualization);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginRemoveVisualization(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginRemoveVisualization(visualization, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndRemoveVisualization(System.IAsyncResult result) {
+            base.Channel.EndRemoveVisualization(result);
+        }
+        
+        private System.IAsyncResult OnBeginRemoveVisualization(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization = ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization)(inValues[0]));
+            return this.BeginRemoveVisualization(visualization, callback, asyncState);
+        }
+        
+        private object[] OnEndRemoveVisualization(System.IAsyncResult result) {
+            this.EndRemoveVisualization(result);
+            return null;
+        }
+        
+        private void OnRemoveVisualizationCompleted(object state) {
+            if ((this.RemoveVisualizationCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.RemoveVisualizationCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void RemoveVisualizationAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization) {
+            this.RemoveVisualizationAsync(visualization, null);
+        }
+        
+        public void RemoveVisualizationAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization, object userState) {
+            if ((this.onBeginRemoveVisualizationDelegate == null)) {
+                this.onBeginRemoveVisualizationDelegate = new BeginOperationDelegate(this.OnBeginRemoveVisualization);
+            }
+            if ((this.onEndRemoveVisualizationDelegate == null)) {
+                this.onEndRemoveVisualizationDelegate = new EndOperationDelegate(this.OnEndRemoveVisualization);
+            }
+            if ((this.onRemoveVisualizationCompletedDelegate == null)) {
+                this.onRemoveVisualizationCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnRemoveVisualizationCompleted);
+            }
+            base.InvokeAsync(this.onBeginRemoveVisualizationDelegate, new object[] {
+                        visualization}, this.onEndRemoveVisualizationDelegate, this.onRemoveVisualizationCompletedDelegate, userState);
+        }
+        
+        public void RemoveVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer) {
+            base.Channel.RemoveVisualizer(visualizer);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginRemoveVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer, System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginRemoveVisualizer(visualizer, callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public void EndRemoveVisualizer(System.IAsyncResult result) {
+            base.Channel.EndRemoveVisualizer(result);
+        }
+        
+        private System.IAsyncResult OnBeginRemoveVisualizer(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer = ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer)(inValues[0]));
+            return this.BeginRemoveVisualizer(visualizer, callback, asyncState);
+        }
+        
+        private object[] OnEndRemoveVisualizer(System.IAsyncResult result) {
+            this.EndRemoveVisualizer(result);
+            return null;
+        }
+        
+        private void OnRemoveVisualizerCompleted(object state) {
+            if ((this.RemoveVisualizerCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.RemoveVisualizerCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void RemoveVisualizerAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer) {
+            this.RemoveVisualizerAsync(visualizer, null);
+        }
+        
+        public void RemoveVisualizerAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer visualizer, object userState) {
+            if ((this.onBeginRemoveVisualizerDelegate == null)) {
+                this.onBeginRemoveVisualizerDelegate = new BeginOperationDelegate(this.OnBeginRemoveVisualizer);
+            }
+            if ((this.onEndRemoveVisualizerDelegate == null)) {
+                this.onEndRemoveVisualizerDelegate = new EndOperationDelegate(this.OnEndRemoveVisualizer);
+            }
+            if ((this.onRemoveVisualizerCompletedDelegate == null)) {
+                this.onRemoveVisualizerCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnRemoveVisualizerCompleted);
+            }
+            base.InvokeAsync(this.onBeginRemoveVisualizerDelegate, new object[] {
+                        visualizer}, this.onEndRemoveVisualizerDelegate, this.onRemoveVisualizerCompletedDelegate, userState);
         }
         
         public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.DataType[] GetAllDataTypes() {
@@ -1750,56 +1897,6 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
                         id}, this.onEndGetDataTypeDelegate, this.onGetDataTypeCompletedDelegate, userState);
         }
         
-        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] GetAssociatedVisualizers(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter) {
-            return base.Channel.GetAssociatedVisualizers(adapter);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public System.IAsyncResult BeginGetAssociatedVisualizers(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter, System.AsyncCallback callback, object asyncState) {
-            return base.Channel.BeginGetAssociatedVisualizers(adapter, callback, asyncState);
-        }
-        
-        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
-        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] EndGetAssociatedVisualizers(System.IAsyncResult result) {
-            return base.Channel.EndGetAssociatedVisualizers(result);
-        }
-        
-        private System.IAsyncResult OnBeginGetAssociatedVisualizers(object[] inValues, System.AsyncCallback callback, object asyncState) {
-            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter = ((Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType)(inValues[0]));
-            return this.BeginGetAssociatedVisualizers(adapter, callback, asyncState);
-        }
-        
-        private object[] OnEndGetAssociatedVisualizers(System.IAsyncResult result) {
-            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] retVal = this.EndGetAssociatedVisualizers(result);
-            return new object[] {
-                    retVal};
-        }
-        
-        private void OnGetAssociatedVisualizersCompleted(object state) {
-            if ((this.GetAssociatedVisualizersCompleted != null)) {
-                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
-                this.GetAssociatedVisualizersCompleted(this, new GetAssociatedVisualizersCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
-            }
-        }
-        
-        public void GetAssociatedVisualizersAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter) {
-            this.GetAssociatedVisualizersAsync(adapter, null);
-        }
-        
-        public void GetAssociatedVisualizersAsync(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.PropertyType adapter, object userState) {
-            if ((this.onBeginGetAssociatedVisualizersDelegate == null)) {
-                this.onBeginGetAssociatedVisualizersDelegate = new BeginOperationDelegate(this.OnBeginGetAssociatedVisualizers);
-            }
-            if ((this.onEndGetAssociatedVisualizersDelegate == null)) {
-                this.onEndGetAssociatedVisualizersDelegate = new EndOperationDelegate(this.OnEndGetAssociatedVisualizers);
-            }
-            if ((this.onGetAssociatedVisualizersCompletedDelegate == null)) {
-                this.onGetAssociatedVisualizersCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAssociatedVisualizersCompleted);
-            }
-            base.InvokeAsync(this.onBeginGetAssociatedVisualizersDelegate, new object[] {
-                        adapter}, this.onEndGetAssociatedVisualizersDelegate, this.onGetAssociatedVisualizersCompletedDelegate, userState);
-        }
-        
         public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Source[] GetAssociatedSources(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.DataType adapter) {
             return base.Channel.GetAssociatedSources(adapter);
         }
@@ -1944,6 +2041,54 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
                 this.onGetAllVisualizationsCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllVisualizationsCompleted);
             }
             base.InvokeAsync(this.onBeginGetAllVisualizationsDelegate, null, this.onEndGetAllVisualizationsDelegate, this.onGetAllVisualizationsCompletedDelegate, userState);
+        }
+        
+        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] GetAllVisualizers() {
+            return base.Channel.GetAllVisualizers();
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public System.IAsyncResult BeginGetAllVisualizers(System.AsyncCallback callback, object asyncState) {
+            return base.Channel.BeginGetAllVisualizers(callback, asyncState);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] EndGetAllVisualizers(System.IAsyncResult result) {
+            return base.Channel.EndGetAllVisualizers(result);
+        }
+        
+        private System.IAsyncResult OnBeginGetAllVisualizers(object[] inValues, System.AsyncCallback callback, object asyncState) {
+            return this.BeginGetAllVisualizers(callback, asyncState);
+        }
+        
+        private object[] OnEndGetAllVisualizers(System.IAsyncResult result) {
+            Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer[] retVal = this.EndGetAllVisualizers(result);
+            return new object[] {
+                    retVal};
+        }
+        
+        private void OnGetAllVisualizersCompleted(object state) {
+            if ((this.GetAllVisualizersCompleted != null)) {
+                InvokeAsyncCompletedEventArgs e = ((InvokeAsyncCompletedEventArgs)(state));
+                this.GetAllVisualizersCompleted(this, new GetAllVisualizersCompletedEventArgs(e.Results, e.Error, e.Cancelled, e.UserState));
+            }
+        }
+        
+        public void GetAllVisualizersAsync() {
+            this.GetAllVisualizersAsync(null);
+        }
+        
+        public void GetAllVisualizersAsync(object userState) {
+            if ((this.onBeginGetAllVisualizersDelegate == null)) {
+                this.onBeginGetAllVisualizersDelegate = new BeginOperationDelegate(this.OnBeginGetAllVisualizers);
+            }
+            if ((this.onEndGetAllVisualizersDelegate == null)) {
+                this.onEndGetAllVisualizersDelegate = new EndOperationDelegate(this.OnEndGetAllVisualizers);
+            }
+            if ((this.onGetAllVisualizersCompletedDelegate == null)) {
+                this.onGetAllVisualizersCompletedDelegate = new System.Threading.SendOrPostCallback(this.OnGetAllVisualizersCompleted);
+            }
+            base.InvokeAsync(this.onBeginGetAllVisualizersDelegate, null, this.onEndGetAllVisualizersDelegate, this.onGetAllVisualizersCompletedDelegate, userState);
         }
         
         public Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualizer GetAssociatedVisualizer(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization adapter) {

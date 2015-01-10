@@ -16,20 +16,18 @@
 			<ColumnDefinition Width="300" />
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-		</Grid.RowDefinitions>
-		<TabControl Grid.Row="0" Grid.Column="0">
+		<Button Content="Change Time Area" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Grid.Column="0" Width="116" Click="ChangeTimeButton_Click"/>
+		<TabControl Grid.Column="0" Margin="0,35,0,0">
 			<TabItem Header="Create">
 				<Grid>
-					<ComboBox Name="PropertyVisualizationsOptions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="157"/>
-					<Button Content="Add Property Visualization" HorizontalAlignment="Left" VerticalAlignment="Top" Width="157" Margin="10,37,0,0" Click="AddPropertyVisualizationButton_Click"/>
+					<ComboBox Name="PropertyVisualizationsOptions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="165"/>
+					<Button Content="Add Property Visualization" HorizontalAlignment="Left" VerticalAlignment="Top" Width="165" Margin="10,37,0,0" Click="AddPropertyVisualizationButton_Click"/>
+					<Button Content="Save Layout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="10,92,0,0" Click="SaveLayoutButton_Click" />
+					<Button Content="Load Layout" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Margin="95,92,0,0" Click="LoadLayoutButton_Click" />
 				</Grid>
 			</TabItem>
 		</TabControl>
 
-		<this:VisualizationWindow x:Name="VisualizationWindow" Grid.Column="1" Grid.Row="0">
-
-		</this:VisualizationWindow>
+		<this:VisualizationWindow x:Name="VisualizationWindow" Grid.Column="1" />
 	</Grid>
 </views:View>

@@ -214,6 +214,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="MsSql\GetAllPropertyValuesBetween.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MsSql\AddBooleanPropertyValue.sql">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

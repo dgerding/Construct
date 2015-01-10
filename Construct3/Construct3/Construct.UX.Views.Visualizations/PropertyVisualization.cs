@@ -18,8 +18,6 @@ namespace Construct.UX.Views.Visualizations
 			return null; 
 		}
 
-		public event Action<object, ChartVisualizationInfo> OnVisualizationRangeChanged;
-
 		protected event Action<DataSubscription> OnSubscriptionAdded;
 		protected event Action<DataSubscription> OnSubscriptionRemoved;
 
@@ -28,9 +26,6 @@ namespace Construct.UX.Views.Visualizations
 		protected ClientDataStore DataStore { get; private set; }
 
 		public virtual IEnumerable<Type> VisualizableTypes { get { return null; } } 
-
-		public String VisualizationName { get; protected set; }
-		public virtual int MaxProperties { get { return int.MaxValue; } }
 
 		public PropertyVisualization(ClientDataStore sourceDataStore)
 		{
@@ -55,15 +50,38 @@ namespace Construct.UX.Views.Visualizations
 				OnSubscriptionRemoved(subscription);
 		}
 
-		public virtual void ChangeVisualizationArea(SessionInfo newInfo)
+		/// <summary>
+		/// Usable when the current session has no end time specified (visualizing real-time data ad infinitum), specifies the new end time
+		/// to use for rendering purposes.
+		/// </summary>
+		/// <param name="endTime">The new end time to use for display purposes.</param>
+		public virtual void ChangeRealTimeRangeEnd(DateTime endTime)
+		{
+			//	Required since one new piece of data means that the time ranges of *all* visualizations need to be updated to that latest time.
+			//		Would be easiest to let the visualizations update their own time ranges based on their own data, but i.e. text data probably
+			//		won't update nearly as often as numeric data.
+
+			//	This is a piss-poor attempt at an implementation of real-time data visualization. The data backend is fine but the UI bits
+			//		are lacking in architecture. Should probably use composition with some implementation class that would define the
+			//		visualized data range.
+		}
+
+		/// <summary>
+		/// Changes the area of loaded data to visualize, generally used for pan/zoom operations.
+		/// </summary>
+		/// <param name="sessionInfo">The new period of time to visualize. (ViewStartTime, ViewEndTime)</param>
+		public virtual void ChangeVisualizationArea(SessionInfo sessionInfo)
 		{
 			
 		}
 
-		protected void NotifyUserChangedVisualizationRange(ChartVisualizationInfo newChartInfo)
+		/// <summary>
+		/// Changes the data that the visualization is currently using as a data source.
+		/// </summary>
+		/// <param name="sessionInfo">The new period of time to pull data from. (StartTime, EndTime)</param>
+		public virtual void ChangeVisualizedDataRange(SessionInfo sessionInfo)
 		{
-			if (OnVisualizationRangeChanged != null)
-				OnVisualizationRangeChanged(this, newChartInfo);
+			
 		}
 	}
 }

@@ -278,6 +278,8 @@ namespace ConstructServer.Runtime.Windows
             ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "CreateTestItem_zTableData.sql"));
             ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "DeleteAllRows.sql"));
             ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "GetAllPropertyValues.sql"));
+	        ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "GetAllPropertyValuesAfter.sql"));
+	        ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "GetAllPropertyValuesBetween.sql"));
             ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "GetTypes.sql"));
             ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "Insert_Test_Item.sql"));
             ExecuteMsSqlScript.Go(connectionString, Path.Combine(path, "MsSql", "JoinDataPropertyToDataType.sql"));

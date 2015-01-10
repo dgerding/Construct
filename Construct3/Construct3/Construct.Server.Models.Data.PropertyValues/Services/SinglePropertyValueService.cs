@@ -14,6 +14,8 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
         IEnumerable<SinglePropertyValue> GetAll();
         [OperationContract]
         IEnumerable<SinglePropertyValue> GetAfter(DateTime time);
+	    [OperationContract]
+	    IEnumerable<SinglePropertyValue> GetBetween(DateTime start, DateTime end);
     }
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SinglePropertyValueService : PropertyService<SinglePropertyValue, Single>, ISinglePropertyValueService
@@ -29,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override Single GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            return reader.GetFloat(4);
+            return reader.GetFloat(5);
         }
     }
 }

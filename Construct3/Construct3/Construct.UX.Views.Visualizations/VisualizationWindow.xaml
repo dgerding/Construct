@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:this="clr-namespace:Construct.UX.Views.Visualizations"
-             
              xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              xmlns:chart="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Chart"
              xmlns:chartView="clr-namespace:Telerik.Windows.Controls.ChartView;assembly=Telerik.Windows.Controls.Chart"
@@ -22,10 +21,10 @@
 		</Grid.RowDefinitions>
 
 		<Grid Grid.Row="0" Grid.ColumnSpan="2">
-			<Label Name="TimespanDisplayLabel" Content="Recorded Timespan: None" HorizontalAlignment="Left" VerticalContentAlignment="Center" Padding="2,0,0,0" />
+			<Label Name="TimespanDisplayLabel" Content="Displayed Timespan: None" HorizontalAlignment="Left" VerticalContentAlignment="Center" Padding="2,0,0,0" />
 		</Grid>
 
-		<ScrollViewer Grid.Row="1" Grid.ColumnSpan="2">
+		<ScrollViewer Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
 			<Grid>
 				<telerik:RadDocking Name="VisualizationsDock" BorderThickness="0" Padding="0" AllowUnsafeMode="True" PreviewClose="VisualizationsDock_OnPreviewClose" />
 			</Grid>
@@ -36,6 +35,13 @@
 							SelectionStart="{Binding SelectedStartTime}" SelectionEnd="{Binding SelectedEndTime}"
 							VisiblePeriodStart="{Binding ViewStartTime}" VisiblePeriodEnd="{Binding ViewEndTime}">
 
+			<telerik:RadTimeBar.Intervals>
+				<telerik:MillisecondInterval />
+				<telerik:SecondInterval />
+				<telerik:MinuteInterval />
+				<telerik:HourInterval />
+				<telerik:DayInterval />
+			</telerik:RadTimeBar.Intervals>
 		</telerik:RadTimeBar>
 	</Grid>
 </UserControl>

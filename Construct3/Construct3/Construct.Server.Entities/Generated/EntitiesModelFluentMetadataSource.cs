@@ -151,6 +151,7 @@ namespace Construct.Server.Entities
 			configuration.HasProperty(x => x.Name).HasFieldName("names").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Name").IsNotNullable().HasColumnType("nvarchar").HasLength(50);
 			configuration.HasProperty(x => x.ID).IsIdentity(KeyGenerator.Guid).HasFieldName("iDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 			configuration.HasProperty(x => x.Description).HasFieldName("descriptions").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("Description").IsNotNullable().HasColumnType("nvarchar(max)").HasLength(0);
+			configuration.HasProperty(x => x.LayoutString).HasFieldName("layoutStrings").ToColumn("LayoutString").IsNotNullable().HasColumnType("nvarchar(max)").HasLength(0);
 		}
 	
 		public void PrepareVisualizerAssociationConfigurations(MappingConfiguration<Visualizer> configuration)
@@ -179,7 +180,7 @@ namespace Construct.Server.Entities
 		{
 			configuration.HasProperty(x => x.VisualizerID).HasFieldName("visualizerIDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("VisualizerID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 			configuration.HasProperty(x => x.ID).IsIdentity(KeyGenerator.Guid).HasFieldName("iDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
-			configuration.HasProperty(x => x.PropertyID).HasFieldName("propertyIDs");
+			configuration.HasProperty(x => x.PropertyID).HasFieldName("propertyIDs").ToColumn("PropertyID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 		}
 	
 		public void PrepareVisualizationAssociationConfigurations(MappingConfiguration<Visualization> configuration)

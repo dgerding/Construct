@@ -81,7 +81,7 @@ namespace Construct.MessageBrokering.Serialization
 
 			JToken itemInstanceTokens = jsonContainer["Instance"];
 		    newDataItem.SourceId = Guid.Parse(itemInstanceTokens["SourceID"].Value<string>());
-			newDataItem.Timestamp = itemInstanceTokens["TimeStamp"].Value<DateTime>();
+			newDataItem.Timestamp = itemInstanceTokens["TimeStamp"].Value<DateTime>().ToUniversalTime();
 
 			if (payloadTypesDictionaries.Keys.Contains(newDataItem.Name) == false)
 			{

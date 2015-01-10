@@ -14,6 +14,8 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
         IEnumerable<ByteArrayPropertyValue> GetAll();
         [OperationContract]
         IEnumerable<ByteArrayPropertyValue> GetAfter(DateTime time);
+		[OperationContract]
+		IEnumerable<ByteArrayPropertyValue> GetBetween(DateTime start, DateTime end);
     }
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ByteArrayPropertyValueService : PropertyService<ByteArrayPropertyValue, byte[]>, IByteArrayPropertyValueService

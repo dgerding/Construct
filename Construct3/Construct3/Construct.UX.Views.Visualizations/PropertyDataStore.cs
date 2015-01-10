@@ -19,7 +19,7 @@ namespace Construct.UX.Views.Visualizations
 
 		public event Action<SimplifiedPropertyValue> OnNewData;
 
-		private DataRoute SourceDataRoute;
+		private DataRoute sourceDataRoute;
 
 		//	Used to find unreferenced data stores, these data stores may be removed/collected
 		//	if memory usage becomes too high
@@ -31,8 +31,8 @@ namespace Construct.UX.Views.Visualizations
 			DataStartTime = startTime;
 			DataEndTime = endTime;
 
-			SourceDataRoute = sourceDataRoute;
-			SourceDataRoute.OnData += SourceDataRoute_OnData;
+			this.sourceDataRoute = sourceDataRoute;
+			this.sourceDataRoute.OnData += SourceDataRoute_OnData;
 		}
 
 		void SourceDataRoute_OnData(SimplifiedPropertyValue obj)
@@ -48,7 +48,7 @@ namespace Construct.UX.Views.Visualizations
 
 		internal void Release()
 		{
-			SourceDataRoute.OnData -= SourceDataRoute_OnData;
+			sourceDataRoute.OnData -= SourceDataRoute_OnData;
 		}
 	}
 }

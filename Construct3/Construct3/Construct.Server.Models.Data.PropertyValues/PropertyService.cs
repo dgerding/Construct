@@ -77,23 +77,26 @@ namespace Construct.Server.Models.Data.PropertyValue
             SqlCommand comm = conn.CreateCommand();
             comm.CommandType = CommandType.StoredProcedure;
             comm.CommandText = "GetAllPropertyValues";
+			//	Set full CommandText before assigning parameters
+			//	http://stackoverflow.com/questions/27790144/difference-between-sql-query-and-sqlclient-operation
+	        if (startTime.HasValue && !endTime.HasValue)
+		        comm.CommandText += "After";
+	        if (startTime.HasValue && endTime.HasValue)
+		        comm.CommandText += "Between";
+
             comm.Parameters.Add("@dataTypeName", SqlDbType.NVarChar).Value = dataTypeName;
             comm.Parameters.Add("@propertyName", SqlDbType.NVarChar).Value = propertyName;
             if (startTime.HasValue)
             {
-				var startString = startTime.Value.ToUniversalTime().ToString("yyyy/MM/dd hh:mm:ss.fff");
+				var startString = startTime.Value.ToUniversalTime().ToString("O");
 
 				if (endTime.HasValue)
 				{
-					var endString = endTime.Value.ToUniversalTime().ToString("yyyy/MM/dd hh:mm:ss.fff");
-
-					comm.CommandText += "Between";
-					comm.Parameters.Add("@start", SqlDbType.DateTime2).Value = startString;
-					comm.Parameters.Add("@end", SqlDbType.DateTime2).Value = endString;
+					comm.Parameters.Add("@startTime", SqlDbType.DateTime2).Value = startTime.Value.ToUniversalTime();
+					comm.Parameters.Add("@endTime", SqlDbType.DateTime2).Value = endTime.Value.ToUniversalTime();
 				}
 				else
 				{
-					comm.CommandText += "After";
 					comm.Parameters.Add("@dateTime", SqlDbType.DateTime2).Value = startString;
 				}
             }
@@ -118,7 +121,7 @@ namespace Construct.Server.Models.Data.PropertyValue
                 {
                     propertyValue.Interval = null;
                 }
-                propertyValue.StartTime = reader.GetDateTime(4);
+	            propertyValue.StartTime = DateTime.SpecifyKind(reader.GetDateTime(4), DateTimeKind.Utc);
                 propertyValue.Latitude = reader.GetString(6);
                 propertyValue.Longitude = reader.GetString(7);
 

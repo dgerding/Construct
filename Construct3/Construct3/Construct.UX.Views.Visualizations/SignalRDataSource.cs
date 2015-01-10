@@ -10,16 +10,18 @@ using Construct.MessageBrokering.Serialization;
 namespace Construct.UX.Views.Visualizations
 {
 	//	Intended to connect only to Construct-hosted SigR hub
-	class SignalRDataSource : IDataSource, IDisposable
+	internal class SignalRDataSource : ISubscribableDataSource, IDisposable
 	{
 		public event Action<SimplifiedPropertyValue> OnData;
 		public String SourceHostName { get; private set; }
 		public String DataUri { get; private set; }
+		public bool EmitUTC { get; set; }
 
 		private HubConnection hubConnection;
 		private IHubProxy dataProxy;
 
-		public bool IsQueryable { get { return false; } }
+		//	Used when connection is lost and data needs to be re-subscribed to with new connection
+		private List<KeyValuePair<Guid, Guid>> existingSubscriptions = new List<KeyValuePair<Guid, Guid>>(); 
 
 		public SignalRDataSource(String dataHostname)
 		{
@@ -29,6 +31,22 @@ namespace Construct.UX.Views.Visualizations
 			hubConnection = new HubConnection(DataUri);
 			dataProxy = hubConnection.CreateHubProxy("ItemStreamHub");
 			dataProxy.On<SimplifiedPropertyValue>("newData", DispatchData);
+
+			hubConnection.Reconnected += hubConnection_Reconnected;
+			hubConnection.Closed += hubConnection_Closed;
+
+			EmitUTC = false;
+		}
+
+		void hubConnection_Closed()
+		{
+			Reconnect();
+			Resubscribe();
+		}
+
+		private void hubConnection_Reconnected()
+		{
+			Resubscribe();
 		}
 
 		public IEnumerable<SimplifiedPropertyValue> GetData(DateTime startTime, DateTime endTime, DataSubscription dataToGet)
@@ -38,12 +56,20 @@ namespace Construct.UX.Views.Visualizations
 
 		public void AddSubscription(Guid sourceId, Guid propertyId)
 		{
+			if (hubConnection.State != ConnectionState.Connected)
+				Reconnect();
+
 			dataProxy.Invoke("RequestSubscription", sourceId, propertyId);
+			existingSubscriptions.Add(new KeyValuePair<Guid, Guid>(sourceId, propertyId));
 		}
 
 		public void RemoveSubscription(Guid sourceId, Guid propertyId)
 		{
+			if (hubConnection.State != ConnectionState.Connected)
+				Reconnect();
+
 			dataProxy.Invoke("RemoveSubscription", sourceId, propertyId);
+			existingSubscriptions.RemoveAll(s => s.Key == sourceId && s.Value == propertyId);
 		}
 
 		public void Dispose()
@@ -59,8 +85,29 @@ namespace Construct.UX.Views.Visualizations
 			hubConnection.Stop();
 		}
 
+		void Reconnect()
+		{
+			if (hubConnection.State == ConnectionState.Connected)
+				return;
+
+			Connect();
+			Resubscribe();
+		}
+
+		void Resubscribe()
+		{
+			foreach (var subscription in existingSubscriptions)
+				dataProxy.Invoke("RequestSubscription", subscription.Key, subscription.Value);
+		}
+
 		private void DispatchData(SimplifiedPropertyValue propertyValue)
 		{
+			//	TimeStamps are received as UTC but Kind may not be specified, which can screw with time-based calculations
+			propertyValue.TimeStamp = DateTime.SpecifyKind(propertyValue.TimeStamp, DateTimeKind.Utc);
+
+			if (!EmitUTC)
+				propertyValue.TimeStamp = propertyValue.TimeStamp.ToLocalTime();
+
 			if (OnData != null)
 				OnData(propertyValue);
 		}

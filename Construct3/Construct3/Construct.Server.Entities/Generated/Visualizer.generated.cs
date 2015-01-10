@@ -63,6 +63,19 @@ namespace Construct.Server.Entities
 			}
 		}
 		
+		private string layoutStrings;
+		public virtual string LayoutString
+		{
+			get
+			{
+				return this.layoutStrings;
+			}
+			set
+			{
+				this.layoutStrings = value;
+			}
+		}
+		
 		private IList<Visualization> visualizations = new List<Visualization>();
 		public virtual IList<Visualization> Visualizations
 		{

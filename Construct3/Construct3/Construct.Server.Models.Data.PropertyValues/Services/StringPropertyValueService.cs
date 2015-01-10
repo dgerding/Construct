@@ -14,6 +14,8 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
         IEnumerable<StringPropertyValue> GetAll();
         [OperationContract]
         IEnumerable<StringPropertyValue> GetAfter(DateTime time);
+		[OperationContract]
+		IEnumerable<StringPropertyValue> GetBetween(DateTime start, DateTime end);
     }
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class StringPropertyValueService : PropertyService<StringPropertyValue, String>, IStringPropertyValueService

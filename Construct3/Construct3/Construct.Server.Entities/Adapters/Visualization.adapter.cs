@@ -38,19 +38,6 @@ namespace Construct.Server.Entities.Adapters
 		    }
 		}
 		
-		private string names;
-		public virtual string Name 
-		{ 
-		    get
-		    {
-		        return this.names;
-		    }
-		    set
-		    {
-		        this.names = value;
-		    }
-		}
-		
 		private Guid iDs;
 		public virtual Guid ID 
 		{ 
@@ -61,32 +48,6 @@ namespace Construct.Server.Entities.Adapters
 		    set
 		    {
 		        this.iDs = value;
-		    }
-		}
-		
-		private string descriptions;
-		public virtual string Description 
-		{ 
-		    get
-		    {
-		        return this.descriptions;
-		    }
-		    set
-		    {
-		        this.descriptions = value;
-		    }
-		}
-		
-		private Guid dataTypeIDs;
-		public virtual Guid DataTypeID 
-		{ 
-		    get
-		    {
-		        return this.dataTypeIDs;
-		    }
-		    set
-		    {
-		        this.dataTypeIDs = value;
 		    }
 		}
 
@@ -107,11 +68,8 @@ namespace Construct.Server.Entities.Adapters
         {
             return new Visualization()
             {
-                DataTypeID = entity.DataTypeID,
                 PropertyID = entity.PropertyID,
-                Description = entity.Description,
                 ID = entity.ID,
-                Name = entity.Name,
                 VisualizerID = entity.VisualizerID
             };
         }

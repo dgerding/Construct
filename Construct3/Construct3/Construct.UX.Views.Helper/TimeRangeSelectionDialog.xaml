@@ -1,0 +1,18 @@
+﻿<telerik:RadRibbonWindow x:Class="Construct.UX.Views.Helper.TimeRangeSelectionDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             mc:Ignorable="d" WindowStyle="ToolWindow" Title="Select Date Range" Width="388" Height="154">
+	<Grid>
+		<telerik:RadDateTimePicker x:Name="StartTimePicker" Margin="0,17,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="228" SelectedValue="{Binding StartTime, Mode=TwoWay}" />
+		<telerik:RadDateTimePicker x:Name="EndTimePicker" Margin="0,48,10.333,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="228" SelectedValue="{Binding EndTime, Mode=TwoWay}" DisplayDateStart="2014-01-01" />
+		<Label Content="Start Time" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,17,0,0"/>
+		<TextBlock FlowDirection="LeftToRight" Text="End Time" Margin="15,51,314.333,56.333" />
+		<CheckBox x:Name="EndTimeEnabledCheckBox" HorizontalAlignment="Left" Margin="72,51,0,0" VerticalAlignment="Top" Checked="EndTimeEnabledCbx_Changed" Unchecked="EndTimeEnabledCbx_Changed" />
+		<Button Content="OK" Margin="0,0,90.333,10.333" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="OKButton_Click"/>
+		<Button Content="Cancel" Margin="0,0,10.333,10.333" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="CancelButton_Click"/>
+		<CheckBox x:Name="TreatAsUtcCheckbox" Content="Treat As UTC" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="108,96,0,0" IsChecked="{Binding IsUTC, Mode=TwoWay}" />
+	</Grid>
+</telerik:RadRibbonWindow>

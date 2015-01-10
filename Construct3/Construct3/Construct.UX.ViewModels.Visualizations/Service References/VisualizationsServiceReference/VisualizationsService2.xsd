@@ -15,6 +15,42 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="AddVisualizer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="visualizer" nillable="true" type="q2:Visualizer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddVisualizerResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveVisualization">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="visualization" nillable="true" type="q3:Visualization" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveVisualizationResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveVisualizer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="visualizer" nillable="true" type="q4:Visualizer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveVisualizerResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="GetAllDataTypes">
     <xs:complexType>
       <xs:sequence />
@@ -23,7 +59,7 @@
   <xs:element name="GetAllDataTypesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllDataTypesResult" nillable="true" type="q2:ArrayOfDataType" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllDataTypesResult" nillable="true" type="q5:ArrayOfDataType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -37,49 +73,35 @@
   <xs:element name="GetAllPropertiesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllPropertiesResult" nillable="true" type="q3:ArrayOfPropertyType" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllPropertiesResult" nillable="true" type="q6:ArrayOfPropertyType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDataType">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q4:guid" />
+        <xs:element xmlns:q7="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="id" type="q7:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetDataTypeResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetDataTypeResult" nillable="true" type="q5:DataType" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAssociatedVisualizers">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q6:PropertyType" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetAssociatedVisualizersResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedVisualizersResult" nillable="true" type="q7:ArrayOfVisualizer" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetDataTypeResult" nillable="true" type="q8:DataType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAssociatedSources">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q8:DataType" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q9:DataType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAssociatedSourcesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedSourcesResult" nillable="true" type="q9:ArrayOfSource" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedSourcesResult" nillable="true" type="q10:ArrayOfSource" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -91,7 +113,7 @@
   <xs:element name="GetHumanReadableSensorsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetHumanReadableSensorsResult" nillable="true" type="q10:ArrayOfHumanReadableSensor" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetHumanReadableSensorsResult" nillable="true" type="q11:ArrayOfHumanReadableSensor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -103,21 +125,33 @@
   <xs:element name="GetAllVisualizationsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllVisualizationsResult" nillable="true" type="q11:ArrayOfVisualization" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllVisualizationsResult" nillable="true" type="q12:ArrayOfVisualization" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllVisualizers">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllVisualizersResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllVisualizersResult" nillable="true" type="q13:ArrayOfVisualizer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAssociatedVisualizer">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q12:Visualization" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="adapter" nillable="true" type="q14:Visualization" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAssociatedVisualizerResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedVisualizerResult" nillable="true" type="q13:Visualizer" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedVisualizerResult" nillable="true" type="q15:Visualizer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -129,21 +163,21 @@
   <xs:element name="GetAllLabelsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllLabelsResult" nillable="true" type="q14:ArrayOfLabel" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllLabelsResult" nillable="true" type="q16:ArrayOfLabel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAssociatedLabels">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="itemID" type="q15:guid" />
+        <xs:element xmlns:q17="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="itemID" type="q17:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAssociatedLabelsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedLabelsResult" nillable="true" type="q16:ArrayOfLabel" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAssociatedLabelsResult" nillable="true" type="q18:ArrayOfLabel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -155,7 +189,7 @@
   <xs:element name="GetAllTaxonomiesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllTaxonomiesResult" nillable="true" type="q17:ArrayOfTaxonomy" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllTaxonomiesResult" nillable="true" type="q19:ArrayOfTaxonomy" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -167,15 +201,15 @@
   <xs:element name="GetAllTaxonomyLablesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllTaxonomyLablesResult" nillable="true" type="q18:ArrayOfTaxonomyLabel" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/Construct.Server.Entities.Adapters" minOccurs="0" name="GetAllTaxonomyLablesResult" nillable="true" type="q20:ArrayOfTaxonomyLabel" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="PersistLabeledItem">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/Construct.Server.Models.Visualizations" minOccurs="0" name="adapter" nillable="true" type="q19:LabeledItemAdapter" />
-        <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="sourceID" type="q20:guid" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/Construct.Server.Models.Visualizations" minOccurs="0" name="adapter" nillable="true" type="q21:LabeledItemAdapter" />
+        <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="sourceID" type="q22:guid" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

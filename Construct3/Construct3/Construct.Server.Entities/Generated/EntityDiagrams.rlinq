@@ -20,6 +20,9 @@
         <orm:field name="descriptions" property="Description" behavior="readwrite" uniqueId="b56fd52e-d07d-40ba-b614-8e1700d72034" type="System.String">
           <orm:column name="Description" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
         </orm:field>
+        <orm:field name="layoutStrings" property="LayoutString" uniqueId="e092ea10-6a05-44f9-804e-f1df70089b2a" type="System.String">
+          <orm:column name="LayoutString" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="" />
+        </orm:field>
         <orm:field name="visualizations" property="Visualizations" behavior="readwrite" uniqueId="ea6360c3-6676-43d2-88f0-a1d490b2a5e5" type="Construct.Server.Entities.Visualization">
           <orm:collection element-class="Construct.Server.Entities.Visualization" inverse-field="visualizers" managed="true" order-by="" uniqueId="3cb8a87e-4622-4e55-b921-d00952cf0652" />
         </orm:field>
@@ -27,7 +30,9 @@
       <orm:class name="Visualization" uniqueId="a6207d06-1fe3-48b5-b5fd-72ccb9022120">
         <orm:table name="Visualizations_Visualization" />
         <orm:identity>
-          <orm:key-generator name="guid" />
+          <orm:key-generator name="guid">
+            <orm:key-generator-member property-name="ID" />
+          </orm:key-generator>
           <orm:single-field field-name="iDs" />
         </orm:identity>
         <orm:concurrency strategy="changed" />
@@ -37,7 +42,9 @@
         <orm:field name="iDs" property="ID" behavior="readwrite" uniqueId="aa244f41-fa0d-45ee-ba78-de96c3f8751e" type="System.Guid">
           <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         </orm:field>
-        <orm:field name="propertyIDs" property="PropertyID" uniqueId="cd49e96f-bb5a-4cbf-97c7-52c028222c44" type="System.Guid" />
+        <orm:field name="propertyIDs" property="PropertyID" uniqueId="cd49e96f-bb5a-4cbf-97c7-52c028222c44" type="System.Guid">
+          <orm:column name="PropertyID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
+        </orm:field>
         <orm:field name="visualizers" property="Visualizer" behavior="readwrite" uniqueId="3df6be04-9fe5-4594-90a6-2142bfdc0461" type="Construct.Server.Entities.Visualizer">
           <orm:reference uniqueId="3cb8a87e-4622-4e55-b921-d00952cf0652" association-name="VisualizationHasVisualizer">
             <orm:sharedfield name="visualizerIDs" target-class="Construct.Server.Entities.Visualizer" target-field="iDs" />
@@ -790,6 +797,7 @@
         <orm:column name="Name" sql-type="nvarchar" nullable="false" length="50" scale="0" ado-type="UnicodeStringVariableLength" />
         <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         <orm:column name="Description" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="UnicodeStringInfiniteLength" />
+        <orm:column name="LayoutString" sql-type="nvarchar(max)" nullable="false" length="0" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Visualizations_VisualizationType">
         <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
@@ -1372,13 +1380,14 @@
       <Property Id="de3d98b7-49f7-4928-91b8-b3f48f0fee7f" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="iDs" />
       <Property Id="b56fd52e-d07d-40ba-b614-8e1700d72034" name="Description" label="Description : String" kind="Persistent" fieldName="descriptions" />
       <Property Id="664953d4-36fa-4305-9a30-a033cabd15b9" name="Name" label="Name : String" kind="Persistent" fieldName="names" />
+      <Property Id="e092ea10-6a05-44f9-804e-f1df70089b2a" name="LayoutString" label="LayoutString : String" fieldName="layoutStrings" />
       <navigationalProperties>
         <classHasNavigationalProperties Id="d0694531-1f0c-4492-8978-7376f004c00b">
           <NavigationalProperty Id="ea6360c3-6676-43d2-88f0-a1d490b2a5e5" name="Visualizations" type="IList&lt;Visualization&gt;" label="Visualizations : IList&lt;Visualization&gt;" nullable="true" kind="Persistent" fieldName="visualizations" isDependent="false" isManaged="true" />
         </classHasNavigationalProperties>
       </navigationalProperties>
     </DomainClass>
-    <DomainClass Id="a6207d06-1fe3-48b5-b5fd-72ccb9022120" name="Visualization" namespace="Construct.Server.Entities" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true">
+    <DomainClass Id="a6207d06-1fe3-48b5-b5fd-72ccb9022120" name="Visualization" namespace="Construct.Server.Entities" showPropertiesCompartment="true" identityMechanism="Guid" concurrencyMode="Changed" showNavigationCompartment="true" showImplementationCompartment="true" identityMechanismMember="ID">
       <Property Id="aa244f41-fa0d-45ee-ba78-de96c3f8751e" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="iDs" />
       <Property Id="d576543b-e273-43dd-b090-b246a42cd0be" name="VisualizerID" type="Guid" label="VisualizerID : Guid" kind="Persistent" fieldName="visualizerIDs" />
       <Property Id="cd49e96f-bb5a-4cbf-97c7-52c028222c44" name="PropertyID" type="Guid" label="PropertyID : Guid" fieldName="propertyIDs" />

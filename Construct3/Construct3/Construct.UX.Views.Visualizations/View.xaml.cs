@@ -1,27 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Construct.Utilities.Shared;
 using Construct.UX.ViewModels;
 using Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference;
+using Construct.UX.Views.Helper;
+using Telerik.Windows.Controls;
+using Telerik.Windows.Controls.ChartView;
 using viewModel = Construct.UX.ViewModels.Visualizations.ViewModel;
 
 namespace Construct.UX.Views.Visualizations
 {
 	public partial class View : Views.View, INotifyPropertyChanged
 	{
-		private IEnumerable<DataType> dataTypes;
-		private IEnumerable<PropertyType> properties;
-		private PropertyType propertyType;
-		private Random random = new Random();
-		private Uri serverServiceUri;
-		private IEnumerable<Source> sources;
+		private List<DataType> dataTypes;
+		private List<PropertyType> properties;
+		private List<Source> sources;
+		private List<Visualization> visualizations;
+		private List<Visualizer> visualizers;
+
 		private SubscriptionTranslator subscriptionTranslator;
-		private IEnumerable<Visualization> visualizations;
-		private readonly IDataSource streamDataSource;
+		private readonly ISubscribableDataSource streamDataSource;
+		private readonly IQueryableDataSource temporalDataSource;
+		private Visualizer currentVisualizer;
 
 		public View(ApplicationSessionInfo sessionInfo)
 		{
@@ -31,31 +36,34 @@ namespace Construct.UX.Views.Visualizations
 			DataContext = this;
 			InitializeMembers();
 
-			serverServiceUri = UriUtility.CreateStandardConstructServiceEndpointUri("http", "Server", "localhost", Guid.Empty,
-				8000);
-
-			Visualizations = ((viewModel) ViewModel).GetVisualizations();
+			Visualizations = ((viewModel) ViewModel).GetAllVisualizations().ToList();
+			Visualizers = ((viewModel) ViewModel).GetAllVisualizers().ToList();
 
 			Sources = InitializeSources().Distinct().ToList();
 			Properties = InitializeProperties().Distinct().ToList();
-
 
 			InitializeSubscriptionTranslator();
 
 			streamDataSource = new SignalRDataSource(sessionInfo.HostName);
 			streamDataSource.Connect();
 
-			VisualizationWindow.DataStore = new ClientDataStore(streamDataSource);
+			Uri serverServiceUri = UriUtility.CreateStandardConstructServiceEndpointUri("http", "Server", "localhost", Guid.Empty, 8000);
+			temporalDataSource = new ConstructServerDataSource(serverServiceUri, subscriptionTranslator);
+
+			VisualizationWindow.DataStore = new ClientDataStore(streamDataSource, temporalDataSource);
 			VisualizationWindow.SubscriptionTranslator = subscriptionTranslator;
 
 			PropertyVisualizationsOptions.ItemsSource = new List<String>
 			{
-				"Numeric"
+				"Numeric",
+				"Text"
 			};
 			PropertyVisualizationsOptions.SelectedIndex = 0;
+
+			currentVisualizer = new Visualizer {ID = Guid.NewGuid()};
 		}
 
-		public IEnumerable<DataType> DataTypes
+		public List<DataType> DataTypes
 		{
 			get { return dataTypes; }
 			set
@@ -65,17 +73,7 @@ namespace Construct.UX.Views.Visualizations
 			}
 		}
 
-		public PropertyType PropertyType
-		{
-			get { return propertyType; }
-			set
-			{
-				propertyType = value;
-				NotifyPropertyChanged("PropertyType");
-			}
-		}
-
-		public IEnumerable<PropertyType> Properties
+		public List<PropertyType> Properties
 		{
 			get { return properties; }
 			set
@@ -85,7 +83,7 @@ namespace Construct.UX.Views.Visualizations
 			}
 		}
 
-		public IEnumerable<Source> Sources
+		public List<Source> Sources
 		{
 			get { return sources; }
 			set
@@ -95,13 +93,23 @@ namespace Construct.UX.Views.Visualizations
 			}
 		}
 
-		public IEnumerable<Visualization> Visualizations
+		public List<Visualization> Visualizations
 		{
 			get { return visualizations; }
 			set
 			{
 				visualizations = value;
 				NotifyPropertyChanged("Visualizations");
+			}
+		}
+
+		public List<Visualizer> Visualizers
+		{
+			get { return visualizers; }
+			set
+			{
+				visualizers = value;
+				NotifyPropertyChanged("Visualizers");
 			}
 		}
 
@@ -249,6 +257,92 @@ namespace Construct.UX.Views.Visualizations
 		private void AddPropertyVisualizationButton_Click(object sender, RoutedEventArgs e)
 		{
 			VisualizationWindow.AddVisualization(PropertyVisualizationsOptions.Text);
+		}
+
+		private void SaveLayoutButton_Click(object sender, RoutedEventArgs e)
+		{
+			SaveCurrentLayout(currentVisualizer);
+		}
+
+		private void LoadLayoutButton_Click(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void SaveCurrentLayout(Visualizer targetVisualizer)
+		{
+			//	Embed serialization info
+			//foreach (var vis in VisualizationWindow.VisualizationControls)
+			//{
+			//	vis.SelectedProperties
+			//}
+
+			//	Save layout info
+			MemoryStream layoutStream = new MemoryStream();
+			VisualizationWindow.VisualizationsDock.SaveLayout(layoutStream);
+			layoutStream.Seek(0, SeekOrigin.Begin);
+			using (StreamReader reader = new StreamReader(layoutStream))
+				targetVisualizer.LayoutString = reader.ReadToEnd();
+			
+
+
+
+			//	Get visualizations and determine which visualizations need to be added/removed from the database
+			var visualizationModels = Visualizations.Where(v => v.VisualizerID == targetVisualizer.ID);
+
+			var serializationHelper = new VisualizationSerializationHelper();
+			var currentVisualizationModels =
+				VisualizationWindow.VisualizationControls.SelectMany(
+					v => serializationHelper.GetVisualizationsForContainer((RadPane) v.Parent)).ToList();
+
+			foreach (var vis in currentVisualizationModels)
+				vis.VisualizerID = targetVisualizer.ID;
+
+			var addedVisualizations = currentVisualizationModels.Where(cv => !visualizationModels.Any(v => v.ID == cv.ID)).ToList();
+			var removedVisualizations = visualizationModels.Where(v => !currentVisualizationModels.Any(cv => cv.ID == v.ID)).ToList();
+
+
+
+			//	Begin the add/remove operations
+
+			//	Add the visualizer if necessary (when it's a new visualizer)
+			if (!Visualizers.Any(v => v.ID == targetVisualizer.ID))
+			{
+				Visualizers.Add(targetVisualizer);
+				((viewModel)ViewModel).AddVisualizer(targetVisualizer);
+			}
+
+			foreach (var newVis in addedVisualizations)
+			{
+				((viewModel)ViewModel).AddVisualization(newVis);
+			}
+
+			foreach (var removedVis in removedVisualizations)
+			{
+				((viewModel)ViewModel).RemoveVisualization(removedVis);
+			}
+		}
+
+		private void ChangeTimeButton_Click(object sender, RoutedEventArgs e)
+		{
+			var currentStartTime = VisualizationWindow.DataSession.StartTime ?? DateTime.Now;
+			var currentEndTime = VisualizationWindow.DataSession.EndTime;
+			if (!currentEndTime.HasValue)
+				currentEndTime = DateTime.MaxValue;
+
+			var rangeSelectionDialog = new TimeRangeSelectionDialog(currentStartTime, currentEndTime);
+
+			var success = rangeSelectionDialog.ShowDialog();
+			if (!success.GetValueOrDefault())
+				return;
+
+			var startTime = rangeSelectionDialog.StartTime;
+			var endTime = rangeSelectionDialog.EndTime;
+
+			if (!rangeSelectionDialog.EndTimeEnabled)
+				endTime = DateTime.MaxValue;
+
+			VisualizationWindow.ChangeVisualizedDataRange(startTime, endTime);
 		}
 	}
 }

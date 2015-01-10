@@ -68,20 +68,20 @@ namespace Construct.Server.Entities.Adapters
 		        this.descriptions = value;
 		    }
 		}
-		
-		private Guid primitiveDataTypeIDs;
-        [DataMember]
-        public virtual Guid PrimitiveDataTypeID 
-		{ 
+
+	    private string layoutString;
+	    [DataMember]
+	    public virtual string LayoutString
+	    {
 		    get
 		    {
-		        return this.primitiveDataTypeIDs;
+			    return this.layoutString;
 		    }
 		    set
 		    {
-		        this.primitiveDataTypeIDs = value;
+			    this.layoutString = value;
 		    }
-		}
+	    }
 
         public static implicit operator Entities.Adapters.Visualizer(Entities.Visualizer entity)
         {
@@ -90,7 +90,7 @@ namespace Construct.Server.Entities.Adapters
                 ID = entity.ID,
                 Description = entity.Description,
                 Name = entity.Name,
-                PrimitiveDataTypeID = entity.PrimitiveDataTypeID
+				LayoutString = entity.LayoutString
             };
         }
 	}

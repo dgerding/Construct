@@ -19,7 +19,7 @@ namespace Construct.UX.Views.Visualizations
 {
     public partial class VisualizationWindow : UserControl, INotifyPropertyChanged
     {
-		List<SplitVisualizationContainer> VisualizationControls = new List<SplitVisualizationContainer>();
+		public List<SplitVisualizationContainer> VisualizationControls { get; private set; }
 	    private double CurrentGlobalSplitPosition = 0.5;
 
 	    private ClientDataStore dataStore;
@@ -30,36 +30,20 @@ namespace Construct.UX.Views.Visualizations
 		    set
 		    {
 			    if (dataStore != null)
-				    dataStore.DataSource.OnData -= DataSource_OnData;
+				    dataStore.RealtimeDataSource.OnData -= DataSource_OnData;
 
 			    dataStore = value;
-			    dataStore.DataSource.OnData += DataSource_OnData;
+			    dataStore.RealtimeDataSource.OnData += DataSource_OnData;
 		    }
 	    }
 		public SubscriptionTranslator SubscriptionTranslator { get; set; }
 
 		public SessionInfo DataSession { get; set; }
 
-	    private bool routerIsInitialized = false;
-	    private void UpdateTimeBars(DateTime startTime, DateTime endTime)
+		bool IsVisualizingRealTime { get { return DataSession != null && !DataSession.EndTime.HasValue; } }
+
+	    private void UpdateTimeLabel(DateTime startTime, DateTime endTime)
 	    {
-			//foreach (var visualizationContainer in VisualizationsDock.Items)
-			//{
-			//	Dispatcher.BeginInvoke(new Action(delegate
-			//	{
-			//		var splitContainer = visualizationContainer as RadSplitContainer;
-			//		var paneGroup = splitContainer.Items[0] as RadPaneGroup;
-			//		if (paneGroup.Items.Count == 0)
-			//			return;
-
-			//		var radPane = paneGroup.Items[0] as RadPane;
-			//		var visualization = radPane.Content as PropertyVisualization;
-
-			//		visualization.TimeBar.PeriodStart = startTime;
-			//		visualization.TimeBar.PeriodEnd = endTime;
-			//	}));
-			//}
-
 		    Dispatcher.BeginInvoke(new Action(() =>
 		    {
 			    TimespanDisplayLabel.Content = String.Format("Recorded Timespan: {0:h:mm:ss tt} - {1:h:mm:ss tt}", startTime, endTime);
@@ -73,7 +57,8 @@ namespace Construct.UX.Views.Visualizations
 		    this.TimespanDisplayLabel.DataContext = this;
 			this.DataSession = new SessionInfo();
 
-			GlobalTimeBar.DataContext = this.DataSession;
+			VisualizationControls = new List<SplitVisualizationContainer>();
+
 			GlobalTimeBar.VisiblePeriodChanged += GlobalTimeBar_VisiblePeriodChanged;
 			GlobalTimeBar.SelectionChanged += GlobalTimeBar_SelectionChanged;
 	    }
@@ -90,7 +75,7 @@ namespace Construct.UX.Views.Visualizations
 			{
 				var detailsVis = container.DetailsVisualization;
 				if (detailsVis != null)
-					detailsVis.ChangeVisualizationArea(DataSession);
+					detailsVis.ChangeVisualizedDataRange(DataSession);
 			}
 		}
 
@@ -99,79 +84,57 @@ namespace Construct.UX.Views.Visualizations
 			DataSession.ViewStartTime = GlobalTimeBar.VisiblePeriodStart;
 			DataSession.ViewEndTime = GlobalTimeBar.VisiblePeriodEnd;
 
+			//	Data session to be used for visualization calculations, may be an augmented session
+			//		if we're doing real-time data visualization (EndTime should be the last time
+			//		that data was received)
+			var effectiveSession = DataSession;
+			if (IsVisualizingRealTime)
+				effectiveSession = new SessionInfo()
+				{
+					StartTime = DataSession.StartTime,
+					ViewStartTime = DataSession.ViewStartTime,
+					SelectedStartTime = DataSession.SelectedStartTime,
+					SelectedEndTime = DataSession.SelectedEndTime,
+					ViewEndTime = DataSession.ViewEndTime,
+					EndTime = lastDataTime // Assigned in DataSource_OnData
+				};
+
 			foreach (var container in VisualizationControls)
 			{
 				var previewVis = container.PreviewVisualization;
 				if (previewVis != null)
 				{
-					previewVis.ChangeVisualizationArea(DataSession);
+					previewVis.ChangeVisualizationArea(effectiveSession);
 				}
 			}
 		}
 
-	    public void AddVisualization(UserControl previewVisualization, UserControl detailsVisualization)
+	    public Guid AddVisualization(SplitVisualizationContainer visualization)
 	    {
 		    var dock = this.VisualizationsDock;
 		    var splitContainer = new RadSplitContainer();
 		    var paneGroup = new RadPaneGroup();
 		    var pane = new RadPane();
-			var visContainer = new SplitVisualizationContainer(SubscriptionTranslator);
-		    if (previewVisualization is PropertyVisualization)
-			    pane.Header = (previewVisualization as PropertyVisualization).VisualizationName;
-		    else
-			    pane.Header = "Data Visualization";
+		    var newVisId = Guid.NewGuid();
 
-			visContainer.PreviewContainer.Children.Add(previewVisualization);
-		    visContainer.DetailsContainer.Children.Add(detailsVisualization);
-			pane.Content = visContainer;
+			//	How to set serialization tag?
+		    //pane.Tag = newVisId;
+			pane.Content = visualization;
 		    paneGroup.Items.Add(pane);
 		    splitContainer.Items.Add(paneGroup);
 		    splitContainer.InitialPosition = DockState.DockedTop;
 
-		    visContainer.SplitterPosition = CurrentGlobalSplitPosition;
-			visContainer.SplitPositionChanged += visContainer_SplitPositionChanged;
+			visualization.SplitterPosition = CurrentGlobalSplitPosition;
+			visualization.SplitPositionChanged += visContainer_SplitPositionChanged;
 
-		    if (previewVisualization is PropertyVisualization)
-		    {
-			    var propertyVisualization = previewVisualization as PropertyVisualization;
-
-				propertyVisualization.OnVisualizationRangeChanged += propertyVisualization_OnVisualizationRangeChanged;
-		    }
-
-			VisualizationControls.Add(visContainer);
+			VisualizationControls.Add(visualization);
 		    dock.Items.Add(splitContainer);
+
+			if (DataSession.StartTime.HasValue && (DataSession.EndTime.HasValue || IsVisualizingRealTime))
+				visualization.PreviewVisualization.ChangeVisualizedDataRange(DataSession);
+
+		    return newVisId;
 	    }
-
-	    private bool _IsUpdating = false;
-		void propertyVisualization_OnVisualizationRangeChanged(object sender, ChartVisualizationInfo obj)
-		{
-			if (_IsUpdating)
-				return;
-
-			var chartToSessionConverter = new ChartToSessionConverter();
-			if (chartToSessionConverter.UpdateSessionToChart(this.DataSession, obj))
-			{
-
-				Dispatcher.BeginInvoke(new Action(() =>
-				{
-					_IsUpdating = true;
-					GlobalTimeBar.VisiblePeriodStart = DataSession.ViewStartTime.Value;
-					GlobalTimeBar.VisiblePeriodEnd = DataSession.ViewEndTime.Value;
-					_IsUpdating = false;
-				}));
-
-				//	Update other visualizations
-
-				//	[Currently causes application hang]
-				//foreach (var visualization in VisualizationControls)
-				//{
-				//	var previewVisualization = visualization.PreviewContainer.Children[0] as PropertyVisualization;
-
-				//	if (previewVisualization != null && previewVisualization != sender)
-				//		previewVisualization.ChangeVisualizationArea(DataSession);
-				//}
-			}
-		}
 
 		void visContainer_SplitPositionChanged(object sender, double splitPosition)
 		{
@@ -191,15 +154,16 @@ namespace Construct.UX.Views.Visualizations
 			DataDetailsColumn.Width = new GridLength(1.0 - splitPosition, GridUnitType.Star);
 		}
 
-	    public void AddVisualization(String visualizationType)
+	    public Guid AddVisualization(String visualizationType)
 	    {
 		    switch (visualizationType)
 		    {
 			    case ("Numeric"):
-					AddVisualization(
-						new NumericPropertyPreview(DataStore, SubscriptionTranslator, DataSession),
-						new NumericPropertyDetails(DataStore, SubscriptionTranslator)
-						);
+					return AddVisualization(new NumericPropertyVisualization(DataSession, DataStore, SubscriptionTranslator));
+				    break;
+
+				case ("Text"):
+					return AddVisualization(new TextPropertyVisualization(DataSession, DataStore, SubscriptionTranslator));
 				    break;
 
 				default:
@@ -207,20 +171,65 @@ namespace Construct.UX.Views.Visualizations
 		    }
 	    }
 
-	    private void DataSource_OnData(SimplifiedPropertyValue simplifiedPropertyValue)
+	    public void ChangeVisualizedDataRange(DateTime startTime, DateTime endTime)
 	    {
-		    var localTime = simplifiedPropertyValue.TimeStamp;
+			DataSession.StartTime = startTime.ToLocalTime();
+		    if (endTime == DateTime.MaxValue)
+			    DataSession.EndTime = null;
+		    else
+			    DataSession.EndTime = endTime.ToLocalTime();
 
-		    if (DataSession.StartTime == null)
+			//	Need to do weird DataBinding logic if we're doing real-time visualization (in order
+			//		to get the GlobalTimeBar to show the latest time)
+		    if (IsVisualizingRealTime)
 		    {
-			    DataSession.StartTime = simplifiedPropertyValue.TimeStamp;
-			    DataSession.EndTime = simplifiedPropertyValue.TimeStamp;
+			    GlobalTimeBar.DataContext = null;
+			    GlobalTimeBar.PeriodStart = DataSession.StartTime.Value;
+			    GlobalTimeBar.PeriodEnd = DateTime.Now;
+		    }
+		    else
+		    {
+			    //GlobalTimeBar.DataContext = DataSession;
+			    GlobalTimeBar.PeriodStart = DataSession.StartTime.Value;
+			    GlobalTimeBar.PeriodEnd = DataSession.EndTime.Value;
 		    }
 
-		    if ((localTime - DataSession.EndTime).Value.TotalMilliseconds > 0.0)
+			foreach (var visualization in VisualizationControls)
+			{
+				if (visualization.PreviewVisualization != null)
+				{
+					visualization.PreviewVisualization.ChangeVisualizedDataRange(DataSession);
+				}
+			}
+	    }
+
+		//	Ugh, poor hack, member only used in DataSource_OnData and GlobalTimeBar_VisiblePeriodChanged
+	    private DateTime? lastDataTime;
+	    private void DataSource_OnData(SimplifiedPropertyValue simplifiedPropertyValue)
+	    {
+		    if (IsVisualizingRealTime)
 		    {
-			    DataSession.EndTime = localTime;
-				UpdateTimeBars(DataSession.StartTime.Value, DataSession.EndTime.Value);
+				//	If we're supposed to be showing all data from StartTime to the current time,
+				//		the shown end time should be the timestamp of the last received data
+
+				var localTime = simplifiedPropertyValue.TimeStamp.ToLocalTime();
+				//	100ms time difference - Limit refresh rate for UI components since they're the most expensive part
+			    if (!lastDataTime.HasValue || (localTime - lastDataTime.Value).TotalMilliseconds > 100.0)
+			    {
+				    lastDataTime = localTime;
+
+					Dispatcher.BeginInvoke(new Action(() =>
+					{
+						UpdateTimeLabel(DataSession.StartTime.Value, lastDataTime.Value);
+						GlobalTimeBar.PeriodEnd = localTime;
+
+						//	Update visualizations for new time range
+						foreach (var visContainer in VisualizationControls)
+						{
+							visContainer.PreviewVisualization.ChangeRealTimeRangeEnd(lastDataTime.Value);
+						}
+					}));
+			    }
 		    }
 	    }
 

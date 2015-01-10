@@ -20,7 +20,7 @@
 				<telerik:ChartTrackBallBehavior ShowTrackInfo="True" ShowIntersectionPoints="True" TrackInfoUpdated="ChartTrackBallBehavior_OnTrackInfoUpdated" />
 			</telerik:RadCartesianChart.Behaviors>
 			<telerik:RadCartesianChart.HorizontalAxis>
-				<telerik:DateTimeContinuousAxis LabelFitMode="Rotate" LineStroke="White" LabelStyle="{StaticResource WhiteLabelStyle}" LabelFormat="HH:MM:ss.fff" />
+				<telerik:DateTimeContinuousAxis x:Name="HorizontalAxis" LabelFitMode="Rotate" LineStroke="White" LabelStyle="{StaticResource WhiteLabelStyle}" LabelFormat="HH:mm:ss.fff" />
 			</telerik:RadCartesianChart.HorizontalAxis>
 			<telerik:RadCartesianChart.VerticalAxis>
 				<telerik:LinearAxis LineStroke="White" LabelStyle="{StaticResource WhiteLabelStyle}" />

@@ -12,21 +12,24 @@ namespace Construct.UX.Views.Visualizations
 {
 	public class ClientDataStore
 	{
-		public IDataSource DataSource { get; private set; }
+		public ISubscribableDataSource RealtimeDataSource { get; private set; }
+		public IQueryableDataSource TemporalDataSource { get; private set; }
 		private DataRouteCollection DataRoutes = new DataRouteCollection();
 
 		ConcurrentDictionary<DataStoreDescriptor, PropertyDataStore> ExistingDataStores = new ConcurrentDictionary<DataStoreDescriptor, PropertyDataStore>(); 
 
-		public ClientDataStore(IDataSource dataSource)
+		public ClientDataStore(ISubscribableDataSource realtimeDataSource, IQueryableDataSource temporalDataSource)
 		{
-			this.DataSource = dataSource;
-			this.DataSource.OnData += dataSource_OnData;
+			this.RealtimeDataSource = realtimeDataSource;
+			this.RealtimeDataSource.OnData += realtimeDataSource_OnData;
+
+			this.TemporalDataSource = temporalDataSource;
 
 			DataRoutes.OnRouteOpened += OnRouteOpened;
 			DataRoutes.OnRouteClosed += OnRouteClosed;
 		}
 
-		void dataSource_OnData(SimplifiedPropertyValue propertyValue)
+		void realtimeDataSource_OnData(SimplifiedPropertyValue propertyValue)
 		{
 			var route = DataRoutes.GetRoute(new DataSubscription()
 			{
@@ -60,7 +63,7 @@ namespace Construct.UX.Views.Visualizations
 			};
 
 			PropertyDataStore dataStore;
-			//	Try to get a store that perfectly matches this descriptor
+			//	Try to get a store that perfectly matches this descriptor (aka have we polled this exact data before)
 			if (!ExistingDataStores.TryGetValue(descriptor, out dataStore))
 			{
 				var dataRouteForStore = DataRoutes.GetRoute(dataType);
@@ -88,7 +91,11 @@ namespace Construct.UX.Views.Visualizations
 				}
 				else
 				{
-					//	Should pull for data in this range from data source
+					//	No possible data stores to pull data from, query for what already exists
+					//		on server-side
+					var existingData = TemporalDataSource.GetData(startTime, endTime, dataType);
+					foreach (var data in existingData)
+						dataStore.Data.Add(data);
 				}
 
 				ExistingDataStores.TryAdd(descriptor, dataStore);
@@ -106,12 +113,12 @@ namespace Construct.UX.Views.Visualizations
 
 		private void OnRouteClosed(DataRoute dataRoute)
 		{
-			DataSource.RemoveSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
+			RealtimeDataSource.RemoveSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
 		}
 
 		private void OnRouteOpened(DataRoute dataRoute)
 		{
-			DataSource.AddSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
+			RealtimeDataSource.AddSubscription(dataRoute.RouteSubscription.SourceId, dataRoute.RouteSubscription.PropertyId);
 		}
 	}
 }

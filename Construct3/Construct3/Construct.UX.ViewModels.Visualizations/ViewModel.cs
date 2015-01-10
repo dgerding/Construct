@@ -64,16 +64,22 @@ namespace Construct.UX.ViewModels.Visualizations
         public IEnumerable<TaxonomyLabel> GetAllTaxonomyLables()
         {
 			ModelClient client = GetModel();
-            IEnumerable<TaxonomyLabel> taxonomies = client.GetAllTaxonomyLables();
+			IEnumerable<TaxonomyLabel> taxonomies = client.GetAllTaxonomyLables();
             return taxonomies;
         }
 
         public IEnumerable<DataType> GetAllDataTypes()
         {
 			ModelClient client = GetModel();
-            IEnumerable<DataType> dataTypes = client.GetAllDataTypes();
-            return dataTypes;
+            return client.GetAllDataTypes();
         }
+
+	    public IEnumerable<Visualizer> GetAllVisualizers()
+	    {
+		    ModelClient client = GetModel();
+		    return client.GetAllVisualizers();
+	    }
+
         public IEnumerable<PropertyType> GetAllProperties(string dataType)
         {
 			ModelClient client = GetModel();
@@ -81,25 +87,38 @@ namespace Construct.UX.ViewModels.Visualizations
 			return result;
 
         }
-        public IEnumerable<Visualizer> GetAssociatedVisualizers(PropertyType propertyType)
-        {
-			ModelClient client = GetModel();
-            return client.GetAssociatedVisualizers(propertyType);
-        }
 
-        public IEnumerable<Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization> GetVisualizations()
+        public IEnumerable<Visualization> GetAllVisualizations()
         {
 			ModelClient client = GetModel();
-            IEnumerable<Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization> visualizations;
+            IEnumerable<Visualization> visualizations;
             visualizations = client.GetAllVisualizations();
             return visualizations;
         }
 
-        public void AddVisualization(Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference.Visualization visualization)
+        public void AddVisualization(Visualization visualization)
         {
 			ModelClient client = GetModel();
             client.AddVisualization(visualization);
         }
+
+	    public void AddVisualizer(Visualizer visualizer)
+	    {
+		    ModelClient client = GetModel();
+			client.AddVisualizer(visualizer);
+	    }
+
+	    public void RemoveVisualization(Visualization visualization)
+	    {
+		    ModelClient client = GetModel();
+			client.RemoveVisualization(visualization);
+	    }
+
+	    public void RemoveVisualizer(Visualizer visualizer)
+	    {
+		    ModelClient client = GetModel();
+			client.RemoveVisualizer(visualizer);
+	    }
 
         public Visualizer GetAssociatedVisualizer(Visualization adapter)
         {

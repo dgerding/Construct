@@ -14,6 +14,8 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
         IEnumerable<GuidPropertyValue> GetAll();
         [OperationContract]
         IEnumerable<GuidPropertyValue> GetAfter(DateTime time);
+		[OperationContract]
+		IEnumerable<GuidPropertyValue> GetBetween(DateTime start, DateTime end);
     }
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class GuidPropertyValueService : PropertyService<GuidPropertyValue, Guid>, IGuidPropertyValueService

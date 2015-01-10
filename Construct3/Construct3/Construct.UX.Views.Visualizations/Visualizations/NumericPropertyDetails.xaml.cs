@@ -34,7 +34,8 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 
 			public void Unbind()
 			{
-				SourceDataStore.OnNewData -= SourceDataStore_OnNewData;
+				if (SourceDataStore != null)
+					SourceDataStore.OnNewData -= SourceDataStore_OnNewData;
 			}
 
 			public void ChangeDataStore(PropertyDataStore dataStore)
@@ -43,22 +44,40 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 					SourceDataStore.OnNewData -= SourceDataStore_OnNewData;
 				SourceDataStore = dataStore;
 
+				//	Remove ItemsSource binding while refilling data
+				Visualizer.ItemsSource = null;
+
 				var sortedData = SourceDataStore.Data.OrderBy(spv => spv.TimeStamp).ToList();
 				VisualizedData.Clear();
 				foreach (var data in sortedData)
-					VisualizedData.Add(data);
+					VisualizedData.Add(new SimplifiedPropertyValue()
+					{
+						PropertyId = data.PropertyId,
+						SensorId = data.SensorId,
+						TimeStamp = data.TimeStamp,
+						Value = Convert.ToDouble(data.Value)
+					});
+
+				Visualizer.ItemsSource = VisualizedData;
 
 				SourceDataStore.OnNewData += SourceDataStore_OnNewData;
 			}
 
 			void SourceDataStore_OnNewData(SimplifiedPropertyValue obj)
 			{
+				var doubleData = new SimplifiedPropertyValue()
+				{
+					PropertyId = obj.PropertyId,
+					SensorId = obj.SensorId,
+					TimeStamp = obj.TimeStamp,
+					Value = Convert.ToDouble(obj.Value)
+				};
 				var dataList = VisualizedData.ToList();
 				var insertIndex = dataList.FindIndex(spv => spv.TimeStamp.Ticks > obj.TimeStamp.Ticks);
 				if (insertIndex < 0)
-					VisualizedData.Add(obj);
+					VisualizedData.Add(doubleData);
 				else
-					VisualizedData.Insert(insertIndex, obj);
+					VisualizedData.Insert(insertIndex, doubleData);
 			}
 		}
 
@@ -67,20 +86,26 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 			get { return new List<Type>() {typeof (double), typeof (float), typeof (int)}; }
 		}
 
-		public override void ChangeVisualizationArea(SessionInfo newSessionRange)
+		public override void ChangeVisualizedDataRange(SessionInfo sessionInfo)
 		{
-			base.ChangeVisualizationArea(newSessionRange);
+			base.ChangeVisualizedDataRange(sessionInfo);
+
+			Dispatcher.BeginInvoke(new Action(() =>
+			{
+				this.HorizontalAxis.Minimum = sessionInfo.SelectedStartTime.Value;
+				this.HorizontalAxis.Maximum = sessionInfo.SelectedEndTime.Value;
+			}));
 
 			foreach (var subscriptionVisualization in SubscriptionVisualizations)
 			{
 				var subscription = subscriptionVisualization.Key;
 				var dataVis = subscriptionVisualization.Value;
-				var previousDataStore = dataVis.SourceDataStore;
 
-				dataVis.ChangeDataStore(DataStore.GenerateDataStore(subscription, newSessionRange.SelectedStartTime.Value, newSessionRange.SelectedEndTime.Value));
+				dataVis.Unbind();
+				if (dataVis.SourceDataStore != null)
+					DataStore.ReleaseDataStore(dataVis.SourceDataStore);
 
-				if (previousDataStore != null)
-					DataStore.ReleaseDataStore(previousDataStore);
+				dataVis.ChangeDataStore(DataStore.GenerateDataStore(subscription, sessionInfo.SelectedStartTime.Value, sessionInfo.SelectedEndTime.Value));
 			}
 		}
 
@@ -89,34 +114,10 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 		{
 			InitializeComponent();
 
-			VisualizationName = "Numeric Visualization";
 			Translator = translator;
-
-			ChartView.PanOffsetChanged += ChartView_PanOffsetChanged;
-			ChartView.ZoomChanged += ChartView_ZoomChanged;
 
 			this.OnSubscriptionAdded += AddNewVisualization;
 			this.OnSubscriptionRemoved += RemoveVisualization;
-		}
-
-		void ChartView_ZoomChanged(object sender, ChartZoomChangedEventArgs e)
-		{
-			NotifyUserChangedVisualizationRange(new ChartVisualizationInfo()
-			{
-				PanOffset = ChartView.PanOffset,
-				Zoom = ChartView.Zoom,
-				VisSize = new Size(ChartView.PlotAreaClip.Width, ChartView.PlotAreaClip.Height)
-			});
-		}
-
-		void ChartView_PanOffsetChanged(object sender, ChartPanOffsetChangedEventArgs e)
-		{
-			NotifyUserChangedVisualizationRange(new ChartVisualizationInfo()
-			{
-				PanOffset = ChartView.PanOffset,
-				Zoom = ChartView.Zoom,
-				VisSize = new Size(ChartView.PlotAreaClip.Width, ChartView.PlotAreaClip.Height)
-			});
 		}
 
 		void AddNewVisualization(DataSubscription subscriptionToVisualize)
@@ -146,9 +147,11 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 		{
 			DataVisualization visualization;
 			SubscriptionVisualizations.TryRemove(subscriptionToRemove, out visualization);
-			visualization.Unbind();
-			DataStore.ReleaseDataStore(visualization.SourceDataStore);
-
+			if (visualization.SourceDataStore != null)
+			{
+				visualization.Unbind();
+				DataStore.ReleaseDataStore(visualization.SourceDataStore);
+			}
 			ChartView.Dispatcher.BeginInvoke(new Action(() => ChartView.Series.Remove(visualization.Visualizer)));
 		}
 

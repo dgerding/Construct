@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Construct.UX.Views.Helper;
+using Telerik.Windows.Controls;
 
 namespace Construct.UX.Views.Visualizations
 {
@@ -44,6 +45,8 @@ namespace Construct.UX.Views.Visualizations
 		public event Action<object, double> SplitPositionChanged;
 
 		private List<DataPropertyModel> selectedProperties = new List<DataPropertyModel>();
+		public List<DataPropertyModel> SelectedProperties { get { return selectedProperties; } } 
+
 		private SubscriptionTranslator subscriptionTranslator;
 
 		public IEnumerable<Type> VisualizableTypes
@@ -61,6 +64,8 @@ namespace Construct.UX.Views.Visualizations
 			get { return DetailsContainer.Children[0] as PropertyVisualization; }
 		}
 
+		public String VisualizationName { get; protected set; }
+
 		public SplitVisualizationContainer(SubscriptionTranslator translator)
 		{
 			InitializeComponent();
@@ -77,6 +82,9 @@ namespace Construct.UX.Views.Visualizations
 			ContextMenu.Items.Add(showPropertyMenuItem);
 
 			this.subscriptionTranslator = translator;
+
+			
+			VisualizationName = "Data Visualization";
 		}
 
 		void Splitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)

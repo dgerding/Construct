@@ -128,30 +128,40 @@ namespace Construct.Server.Models.Visualizations
 			}
 		}
 
-		public Entities.Visualization Create(string name, Entities.Visualizer visualizer, PropertyType propertyType)
+		public void AddVisualizer(Entities.Adapters.Visualizer visualizer)
 		{
-			Entities.Visualization result = new Entities.Visualization();
-			result.ID = Guid.NewGuid();
-			result.Name = name;
-			result.Visualizer = visualizer;
-			result.DataTypeID = visualizer.DataType.ID;
+			Entities.Visualizer entity = new Visualizer()
+			{
+				ID = visualizer.ID,
+				Description = visualizer.Description ?? "",
+				LayoutString = visualizer.LayoutString,
+				Name = visualizer.Name ?? ""
+			};
 
-			//TODO: persist property information to later query on the visualizer.
-
-			return result;
+			context.Add(entity);
+			context.SaveChanges();
 		}
 
 		public void AddVisualization(Entities.Adapters.Visualization visualization)
 		{
 			Entities.Visualization entity = new Visualization();
-			entity.DataTypeID = visualization.DataTypeID;
-			entity.Description = visualization.Description;
 			entity.ID = visualization.ID;
-			entity.Name = visualization.Name;
 			entity.VisualizerID = visualization.VisualizerID;
 			entity.PropertyID = visualization.PropertyID;
 
 			context.Add(entity);
+			context.SaveChanges();
+		}
+
+		public void RemoveVisualizer(Entities.Adapters.Visualizer visualizer)
+		{
+			context.Delete(context.Visualizers.Single(v => v.ID == visualizer.ID));
+			context.SaveChanges();
+		}
+
+		public void RemoveVisualization(Entities.Adapters.Visualization visualization)
+		{
+			context.Delete(context.Visualizations.Single(v => v.ID == visualization.ID));
 			context.SaveChanges();
 		}
 
@@ -195,6 +205,12 @@ namespace Construct.Server.Models.Visualizations
 			{
 				yield return (Entities.Adapters.Visualization) visualization;
 			}
+		}
+
+		public IEnumerable<Entities.Adapters.Visualizer> GetAllVisualizers()
+		{
+			foreach (var visualizer in context.Visualizers)
+				yield return visualizer;
 		}
 
 		public IEnumerable<Entities.Adapters.Source> GetAssociatedSources(Entities.Adapters.DataType adapter)
@@ -264,18 +280,6 @@ namespace Construct.Server.Models.Visualizations
             }
 
             return propertyTypes;
-        }
-
-        public IEnumerable<Entities.Adapters.Visualizer> GetAssociatedVisualizers(Entities.Adapters.PropertyType adapter)
-        {
-            Entities.PropertyType propertyType = context.PropertyTypes.Single(target => adapter.ID == target.ID);
-
-            IEnumerable<Entities.Visualizer> visualizers = context.Visualizers.Where(target => target.PrimitiveDataTypeID == propertyType.PropertyDataTypeID);
-
-            foreach (var visualizer in visualizers)
-            {
-                yield return (Entities.Adapters.Visualizer)visualizer;
-            }
         }
 
         public Entities.Adapters.Visualizer GetAssociatedVisualizer(Entities.Adapters.Visualization adapter)

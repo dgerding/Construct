@@ -136,7 +136,14 @@
     <Compile Include="PropertySelectionDialog.xaml.cs">
       <DependentUpon>PropertySelectionDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TimeRangeSelectionDialog.xaml.cs">
+      <DependentUpon>TimeRangeSelectionDialog.xaml</DependentUpon>
+    </Compile>
     <Page Include="PropertySelectionDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TimeRangeSelectionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

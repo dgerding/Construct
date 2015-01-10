@@ -14,6 +14,8 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
         IEnumerable<BooleanPropertyValue> GetAll();
         [OperationContract]
         IEnumerable<BooleanPropertyValue> GetAfter(DateTime time);
+		[OperationContract]
+		IEnumerable<BooleanPropertyValue> GetBetween(DateTime start, DateTime end);
     }
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class BooleanPropertyValueService : PropertyService<BooleanPropertyValue, Boolean>, IBooleanPropertyValueService
