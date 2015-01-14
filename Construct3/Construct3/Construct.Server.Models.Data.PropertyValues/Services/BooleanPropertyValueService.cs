@@ -31,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override Boolean GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            return reader.GetBoolean(4);
+            return reader.GetBoolean(5);
         }
     }
 }

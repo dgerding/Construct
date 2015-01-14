@@ -31,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override String GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            string result = reader.GetString(4);
+            string result = reader.GetString(5);
             return result;
         }
     }

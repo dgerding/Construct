@@ -31,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override DateTime GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            return reader.GetDateTime(4);
+            return reader.GetDateTime(5);
         }
     }
 }

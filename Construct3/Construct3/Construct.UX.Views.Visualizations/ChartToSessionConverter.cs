@@ -24,25 +24,19 @@ namespace Construct.UX.Views.Visualizations
 			if (sourceSession.ViewStartTime == sourceSession.ViewEndTime)
 				return false;
 
-			//	Normalized values from 0-1 of the overall Connect/End time
-			double normalizedViewStart, normalizedViewEnd, normalizedSelectionStart, normalizedSelectionEnd;
-			normalizedViewStart = (double)(sourceSession.ViewStartTime - sourceSession.StartTime).Value.Ticks/
-			                      (double)(sourceSession.EndTime - sourceSession.StartTime).Value.Ticks;
-			normalizedViewEnd = (double)(sourceSession.ViewEndTime - sourceSession.StartTime).Value.Ticks/
-			                    (double)(sourceSession.EndTime - sourceSession.StartTime).Value.Ticks;
+			decimal sessionLength = (sourceSession.EndTime - sourceSession.StartTime).Value.Ticks;
+			decimal viewStartDistance = (sourceSession.ViewStartTime - sourceSession.StartTime).Value.Ticks;
+			decimal viewEndDistance = (sourceSession.ViewEndTime - sourceSession.StartTime).Value.Ticks;
 
-			if (sourceSession.StartTime.Value.Ticks > sourceSession.EndTime.Value.Ticks)
-				return false;
-
-			if (normalizedViewStart > normalizedViewEnd)
-				return false;
+			double normalizedViewStart = (double)(viewStartDistance / sessionLength);
+			double normalizedViewEnd = (double)(viewEndDistance / sessionLength);
 
 			if (targetChart.VisSize.IsEmpty)
 				throw new Exception("ChartInfo VisSize cannot be blank.");
 
 			var newZoom = new Size(Math.Max(1.0, 1.0/(normalizedViewEnd - normalizedViewStart)), 1.0);
 			targetChart.Zoom = newZoom;
-			var newPan = new Point(-normalizedViewStart*targetChart.Zoom.Width*targetChart.VisSize.Width, 0.0);
+			var newPan = new Point(-normalizedViewStart*newZoom.Width*targetChart.VisSize.Width, 0.0);
 			targetChart.PanOffset = newPan;
 
 			return true;

@@ -31,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override Double GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            return reader.GetDouble(4);
+            return reader.GetDouble(5);
         }
     }
 }

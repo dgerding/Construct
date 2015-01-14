@@ -212,17 +212,28 @@ namespace Construct.UX.Views.Visualizations
 				//	If we're supposed to be showing all data from StartTime to the current time,
 				//		the shown end time should be the timestamp of the last received data
 
-				var localTime = simplifiedPropertyValue.TimeStamp.ToLocalTime();
+			    var timestamp = simplifiedPropertyValue.TimeStamp;
 				//	100ms time difference - Limit refresh rate for UI components since they're the most expensive part
-			    if (!lastDataTime.HasValue || (localTime - lastDataTime.Value).TotalMilliseconds > 100.0)
+				if (!lastDataTime.HasValue || (timestamp - lastDataTime.Value).TotalMilliseconds > 100.0)
 			    {
-				    lastDataTime = localTime;
+					lastDataTime = timestamp;
 
 					Dispatcher.BeginInvoke(new Action(() =>
 					{
-						UpdateTimeLabel(DataSession.StartTime.Value, lastDataTime.Value);
-						GlobalTimeBar.PeriodEnd = localTime;
+						//	If the GlobalTimeBar is displaying up to the most recent data, make sure it continues to show
+						//		the most recent data by advancing its VisiblePeriodEnd to the new PeriodEnd
+						if ((GlobalTimeBar.PeriodEnd - GlobalTimeBar.VisiblePeriodEnd).TotalMilliseconds < 10.0)
+						{
+							GlobalTimeBar.PeriodEnd = timestamp;
+							GlobalTimeBar.VisiblePeriodEnd = GlobalTimeBar.PeriodEnd;
+						}
+						else
+						{
+							GlobalTimeBar.PeriodEnd = timestamp;
+						}
 
+						UpdateTimeLabel(DataSession.StartTime.Value, lastDataTime.Value);
+				    
 						//	Update visualizations for new time range
 						foreach (var visContainer in VisualizationControls)
 						{

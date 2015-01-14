@@ -17,6 +17,9 @@ namespace SapiSensor
 
 		public void ProcessUtterance(byte[] waveAudio, DateTime audioStartTime)
 		{
+			if (m_RecognitionEngine == null)
+				return;
+
 			//	Not sure if this thing is thread-safe
 			lock (m_RecognitionEngine)
 			{

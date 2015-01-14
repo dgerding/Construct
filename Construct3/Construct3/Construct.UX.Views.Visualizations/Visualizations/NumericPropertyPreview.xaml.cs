@@ -80,7 +80,10 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 				};
 
 				if ((obj.TimeStamp - lastTime).TotalSeconds > 0.0)
+				{
+					lastTime = obj.TimeStamp;
 					Visualizer.Dispatcher.BeginInvoke(new Action(() => VisualizedData.Add(doubleData)));
+				}
 			}
 		}
 
@@ -131,8 +134,9 @@ namespace Construct.UX.Views.Visualizations.Visualizations
 			{
 				Dispatcher.BeginInvoke(new Action(() =>
 				{
-					ChartView.PanOffset = chartInfo.PanOffset;
+					//	NOTE: MUST BE ASSIGNED IN THIS ORDER
 					ChartView.Zoom = chartInfo.Zoom;
+					ChartView.PanOffset = chartInfo.PanOffset;
 				}));
 			}
 		}

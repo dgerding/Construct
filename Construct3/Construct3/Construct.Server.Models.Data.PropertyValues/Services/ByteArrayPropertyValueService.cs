@@ -31,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override byte[] GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            return (byte[])reader[4];
+            return (byte[])reader[5];
         }
     }
 }

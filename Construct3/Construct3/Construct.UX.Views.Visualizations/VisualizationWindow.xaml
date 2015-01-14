@@ -30,7 +30,7 @@
 			</Grid>
 		</ScrollViewer>
 
-		<telerik:RadTimeBar Grid.Row="2" Grid.Column="0" x:Name="GlobalTimeBar"
+		<telerik:RadTimeBar Grid.Row="2" Grid.Column="0" x:Name="GlobalTimeBar" UseLayoutRounding="True"
 							PeriodStart="{Binding StartTime}" PeriodEnd="{Binding EndTime}"
 							SelectionStart="{Binding SelectedStartTime}" SelectionEnd="{Binding SelectedEndTime}"
 							VisiblePeriodStart="{Binding ViewStartTime}" VisiblePeriodEnd="{Binding ViewEndTime}">

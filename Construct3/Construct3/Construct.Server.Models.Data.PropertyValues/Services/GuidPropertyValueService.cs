@@ -31,7 +31,7 @@ namespace Construct.Server.Models.Data.PropertyValues.Services
 
         protected override Guid GetValue(System.Data.SqlClient.SqlDataReader reader)
         {
-            return reader.GetGuid(4);
+            return reader.GetGuid(5);
         }
     }
 }

@@ -40,8 +40,10 @@ namespace Construct.UX.Views.Visualizations
 
 		void hubConnection_Closed()
 		{
-			Reconnect();
-			Resubscribe();
+			//	This causes hang, must be some more elegant way to reconnect after disconnect
+
+			//Reconnect();
+			//Resubscribe();
 		}
 
 		private void hubConnection_Reconnected()

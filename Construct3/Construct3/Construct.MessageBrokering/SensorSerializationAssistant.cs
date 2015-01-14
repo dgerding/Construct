@@ -74,7 +74,10 @@ namespace Construct.MessageBrokering
                                                                                       Guid.Parse(itemTokens["DataTypeID"].Value<string>())
                                                                                       );
             ret.BrokerID = Guid.Parse(itemTokens["BrokerID"].Value<string>());
-            ret.TimeStamp = DateTime.Parse(itemTokens["TimeStamp"].Value<string>());
+            ret.TimeStamp = itemTokens["TimeStamp"].Value<DateTime>();
+	        if (ret.TimeStamp.Kind == DateTimeKind.Unspecified)
+		        ret.TimeStamp = DateTime.SpecifyKind(ret.TimeStamp, DateTimeKind.Utc);	// Timestamps are often parsed without zone encodings, they
+																						//	should be UTC
             ret.Latitude = itemTokens["Latitude"].Value<double>();
             ret.Longitude = itemTokens["Longitude"].Value<double>();
 

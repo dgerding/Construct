@@ -56,12 +56,12 @@ namespace Construct.UX.Views.Visualizations
 
 		public PropertyVisualization PreviewVisualization
 		{
-			get { return PreviewContainer.Children[0] as PropertyVisualization; }
+			get { return PreviewContainer.Children.Count > 0 ? PreviewContainer.Children[0] as PropertyVisualization : null; }
 		}
 
 		public PropertyVisualization DetailsVisualization
 		{
-			get { return DetailsContainer.Children[0] as PropertyVisualization; }
+			get { return DetailsContainer.Children.Count > 0 ? DetailsContainer.Children[0] as PropertyVisualization : null; }
 		}
 
 		public String VisualizationName { get; protected set; }
@@ -135,8 +135,10 @@ namespace Construct.UX.Views.Visualizations
 				foreach (var newProperty in uniqueNewProperties)
 				{
 					var propertyDescriptor = (DataSubscription)newProperty.Reference;
-					PreviewVisualization.RequestAddVisualization(propertyDescriptor);
-					DetailsVisualization.RequestAddVisualization(propertyDescriptor);
+					if (PreviewVisualization != null)
+						PreviewVisualization.RequestAddVisualization(propertyDescriptor);
+					if (DetailsVisualization != null)
+						DetailsVisualization.RequestAddVisualization(propertyDescriptor);
 				}
 
 				selectedProperties = newSelectedProperties;

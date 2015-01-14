@@ -91,6 +91,10 @@ namespace Construct.Sensors
         public void SendItem(object dataPayload, string dataName, DateTime dataTimestamp)
         {
             Guid dataTypeID = DataTypes[dataName];
+	        if (dataTimestamp.Kind == DateTimeKind.Local)
+		        dataTimestamp = dataTimestamp.ToUniversalTime();
+	        else if (dataTimestamp.Kind == DateTimeKind.Unspecified)
+		        dataTimestamp = DateTime.SpecifyKind(dataTimestamp, DateTimeKind.Utc);
 
             Data data = new Data(dataPayload, this.SourceID, this.DataTypeSourceID, dataName, dataTypeID, dataTimestamp);
             if (assistant.GetJsonHeader(dataName) == String.Empty)
@@ -103,6 +107,10 @@ namespace Construct.Sensors
         public void SendItem(object dataPayload, DateTime manualTimeStamp, string dataName)
         {
             Guid dataTypeID = DataTypes[dataName];
+			if (manualTimeStamp.Kind == DateTimeKind.Local)
+				manualTimeStamp = manualTimeStamp.ToUniversalTime();
+			else if (manualTimeStamp.Kind == DateTimeKind.Unspecified)
+				manualTimeStamp = DateTime.SpecifyKind(manualTimeStamp, DateTimeKind.Utc);
 
             Data data = new Data(dataPayload, this.SourceID, this.DataTypeSourceID, dataName, dataTypeID);
             data.TimeStamp = manualTimeStamp;
