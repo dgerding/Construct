@@ -56,7 +56,7 @@ namespace Construct.UX.Views.Visualizations
 			PropertyVisualizationsOptions.ItemsSource = new List<String>
 			{
 				"Numeric",
-				"Text"
+				"Transcription"
 			};
 			PropertyVisualizationsOptions.SelectedIndex = 0;
 
@@ -189,6 +189,7 @@ namespace Construct.UX.Views.Visualizations
 						newSubscriptionType.PropertyId = property.ID;
 						newSubscriptionType.SourceId = emittingSource.ID;
 						newSubscriptionType.PropertyType = GetTypeFromName(propertyDataTypeName);
+						newSubscriptionType.AggregateDataTypeId = dataType.ID;
 
 						subscriptionTranslator.AddTranslation(newSubscriptionType, newTranslation);
 					}

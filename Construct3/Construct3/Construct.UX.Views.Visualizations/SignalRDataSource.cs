@@ -106,9 +106,15 @@ namespace Construct.UX.Views.Visualizations
 		{
 			//	TimeStamps are received as UTC but Kind may not be specified, which can screw with time-based calculations
 			propertyValue.TimeStamp = DateTime.SpecifyKind(propertyValue.TimeStamp, DateTimeKind.Utc);
+			if (propertyValue.Value is DateTime)
+				propertyValue.Value = DateTime.SpecifyKind((DateTime) propertyValue.Value, DateTimeKind.Utc);
 
 			if (!EmitUTC)
+			{
 				propertyValue.TimeStamp = propertyValue.TimeStamp.ToLocalTime();
+				if (propertyValue.Value is DateTime)
+					propertyValue.Value = ((DateTime) propertyValue.Value).ToLocalTime();
+			}
 
 			if (OnData != null)
 				OnData(propertyValue);

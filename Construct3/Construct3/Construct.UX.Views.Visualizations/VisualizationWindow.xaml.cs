@@ -162,8 +162,8 @@ namespace Construct.UX.Views.Visualizations
 					return AddVisualization(new NumericPropertyVisualization(DataSession, DataStore, SubscriptionTranslator));
 				    break;
 
-				case ("Text"):
-					return AddVisualization(new TextPropertyVisualization(DataSession, DataStore, SubscriptionTranslator));
+				case ("Transcription"):
+					return AddVisualization(new TranscriptionAggregateVisualization(DataSession, DataStore, SubscriptionTranslator));
 				    break;
 
 				default:

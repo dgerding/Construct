@@ -36,10 +36,10 @@
 							VisiblePeriodStart="{Binding ViewStartTime}" VisiblePeriodEnd="{Binding ViewEndTime}">
 
 			<telerik:RadTimeBar.Intervals>
-				<telerik:MillisecondInterval />
-				<telerik:SecondInterval />
-				<telerik:MinuteInterval />
-				<telerik:HourInterval />
+				<telerik:MillisecondInterval IntervalSpans="100, 200, 500" />
+				<telerik:SecondInterval IntervalSpans="1, 5, 10, 30" />
+				<telerik:MinuteInterval IntervalSpans="1, 10, 30" />
+				<telerik:HourInterval IntervalSpans="1, 2, 5" />
 				<telerik:DayInterval />
 			</telerik:RadTimeBar.Intervals>
 		</telerik:RadTimeBar>

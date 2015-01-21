@@ -11,13 +11,8 @@ using Telerik.Windows.Controls.ChartView;
 
 namespace Construct.UX.Views.Visualizations
 {
-	public class PropertyVisualization : UserControl
+	public class PropertyVisualization : UserControl, IVisualizer
 	{
-		public virtual Type GetVisualizedType()
-		{
-			return null; 
-		}
-
 		protected event Action<DataSubscription> OnSubscriptionAdded;
 		protected event Action<DataSubscription> OnSubscriptionRemoved;
 
@@ -25,7 +20,7 @@ namespace Construct.UX.Views.Visualizations
 
 		protected ClientDataStore DataStore { get; private set; }
 
-		public virtual IEnumerable<Type> VisualizableTypes { get { return null; } } 
+		public virtual IEnumerable<Type> VisualizableTypes { get { return Enumerable.Empty<Type>(); } } 
 
 		public PropertyVisualization(ClientDataStore sourceDataStore)
 		{
@@ -50,11 +45,6 @@ namespace Construct.UX.Views.Visualizations
 				OnSubscriptionRemoved(subscription);
 		}
 
-		/// <summary>
-		/// Usable when the current session has no end time specified (visualizing real-time data ad infinitum), specifies the new end time
-		/// to use for rendering purposes.
-		/// </summary>
-		/// <param name="endTime">The new end time to use for display purposes.</param>
 		public virtual void ChangeRealTimeRangeEnd(DateTime endTime)
 		{
 			//	Required since one new piece of data means that the time ranges of *all* visualizations need to be updated to that latest time.
@@ -66,19 +56,11 @@ namespace Construct.UX.Views.Visualizations
 			//		visualized data range.
 		}
 
-		/// <summary>
-		/// Changes the area of loaded data to visualize, generally used for pan/zoom operations.
-		/// </summary>
-		/// <param name="sessionInfo">The new period of time to visualize. (ViewStartTime, ViewEndTime)</param>
 		public virtual void ChangeVisualizationArea(SessionInfo sessionInfo)
 		{
 			
 		}
 
-		/// <summary>
-		/// Changes the data that the visualization is currently using as a data source.
-		/// </summary>
-		/// <param name="sessionInfo">The new period of time to pull data from. (StartTime, EndTime)</param>
 		public virtual void ChangeVisualizedDataRange(SessionInfo sessionInfo)
 		{
 			

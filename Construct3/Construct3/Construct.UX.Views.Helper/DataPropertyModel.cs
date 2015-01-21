@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Construct.UX.Views.Helper
 {
-	public class DataPropertyModel
+	public struct DataPropertyModel
 	{
 		public String PropertyName { get; set; }
 
@@ -18,14 +18,25 @@ namespace Construct.UX.Views.Helper
 
 		public override bool Equals(object obj)
 		{
-			var other = obj as DataPropertyModel;
-			if (other == null)
+			if (!(obj is DataPropertyModel))
 				return false;
+
+			var other = (DataPropertyModel)obj;
 
 			return other.PropertyName == this.PropertyName &&
 			       other.DataTypeName == this.DataTypeName &&
 			       other.SensorHostName == this.SensorHostName &&
 			       other.SensorTypeName == this.SensorTypeName;
+		}
+
+		public static bool operator== (DataPropertyModel a, DataPropertyModel b)
+		{
+			return a.Equals(b);
+		}
+
+		public static bool operator !=(DataPropertyModel a, DataPropertyModel b)
+		{
+			return !a.Equals(b);
 		}
 
 		//	User-supplied identifier

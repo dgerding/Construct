@@ -24,7 +24,8 @@ namespace Construct.UX.Views.Visualizations
 			{ typeof(string), typeof(IStringPropertyValueService) },
 			{ typeof(bool), typeof(IBooleanPropertyValueService) },
 			{ typeof(Guid), typeof(IGuidPropertyValueService) },
-			{ typeof(long), typeof(IIntPropertyValueService) }
+			{ typeof(long), typeof(IIntPropertyValueService) },
+			{ typeof(DateTime), typeof(IDateTimePropertyValueService) }
 		};
 
 		public bool EmitUTC { get; set; }
@@ -58,8 +59,15 @@ namespace Construct.UX.Views.Visualizations
 					Value = value.Value
 				};
 
+				if (newValue.Value is DateTime)
+					newValue.Value = DateTime.SpecifyKind((DateTime) newValue.Value, DateTimeKind.Utc);
+
 				if (!EmitUTC)
+				{
 					newValue.TimeStamp = newValue.TimeStamp.ToLocalTime();
+					if (newValue.Value is DateTime)
+						newValue.Value = ((DateTime) newValue.Value).ToLocalTime();
+				}
 
 				result.Add(newValue);
 			}

@@ -12,6 +12,9 @@ namespace Construct.UX.Views.Visualizations
 	{
 		private Dictionary<DataSubscription, SubscriptionLabel> subscriptionTranslations = new Dictionary<DataSubscription, SubscriptionLabel>();
 
+		public IEnumerable<DataSubscription> AllKnownSubscriptions { get { return subscriptionTranslations.Keys; } }
+		public IEnumerable<SubscriptionLabel> AllKnownLabels { get { return subscriptionTranslations.Values; } } 
+
 		public void AddTranslation(DataSubscription subscription, SubscriptionLabel label)
 		{
 			subscriptionTranslations.Add(subscription, label);

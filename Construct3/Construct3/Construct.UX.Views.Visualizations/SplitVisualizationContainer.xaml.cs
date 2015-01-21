@@ -49,19 +49,14 @@ namespace Construct.UX.Views.Visualizations
 
 		private SubscriptionTranslator subscriptionTranslator;
 
-		public IEnumerable<Type> VisualizableTypes
+		public IVisualizer PreviewVisualization
 		{
-			get { return PreviewVisualization.VisualizableTypes; }
+			get { return PreviewContainer.Children.Count > 0 ? PreviewContainer.Children[0] as IVisualizer : null; }
 		}
 
-		public PropertyVisualization PreviewVisualization
+		public IVisualizer DetailsVisualization
 		{
-			get { return PreviewContainer.Children.Count > 0 ? PreviewContainer.Children[0] as PropertyVisualization : null; }
-		}
-
-		public PropertyVisualization DetailsVisualization
-		{
-			get { return DetailsContainer.Children.Count > 0 ? DetailsContainer.Children[0] as PropertyVisualization : null; }
+			get { return DetailsContainer.Children.Count > 0 ? DetailsContainer.Children[0] as IVisualizer : null; }
 		}
 
 		public String VisualizationName { get; protected set; }
@@ -101,9 +96,18 @@ namespace Construct.UX.Views.Visualizations
 			if (!EnablePropertySelectionDialog)
 				return;
 
-			//	Build list of available properties
+			//	Ugh, this type-based procedural code needs to be redone
+			if (PreviewVisualization is PropertyVisualization)
+				RunPropertySelection(GenerateAvailableProperties());
+			if (PreviewVisualization is AggregateVisualization)
+				RunSourceSelection(GenerateAvailableSources());
+		}
+
+		IEnumerable<DataPropertyModel> GenerateAvailableProperties()
+		{
 			var allProperties = new List<DataPropertyModel>();
-			foreach (var possibleSubscription in subscriptionTranslator.AllTranslations(VisualizableTypes))
+			var visualizableTypes = (PreviewVisualization as PropertyVisualization).VisualizableTypes;
+			foreach (var possibleSubscription in subscriptionTranslator.AllTranslations(visualizableTypes))
 			{
 				allProperties.Add(new DataPropertyModel()
 				{
@@ -115,6 +119,36 @@ namespace Construct.UX.Views.Visualizations
 				});
 			}
 
+			return allProperties;
+		}
+
+		IEnumerable<DataPropertyModel> GenerateAvailableSources()
+		{
+			var allSources = new List<DataPropertyModel>();
+			var visualizableTypes = (PreviewVisualization as AggregateVisualization).VisualizableDataTypes;
+
+			foreach (var possibleSubscription in subscriptionTranslator.AllKnownSubscriptions.Where(ds => visualizableTypes.Contains(ds.AggregateDataTypeId)))
+			{
+				var translation = subscriptionTranslator.GetTranslation(possibleSubscription);
+
+				allSources.Add(new DataPropertyModel()
+				{
+					DataTypeName = translation.DataTypeName,
+					SensorHostName = translation.SourceName,
+					SensorTypeName = translation.SourceTypeName,
+					Reference = new DataSubscription()
+					{
+						AggregateDataTypeId = possibleSubscription.AggregateDataTypeId,
+						SourceId = possibleSubscription.SourceId
+					}
+				});
+			}
+
+			return allSources.Distinct();
+		}
+
+		void RunPropertySelection(IEnumerable<DataPropertyModel> allProperties)
+		{
 			var propertyDialog = new PropertySelectionDialog(allProperties, selectedProperties);
 
 			if (propertyDialog.ShowDialog().GetValueOrDefault(false))
@@ -142,6 +176,40 @@ namespace Construct.UX.Views.Visualizations
 				}
 
 				selectedProperties = newSelectedProperties;
+			}
+		}
+
+		void RunSourceSelection(IEnumerable<DataPropertyModel> allSources)
+		{
+			var propertyDialog = new SourceSelectionDialog(allSources, selectedProperties);
+
+			if (propertyDialog.ShowDialog().GetValueOrDefault(false))
+			{
+				var newSelectedSources = propertyDialog.SelectedSources.ToList();
+
+				//	Remove route listeners for removed properties
+				var removedSources = selectedProperties.Where((model) => !newSelectedSources.Contains(model));
+				foreach (var removedSource in removedSources)
+				{
+					var propertyDescriptor = (DataSubscription)removedSource.Reference;
+					if (PreviewVisualization != null)
+						PreviewVisualization.RequestRemoveVisualization(propertyDescriptor);
+					if (DetailsVisualization != null)
+						DetailsVisualization.RequestRemoveVisualization(propertyDescriptor);
+				}
+
+				//	Add route listeners for new properties
+				var uniqueNewProperties = newSelectedSources.Where((model) => !selectedProperties.Contains(model));
+				foreach (var newProperty in uniqueNewProperties)
+				{
+					var propertyDescriptor = (DataSubscription)newProperty.Reference;
+					if (PreviewVisualization != null)
+						PreviewVisualization.RequestAddVisualization(propertyDescriptor);
+					if (DetailsVisualization != null)
+						DetailsVisualization.RequestAddVisualization(propertyDescriptor);
+				}
+
+				selectedProperties = newSelectedSources;
 			}
 		}
 	}

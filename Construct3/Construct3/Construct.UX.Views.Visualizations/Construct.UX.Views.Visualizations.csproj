@@ -99,6 +99,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AggregateVisualization.cs" />
     <Compile Include="ChartVisualizationInfo.cs" />
     <Compile Include="ClientDataStore.cs" />
     <Compile Include="ConstructServerDataSource.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="DataSubscription.cs" />
     <Compile Include="IQueryableDataSource.cs" />
     <Compile Include="ISubscribableDataSource.cs" />
+    <Compile Include="IVisualizer.cs" />
     <Compile Include="VisualizationSerializationHelper.cs" />
     <Compile Include="Visualizations\NumericPropertyDetails.xaml.cs">
       <DependentUpon>NumericPropertyDetails.xaml</DependentUpon>
@@ -125,14 +127,10 @@
     <Compile Include="SignalRDataSource.cs" />
     <Compile Include="DataRoute.cs" />
     <Compile Include="Visualizations\NumericPropertyVisualization.cs" />
-    <Compile Include="Visualizations\SumAreaSeries.cs" />
-    <Compile Include="Visualizations\TextPropertyDetails.xaml.cs">
-      <DependentUpon>TextPropertyDetails.xaml</DependentUpon>
+    <Compile Include="Visualizations\TranscriptionAggregatePreview.xaml.cs">
+      <DependentUpon>TranscriptionAggregatePreview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Visualizations\TextPropertyPreview.xaml.cs">
-      <DependentUpon>TextPropertyPreview.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Visualizations\TextPropertyVisualization.cs" />
+    <Compile Include="Visualizations\TranscriptionAggregateVisualization.cs" />
     <Compile Include="VisualizationWindow.xaml.cs">
       <DependentUpon>VisualizationWindow.xaml</DependentUpon>
     </Compile>
@@ -157,11 +155,7 @@
       <DependentUpon>View.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Visualizations\TextPropertyDetails.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Visualizations\TextPropertyPreview.xaml">
+    <Page Include="Visualizations\TranscriptionAggregatePreview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

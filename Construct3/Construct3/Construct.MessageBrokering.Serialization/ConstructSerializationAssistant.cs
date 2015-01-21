@@ -494,7 +494,7 @@ namespace Construct.MessageBrokering.Serialization
                     return Single.Parse(tokenParent.First.Value<string>());
                     //break;
                 case "DateTime":
-                    return DateTime.Parse(tokenParent.First.Value<string>());
+                    return tokenParent.First.Value<DateTime>();
                     //break;
                 case "Boolean":
                     return Boolean.Parse(tokenParent.First.Value<string>());
