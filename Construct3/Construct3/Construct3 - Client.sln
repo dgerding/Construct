@@ -67,11 +67,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.UX.Views.Helper",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Construct.MessageBrokering.Serialization", "Construct.MessageBrokering.Serialization\Construct.MessageBrokering.Serialization.csproj", "{C590BE2C-E012-42D5-B3FC-A896D7162952}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8AA6DFEC-6D77-4309-9554-0D890F432B8C}"
-	ProjectSection(SolutionItems) = preProject
-		Performance1.psess = Performance1.psess
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{1C7E27CD-F961-40CC-A36F-61A64393EDD5}"
 EndProject
 Global

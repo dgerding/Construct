@@ -59,6 +59,8 @@ namespace Construct.UX.Views.Visualizations
 			get { return DetailsContainer.Children.Count > 0 ? DetailsContainer.Children[0] as IVisualizer : null; }
 		}
 
+		public Guid ID { get; set; }
+
 		public String VisualizationName { get; protected set; }
 
 		public SplitVisualizationContainer(SubscriptionTranslator translator)
@@ -80,6 +82,32 @@ namespace Construct.UX.Views.Visualizations
 
 			
 			VisualizationName = "Data Visualization";
+		}
+
+		public void SetSubscriptions(IEnumerable<DataSubscription> newSubscriptions)
+		{
+			foreach (var model in SelectedProperties)
+			{
+				if (PreviewVisualization != null)
+					PreviewVisualization.RequestRemoveVisualization((DataSubscription)model.Reference);
+				if (DetailsVisualization != null)
+					DetailsVisualization.RequestRemoveVisualization((DataSubscription)model.Reference);
+			}
+
+			SelectedProperties.Clear();
+
+			foreach (var subscription in newSubscriptions)
+			{
+				if (PreviewVisualization != null)
+					PreviewVisualization.RequestAddVisualization(subscription);
+				if (DetailsVisualization != null)
+					DetailsVisualization.RequestAddVisualization(subscription);
+
+				if (PreviewVisualization is PropertyVisualization)
+					SelectedProperties.Add(GenerateAvailableProperties().Single(p => p.Reference.Equals(subscription)));
+				if (PreviewVisualization is AggregateVisualization)
+					SelectedProperties.Add(GenerateAvailableSources().Single(s => s.Reference.Equals(subscription)));
+			}
 		}
 
 		void Splitter_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)

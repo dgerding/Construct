@@ -181,6 +181,8 @@ namespace Construct.Server.Entities
 			configuration.HasProperty(x => x.VisualizerID).HasFieldName("visualizerIDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("VisualizerID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 			configuration.HasProperty(x => x.ID).IsIdentity(KeyGenerator.Guid).HasFieldName("iDs").WithDataAccessKind(DataAccessKind.ReadWrite).ToColumn("ID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 			configuration.HasProperty(x => x.PropertyID).HasFieldName("propertyIDs").ToColumn("PropertyID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.PaneID).HasFieldName("paneIDs").ToColumn("PaneID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
+			configuration.HasProperty(x => x.SourceID).HasFieldName("sourceIDs").ToColumn("SourceID").IsNotNullable().HasColumnType("uniqueidentifier").HasPrecision(0).HasScale(0);
 		}
 	
 		public void PrepareVisualizationAssociationConfigurations(MappingConfiguration<Visualization> configuration)

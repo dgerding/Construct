@@ -26,7 +26,13 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         private System.Guid IDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid PaneIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid PropertyIDField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.Guid SourceIDField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.Guid VisualizerIDField;
@@ -55,6 +61,19 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid PaneID {
+            get {
+                return this.PaneIDField;
+            }
+            set {
+                if ((this.PaneIDField.Equals(value) != true)) {
+                    this.PaneIDField = value;
+                    this.RaisePropertyChanged("PaneID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public System.Guid PropertyID {
             get {
                 return this.PropertyIDField;
@@ -63,6 +82,19 @@ namespace Construct.UX.ViewModels.Visualizations.VisualizationsServiceReference 
                 if ((this.PropertyIDField.Equals(value) != true)) {
                     this.PropertyIDField = value;
                     this.RaisePropertyChanged("PropertyID");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.Guid SourceID {
+            get {
+                return this.SourceIDField;
+            }
+            set {
+                if ((this.SourceIDField.Equals(value) != true)) {
+                    this.SourceIDField = value;
+                    this.RaisePropertyChanged("SourceID");
                 }
             }
         }

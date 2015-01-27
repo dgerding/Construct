@@ -109,16 +109,15 @@ namespace Construct.UX.Views.Visualizations
 			}
 		}
 
-	    public Guid AddVisualization(SplitVisualizationContainer visualization)
+	    public void AddVisualization(SplitVisualizationContainer visualization)
 	    {
 		    var dock = this.VisualizationsDock;
 		    var splitContainer = new RadSplitContainer();
 		    var paneGroup = new RadPaneGroup();
 		    var pane = new RadPane();
-		    var newVisId = Guid.NewGuid();
 
-			//	How to set serialization tag?
-		    //pane.Tag = newVisId;
+		    visualization.ID = Guid.NewGuid();
+
 			pane.Content = visualization;
 		    paneGroup.Items.Add(pane);
 		    splitContainer.Items.Add(paneGroup);
@@ -132,8 +131,6 @@ namespace Construct.UX.Views.Visualizations
 
 			if (DataSession.StartTime.HasValue && (DataSession.EndTime.HasValue || IsVisualizingRealTime))
 				visualization.PreviewVisualization.ChangeVisualizedDataRange(DataSession);
-
-		    return newVisId;
 	    }
 
 		void visContainer_SplitPositionChanged(object sender, double splitPosition)
@@ -154,16 +151,16 @@ namespace Construct.UX.Views.Visualizations
 			DataDetailsColumn.Width = new GridLength(1.0 - splitPosition, GridUnitType.Star);
 		}
 
-	    public Guid AddVisualization(String visualizationType)
+	    public void AddVisualization(String visualizationType)
 	    {
 		    switch (visualizationType)
 		    {
 			    case ("Numeric"):
-					return AddVisualization(new NumericPropertyVisualization(DataSession, DataStore, SubscriptionTranslator));
+					AddVisualization(new NumericPropertyVisualization(DataSession, DataStore, SubscriptionTranslator));
 				    break;
 
 				case ("Transcription"):
-					return AddVisualization(new TranscriptionAggregateVisualization(DataSession, DataStore, SubscriptionTranslator));
+					AddVisualization(new TranscriptionAggregateVisualization(DataSession, DataStore, SubscriptionTranslator));
 				    break;
 
 				default:
@@ -201,6 +198,8 @@ namespace Construct.UX.Views.Visualizations
 					visualization.PreviewVisualization.ChangeVisualizedDataRange(DataSession);
 				}
 			}
+
+			UpdateTimeLabel(DataSession.StartTime.Value, DataSession.EndTime ?? DateTime.Now);
 	    }
 
 		//	Ugh, poor hack, member only used in DataSource_OnData and GlobalTimeBar_VisiblePeriodChanged

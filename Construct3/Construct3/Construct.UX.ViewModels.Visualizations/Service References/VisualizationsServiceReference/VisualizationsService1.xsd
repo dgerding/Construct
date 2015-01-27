@@ -66,7 +66,9 @@
   <xs:complexType name="Visualization">
     <xs:sequence>
       <xs:element minOccurs="0" name="ID" type="ser:guid" />
+      <xs:element minOccurs="0" name="PaneID" type="ser:guid" />
       <xs:element minOccurs="0" name="PropertyID" type="ser:guid" />
+      <xs:element minOccurs="0" name="SourceID" type="ser:guid" />
       <xs:element minOccurs="0" name="VisualizerID" type="ser:guid" />
     </xs:sequence>
   </xs:complexType>

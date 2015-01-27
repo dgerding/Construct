@@ -45,6 +45,12 @@
         <orm:field name="propertyIDs" property="PropertyID" uniqueId="cd49e96f-bb5a-4cbf-97c7-52c028222c44" type="System.Guid">
           <orm:column name="PropertyID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
         </orm:field>
+        <orm:field name="paneIDs" property="PaneID" uniqueId="7e90cd0c-5414-4289-a7e5-6aaedf27edc4" type="System.Guid">
+          <orm:column name="PaneID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
+        </orm:field>
+        <orm:field name="sourceIDs" property="SourceID" uniqueId="81027a6b-ed31-44a2-af7e-c4c587aad973" type="System.Guid">
+          <orm:column name="SourceID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
+        </orm:field>
         <orm:field name="visualizers" property="Visualizer" behavior="readwrite" uniqueId="3df6be04-9fe5-4594-90a6-2142bfdc0461" type="Construct.Server.Entities.Visualizer">
           <orm:reference uniqueId="3cb8a87e-4622-4e55-b921-d00952cf0652" association-name="VisualizationHasVisualizer">
             <orm:sharedfield name="visualizerIDs" target-class="Construct.Server.Entities.Visualizer" target-field="iDs" />
@@ -806,6 +812,8 @@
         <orm:column name="VisualizerID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
         <orm:column name="ID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" primary-key="true" ado-type="Guid" />
         <orm:column name="PropertyID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:column name="PaneID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
+        <orm:column name="SourceID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="" />
       </orm:table>
       <orm:table name="Sources_Source">
         <orm:column name="DataTypeSourceID" sql-type="uniqueidentifier" nullable="false" length="0" scale="0" ado-type="Guid" />
@@ -1391,6 +1399,8 @@
       <Property Id="aa244f41-fa0d-45ee-ba78-de96c3f8751e" name="ID" type="Guid" label="ID : Guid" kind="Persistent" identity="true" fieldName="iDs" />
       <Property Id="d576543b-e273-43dd-b090-b246a42cd0be" name="VisualizerID" type="Guid" label="VisualizerID : Guid" kind="Persistent" fieldName="visualizerIDs" />
       <Property Id="cd49e96f-bb5a-4cbf-97c7-52c028222c44" name="PropertyID" type="Guid" label="PropertyID : Guid" fieldName="propertyIDs" />
+      <Property Id="7e90cd0c-5414-4289-a7e5-6aaedf27edc4" name="PaneID" type="Guid" label="PaneID : Guid" fieldName="paneIDs" />
+      <Property Id="81027a6b-ed31-44a2-af7e-c4c587aad973" name="SourceID" type="Guid" label="SourceID : Guid" fieldName="sourceIDs" />
       <AssociationTargets>
         <Association Id="3cb8a87e-4622-4e55-b921-d00952cf0652" SourceMultiplicity="ZeroOne" name="VisualizationHasVisualizer">
           <DomainClassMoniker name="/EntitiesModel/Visualizer" />

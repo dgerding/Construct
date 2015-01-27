@@ -1,0 +1,27 @@
+﻿<telerik:RadRibbonWindow x:Class="Construct.UX.Views.Visualizations.LoadVisualizationDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+             mc:Ignorable="d" 
+             Title="Select Visualization" Height="500" Width="800" WindowStyle="ToolWindow">
+	<Grid>
+		<telerik:RadGridView AutoGenerateColumns="False" SelectionMode="Single" x:Name="VisualizersList" Margin="0,0,0,40" SelectionChanged="VisualizersList_SelectionChanged" CanUserDeleteRows="False" CanUserInsertRows="False" ShowGroupPanel="False">
+			<telerik:RadGridView.Columns>
+				<telerik:GridViewDataColumn Header="Name" UniqueName="Name" DataMemberBinding="{Binding Name}" SortingState="Descending" />
+				<telerik:GridViewDataColumn Header="Description" Width="*" DataMemberBinding="{Binding Description}" />
+				<telerik:GridViewColumn>
+					<telerik:GridViewColumn.CellTemplate>
+						<DataTemplate>
+							<telerik:RadButton Content="Delete" Click="DeleteVisualizerButton_OnClick" />
+						</DataTemplate>
+					</telerik:GridViewColumn.CellTemplate>
+				</telerik:GridViewColumn>
+			</telerik:RadGridView.Columns>
+		</telerik:RadGridView>
+
+		<Button Content="OK" Margin="0,0,90,10" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="75" Click="OkButton_Click" IsEnabled="False" x:Name="OkButton" />
+		<Button Content="Cancel" Margin="0,0,10,10" HorizontalAlignment="Right" Width="75" Height="25" VerticalAlignment="Bottom" Click="CancelButton_Click"/>
+	</Grid>
+</telerik:RadRibbonWindow>

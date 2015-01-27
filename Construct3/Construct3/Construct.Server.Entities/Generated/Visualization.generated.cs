@@ -63,6 +63,32 @@ namespace Construct.Server.Entities
 			}
 		}
 		
+		private Guid paneIDs;
+		public virtual Guid PaneID
+		{
+			get
+			{
+				return this.paneIDs;
+			}
+			set
+			{
+				this.paneIDs = value;
+			}
+		}
+		
+		private Guid sourceIDs;
+		public virtual Guid SourceID
+		{
+			get
+			{
+				return this.sourceIDs;
+			}
+			set
+			{
+				this.sourceIDs = value;
+			}
+		}
+		
 		private Visualizer visualizers;
 		public virtual Visualizer Visualizer
 		{

@@ -64,13 +64,42 @@ namespace Construct.Server.Entities.Adapters
             }
         }
 
+		private Guid paneID;
+
+		public Guid PaneID
+		{
+			get
+			{
+				return this.paneID;
+			}
+			set
+			{
+				this.paneID = value;
+			}
+		}
+
+		private Guid sourceID;
+		public virtual Guid SourceID
+		{
+			get
+			{
+				return this.sourceID;
+			}
+			set
+			{
+				this.sourceID = value;
+			}
+		}
+
         public static implicit operator Entities.Adapters.Visualization(Entities.Visualization entity)
         {
             return new Visualization()
             {
                 PropertyID = entity.PropertyID,
                 ID = entity.ID,
-                VisualizerID = entity.VisualizerID
+                VisualizerID = entity.VisualizerID,
+				PaneID = entity.PaneID,
+				SourceID = entity.SourceID
             };
         }
 	}

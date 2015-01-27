@@ -148,6 +148,8 @@ namespace Construct.Server.Models.Visualizations
 			entity.ID = visualization.ID;
 			entity.VisualizerID = visualization.VisualizerID;
 			entity.PropertyID = visualization.PropertyID;
+			entity.PaneID = visualization.PaneID;
+			entity.SourceID = visualization.SourceID;
 
 			context.Add(entity);
 			context.SaveChanges();
